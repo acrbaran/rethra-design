@@ -1,26 +1,26 @@
-import { OPEN_DESIGN_HOST_UPDATER_ACTIONS } from "./protocol.js";
+import { RETHRA_DESIGN_HOST_UPDATER_ACTIONS } from "./protocol.js";
 import type {
-  OpenDesignHostActionResult,
-  OpenDesignHostBrowserClearDataOptions,
-  OpenDesignHostCaptureOptions,
-  OpenDesignHostCaptureResult,
-  OpenDesignHostFailure,
-  OpenDesignHostGlobalScope,
-  OpenDesignHostPdfPrintOptions,
-  OpenDesignHostPreviewNavigationFailure,
-  OpenDesignHostPreviewNavigationFailureListener,
-  OpenDesignHostPickWorkingDirResult,
-  OpenDesignHostProjectImportInit,
-  OpenDesignHostProjectImportResult,
-  OpenDesignHostProjectReplaceWorkingDirResult,
-  OpenDesignHostUpdaterActionOptions,
-  OpenDesignHostUpdaterMenuLabels,
-  OpenDesignHostUpdaterOpenDialogListener,
-  OpenDesignHostUpdaterResult,
-  OpenDesignHostUpdaterStatusAction,
-  OpenDesignHostUpdaterStatusListener,
+  RethraDesignHostActionResult,
+  RethraDesignHostBrowserClearDataOptions,
+  RethraDesignHostCaptureOptions,
+  RethraDesignHostCaptureResult,
+  RethraDesignHostFailure,
+  RethraDesignHostGlobalScope,
+  RethraDesignHostPdfPrintOptions,
+  RethraDesignHostPreviewNavigationFailure,
+  RethraDesignHostPreviewNavigationFailureListener,
+  RethraDesignHostPickWorkingDirResult,
+  RethraDesignHostProjectImportInit,
+  RethraDesignHostProjectImportResult,
+  RethraDesignHostProjectReplaceWorkingDirResult,
+  RethraDesignHostUpdaterActionOptions,
+  RethraDesignHostUpdaterMenuLabels,
+  RethraDesignHostUpdaterOpenDialogListener,
+  RethraDesignHostUpdaterResult,
+  RethraDesignHostUpdaterStatusAction,
+  RethraDesignHostUpdaterStatusListener,
 } from "./protocol.js";
-import { getOpenDesignHost } from "./detection.js";
+import { getRethraDesignHost } from "./detection.js";
 
 /**
  * @module actions
@@ -32,7 +32,7 @@ import { getOpenDesignHost } from "./detection.js";
  */
 
 /** @internal Build a normalized host failure result. */
-function failure(reason: string, details?: unknown): OpenDesignHostFailure {
+function failure(reason: string, details?: unknown): RethraDesignHostFailure {
   return {
     ...(details === undefined ? {} : { details }),
     ok: false,
@@ -41,14 +41,14 @@ function failure(reason: string, details?: unknown): OpenDesignHostFailure {
 }
 
 /** @internal Uniform failure for when the host bridge is absent. */
-function unavailable(reason: string): OpenDesignHostFailure {
+function unavailable(reason: string): RethraDesignHostFailure {
   return failure(reason);
 }
 
 /** Open an external URL through the host shell. */
-export async function openHostExternalUrl(url: string, scope: OpenDesignHostGlobalScope = globalThis): Promise<OpenDesignHostActionResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+export async function openHostExternalUrl(url: string, scope: RethraDesignHostGlobalScope = globalThis): Promise<RethraDesignHostActionResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.shell.openExternal(url);
   } catch (error) {
@@ -57,9 +57,9 @@ export async function openHostExternalUrl(url: string, scope: OpenDesignHostGlob
 }
 
 /** Reveal a project's path through the host shell. */
-export async function openHostProjectPath(projectId: string, scope: OpenDesignHostGlobalScope = globalThis): Promise<OpenDesignHostActionResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+export async function openHostProjectPath(projectId: string, scope: RethraDesignHostGlobalScope = globalThis): Promise<RethraDesignHostActionResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.shell.openPath(projectId);
   } catch (error) {
@@ -69,11 +69,11 @@ export async function openHostProjectPath(projectId: string, scope: OpenDesignHo
 
 /** Clear host browser data (cookies and/or storage). */
 export async function clearHostBrowserData(
-  options?: OpenDesignHostBrowserClearDataOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostActionResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  options?: RethraDesignHostBrowserClearDataOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostActionResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.browser.clearData(options);
   } catch (error) {
@@ -83,11 +83,11 @@ export async function clearHostBrowserData(
 
 /** Capture the host page (optionally clipped) as a data URL. */
 export async function captureHostPage(
-  options?: OpenDesignHostCaptureOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostCaptureResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  options?: RethraDesignHostCaptureOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostCaptureResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.capture.page(options);
   } catch (error) {
@@ -97,11 +97,11 @@ export async function captureHostPage(
 
 /** Pick and import a project through the host's native dialog. */
 export async function pickAndImportHostProject(
-  init?: OpenDesignHostProjectImportInit,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostProjectImportResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  init?: RethraDesignHostProjectImportInit,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostProjectImportResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.project.pickAndImport(init);
   } catch (error) {
@@ -112,10 +112,10 @@ export async function pickAndImportHostProject(
 /** Pick and replace a project's working directory through the host. */
 export async function pickAndReplaceHostProjectWorkingDir(
   projectId: string,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostProjectReplaceWorkingDirResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostProjectReplaceWorkingDirResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.project.pickAndReplaceWorkingDir(projectId);
   } catch (error) {
@@ -128,10 +128,10 @@ export async function pickAndReplaceHostProjectWorkingDir(
 // this to let the user choose a working directory before the project exists;
 // the token is later spent on POST /api/projects/:id/working-dir.
 export async function pickHostWorkingDir(
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostPickWorkingDirResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostPickWorkingDirResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   if (typeof host.project.pickWorkingDir !== "function") {
     return unavailable("host build does not support pickWorkingDir");
   }
@@ -146,11 +146,11 @@ export async function pickHostWorkingDir(
 export async function printHostPdf(
   html: string,
   nonce?: string,
-  options?: OpenDesignHostPdfPrintOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostActionResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  options?: RethraDesignHostPdfPrintOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostActionResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.pdf.print(html, nonce, options);
   } catch (error) {
@@ -159,9 +159,9 @@ export async function printHostPdf(
 }
 
 /** Toggle host pet visibility. */
-export function setHostPetVisible(visible: boolean, scope: OpenDesignHostGlobalScope = globalThis): OpenDesignHostActionResult {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+export function setHostPetVisible(visible: boolean, scope: RethraDesignHostGlobalScope = globalThis): RethraDesignHostActionResult {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     host.pet.setVisible(visible);
     return { ok: true };
@@ -172,9 +172,9 @@ export function setHostPetVisible(visible: boolean, scope: OpenDesignHostGlobalS
 
 /** Read the latest Electron-observed preview subframe navigation failure. */
 export function getLatestHostPreviewNavigationFailure(
-  scope: OpenDesignHostGlobalScope = globalThis,
-): OpenDesignHostPreviewNavigationFailure | null {
-  const host = getOpenDesignHost(scope);
+  scope: RethraDesignHostGlobalScope = globalThis,
+): RethraDesignHostPreviewNavigationFailure | null {
+  const host = getRethraDesignHost(scope);
   if (typeof host?.preview?.getLatestNavigationFailure !== "function") return null;
   try {
     return host.preview.getLatestNavigationFailure();
@@ -185,10 +185,10 @@ export function getLatestHostPreviewNavigationFailure(
 
 /** Subscribe to Electron-observed preview subframe navigation failures. */
 export function subscribeHostPreviewNavigationFailure(
-  listener: OpenDesignHostPreviewNavigationFailureListener,
-  scope: OpenDesignHostGlobalScope = globalThis,
+  listener: RethraDesignHostPreviewNavigationFailureListener,
+  scope: RethraDesignHostGlobalScope = globalThis,
 ): () => void {
-  const host = getOpenDesignHost(scope);
+  const host = getRethraDesignHost(scope);
   if (typeof host?.preview?.subscribeNavigationFailure !== "function") return () => undefined;
   try {
     return host.preview.subscribeNavigationFailure(listener);
@@ -199,12 +199,12 @@ export function subscribeHostPreviewNavigationFailure(
 
 /** @internal Run a status-returning updater action and wrap the result. */
 async function runHostUpdaterAction(
-  action: OpenDesignHostUpdaterStatusAction,
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostUpdaterResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  action: RethraDesignHostUpdaterStatusAction,
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostUpdaterResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return {
       ok: true,
@@ -217,51 +217,51 @@ async function runHostUpdaterAction(
 
 /** Get the host updater status. */
 export async function getHostUpdaterStatus(
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostUpdaterResult> {
-  return await runHostUpdaterAction(OPEN_DESIGN_HOST_UPDATER_ACTIONS.STATUS, options, scope);
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostUpdaterResult> {
+  return await runHostUpdaterAction(RETHRA_DESIGN_HOST_UPDATER_ACTIONS.STATUS, options, scope);
 }
 
 /** Trigger a host updater check. */
 export async function checkHostUpdater(
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostUpdaterResult> {
-  return await runHostUpdaterAction(OPEN_DESIGN_HOST_UPDATER_ACTIONS.CHECK, options, scope);
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostUpdaterResult> {
+  return await runHostUpdaterAction(RETHRA_DESIGN_HOST_UPDATER_ACTIONS.CHECK, options, scope);
 }
 
 /** Trigger a host updater download. */
 export async function downloadHostUpdater(
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostUpdaterResult> {
-  return await runHostUpdaterAction(OPEN_DESIGN_HOST_UPDATER_ACTIONS.DOWNLOAD, options, scope);
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostUpdaterResult> {
+  return await runHostUpdaterAction(RETHRA_DESIGN_HOST_UPDATER_ACTIONS.DOWNLOAD, options, scope);
 }
 
 /** Clear the host updater/launcher caches and reset one-shot update state. */
 export async function clearHostUpdaterCache(
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostUpdaterResult> {
-  return await runHostUpdaterAction(OPEN_DESIGN_HOST_UPDATER_ACTIONS.CLEAR_CACHE, options, scope);
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostUpdaterResult> {
+  return await runHostUpdaterAction(RETHRA_DESIGN_HOST_UPDATER_ACTIONS.CLEAR_CACHE, options, scope);
 }
 
 /** Trigger a host updater install. */
 export async function installHostUpdater(
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostUpdaterResult> {
-  return await runHostUpdaterAction(OPEN_DESIGN_HOST_UPDATER_ACTIONS.INSTALL, options, scope);
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostUpdaterResult> {
+  return await runHostUpdaterAction(RETHRA_DESIGN_HOST_UPDATER_ACTIONS.INSTALL, options, scope);
 }
 
 /** Quit the host after its updater installer has opened. */
 export async function quitHostAfterUpdaterInstallerOpen(
-  options?: OpenDesignHostUpdaterActionOptions,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostActionResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  options?: RethraDesignHostUpdaterActionOptions,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostActionResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.updater.quit(options);
   } catch (error) {
@@ -271,10 +271,10 @@ export async function quitHostAfterUpdaterInstallerOpen(
 
 /** Subscribe to host updater status changes; returns an unsubscribe fn. */
 export function subscribeHostUpdater(
-  listener: OpenDesignHostUpdaterStatusListener,
-  scope: OpenDesignHostGlobalScope = globalThis,
+  listener: RethraDesignHostUpdaterStatusListener,
+  scope: RethraDesignHostGlobalScope = globalThis,
 ): () => void {
-  const host = getOpenDesignHost(scope);
+  const host = getRethraDesignHost(scope);
   if (host == null) return () => undefined;
   try {
     return host.updater.subscribe(listener);
@@ -285,10 +285,10 @@ export function subscribeHostUpdater(
 
 /** Subscribe to native host requests to open the updater dialog. */
 export function subscribeHostUpdaterOpenDialog(
-  listener: OpenDesignHostUpdaterOpenDialogListener,
-  scope: OpenDesignHostGlobalScope = globalThis,
+  listener: RethraDesignHostUpdaterOpenDialogListener,
+  scope: RethraDesignHostGlobalScope = globalThis,
 ): () => void {
-  const host = getOpenDesignHost(scope);
+  const host = getRethraDesignHost(scope);
   if (host == null) return () => undefined;
   try {
     return host.updater.subscribeOpenDialog(listener);
@@ -299,11 +299,11 @@ export function subscribeHostUpdaterOpenDialog(
 
 /** Synchronize renderer-localized updater menu labels to the native host. */
 export async function setHostUpdaterMenuLabels(
-  labels: OpenDesignHostUpdaterMenuLabels,
-  scope: OpenDesignHostGlobalScope = globalThis,
-): Promise<OpenDesignHostActionResult> {
-  const host = getOpenDesignHost(scope);
-  if (host == null) return unavailable("OpenDesign host is not available");
+  labels: RethraDesignHostUpdaterMenuLabels,
+  scope: RethraDesignHostGlobalScope = globalThis,
+): Promise<RethraDesignHostActionResult> {
+  const host = getRethraDesignHost(scope);
+  if (host == null) return unavailable("RethraDesign host is not available");
   try {
     return await host.updater.setMenuLabels(labels);
   } catch (error) {

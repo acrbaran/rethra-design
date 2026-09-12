@@ -43,7 +43,7 @@ import {
   type WorkspaceCollabContext,
   type WorkspaceDirectoryItem,
   type WorkspaceDirectoryResponse,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   fetchVelaLoginStatus,
   formatVelaBalanceUsd,
@@ -87,7 +87,7 @@ import type { EntryHomeView } from '../router';
 import type {
   AccountMenuClickProps,
   TrackingWorkspacePage,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackAccountMenuClick,
@@ -104,12 +104,12 @@ import {
 import { WorkbenchCampaignBadge } from './WorkbenchCampaignBadge';
 import { workspaceChromeAccountActionsHost } from './workspaceChromeActions';
 
-const REPO_URL = 'https://github.com/nexu-io/open-design';
+const REPO_URL = 'https://github.com/acrbaran/rethra-design';
 const GITHUB_HELP_URL = `${REPO_URL}/issues/new`;
 const GITHUB_FEATURE_URL = `${REPO_URL}/pulls`;
 const DISCORD_URL = 'https://discord.gg/mHAjSMV6gz';
-const X_URL = 'https://x.com/OpenDesignHQ';
-const CONTACT_EMAIL_URL = 'mailto:support@open-design.ai';
+const X_URL = 'https://x.com/RethraDesignHQ';
+const CONTACT_EMAIL_URL = 'mailto:support@rethra-design.invalid';
 const externalLinkProps = { target: '_blank', rel: 'noreferrer noopener' } as const;
 
 // Last directory this shell successfully read. `coalescedGet` only collapses

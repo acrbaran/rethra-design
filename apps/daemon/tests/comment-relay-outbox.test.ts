@@ -8,7 +8,7 @@ import {
   type CollabMemberRole,
   type PreviewComment,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   closeDatabase,
   insertConversation,

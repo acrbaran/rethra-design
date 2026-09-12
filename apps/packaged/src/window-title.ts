@@ -2,9 +2,9 @@ import {
   releaseChannelFromNamespace,
   releaseChannelFromVersion,
   releaseInstallIdentity,
-} from "@open-design/release";
+} from "@rethra-design/release";
 
-const DEFAULT_WINDOW_TITLE = "Open Design";
+const DEFAULT_WINDOW_TITLE = "Rethra Design";
 
 export function resolvePackagedWindowTitle(config: { appVersion: string | null; namespace: string }): string {
   const channel =

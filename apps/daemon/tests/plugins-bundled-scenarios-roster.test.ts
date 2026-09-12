@@ -22,7 +22,7 @@ const officialMarketplacePath = path.join(
   'plugins',
   'registry',
   'official',
-  'open-design-marketplace.json',
+  'rethra-design-marketplace.json',
 );
 
 const CANONICAL = new Map<string, { taskKind: string; pipelineStages: string[] }>([
@@ -34,7 +34,7 @@ const CANONICAL = new Map<string, { taskKind: string; pipelineStages: string[] }
 
 // Non-canonical scenarios. These ride on a canonical taskKind but
 // don't win the pipeline-fallback for it. The kind → scenario map in
-// `@open-design/contracts/scenario-defaults` is what routes UX
+// `@rethra-design/contracts/scenario-defaults` is what routes UX
 // project kinds (image / video / audio) onto these plugins. Export
 // starters sit here too: they are user-facing plugins for downstream
 // handoff, but they must not become the canonical tune-collab fallback.
@@ -68,7 +68,7 @@ describe('plugins/_official/scenarios roster', () => {
 
   for (const [folder, expected] of CANONICAL) {
     it(`${folder} declares od.kind='scenario' + the canonical pipeline shape`, async () => {
-      const manifestPath = path.join(scenariosRoot, folder, 'open-design.json');
+      const manifestPath = path.join(scenariosRoot, folder, 'rethra-design.json');
       const skillPath = path.join(scenariosRoot, folder, 'SKILL.md');
       expect((await stat(manifestPath)).isFile()).toBe(true);
       expect((await stat(skillPath)).isFile()).toBe(true);
@@ -83,7 +83,7 @@ describe('plugins/_official/scenarios roster', () => {
 
   for (const [folder, expected] of SIBLINGS) {
     it(`${folder} declares od.kind='scenario' + a non-empty pipeline + the documented taskKind`, async () => {
-      const manifestPath = path.join(scenariosRoot, folder, 'open-design.json');
+      const manifestPath = path.join(scenariosRoot, folder, 'rethra-design.json');
       const skillPath = path.join(scenariosRoot, folder, 'SKILL.md');
       expect((await stat(manifestPath)).isFile()).toBe(true);
       expect((await stat(skillPath)).isFile()).toBe(true);
@@ -102,7 +102,7 @@ describe('plugins/_official/scenarios roster', () => {
 
   for (const [folder, expected] of INTERNAL) {
     it(`${folder} ships an internal strategy declaration without becoming a fallback`, async () => {
-      const manifestPath = path.join(scenariosRoot, folder, 'open-design.json');
+      const manifestPath = path.join(scenariosRoot, folder, 'rethra-design.json');
       const skillPath = path.join(scenariosRoot, folder, 'SKILL.md');
       expect((await stat(manifestPath)).isFile()).toBe(true);
       expect((await stat(skillPath)).isFile()).toBe(true);
@@ -110,7 +110,7 @@ describe('plugins/_official/scenarios roster', () => {
       expect(manifest.od.kind).toBe('scenario');
       expect(manifest.od.taskKind).toBe(expected.taskKind);
       expect(manifest.od.strategy).toMatchObject({
-        schema: 'open-design.bundled-strategy/v2',
+        schema: 'rethra-design.bundled-strategy/v2',
         id: 'od-next-strategy',
       });
       expect(folder).not.toBe(`od-${expected.taskKind}`);
@@ -118,13 +118,13 @@ describe('plugins/_official/scenarios roster', () => {
   }
 
   it('od-default is hidden, loads its router skill, and never auto-raises task type', async () => {
-    const manifestPath = path.join(scenariosRoot, 'od-default', 'open-design.json');
+    const manifestPath = path.join(scenariosRoot, 'od-default', 'rethra-design.json');
     const skillPath = path.join(scenariosRoot, 'od-default', 'SKILL.md');
     const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
     const skill = await readFile(skillPath, 'utf8');
     const marketplace = JSON.parse(await readFile(officialMarketplacePath, 'utf8'));
     const registryEntry = marketplace.plugins.find(
-      (plugin: { name?: string }) => plugin.name === 'open-design/od-default',
+      (plugin: { name?: string }) => plugin.name === 'rethra-design/od-default',
     );
     expect(manifest.od.hidden).toBe(true);
     expect(manifest.od.context?.craft).toEqual(
@@ -171,7 +171,7 @@ describe('plugins/_official/scenarios roster', () => {
   });
 
   it('od-new-generation declares the default craft rails for anti-slop HTML output', async () => {
-    const manifestPath = path.join(scenariosRoot, 'od-new-generation', 'open-design.json');
+    const manifestPath = path.join(scenariosRoot, 'od-new-generation', 'rethra-design.json');
     const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
     expect(manifest.od.context?.craft).toEqual(
       expect.arrayContaining(['typography', 'color', 'anti-ai-slop']),

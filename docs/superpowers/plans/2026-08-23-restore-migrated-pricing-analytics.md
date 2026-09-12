@@ -1,17 +1,17 @@
-# OpenDesign Authenticated Pricing Analytics Emitter Implementation Plan
+# Rethra Design Authenticated Pricing Analytics Emitter Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Send migrated Pricing interactions to Vela's authenticated compatibility endpoint so the existing AMR subscription funnel resumes without changing the Pricing or checkout flow.
 
-**Architecture:** A pure controller builds reduced, strictly bounded bridge records and a transport posts them to Vela with credentials and keepalive. The page activates the controller only after authenticated pricing context and a trusted wallet/dashboard source resolve; existing OpenDesign PostHog events remain independent.
+**Architecture:** A pure controller builds reduced, strictly bounded bridge records and a transport posts them to Vela with credentials and keepalive. The page activates the controller only after authenticated pricing context and a trusted wallet/dashboard source resolve; existing Rethra Design PostHog events remain independent.
 
 **Tech Stack:** Astro 6, TypeScript, Node test runner, Playwright, PostHog wrapper (unchanged)
 
 ## Global Constraints
 
-- Base the work on the latest `nexu-io/open-design/main`.
-- Do not change Pricing UI, prices, entitlements, CTA destinations, checkout behavior, or existing OpenDesign analytics.
+- Base the work on the latest `nexu-io/rethra-design/main`.
+- Do not change Pricing UI, prices, entitlements, CTA destinations, checkout behavior, or existing Rethra Design analytics.
 - Only authenticated Vela sessions arriving from trusted wallet/dashboard surfaces enter the compatibility funnel.
 - Compatibility delivery is best effort and must never block navigation or form submission.
 - Never include email, company, lead free text, raw URL, or raw referrer in the bridge request.
@@ -42,7 +42,7 @@ test('personal compatibility catalog contains go plus pro max', () => {
 test('source resolver accepts only exact trusted wallet/dashboard routes', () => {
   assert.equal(resolvePricingBridgeSource({
     search: new URLSearchParams(),
-    referrer: 'https://open-design.ai/cloud/dashboard?billing=plan',
+    referrer: 'https://rethra-design.invalid/cloud/dashboard?billing=plan',
   }), 'dashboard');
   assert.equal(resolvePricingBridgeSource({
     search: new URLSearchParams(),
@@ -55,7 +55,7 @@ Also assert that unknown query values, substring routes, oversized IDs, and untr
 
 - [ ] **Step 2: Run the focused tests and verify RED**
 
-Run: `pnpm --filter @open-design/landing-page exec node --import tsx --test tests/pricing-analytics-bridge.test.ts`
+Run: `pnpm --filter @rethra-design/landing-page exec node --import tsx --test tests/pricing-analytics-bridge.test.ts`
 Expected: FAIL because the catalog, resolver, and transport do not exist.
 
 - [ ] **Step 3: Implement the minimal bridge module**
@@ -80,7 +80,7 @@ Build `PERSONAL_PRICING_TIERS` by adapting `GO_PLAN` and appending the existing 
 
 - [ ] **Step 4: Run the focused tests and verify GREEN**
 
-Run: `pnpm --filter @open-design/landing-page exec node --import tsx --test tests/pricing-analytics-bridge.test.ts`
+Run: `pnpm --filter @rethra-design/landing-page exec node --import tsx --test tests/pricing-analytics-bridge.test.ts`
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
@@ -118,7 +118,7 @@ Add independent tests that no exposure occurs before context resolution, a same-
 
 - [ ] **Step 2: Run the controller test and verify RED**
 
-Run: `pnpm --filter @open-design/landing-page exec node --import tsx --test tests/pricing-compat-analytics.test.ts`
+Run: `pnpm --filter @rethra-design/landing-page exec node --import tsx --test tests/pricing-compat-analytics.test.ts`
 Expected: FAIL for missing Go, eager exposure, incomplete signature, and old transport event names.
 
 - [ ] **Step 3: Implement the minimal state machine**
@@ -139,7 +139,7 @@ Before `resolveContext()`, all methods no-op. After resolution, exposure signatu
 
 - [ ] **Step 4: Run the focused controller and bridge suites**
 
-Run: `pnpm --filter @open-design/landing-page exec node --import tsx --test tests/pricing-compat-analytics.test.ts tests/pricing-analytics-bridge.test.ts`
+Run: `pnpm --filter @rethra-design/landing-page exec node --import tsx --test tests/pricing-compat-analytics.test.ts tests/pricing-analytics-bridge.test.ts`
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
@@ -179,7 +179,7 @@ Also assert no request for signed-out/direct/untrusted traffic; resolved current
 
 - [ ] **Step 2: Run the browser test and verify RED**
 
-Run: `pnpm --filter @open-design/landing-page exec node --import tsx --test tests/pricing-analytics-browser.test.ts`
+Run: `pnpm --filter @rethra-design/landing-page exec node --import tsx --test tests/pricing-analytics-browser.test.ts`
 Expected: FAIL because the page still captures compatibility events locally and emits before context resolution.
 
 - [ ] **Step 3: Wire the context-resolved event**
@@ -196,16 +196,16 @@ The compatibility script waits for this event, resolves the trusted source, crea
 
 - [ ] **Step 4: Restore Enterprise submit intent timing**
 
-Dispatch `pricing:enterprise-submit` from the form's synchronous `submit` event before validation. Remove the compatibility dispatch from `od:lead-success`; retain the existing OpenDesign success bridge and non-PII lead analytics unchanged.
+Dispatch `pricing:enterprise-submit` from the form's synchronous `submit` event before validation. Remove the compatibility dispatch from `od:lead-success`; retain the existing Rethra Design success bridge and non-PII lead analytics unchanged.
 
 - [ ] **Step 5: Run browser, contract, and full landing tests**
 
 Run:
 
 ```bash
-pnpm --filter @open-design/landing-page exec node --import tsx --test \
+pnpm --filter @rethra-design/landing-page exec node --import tsx --test \
   tests/pricing-analytics-browser.test.ts tests/pricing-contract.test.ts
-pnpm --filter @open-design/landing-page test
+pnpm --filter @rethra-design/landing-page test
 ```
 
 Expected: all tests pass.
@@ -220,7 +220,7 @@ git add apps/landing-page/app/pages/pricing/index.astro \
 git commit -m "fix(analytics): relay authenticated pricing funnel events"
 ```
 
-### Task 4: Validate, document dependency, and update the OpenDesign PR
+### Task 4: Validate, document dependency, and update the Rethra Design PR
 
 **Files:**
 - Modify: `docs/superpowers/specs/2026-08-23-restore-pricing-plan-exposure-design.md` only if implementation reveals a factual mismatch
@@ -229,8 +229,8 @@ git commit -m "fix(analytics): relay authenticated pricing funnel events"
 - [ ] **Step 1: Run all static and build gates**
 
 ```bash
-pnpm --filter @open-design/landing-page typecheck
-pnpm --filter @open-design/landing-page build
+pnpm --filter @rethra-design/landing-page typecheck
+pnpm --filter @rethra-design/landing-page build
 pnpm guard
 git diff --check
 ```
@@ -243,7 +243,7 @@ With an authenticated fixture, trigger initial Personal exposure, interval chang
 
 - [ ] **Step 3: Update PR #7299 through `odc`**
 
-Cross-link the Vela PR, state that Vela must deploy first, list exact restored interactions, and remove the obsolete claim that direct OpenDesign PostHog capture restores AMR.
+Cross-link the Vela PR, state that Vela must deploy first, list exact restored interactions, and remove the obsolete claim that direct Rethra Design PostHog capture restores AMR.
 
 - [ ] **Step 4: Request independent review**
 

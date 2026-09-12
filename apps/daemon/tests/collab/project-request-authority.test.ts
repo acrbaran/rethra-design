@@ -692,7 +692,7 @@ describe('createAuthorizeProjectRequest', () => {
     );
   });
 
-  // Regression for https://github.com/nexu-io/open-design/issues/7072:
+  // Regression for https://github.com/acrbaran/rethra-design/issues/7072:
   // A personal project with a stale or valid workspace_projects binding must
   // be readable without workspace headers when the caller supplies no
   // workspace context at all (e.g. an iframe src, MCP preview URL, or bare

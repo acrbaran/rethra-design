@@ -1,7 +1,7 @@
 import { homedir } from "node:os";
 import { join, posix, win32 } from "node:path";
 
-import { APP_KEYS, normalizeNamespace } from "@open-design/sidecar-proto";
+import { APP_KEYS, normalizeNamespace } from "@rethra-design/sidecar-proto";
 
 import type { PackagedConfig } from "./config.js";
 import { PackagedPathAccessError } from "./errors.js";
@@ -61,13 +61,13 @@ function resolvePackagedDataRoot(
     if (!isAbs) {
       throw new PackagedPathAccessError(
         [
-          "Open Design's packaged runtime requires OD_DATA_DIR to be an absolute path.",
+          "Rethra Design's packaged runtime requires OD_DATA_DIR to be an absolute path.",
           "",
           `Configured value: ${odDataDir}`,
           "",
-          "Set OD_DATA_DIR to an absolute path (for example, C:\\\\Users\\\\You\\\\OpenDesign on Windows or /Users/you/OpenDesign on macOS/Linux) and relaunch Open Design.",
+          "Set OD_DATA_DIR to an absolute path (for example, C:\\\\Users\\\\You\\\\RethraDesign on Windows or /Users/you/RethraDesign on macOS/Linux) and relaunch Rethra Design.",
         ].join("\n"),
-        { title: "Open Design cannot start with this OD_DATA_DIR" },
+        { title: "Rethra Design cannot start with this OD_DATA_DIR" },
       );
     }
     const scopedNamespace = getScopedPackagedDataRootNamespace(expanded);
@@ -75,7 +75,7 @@ function resolvePackagedDataRoot(
       if (scopedNamespace !== namespace) {
         throw new PackagedPathAccessError(
           [
-            "Open Design's packaged runtime requires OD_DATA_DIR to target the active namespace.",
+            "Rethra Design's packaged runtime requires OD_DATA_DIR to target the active namespace.",
             "",
             `Configured value: ${odDataDir}`,
             `Configured namespace: ${scopedNamespace}`,
@@ -83,7 +83,7 @@ function resolvePackagedDataRoot(
             "",
             "Use an unscoped absolute base path or relaunch the matching packaged namespace.",
           ].join("\n"),
-          { title: "Open Design cannot start with this OD_DATA_DIR" },
+          { title: "Rethra Design cannot start with this OD_DATA_DIR" },
         );
       }
       return expanded;
@@ -104,7 +104,7 @@ export function resolvePackagedNamespacePaths(
   const dataRoot = resolvePackagedDataRoot(config, normalizedNamespace, env);
   // Channel root = parent of the `namespaces/` directory. With the default
   // packaged layout this resolves to `<electronApp.userData>` — e.g.
-  // `~/Library/Application Support/Open Design Prerelease/` on mac. Custom
+  // `~/Library/Application Support/Rethra Design Prerelease/` on mac. Custom
   // `namespaceBaseRoot` overrides (tests, multi-namespace deployments)
   // still get a usable parent here.
   const installationRoot = join(config.namespaceBaseRoot, "..");

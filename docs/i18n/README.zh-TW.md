@@ -1,25 +1,25 @@
-<h1 align="center">OpenDesign：開源的 Claude Design 替代方案</h1>
+<h1 align="center">Rethra Design：開源的 Claude Design 替代方案</h1>
 
-> ⚡ **[OpenDesign Cloud——官方模型服務。](https://open-design.ai/zh/pricing/)** 一次儲值，即可在 OpenDesign 中使用 Agent 與圖像模型：GPT、Claude 與 DeepSeek Agent 模型，以及 GPT Image 2.0、Seedream 5.0 Pro 與 Nano Banana 2.0 圖像模型。
+> ⚡ **[Rethra Design Cloud——官方模型服務。](https://rethra-design.invalid/zh/pricing/)** 一次儲值，即可在 Rethra Design 中使用 Agent 與圖像模型：GPT、Claude 與 DeepSeek Agent 模型，以及 GPT Image 2.0、Seedream 5.0 Pro 與 Nano Banana 2.0 圖像模型。
 >
-> 🚀 **[DeepSeek V4 Flash 與 V4 Pro 現已上線。](https://open-design.ai/zh/pricing/)** 將頂級智慧用於原型、簡報、設計系統與日常 Agent 任務。OpenDesign 會員可直接在應用程式內無限量使用兩週。
+> 🚀 **[DeepSeek V4 Flash 與 V4 Pro 現已上線。](https://rethra-design.invalid/zh/pricing/)** 將頂級智慧用於原型、簡報、設計系統與日常 Agent 任務。Rethra Design 會員可直接在應用程式內無限量使用兩週。
 >
-> 🧩 **[現已支援 DeepSeek Harness。](https://open-design.ai/zh/agents/deepseek-harness-design/)** 將 DeepSeek 官方 `dsh` Agent Harness 作為原生執行環境接入 OpenDesign，支援結構化思考、工具呼叫、模型探索、取消與工作階段恢復；生成檔案仍留在 OpenDesign 工作流程中供即時預覽與交付。
+> 🧩 **[現已支援 DeepSeek Harness。](https://rethra-design.invalid/zh/agents/deepseek-harness-design/)** 將 DeepSeek 官方 `dsh` Agent Harness 作為原生執行環境接入 Rethra Design，支援結構化思考、工具呼叫、模型探索、取消與工作階段恢復；生成檔案仍留在 Rethra Design 工作流程中供即時預覽與交付。
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="OpenDesign hero banner" width="100%" />
+  <img src="https://repo-assets.rethra-design.invalid/resources/images/hero.png" alt="Rethra Design hero banner" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://open-design.ai/?utm_source=github&utm_medium=referral&utm_content=readme_website">官方網站</a> ·
-  <a href="https://open-design.ai/?utm_source=github&utm_medium=referral&utm_content=readme_download">下載</a> ·
-  <a href="https://open-design.ai/cloud/?utm_source=github&utm_medium=referral&utm_content=readme_cloud">OpenDesign Cloud</a> ·
+  <a href="https://rethra-design.invalid/?utm_source=github&utm_medium=referral&utm_content=readme_website">官方網站</a> ·
+  <a href="https://rethra-design.invalid/?utm_source=github&utm_medium=referral&utm_content=readme_download">下載</a> ·
+  <a href="https://rethra-design.invalid/cloud/?utm_source=github&utm_medium=referral&utm_content=readme_cloud">Rethra Design Cloud</a> ·
   <a href="https://discord.gg/mHAjSMV6gz">Discord</a> ·
-  <a href="https://x.com/OpenDesignHQ">追蹤 @OpenDesignHQ</a>
+  <a href="https://x.com/RethraDesignHQ">追蹤 @RethraDesignHQ</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/open-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
+  <a href="https://github.com/acrbaran/rethra-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/rethra-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
   <a href="../../LICENSE"><img alt="license" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat" /></a>
   <a href="https://discord.gg/mHAjSMV6gz"><img alt="discord" src="https://img.shields.io/discord/1479002485040480266?style=flat&logo=discord&logoColor=white&label=discord&color=5865F2&cacheSeconds=3600" /></a>
   <a href="QUICKSTART.zh-TW.md"><img alt="quickstart" src="https://img.shields.io/badge/quickstart-3%20commands-green?style=flat" /></a>
@@ -29,11 +29,11 @@
 
 ---
 
-## 什麼是 OpenDesign
+## 什麼是 Rethra Design
 
 🎨 **本地優先、開源的 Claude Design 替代方案。** &nbsp;🖥️ **macOS 與 Windows 的原生桌面應用程式。** &nbsp;⚡ **100+ 個功能 skills + 獨立渲染範本型錄** · ✨ **151 套品牌級設計系統套件** · 📦 **277 個開箱即用的外掛。** &nbsp;🖼️ 可生成 **網頁 · 桌面 · 行動裝置原型**、**即時儀表板／artifacts**、**簡報**、**圖片**、**影片**，外加 **HyperFrames** 動態圖像。🔒 沙箱化 iframe 預覽 · 支援 HTML / PDF / PPTX / MP4 匯出。 &nbsp;🤖 **可在 Claude Code · OpenClaw · Codex · Cursor · OpenCode · Qwen · Copilot · Hermes · Kimi · Antigravity 等 25 個不同的本地 CLI 可執行檔上執行**，或透過 BYOK 接上任何相容 OpenAI 的端點。
 
-OpenDesign 是這樣誕生的：當 Anthropic 隨 Claude Design 推出的那套 **agent 原生** 迴圈——釐清需求、鎖定方向、串流產出 artifact、評析、交付——不再封閉，而是化為一個由 **功能 skills、渲染設計範本、設計系統與外掛組成的檔案系統**，讓你筆電上既有的編碼 agent 都能讀取、寫入、再混搭。你的 CLI 成為設計引擎，你的筆電成為工作室，而你團隊的 `DESIGN.md` 則成為品牌契約。
+Rethra Design 是這樣誕生的：當 Anthropic 隨 Claude Design 推出的那套 **agent 原生** 迴圈——釐清需求、鎖定方向、串流產出 artifact、評析、交付——不再封閉，而是化為一個由 **功能 skills、渲染設計範本、設計系統與外掛組成的檔案系統**，讓你筆電上既有的編碼 agent 都能讀取、寫入、再混搭。你的 CLI 成為設計引擎，你的筆電成為工作室，而你團隊的 `DESIGN.md` 則成為品牌契約。
 
 它同時也是 **agent 時代的 Figma 替代方案**——不必在畫布上推動像素，而是以真實 CSS、真實字型、真實元件交付單頁 artifact，直接匯出成 HTML / PDF / PPTX / MP4——這些產出早已由你的設計系統塑形，也早已能在你每天使用的 agent 中執行。
 
@@ -42,7 +42,7 @@ OpenDesign 是這樣誕生的：當 Anthropic 隨 Claude Design 推出的那套 
 
 ## 產品導覽
 
-快速了解 OpenDesign 的核心工作流程：從 **Home** 輸入需求，在 **Plugins** 中探索可重複使用的技能，並把品牌參考資料沉澱為 **Design System**；進入任一專案的 **Studio** 後，即可在一處建立並迭代原型、簡報、行動應用程式、圖片、文件與 HyperFrame。
+快速了解 Rethra Design 的核心工作流程：從 **Home** 輸入需求，在 **Plugins** 中探索可重複使用的技能，並把品牌參考資料沉澱為 **Design System**；進入任一專案的 **Studio** 後，即可在一處建立並迭代原型、簡報、行動應用程式、圖片、文件與 HyperFrame。
 
 ### 核心頁面
 
@@ -108,7 +108,7 @@ OpenDesign 是這樣誕生的：當 Anthropic 隨 Claude Design 推出的那套 
 
 ## 平台相容性
 
-> OpenDesign 以 **skills、CLI 與 MCP server** 的形式發行，主流編碼 agent 都能原生使用。安裝 OD 後，只要一句 `od mcp install <agent>` 就能把 MCP server 接進該 agent 的設定，你便能在任何 agent 內呼叫同一組工具。
+> Rethra Design 以 **skills、CLI 與 MCP server** 的形式發行，主流編碼 agent 都能原生使用。安裝 OD 後，只要一句 `od mcp install <agent>` 就能把 MCP server 接進該 agent 的設定，你便能在任何 agent 內呼叫同一組工具。
 
 | 編碼 agent／平台 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 狀態 &nbsp;&nbsp; | 一行指令安裝 MCP server &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
@@ -133,7 +133,7 @@ OpenDesign 是這樣誕生的：當 Anthropic 隨 Claude Design 推出的那套 
 `od mcp install <agent> --print` 可預覽 dry-run · `--uninstall` 可移除 · 完整清單請執行 `od mcp install --help`。
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 25 coding-agent CLIs OpenDesign supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Amp · CodeBuddy · Mimo · AtomCode · Devin · Trae" width="100%" />
+  <img src="https://repo-assets.rethra-design.invalid/resources/images/coding-agents.png" alt="The 25 coding-agent CLIs Rethra Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Amp · CodeBuddy · Mimo · AtomCode · Devin · Trae" width="100%" />
 </p>
 
 **沒有安裝任何 CLI？** 位於 `POST /api/proxy/{anthropic,openai,azure,google,ollama,senseaudio}/stream` 的 BYOK 代理可提供相同的迴圈（不需衍生程序）——貼上 `baseUrl` + `apiKey` + `model` 即可，支援 OpenAI、Anthropic、Azure OpenAI、Google Gemini、Ollama、LM Studio、vLLM，或任何相容 OpenAI 的端點。逐目標的 SSRF 防護會在 daemon 邊界阻擋內部 IP／link-local／CGNAT。
@@ -223,7 +223,7 @@ Runtime 定義位於 [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/ru
 
 ### 5 · 影片與 HyperFrames——agent 原生的動態圖像
 
-**[HyperFrames][hyperframes]** 是 HeyGen 開源、agent 原生的影片框架，在 OpenDesign 中以一等公民的身分整合。agent 撰寫 HTML + CSS + GSAP，HyperFrames 透過無頭 Chrome + FFmpeg 將其渲染成一支確定性的 MP4。搭配 **Seedance 2.0** 可做電影感的 t2v / i2v，**Veo 3 / Sora 2 / Kling 2** 提供路由後的模型變體，**Suno v5 / Lyria 2** 則負責音訊層。
+**[HyperFrames][hyperframes]** 是 HeyGen 開源、agent 原生的影片框架，在 Rethra Design 中以一等公民的身分整合。agent 撰寫 HTML + CSS + GSAP，HyperFrames 透過無頭 Chrome + FFmpeg 將其渲染成一支確定性的 MP4。搭配 **Seedance 2.0** 可做電影感的 t2v / i2v，**Veo 3 / Sora 2 / Kling 2** 提供路由後的模型變體，**Suno v5 / Lyria 2** 則負責音訊層。
 
 <table>
 <tr>
@@ -246,11 +246,11 @@ Runtime 定義位於 [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/ru
 
 ---
 
-## 為什麼選 OpenDesign
+## 為什麼選 Rethra Design
 
 > **2026 年 4 月，Anthropic 發表了 Claude Design——這是 LLM 首次不再撰寫散文，而是直接交付設計 artifact。** 它爆紅。但它始終封閉原始碼、僅限付費、僅限雲端，並被綁死在 Anthropic 的模型、Anthropic 的 skills、Anthropic 的介面上。無法結帳、無法自架、無法部署到 Vercel、無法換上你自己的 agent。
 
-OpenDesign（OD）就是那個開源的替代方案。同樣的迴圈、同樣以 artifact 為先的思維模式，卻沒有任何鎖定：
+Rethra Design（OD）就是那個開源的替代方案。同樣的迴圈、同樣以 artifact 為先的思維模式，卻沒有任何鎖定：
 
 - 🤖 **agent 原生、模型無關。** 我們不附帶 agent。你 `PATH` 上既有的 `claude` / `codex` / `cursor-agent` / `copilot` / `hermes` / `kimi` 就是設計引擎。一鍵即可切換。
 - 🧠 **預設即品牌級。** 每次渲染都把目前套件的 `DESIGN.md` 當作核心品牌契約讀取。儲存庫隨附 151 套設計系統套件；舊套件可以只含 `DESIGN.md`，新套件還可加入 `manifest.json`、`tokens.css`、元件、資產與來源資訊。放進資料夾，選擇器就會找到它。
@@ -261,7 +261,7 @@ OpenDesign（OD）就是那個開源的替代方案。同樣的迴圈、同樣�
 
 ### 比較
 
-| | Claude Design | Figma | Lovable / v0 / Bolt | **OpenDesign** |
+| | Claude Design | Figma | Lovable / v0 / Bolt | **Rethra Design** |
 |---|---|---|---|---|
 | 開源 | ❌ | ❌ | ❌ | **✅ Apache-2.0** |
 | 自架／桌面 | ❌ | ❌ | ❌ | **✅ macOS + Windows + Docker** |
@@ -278,17 +278,17 @@ OpenDesign（OD）就是那個開源的替代方案。同樣的迴圈、同樣�
 
 ### 🖥️ 下載桌面應用程式（推薦——零設定）
 
-使用 OpenDesign 最快的方式。無須 Node、無須 pnpm、無須 clone。
+使用 Rethra Design 最快的方式。無須 Node、無須 pnpm、無須 clone。
 
-- **macOS**（Apple Silicon · Intel x64）→ [**open-design.ai**](https://open-design.ai/?utm_source=github&utm_medium=referral&utm_content=readme_download_macos) 或 [GitHub Releases](https://github.com/nexu-io/open-design/releases)
-- **Windows**（x64）→ [**open-design.ai**](https://open-design.ai/?utm_source=github&utm_medium=referral&utm_content=readme_download_windows) 或 [GitHub Releases](https://github.com/nexu-io/open-design/releases)
-- **Linux**（AppImage，選用通道）→ [GitHub Releases](https://github.com/nexu-io/open-design/releases)
+- **macOS**（Apple Silicon · Intel x64）→ [**rethra-design.invalid**](https://rethra-design.invalid/?utm_source=github&utm_medium=referral&utm_content=readme_download_macos) 或 [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
+- **Windows**（x64）→ [**rethra-design.invalid**](https://rethra-design.invalid/?utm_source=github&utm_medium=referral&utm_content=readme_download_windows) 或 [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
+- **Linux**（AppImage，選用通道）→ [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
 
 安裝後：應用程式會自動偵測你 `PATH` 上的每一個編碼 agent CLI、載入 100+ 個功能 skills、獨立渲染範本型錄與 151 套設計系統套件，並讓你在入口視圖中輸入需求。
 
 ### 🤖 安裝進你的編碼 agent（無 UI）
 
-你完全不必打開 GUI 也能使用 OpenDesign——在 Claude Code、Codex、Cursor、Copilot、OpenClaw、Antigravity、Hermes、Kimi 等等之中，把它當成 skill、外掛或 MCP server 來呼叫。
+你完全不必打開 GUI 也能使用 Rethra Design——在 Claude Code、Codex、Cursor、Copilot、OpenClaw、Antigravity、Hermes、Kimi 等等之中，把它當成 skill、外掛或 MCP server 來呼叫。
 
 ```bash
 # One-line install into the agent you're using:
@@ -297,47 +297,47 @@ od mcp install <agent>
 #         | pi | vibe | hermes | cline | kimi | kiro | trae | opencode
 
 # Hosted equivalent for curl-based setup:
-curl -fsSL https://open-design.ai/install.sh | sh -s <agent>
+curl -fsSL https://rethra-design.invalid/install.sh | sh -s <agent>
 ```
 
-`install.sh` 是包在 `od mcp install` 外的輕量 shell wrapper；它的用途是讓 hosted URL 回傳 shell 指令、而非 landing page 的 HTML fallback，並在你的 shell 解析到非 OpenDesign 的 `od` 執行檔時快速失敗。
+`install.sh` 是包在 `od mcp install` 外的輕量 shell wrapper；它的用途是讓 hosted URL 回傳 shell 指令、而非 landing page 的 HTML fallback，並在你的 shell 解析到非 Rethra Design 的 `od` 執行檔時快速失敗。
 
 > **WSL2 使用者：** 若你的編碼 agent CLI 跑在 WSL2 內，請先依照
 > [`WSL2 設定指南`](../../docs/wsl-setup.md) 操作。Linux 的 `/usr/bin/od` 可能會
-> 遮蔽 OpenDesign 的 `od` 指令。
+> 遮蔽 Rethra Design 的 `od` 指令。
 
 接著，在 agent 內：
 
 ```
-> Use open-design to generate a landing page with the Linear design system
+> Use rethra-design to generate a landing page with the Linear design system
 ```
 
-在具備檔案系統的本地 CLI 執行中，agent 會把選定的功能 skill 或設計範本與 `DESIGN.md` 組合、寫入標準專案檔案，OpenDesign 直接預覽這些檔案。沒有檔案系統工具的 BYOK／純 API 執行則回傳一個完整的 `<artifact>` 區塊。
+在具備檔案系統的本地 CLI 執行中，agent 會把選定的功能 skill 或設計範本與 `DESIGN.md` 組合、寫入標準專案檔案，Rethra Design 直接預覽這些檔案。沒有檔案系統工具的 BYOK／純 API 執行則回傳一個完整的 `<artifact>` 區塊。
 
 ### 🐳 以 Docker 執行
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design/deploy
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design/deploy
 cp .env.example .env
 echo "OD_API_TOKEN=$(openssl rand -hex 32)" >> .env
 docker compose up -d
 # open http://127.0.0.1:7456
 ```
 
-若瀏覽器要求登入，使用者名稱請輸入 `open-design`，密碼則使用 `deploy/.env` 中的 `OD_API_TOKEN`。Docker bridge 流量會保持驗證，不再需要啟用 host networking。
+若瀏覽器要求登入，使用者名稱請輸入 `rethra-design`，密碼則使用 `deploy/.env` 中的 `OD_API_TOKEN`。Docker bridge 流量會保持驗證，不再需要啟用 host networking。
 
 ### 🚀 部署到 Sealos
 
-[![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/open-design/)
+[![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/rethra-design/)
 
-Sealos App Store 範本會執行已發布的 OpenDesign Docker 映像，提供持久化工作區儲存，並在公開代理層啟用 Basic Auth。自訂公開或共享 Docker 部署請遵循 [`deploy/README.md`](../../deploy/README.md#local-compose) 中的反向代理與 `OPEN_DESIGN_ALLOWED_ORIGINS` 指引。
+Sealos App Store 範本會執行已發布的 Rethra Design Docker 映像，提供持久化工作區儲存，並在公開代理層啟用 Basic Auth。自訂公開或共享 Docker 部署請遵循 [`deploy/README.md`](../../deploy/README.md#local-compose) 中的反向代理與 `RETHRA_DESIGN_ALLOWED_ORIGINS` 指引。
 
 ### 🧑‍💻 從原始碼執行
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable && pnpm install
 pnpm tools-dev run web
 ```
@@ -354,13 +354,13 @@ Node `~24`、pnpm `10.33.x`。WSL2 使用者請參見 [`docs/wsl-setup.md`](../.
 2. **設計師（或 agent）鎖定方向。** 沒有品牌？從 5 個精選方向中挑一個。已有品牌？放進一張截圖／URL → agent 會連接 GitHub、匯入 Figma，並編寫出一份可重複使用的 `DESIGN.md`。
 3. **agent 建立第一份交付物。** 外掛 + 功能 skill 或設計範本 + `DESIGN.md` 都已綁定。具備檔案系統的 CLI 執行會寫入標準專案檔案，預覽隨檔案更新；沒有檔案工具的 BYOK／純 API 執行則回傳一個完整的 `<artifact>` 區塊。
 4. **交接給工程團隊。** 這份 artifact 是真實的 HTML/CSS——把它丟進 Cursor、Codex 或 Claude Code，就能以程式碼繼續開發。或直接匯出 PPTX / PDF / MP4 給行銷團隊。
-5. **OpenDesign 會隨著你的使用愈來愈聰明。** 你的截圖、字型、色票與確認過的 artifact 會累積成下一次工作階段的預設值。更少返工、更少偏移。
+5. **Rethra Design 會隨著你的使用愈來愈聰明。** 你的截圖、字型、色票與確認過的 artifact 會累積成下一次工作階段的預設值。更少返工、更少偏移。
 
 ---
 
-## 從你的編碼 agent 使用 OpenDesign
+## 從你的編碼 agent 使用 Rethra Design
 
-OpenDesign 隨附一個 **stdio MCP server** 與各 agent 專屬的 **安裝腳本**。任何在其他儲存庫中、相容 MCP 的 agent，都能直接讀取你本地 OpenDesign 專案的檔案——tokens CSS、JSX 元件、入口 HTML——當成一個可按名稱查詢的結構化 API。agent 看到的永遠是即時檔案，而非過期的匯出檔。
+Rethra Design 隨附一個 **stdio MCP server** 與各 agent 專屬的 **安裝腳本**。任何在其他儲存庫中、相容 MCP 的 agent，都能直接讀取你本地 Rethra Design 專案的檔案——tokens CSS、JSX 元件、入口 HTML——當成一個可按名稱查詢的結構化 API。agent 看到的永遠是即時檔案，而非過期的匯出檔。
 
 ```bash
 # One-line install (16+ CLIs supported):
@@ -376,7 +376,7 @@ od skills list --json
 
 **為什麼用 MCP？** 每次迭代都匯出再重新附上一個 zip 會打斷心流。MCP 直接揭露設計來源——agent 看到的永遠是即時檔案。
 
-**對於從零開始的 agent，** 安裝程式會放置 `~/.config/<agent>/open-design.json`（或對應平台的等價檔案），外加一段可複製貼上的 MCP 片段。Cursor 會得到一鍵 deeplink；Claude Code 會得到一行 `claude mcp add-json`；其餘每一個 agent 都會得到符合其設定所需 schema 的 JSON。完整的各 agent 流程 → 桌面應用程式中的 **Settings → MCP server**，或 [`docs/agent-adapters.md`](../../docs/agent-adapters.md)。
+**對於從零開始的 agent，** 安裝程式會放置 `~/.config/<agent>/rethra-design.json`（或對應平台的等價檔案），外加一段可複製貼上的 MCP 片段。Cursor 會得到一鍵 deeplink；Claude Code 會得到一行 `claude mcp add-json`；其餘每一個 agent 都會得到符合其設定所需 schema 的 JSON。完整的各 agent 流程 → 桌面應用程式中的 **Settings → MCP server**，或 [`docs/agent-adapters.md`](../../docs/agent-adapters.md)。
 
 **安全模型。** 預設唯讀，daemon 綁定於 `127.0.0.1`，SSRF 在代理邊界被阻擋。要在區域網路曝露，需明確設定 `OD_BIND_HOST` 加上 `OD_ALLOWED_ORIGINS`。連接器憑證與即時 artifact 預覽路由無論如何都僅限 loopback。
 
@@ -450,7 +450,7 @@ od skills list --json
 
 ## 外掛
 
-**277 個官方外掛與 183 個可混搭參考範例**位於 [`plugins/_official/`](../../plugins/_official/)。每個項目都是以 `open-design.json` 為核心的可攜式外掛目錄，並帶有類型所需的 payload，例如 agent 工作流程的 `SKILL.md`、媒體範本的 `template.json`，或設計系統項目的 `DESIGN.md`。直接跳到某個分類：
+**277 個官方外掛與 183 個可混搭參考範例**位於 [`plugins/_official/`](../../plugins/_official/)。每個項目都是以 `rethra-design.json` 為核心的可攜式外掛目錄，並帶有類型所需的 payload，例如 agent 工作流程的 `SKILL.md`、媒體範本的 `template.json`，或設計系統項目的 `DESIGN.md`。直接跳到某個分類：
 
 | 分類 | 數量 | 內容 |
 |---|---|---|
@@ -492,33 +492,33 @@ od plugin uninstall od-default       # uninstall
 
 ### 建立外掛
 
-OpenDesign 外掛必須包含 `open-design.json` 以及其類型所需的 payload。工作流程 skill 或 scenario 也包含 `SKILL.md`；僅 manifest 的範本與設計系統項目則使用各自的 payload：
+Rethra Design 外掛必須包含 `rethra-design.json` 以及其類型所需的 payload。工作流程 skill 或 scenario 也包含 `SKILL.md`；僅 manifest 的範本與設計系統項目則使用各自的 payload：
 
 ```
 my-plugin/
-├── open-design.json    ← required: marketplace metadata + inputs + pipeline + capabilities
+├── rethra-design.json    ← required: marketplace metadata + inputs + pipeline + capabilities
 ├── SKILL.md            ← agent-skill/scenario entries only; omit for other plugin types
 ├── README.md           ← optional: usage, install, registry links
 ├── preview/            ← optional: index.html / poster.png (strongly recommended for visual plugins)
 └── examples/           ← optional: concrete use cases
 ```
 
-`open-design.json` 的核心欄位：`specVersion`（目前為 `1.0.0`）、`name`（穩定 ID）、`version`（semver）、選用的 `compat.agentSkills[].path`（項目公開 Agent Skill 時指向 `./SKILL.md`）、`od.kind`（`skill` / `scenario` / `atom` / `bundle`）、`od.taskKind`（`new-generation` / `figma-migration` / `code-migration` / `tune-collab`）、`od.mode`（輸出介面，例如 `prototype` / `deck` / `live-artifact` / `image` / `video` / `hyperframes` / `audio` / `design-system` / `scenario`）、`od.capabilities[]`（**宣告最小集合**——受限安裝預設只授予 `prompt:inject`）、`od.inputs[]`（套用時的參數）。
+`rethra-design.json` 的核心欄位：`specVersion`（目前為 `1.0.0`）、`name`（穩定 ID）、`version`（semver）、選用的 `compat.agentSkills[].path`（項目公開 Agent Skill 時指向 `./SKILL.md`）、`od.kind`（`skill` / `scenario` / `atom` / `bundle`）、`od.taskKind`（`new-generation` / `figma-migration` / `code-migration` / `tune-collab`）、`od.mode`（輸出介面，例如 `prototype` / `deck` / `live-artifact` / `image` / `video` / `hyperframes` / `audio` / `design-system` / `scenario`）、`od.capabilities[]`（**宣告最小集合**——受限安裝預設只授予 `prompt:inject`）、`od.inputs[]`（套用時的參數）。
 
 在本地搭建骨架並驗證：
 
 ```bash
 od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
 od plugin validate ./my-plugin                          # check manifest / file layout
-pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
+pnpm guard && pnpm --filter @rethra-design/plugin-runtime typecheck
 ```
 
 完整欄位集與執行期契約 → [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md)；用編碼 agent 開發外掛 → [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md)；可複製貼上的最小範本 → [`plugins/spec/examples/`](../../plugins/spec/examples/)。
 
 ### 貢獻一個外掛
 
-1. 把外掛資料夾放進 [`plugins/community/`](../../plugins/community/)（第三方外掛），或——若要讓它隨 OpenDesign 一同附帶——放進 [`plugins/_official/`](../../plugins/_official/) 中對應的層級。
-2. 通過驗證：`od plugin validate`、`pnpm guard`、`pnpm --filter @open-design/plugin-runtime typecheck`。
+1. 把外掛資料夾放進 [`plugins/community/`](../../plugins/community/)（第三方外掛），或——若要讓它隨 Rethra Design 一同附帶——放進 [`plugins/_official/`](../../plugins/_official/) 中對應的層級。
+2. 通過驗證：`od plugin validate`、`pnpm guard`、`pnpm --filter @rethra-design/plugin-runtime typecheck`。
 3. 使用 [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) 中的範本填寫 PR（ID、版本、通道、mode、能力、觸發範例；視覺型外掛請附上截圖／預覽）。
 4. 若要發布到外部 registry（skills.sh / ClawHub / 獨立 GitHub）→ [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md)。
 
@@ -581,7 +581,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] Sidecar 協定 + Electron 桌面 + IPC 自動化
 - [x] Artifact lint API + 5 維自我評析的發出前閘門
 - [x] **0.8.0**——外掛市集基礎建設（261 個官方外掛、manifest 規格、各 agent 安裝腳本）
-- [x] **0.9.0**——OpenDesign Cloud（內建於應用程式的官方 Model Router：零設定、一鍵登入）
+- [x] **0.9.0**——Rethra Design Cloud（內建於應用程式的官方 Model Router：零設定、一鍵登入）
 - [x] 打包的 Electron 建置——macOS（Apple Silicon + Intel）+ Windows（x64）+ Linux AppImage（選用通道）
 - [ ] 註解模式的精準編輯——部分完成；可靠的定點修補開發中
 - [ ] AI 發出的 tweaks 面板 UX——尚未實作
@@ -599,17 +599,17 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 每個頻道背後都是真實的人。
 
 - 💬 **Discord**——每日聊天、外掛分享、提問 → [**discord.gg/mHAjSMV6gz**](https://discord.gg/mHAjSMV6gz)
-- 🐦 **X / Twitter**——發行說明、里程碑、幕後花絮 → [**@OpenDesignHQ**](https://x.com/OpenDesignHQ)
-- 🗣️ **GitHub Discussions**——深入問答、RFC、「秀出你的成果」 → [**Discussions**](https://github.com/nexu-io/open-design/discussions)
-- 🐛 **GitHub Issues**——錯誤回報、功能請求 → [**Issues**](https://github.com/nexu-io/open-design/issues)
+- 🐦 **X / Twitter**——發行說明、里程碑、幕後花絮 → [**@RethraDesignHQ**](https://x.com/RethraDesignHQ)
+- 🗣️ **GitHub Discussions**——深入問答、RFC、「秀出你的成果」 → [**Discussions**](https://github.com/acrbaran/rethra-design/discussions)
+- 🐛 **GitHub Issues**——錯誤回報、功能請求 → [**Issues**](https://github.com/acrbaran/rethra-design/issues)
 
-[`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 與 [`help-wanted`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) 這兩個標籤是最容易的入門方式。
+[`good-first-issue`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 與 [`help-wanted`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) 這兩個標籤是最容易的入門方式。
 
 ---
 
 ## 貢獻
 
-OpenDesign 之所以能持續前進，是因為貢獻者——設計師、工程師、prompt 作者——不斷現身。許多最常用的 skills、設計系統與外掛，都出自核心團隊以外的人之手。
+Rethra Design 之所以能持續前進，是因為貢獻者——設計師、工程師、prompt 作者——不斷現身。許多最常用的 skills、設計系統與外掛，都出自核心團隊以外的人之手。
 
 ### 🎯 從哪裡開始（最大槓桿、最小改動）
 
@@ -617,9 +617,9 @@ OpenDesign 之所以能持續前進，是因為貢獻者——設計師、工程
 |---|---|---|
 | 一個新的 **skill** | 放進一個含 `SKILL.md` + `assets/` + `references/` 的資料夾 | [`skills/`](../../skills/) · 規格見 [`docs/skills-protocol.md`](../../docs/skills-protocol.md) |
 | 一套新的 **設計系統** | 放進以 `DESIGN.md` 為核心的套件；按需加入 `manifest.json`、`tokens.css`、元件、資產或來源資訊 | [`design-systems/<brand>/`](../../design-systems/) |
-| 一個新的 **外掛** | 在某個分類資料夾下放進 `open-design.json` + 對應類型的 payload | [`plugins/community/`](../../plugins/community/) · 規格見 [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md) · agent 開發指南見 [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md) |
+| 一個新的 **外掛** | 在某個分類資料夾下放進 `rethra-design.json` + 對應類型的 payload | [`plugins/community/`](../../plugins/community/) · 規格見 [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md) · agent 開發指南見 [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md) |
 | 支援一個新的 **編碼 agent CLI** | Runtime 定義 + registry 項目；僅新 wire format 需要 parser | [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/runtimes/defs/) |
-| 修錯誤或打磨 UI | 瀏覽 [`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 標籤 | [Issues →](https://github.com/nexu-io/open-design/issues) |
+| 修錯誤或打磨 UI | 瀏覽 [`good-first-issue`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 標籤 | [Issues →](https://github.com/acrbaran/rethra-design/issues) |
 | 翻譯文件 | 更新 `README.<lang>.md` 檔案 | [`TRANSLATIONS.md`](../../TRANSLATIONS.md) |
 
 ### 🤖 以 agent 身分貢獻
@@ -628,8 +628,8 @@ OpenDesign 之所以能持續前進，是因為貢獻者——設計師、工程
 
 ```bash
 # 1. Boot locally
-git clone https://github.com/nexu-io/open-design.git
-cd open-design && corepack enable && pnpm install
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design && corepack enable && pnpm install
 pnpm tools-dev run web
 
 # 2. Find a good-first-issue and assign yourself
@@ -638,7 +638,7 @@ gh issue develop <number>   # create a branch and worktree
 
 # 3. Make the change, run the checks
 pnpm guard && pnpm typecheck
-pnpm --filter @open-design/<package> test
+pnpm --filter @rethra-design/<package> test
 
 # 4. Open the PR
 gh pr create --fill
@@ -646,9 +646,9 @@ gh pr create --fill
 
 完整的 agent 友善貢獻流程、程式碼風格與 PR 標準 → [`CONTRIBUTING.md`](../../CONTRIBUTING.md)（[Deutsch](CONTRIBUTING.de.md) · [Français](CONTRIBUTING.fr.md) · [简体中文](CONTRIBUTING.zh-CN.md) · [日本語](CONTRIBUTING.ja-JP.md) · [Português](CONTRIBUTING.pt-BR.md)）。
 
-### 🏅 OpenDesign Fellow 計畫
+### 🏅 Rethra Design Fellow 計畫
 
-我們正在全球招募 **OpenDesign Fellows**——Fellows 與核心團隊一同形塑產品、在各自地區正式代表 OpenDesign，並在當地壯大社群，背後有經費支援（$1,000 / MR）、免費的 LLM credits，以及一條直通的審查通道。詳情請見 → [`MAINTAINERS.md`](../../MAINTAINERS.md) 與 [Discord](https://discord.gg/mHAjSMV6gz) 上的公告。
+我們正在全球招募 **Rethra Design Fellows**——Fellows 與核心團隊一同形塑產品、在各自地區正式代表 Rethra Design，並在當地壯大社群，背後有經費支援（$1,000 / MR）、免費的 LLM credits，以及一條直通的審查通道。詳情請見 → [`MAINTAINERS.md`](../../MAINTAINERS.md) 與 [Discord](https://discord.gg/mHAjSMV6gz) 上的公告。
 
 ---
 
@@ -681,8 +681,8 @@ gh pr create --fill
 
 感謝每一位參與過的人——程式碼、文件、回饋、一則犀利的 issue、一個新的 skill、一套新的設計系統。
 
-<a href="https://github.com/nexu-io/open-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="OpenDesign contributors" />
+<a href="https://github.com/acrbaran/rethra-design/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=nexu-io/rethra-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="Rethra Design contributors" />
 </a>
 
 ---
@@ -690,7 +690,7 @@ gh pr create --fill
 ## 儲存庫活動
 
 <picture>
-  <img alt="OpenDesign — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
+  <img alt="Rethra Design — repository metrics" src="https://repo-assets.rethra-design.invalid/resources/images/github-metrics.svg" />
 </picture>
 
 上方的 SVG 由 [`.github/workflows/metrics.yml`](../../.github/workflows/metrics.yml) 使用 [`lowlighter/metrics`](https://github.com/lowlighter/metrics) 每日重新生成。
@@ -700,16 +700,16 @@ gh pr create --fill
 ## 給我們一顆星
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star OpenDesign on GitHub — github.com/nexu-io/open-design" width="100%" /></a>
+  <a href="https://github.com/acrbaran/rethra-design"><img src="https://repo-assets.rethra-design.invalid/resources/images/star-us.png" alt="Star Rethra Design on GitHub — github.com/acrbaran/rethra-design" width="100%" /></a>
 </p>
 
 如果這幫你省下了三十分鐘，給它一顆 ★。星星不能付房租——但它們會告訴下一位設計師、agent 與貢獻者，這場實驗值得他們關注。一鍵、三秒，一個真實的訊號。
 
-<a href="https://star-history.dera.page/#nexu-io/open-design&Date">
+<a href="https://star-history.dera.page/#nexu-io/rethra-design&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&theme=dark&cache_bust=2026-08-04" />
-    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-08-04" />
-    <img alt="OpenDesign star history" src="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&theme=dark&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
+    <img alt="Rethra Design star history" src="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
   </picture>
 </a>
 
@@ -727,7 +727,7 @@ gh pr create --fill
 | [`multica-ai/multica`](https://github.com/multica-ai/multica) | daemon + adapter 架構——PATH 掃描的 agent 偵測、把本地 daemon 作為唯一的特權程序。 |
 | [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) | 最初 9 段式 `DESIGN.md` schema 與 70 套上游衍生系統的歷史來源；目前套件可在此基礎上擴充。 |
 | [`bergside/awesome-design-skills`](https://github.com/bergside/awesome-design-skills) | `design-systems/` 之下新增的 57 個設計 skill 的來源。 |
-| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | HTML→MP4 動態圖像框架，在 OpenDesign 中整合為一等公民的 `hyperframes-html`。 |
+| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | HTML→MP4 動態圖像框架，在 Rethra Design 中整合為一等公民的 `hyperframes-html`。 |
 | [Claude Code skills][skill] | 我們原封不動採用的 `SKILL.md` 慣例。 |
 
 詳細出處 → [`docs/references.md`](../../docs/references.md)。

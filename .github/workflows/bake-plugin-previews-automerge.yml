@@ -31,7 +31,7 @@ jobs:
     # Only react to CI that ran for a *pull request* on the rolling manifest branch —
     # never a push or manual dispatch — so a non-PR run can't reach the App-token /
     # merge steps below.
-    if: ${{ github.repository == 'nexu-io/open-design' && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'chore/plugin-previews' }}
+    if: ${{ github.repository == 'nexu-io/rethra-design' && github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.head_branch == 'chore/plugin-previews' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v2
@@ -125,7 +125,7 @@ jobs:
           ${{ steps.pr.outputs.found == 'true'
               && steps.pr.outputs.draft == 'false'
               && steps.pr.outputs.pristine == 'true'
-              && steps.pr.outputs.author == 'app/open-design-release-bot'
+              && steps.pr.outputs.author == 'app/rethra-design-release-bot'
               && steps.pr.outputs.cross == 'false'
               && steps.pr.outputs.head_oid == github.event.workflow_run.head_sha
               && steps.pr.outputs.base_fresh == 'true'
@@ -157,7 +157,7 @@ jobs:
           ${{ steps.pr.outputs.found == 'true'
               && steps.pr.outputs.draft == 'false'
               && steps.pr.outputs.pristine == 'true'
-              && steps.pr.outputs.author == 'app/open-design-release-bot'
+              && steps.pr.outputs.author == 'app/rethra-design-release-bot'
               && steps.pr.outputs.cross == 'false'
               && steps.pr.outputs.head_oid == github.event.workflow_run.head_sha
               && steps.pr.outputs.base_fresh == 'true'
@@ -183,7 +183,7 @@ jobs:
         # timed_out (ci.yml has timeout-minutes jobs) — but NOT cancelled: a force-push
         # of the rolling branch routinely cancels the prior in-flight run, so alerting on
         # cancelled would page on every normal refresh.
-        if: ${{ steps.pr.outputs.found == 'true' && steps.pr.outputs.author == 'app/open-design-release-bot' && steps.pr.outputs.cross == 'false' && steps.pr.outputs.head_oid == github.event.workflow_run.head_sha && (github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'timed_out') }}
+        if: ${{ steps.pr.outputs.found == 'true' && steps.pr.outputs.author == 'app/rethra-design-release-bot' && steps.pr.outputs.cross == 'false' && steps.pr.outputs.head_oid == github.event.workflow_run.head_sha && (github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.conclusion == 'timed_out') }}
         env:
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_RELEASE_WEBHOOK }}
           FEISHU_SIGN_SECRET: ${{ secrets.FEISHU_RELEASE_SIGN_SECRET }}

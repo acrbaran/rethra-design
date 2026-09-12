@@ -1,8 +1,8 @@
 import type {
-  OpenDesignHostFailure,
-  OpenDesignHostProjectImportResult,
-  OpenDesignHostProjectReplaceWorkingDirResult,
-  OpenDesignHostPickWorkingDirResult,
+  RethraDesignHostFailure,
+  RethraDesignHostProjectImportResult,
+  RethraDesignHostProjectReplaceWorkingDirResult,
+  RethraDesignHostPickWorkingDirResult,
 } from "./protocol.js";
 
 /**
@@ -19,7 +19,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /** @internal Build a normalized host failure result. */
-function failure(reason: string, details?: unknown): OpenDesignHostFailure {
+function failure(reason: string, details?: unknown): RethraDesignHostFailure {
   return {
     ...(details === undefined ? {} : { details }),
     ok: false,
@@ -32,7 +32,7 @@ function failure(reason: string, details?: unknown): OpenDesignHostFailure {
  * host-owned renderer contract. The adapter may internally call daemon APIs,
  * but only project identifiers cross the host bridge.
  */
-export function normalizeOpenDesignHostProjectImportResult(input: unknown): OpenDesignHostProjectImportResult {
+export function normalizeRethraDesignHostProjectImportResult(input: unknown): RethraDesignHostProjectImportResult {
   if (!isRecord(input)) {
     return failure("desktop import returned an invalid response", input);
   }
@@ -72,9 +72,9 @@ export function normalizeOpenDesignHostProjectImportResult(input: unknown): Open
  * Converts a privileged host adapter's raw working-dir replace result into the
  * host-owned renderer contract.
  */
-export function normalizeOpenDesignHostProjectReplaceWorkingDirResult(
+export function normalizeRethraDesignHostProjectReplaceWorkingDirResult(
   input: unknown,
-): OpenDesignHostProjectReplaceWorkingDirResult {
+): RethraDesignHostProjectReplaceWorkingDirResult {
   if (!isRecord(input)) {
     return failure("desktop working-dir replace returned an invalid response", input);
   }
@@ -103,9 +103,9 @@ export function normalizeOpenDesignHostProjectReplaceWorkingDirResult(
  * Converts a privileged host adapter's raw working-dir pick result into the
  * host-owned renderer contract (chosen path plus single-use token).
  */
-export function normalizeOpenDesignHostPickWorkingDirResult(
+export function normalizeRethraDesignHostPickWorkingDirResult(
   input: unknown,
-): OpenDesignHostPickWorkingDirResult {
+): RethraDesignHostPickWorkingDirResult {
   if (!isRecord(input)) {
     return failure("desktop working-dir pick returned an invalid response", input);
   }

@@ -32,7 +32,7 @@ type ContextMock = BrowserContext & {
 };
 
 beforeEach(async () => {
-  runtimeMocks.workspaceRoot = await mkdtemp(join(tmpdir(), 'open-design-collab-cluster-'));
+  runtimeMocks.workspaceRoot = await mkdtemp(join(tmpdir(), 'rethra-design-collab-cluster-'));
 });
 
 afterEach(async () => {

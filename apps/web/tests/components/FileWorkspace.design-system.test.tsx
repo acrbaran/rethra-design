@@ -9,7 +9,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import { FileWorkspace } from '../../src/components/FileWorkspace';
 import {

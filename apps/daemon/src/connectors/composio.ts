@@ -11,7 +11,7 @@ import { ConnectorServiceError, type ConnectorCredentialMaterial } from './servi
 
 const DEFAULT_COMPOSIO_BASE_URL = 'https://backend.composio.dev';
 const DEFAULT_COMPOSIO_TIMEOUT_MS = 30_000;
-const DEFAULT_COMPOSIO_USER_ID = 'open-design-local-user';
+const DEFAULT_COMPOSIO_USER_ID = 'rethra-design-local-user';
 const OAUTH_STATE_TTL_MS = 10 * 60 * 1000;
 const DISCOVERY_CACHE_TTL_MS = 60_000;
 const PERSISTED_CATALOG_REFRESH_MS = 24 * 60 * 60 * 1000;
@@ -1163,7 +1163,7 @@ export class ComposioConnectorProvider {
       headers: {
         accept: 'application/json',
         'content-type': 'application/json',
-        'user-agent': 'OpenDesign/0.1 ComposioConnectorProvider',
+        'user-agent': 'RethraDesign/0.1 ComposioConnectorProvider',
         'x-api-key': apiKey,
       },
       ...(input.body ? { body: input.body } : {}),
@@ -1401,17 +1401,17 @@ function isGenericComposioDescription(description: string): boolean {
 
 function fallbackComposioDescription(name: string, category: string | undefined): string {
   const normalizedCategory = category?.trim().toLowerCase();
-  if (normalizedCategory?.includes('project')) return `Coordinate ${name} projects, tasks, and workflow data inside OpenDesign.`;
-  if (normalizedCategory?.includes('communication')) return `Bring ${name} conversations, channels, and collaboration context into OpenDesign.`;
-  if (normalizedCategory?.includes('documentation')) return `Search and reuse ${name} knowledge, pages, and documentation in OpenDesign.`;
-  if (normalizedCategory?.includes('storage')) return `Find and reference ${name} files, folders, and document metadata from OpenDesign.`;
-  if (normalizedCategory?.includes('developer')) return `Inspect ${name} developer resources, activity, and operational context from OpenDesign.`;
-  if (normalizedCategory?.includes('crm') || normalizedCategory?.includes('sales')) return `Use ${name} customer, deal, and account context in OpenDesign artifacts.`;
-  if (normalizedCategory?.includes('marketing')) return `Analyze ${name} campaigns, audiences, and marketing activity from OpenDesign.`;
-  if (normalizedCategory?.includes('finance') || normalizedCategory?.includes('commerce')) return `Work with ${name} business, billing, and transaction data in OpenDesign.`;
-  if (normalizedCategory?.includes('observability')) return `Surface ${name} incidents, metrics, and operational signals in OpenDesign.`;
-  if (normalizedCategory?.includes('data')) return `Query ${name} datasets and platform metadata for data-backed OpenDesign artifacts.`;
-  return `Use ${name} tools and data directly from OpenDesign.`;
+  if (normalizedCategory?.includes('project')) return `Coordinate ${name} projects, tasks, and workflow data inside RethraDesign.`;
+  if (normalizedCategory?.includes('communication')) return `Bring ${name} conversations, channels, and collaboration context into RethraDesign.`;
+  if (normalizedCategory?.includes('documentation')) return `Search and reuse ${name} knowledge, pages, and documentation in RethraDesign.`;
+  if (normalizedCategory?.includes('storage')) return `Find and reference ${name} files, folders, and document metadata from RethraDesign.`;
+  if (normalizedCategory?.includes('developer')) return `Inspect ${name} developer resources, activity, and operational context from RethraDesign.`;
+  if (normalizedCategory?.includes('crm') || normalizedCategory?.includes('sales')) return `Use ${name} customer, deal, and account context in RethraDesign artifacts.`;
+  if (normalizedCategory?.includes('marketing')) return `Analyze ${name} campaigns, audiences, and marketing activity from RethraDesign.`;
+  if (normalizedCategory?.includes('finance') || normalizedCategory?.includes('commerce')) return `Work with ${name} business, billing, and transaction data in RethraDesign.`;
+  if (normalizedCategory?.includes('observability')) return `Surface ${name} incidents, metrics, and operational signals in RethraDesign.`;
+  if (normalizedCategory?.includes('data')) return `Query ${name} datasets and platform metadata for data-backed RethraDesign artifacts.`;
+  return `Use ${name} tools and data directly from RethraDesign.`;
 }
 
 function getComposioAuthConfigId(response: ComposioAuthConfigResponse): string | undefined {

@@ -1,4 +1,4 @@
-# OpenDesign 기여 가이드
+# Rethra Design 기여 가이드
 
 기여를 고민하고 있다니 고맙습니다. OD는 일부러 작게 유지합니다. 대부분의 가치는 프레임워크 코드가 아니라 **파일**(skill, design system, 프롬프트 조각)에 담겨 있습니다. 그래서 가장 효과가 큰 기여는 대개 폴더 하나, Markdown 파일 하나, 또는 PR 한 건 크기의 adapter입니다.
 
@@ -19,7 +19,7 @@
 | 기능 추가, 버그 수정, [`open-codesign`][ocod]에서 UX 패턴 가져오기 | 코드 | `apps/web/src/`, `apps/daemon/` | 일반 PR |
 | 문서 개선, 일부 섹션을 Français / Deutsch / 中文로 번역, 오타 수정 | 문서 | `README.md`, `README.fr.md`, `README.de.md`, `README.zh-CN.md`, `docs/`, `QUICKSTART.md` | PR 한 건 |
 
-어느 쪽에 해당하는지 모르겠다면 [먼저 discussion이나 issue를 열어주세요](https://github.com/nexu-io/open-design/issues/new). 적절한 위치를 안내해 드리겠습니다.
+어느 쪽에 해당하는지 모르겠다면 [먼저 discussion이나 issue를 열어주세요](https://github.com/acrbaran/rethra-design/issues/new). 적절한 위치를 안내해 드리겠습니다.
 
 ---
 
@@ -28,20 +28,20 @@
 한 페이지짜리 전체 설정 안내는 [`QUICKSTART.ko.md`](QUICKSTART.ko.md)에 있습니다. 기여자를 위한 요약은 다음과 같습니다.
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable           # packageManager에 고정된 pnpm을 선택합니다
 pnpm install
 pnpm tools-dev run web    # daemon + web 포그라운드 루프
 pnpm typecheck            # tsc -b --noEmit
-pnpm --filter @open-design/web build  # 필요할 때 web 패키지 빌드
+pnpm --filter @rethra-design/web build  # 필요할 때 web 패키지 빌드
 ```
 
 Node `~24`와 pnpm `10.33.x`가 필요합니다. `nvm`이나 `fnm`은 선택 사항입니다. Node를 그렇게 관리하는 게 편하다면 `nvm install 24 && nvm use 24` 또는 `fnm install 24 && fnm use 24`를 실행하세요. macOS, Linux, WSL2가 주요 지원 환경입니다. Windows 네이티브도 지원합니다. 흔히 겪는 설정 문제는 [`docs/windows-troubleshooting.md`](../../docs/windows-troubleshooting.md)를 참고하세요.
 
 ## Docker 설정
 
-Node.js나 pnpm을 설치하지 않고도 OpenDesign을 실행할 수 있습니다.
+Node.js나 pnpm을 설치하지 않고도 Rethra Design을 실행할 수 있습니다.
 
 ### 사전 준비
 
@@ -51,7 +51,7 @@ Compose v2가 포함된 Docker Desktop이 설치되어 있는지 확인하세요
 docker compose version
 ```
 
-### OpenDesign 실행
+### Rethra Design 실행
 
 ```bash
 cd deploy
@@ -86,10 +86,10 @@ docker compose up -d
 `deploy/.env` 파일을 만듭니다.
 
 ```env
-OPEN_DESIGN_PORT=7456
-OPEN_DESIGN_MEM_LIMIT=384m
-OPEN_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
-OPEN_DESIGN_IMAGE=ghcr.io/nexu-io/od:latest
+RETHRA_DESIGN_PORT=7456
+RETHRA_DESIGN_MEM_LIMIT=384m
+RETHRA_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
+RETHRA_DESIGN_IMAGE=ghcr.io/nexu-io/od:latest
 ```
 
 > 프로젝트와 데이터베이스 데이터는 Docker 볼륨에 자동으로 보존됩니다.
@@ -228,7 +228,7 @@ node --experimental-strip-types scripts/sync-litellm-models.ts
 
 ## 현지화 유지보수
 
-독일어는 격식 있는 `Sie`를 씁니다. OD는 1인 창작자, 에이전시, 엔지니어링 팀이 뒤섞인 사용자층에 말을 걸기 때문입니다. 비격식 `du` 어조가 더 잘 맞는다는 프로젝트 피드백이 나오기 전까지는, 격식 독일어가 가장 무난한 기본값입니다. 로케일 PR은 UI 요소, 핵심 문서, 그리고 `apps/web/src/i18n/content.ts`의 표시 전용 갤러리 메타데이터를 번역해야 하지만, `skills/`나 `design-systems/`, 또는 agent가 실행하는 프롬프트 본문은 번역하면 안 됩니다. 이런 원본 프롬프트는 워크플로우 입력으로 관리되며, 원본 언어를 하나로 유지해야 로케일마다 프롬프트 QA가 늘어나는 일을 막을 수 있습니다. skill, design system, 프롬프트 템플릿을 추가하거나 이름을 바꿀 때는 독일어 표시 메타데이터를 갱신하고 `pnpm --filter @open-design/web test`를 실행하세요. 독일어 표시 항목이 누락되면 `content.test.ts`가 실패합니다. daemon 오류, export 파일명, agent가 생성한 artifact 텍스트는 PR이 명시적으로 범위에 넣지 않는 한 알려진 한계로 둡니다.
+독일어는 격식 있는 `Sie`를 씁니다. OD는 1인 창작자, 에이전시, 엔지니어링 팀이 뒤섞인 사용자층에 말을 걸기 때문입니다. 비격식 `du` 어조가 더 잘 맞는다는 프로젝트 피드백이 나오기 전까지는, 격식 독일어가 가장 무난한 기본값입니다. 로케일 PR은 UI 요소, 핵심 문서, 그리고 `apps/web/src/i18n/content.ts`의 표시 전용 갤러리 메타데이터를 번역해야 하지만, `skills/`나 `design-systems/`, 또는 agent가 실행하는 프롬프트 본문은 번역하면 안 됩니다. 이런 원본 프롬프트는 워크플로우 입력으로 관리되며, 원본 언어를 하나로 유지해야 로케일마다 프롬프트 QA가 늘어나는 일을 막을 수 있습니다. skill, design system, 프롬프트 템플릿을 추가하거나 이름을 바꿀 때는 독일어 표시 메타데이터를 갱신하고 `pnpm --filter @rethra-design/web test`를 실행하세요. 독일어 표시 항목이 누락되면 `content.test.ts`가 실패합니다. daemon 오류, export 파일명, agent가 생성한 artifact 텍스트는 PR이 명시적으로 범위에 넣지 않는 한 알려진 한계로 둡니다.
 
 새 로케일을 추가하는 단계별 안내(UI 사전, README, 언어 전환기, 지역별 용어)는 [`TRANSLATIONS.md`](../../TRANSLATIONS.md)를 참고하세요.
 
@@ -284,7 +284,7 @@ CLA는 요구하지 않습니다. Apache-2.0으로 충분하며, 당신의 기�
 
 ## 질문하기
 
-- 아키텍처 질문, 설계 질문, "이게 버그인지 오용인지" → [GitHub Discussions](https://github.com/nexu-io/open-design/discussions) (권장 — 다음 사람이 검색할 수 있습니다).
+- 아키텍처 질문, 설계 질문, "이게 버그인지 오용인지" → [GitHub Discussions](https://github.com/acrbaran/rethra-design/discussions) (권장 — 다음 사람이 검색할 수 있습니다).
 - "X를 하는 skill을 어떻게 작성하나요" → discussion을 열어주세요. 답해드리고, 빠져 있던 패턴이라면 그 답을 [`docs/skills-protocol.md`](../../docs/skills-protocol.md)에 정리합니다.
 
 ---
@@ -314,7 +314,7 @@ CLA는 요구하지 않습니다. Apache-2.0으로 충분하며, 당신의 기�
 
 요컨대 좋은 PR을 내고, 사려 깊게 리뷰하고, [Discussions][discussions]와 [Discord][discord]에서 어울리다 보면 나머지는 알아서 따라옵니다.
 
-[discussions]: https://github.com/nexu-io/open-design/discussions
+[discussions]: https://github.com/acrbaran/rethra-design/discussions
 [discord]: https://discord.gg/mHAjSMV6gz
 
 ---

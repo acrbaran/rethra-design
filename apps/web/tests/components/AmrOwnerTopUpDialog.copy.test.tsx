@@ -49,8 +49,8 @@ function textOf(text: string) {
 beforeEach(() => {
   window.localStorage.clear();
   // 产品稿是中文原件,判据就钉在中文上;其余 18 个 locale 是它的忠实翻译。
-  window.localStorage.setItem('open-design:locale', 'zh-CN');
-  window.localStorage.setItem('open-design:locale-source', 'manual');
+  window.localStorage.setItem('rethra-design:locale', 'zh-CN');
+  window.localStorage.setItem('rethra-design:locale-source', 'manual');
 });
 
 afterEach(() => {
@@ -107,6 +107,6 @@ describe('AmrOwnerTopUpDialog 只有一颗按钮', () => {
       .filter((label) => label.length > 0);
     expect(actionLabels).toEqual(['知道了']);
     // 那句「可以直接发给所有者的话」是复制机制的载荷,一并撤掉。
-    expect(container.textContent).not.toContain('Open Design 控制台');
+    expect(container.textContent).not.toContain('Rethra Design 控制台');
   });
 });

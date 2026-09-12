@@ -7,7 +7,7 @@ import {
   type LauncherDesktopHandoffDescriptor,
   type LauncherRuntimeDescriptor,
   type LauncherVersionPointer,
-} from "@open-design/launcher-proto";
+} from "@rethra-design/launcher-proto";
 
 import type { ToolPackConfig } from "../config/index.js";
 import { resolveToolPackLauncherLayout } from "./layout.js";

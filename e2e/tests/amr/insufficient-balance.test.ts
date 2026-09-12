@@ -58,7 +58,7 @@ describe('AMR insufficient balance run failures', () => {
       });
       expect(events).toContain('AMR_INSUFFICIENT_BALANCE');
       expect(events).toContain(
-        'https://open-design.ai/amr/dashboard?source=open_design',
+        'https://rethra-design.invalid/amr/dashboard?source=rethra_design',
       );
 
       const messages = await listMessages(

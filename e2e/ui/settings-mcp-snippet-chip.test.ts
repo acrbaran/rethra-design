@@ -10,7 +10,7 @@ import { suppressWhatsNew } from '../lib/playwright/mock-factory.js';
 // rectangle behind every wrapped segment — reading as permanent selection
 // highlights. The inner `<code>` must stay transparent.
 
-const STORAGE_KEY = 'open-design:config';
+const STORAGE_KEY = 'rethra-design:config';
 
 test.beforeEach(async ({ page }) => {
   // The entry home mounts `WhatsNewPopup` (EntryShell.tsx) and its backdrop sits
@@ -122,8 +122,8 @@ test('[P1] MCP OAuth connect callback updates status and supports disconnect', a
 
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: T.medium });
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve OpenDesign' });
+  await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: T.medium });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve RethraDesign' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
   }

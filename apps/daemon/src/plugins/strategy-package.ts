@@ -16,11 +16,11 @@ import {
   type AppliedStrategyBindingV2,
   type InstalledPluginRecord,
   type StrategyTaskTypeV2,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   buildStrategyPackageIdentity,
   normalizeStrategyAssetPath,
-} from '@open-design/plugin-runtime';
+} from '@rethra-design/plugin-runtime';
 import { inspectBundledStrategyProvenanceV2 } from './strategy-provenance.js';
 
 export type SelectableStrategyTaskTypeV2 = Exclude<StrategyTaskTypeV2, 'generic'>;
@@ -156,7 +156,7 @@ function readBundledStrategyPackageV2(input: {
   // one task type does not move when another task type's shell changes.
   const selectedResources = selectedProfile.resources ?? [];
   const declaredPaths = [
-    './open-design.json',
+    './rethra-design.json',
     './SKILL.md',
     declaration.assets.core.path,
     declaration.assets.orchestration.path,
@@ -195,7 +195,7 @@ function readBundledStrategyPackageV2(input: {
   }
 
   const parsed = AppliedStrategyBindingV2Schema.safeParse({
-    schema: 'open-design.applied-strategy/v2',
+    schema: 'rethra-design.applied-strategy/v2',
     id: declaration.id,
     version: input.plugin.version,
     packageHash: identity.packageHash,

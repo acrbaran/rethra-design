@@ -1,4 +1,4 @@
-import type { WhatsNewContent, WhatsNewLocaleContent } from '@open-design/contracts';
+import type { WhatsNewContent, WhatsNewLocaleContent } from '@rethra-design/contracts';
 
 // Fetches the post-update "what's new" highlight from a single hosted document
 // on a dedicated R2 bucket. Operators edit that one file after a release; the
@@ -27,7 +27,7 @@ export interface WhatsNewService {
 }
 
 /** The dedicated, hardcoded highlights document. Operators update this file. */
-export const DEFAULT_WHATS_NEW_URL = 'https://whatsnew.open-design.ai/whats-new.json';
+export const DEFAULT_WHATS_NEW_URL = 'https://whatsnew.rethra-design.invalid/whats-new.json';
 
 /**
  * The post-update card is a release feature. Only real release channels fetch

@@ -1,4 +1,4 @@
-import type { WorkspaceCollabContext } from '@open-design/contracts';
+import type { WorkspaceCollabContext } from '@rethra-design/contracts';
 
 /**
  * The slice of `VelaLoginStatus` (see `providers/daemon.ts`) this module

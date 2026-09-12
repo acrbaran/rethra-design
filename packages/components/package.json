@@ -1,9 +1,9 @@
 {
-  "name": "@open-design/components",
+  "name": "@rethra-design/components",
   "version": "0.8.0",
   "private": true,
   "type": "module",
-  "description": "Shared OpenDesign React UI primitives.",
+  "description": "Shared RethraDesign React UI primitives.",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [

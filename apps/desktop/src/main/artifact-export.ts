@@ -9,11 +9,11 @@ import {
   type DesktopArtifactCaptureMode,
   type DesktopExportArtifactInput,
   type DesktopExportArtifactResult,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 
 import { DECK_PAGE_SIZE, DECK_PRINT_CSS, inferPageSize, waitForPrintableContent } from "./pdf-export.js";
 import { bgraBitmapHasPaint, freezePageForStaticCapture, type StaticCaptureFreeze } from "./static-capture.js";
-import { findRealElementRange, findRealTagEnd, findRealTagOffset, HTML_TAG_PATTERNS } from '@open-design/contracts/runtime/html-injection-points';
+import { findRealElementRange, findRealTagEnd, findRealTagOffset, HTML_TAG_PATTERNS } from '@rethra-design/contracts/runtime/html-injection-points';
 
 // Headless programmatic exporter for the `od export` CLI (PDF / image).
 // The on-screen web Download menu rasterizes client-side; this is the daemon →
@@ -287,7 +287,7 @@ function injectBaseHref(doc: string, baseHref: string | undefined): string {
   if (!baseHref) return doc;
   const tag = `<base href="${escapeAttr(baseHref)}">`;
   // Structural lookup: a `<head>` an author wrote into a script string or an
-  // attribute is not this document's head (nexu-io/open-design#7410).
+  // attribute is not this document's head (nexu-io/rethra-design#7410).
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);
   if (headEnd >= 0) return doc.slice(0, headEnd) + tag + doc.slice(headEnd);
   const htmlEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.htmlOpen);
@@ -301,7 +301,7 @@ function injectTitle(doc: string, title: string): string {
   // and `$'` inside the (user-derived) title via String.prototype.replace's
   // GetSubstitution, corrupting titles that contain them (#6795).
   // The document's own <title>, not one an author stored in a script string:
-  // replacing that would rewrite their content (nexu-io/open-design#7410).
+  // replacing that would rewrite their content (nexu-io/rethra-design#7410).
   const existing = findRealElementRange(doc, HTML_TAG_PATTERNS.titleOpen, 'title');
   if (existing) return doc.slice(0, existing.start) + tag + doc.slice(existing.end);
   const headEnd2 = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);

@@ -18,7 +18,7 @@ concurrency:
 jobs:
   autofix:
     name: Apply handoff fixes
-    if: ${{ github.repository == 'nexu-io/open-design' && github.event.workflow_run.event == 'pull_request' }}
+    if: ${{ github.repository == 'nexu-io/rethra-design' && github.event.workflow_run.event == 'pull_request' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
 
@@ -100,7 +100,7 @@ jobs:
             echo "present=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Generate OpenDesign bot token
+      - name: Generate RethraDesign bot token
         if: ${{ steps.handoffs.outputs.present == 'true' && steps.bot-secrets.outputs.present == 'true' }}
         id: bot-token
         continue-on-error: true
@@ -109,7 +109,7 @@ jobs:
           client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
           owner: nexu-io
-          repositories: open-design
+          repositories: rethra-design
           permission-contents: write
 
       - name: Apply handoff fixes
@@ -205,8 +205,8 @@ jobs:
               continue
             fi
 
-            git config user.name 'open-design-bot[bot]'
-            git config user.email '282769551+open-design-bot[bot]@users.noreply.github.com'
+            git config user.name 'rethra-design-bot[bot]'
+            git config user.email '282769551+rethra-design-bot[bot]@users.noreply.github.com'
             jq -r '.[]' <<< "$allowed_paths_json" | xargs git add --
             git commit -m "$commit_message"
             if ! git push origin "HEAD:refs/heads/$head_ref"; then

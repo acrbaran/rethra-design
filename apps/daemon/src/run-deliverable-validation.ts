@@ -1,13 +1,13 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { HYPERFRAMES_VIDEO_MODEL } from '@open-design/contracts';
+import { HYPERFRAMES_VIDEO_MODEL } from '@rethra-design/contracts';
 import type {
   ChatRunStatus,
   ProjectFile,
   ProjectFileKind,
   ProjectMetadata,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import { listFiles, resolveProjectDir } from './projects.js';
 

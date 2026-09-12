@@ -1,5 +1,5 @@
-import { defaultCritiqueConfig, FALLBACK_POLICIES } from '@open-design/contracts/critique';
-import type { CritiqueConfig } from '@open-design/contracts/critique';
+import { defaultCritiqueConfig, FALLBACK_POLICIES } from '@rethra-design/contracts/critique';
+import type { CritiqueConfig } from '@rethra-design/contracts/critique';
 
 /**
  * Load CritiqueConfig from process.env. Keys map 1:1 to OD_CRITIQUE_*.

@@ -94,7 +94,7 @@ Run:
 ```bash
 pnpm --dir e2e test tests/pricing-unlimited-models.test.ts
 pnpm --dir apps/web exec vitest run -c vitest.config.ts tests/runtime/amr-unlimited-models.plan-tier.test.ts
-pnpm --filter @open-design/landing-page test
+pnpm --filter @rethra-design/landing-page test
 ```
 
 Expected: the e2e contract reports the old `3 / 4 / 5 / 8` sets or missing first model, and the web runtime reports the new ID is not unlimited.
@@ -161,7 +161,7 @@ Run:
 ```bash
 pnpm --dir e2e test tests/pricing-unlimited-models.test.ts
 pnpm --dir apps/web exec vitest run -c vitest.config.ts tests/runtime/amr-unlimited-models.plan-tier.test.ts
-pnpm --filter @open-design/landing-page test
+pnpm --filter @rethra-design/landing-page test
 ```
 
 Expected: both test files pass with `4 / 5 / 6 / 9`, first-position ordering, and personal-only unlimited status.
@@ -188,8 +188,8 @@ git commit -m "feat(pricing): add DeepSeek vision unlimited model"
 - [ ] **Step 1: Run Landing Page tests and type checking**
 
 ```bash
-pnpm --filter @open-design/landing-page test
-pnpm --filter @open-design/landing-page typecheck
+pnpm --filter @rethra-design/landing-page test
+pnpm --filter @rethra-design/landing-page typecheck
 ```
 
 Expected: all Landing Page tests pass and Astro reports no type errors.
@@ -198,7 +198,7 @@ Expected: all Landing Page tests pass and Astro reports no type errors.
 
 ```bash
 pnpm --dir apps/web exec vitest run -c vitest.config.ts tests/runtime/amr-unlimited-models.plan-tier.test.ts
-pnpm --filter @open-design/web typecheck
+pnpm --filter @rethra-design/web typecheck
 ```
 
 Expected: the focused runtime suite and web type check pass.

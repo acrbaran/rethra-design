@@ -24,8 +24,8 @@ import {
   type TrackingProjectKind,
   type TrackingRunResult,
   type TrackingSessionMode,
-} from '@open-design/contracts/analytics';
-import type { ChatSessionMode, ChatTaskExecutionAnalytics } from '@open-design/contracts';
+} from '@rethra-design/contracts/analytics';
+import type { ChatSessionMode, ChatTaskExecutionAnalytics } from '@rethra-design/contracts';
 import type { ApiProtocol } from '../types';
 
 // Map the BYOK transport protocol to the tracking provider id.

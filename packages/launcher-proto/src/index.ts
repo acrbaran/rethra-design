@@ -1,7 +1,7 @@
 import { isAbsolute, join, resolve, sep } from "node:path";
 
-import { isReleaseChannel, RELEASE_CHANNELS, type ReleaseChannel } from "@open-design/release";
-import { normalizeNamespace } from "@open-design/sidecar-proto";
+import { isReleaseChannel, RELEASE_CHANNELS, type ReleaseChannel } from "@rethra-design/release";
+import { normalizeNamespace } from "@rethra-design/sidecar-proto";
 
 export const LAUNCHER_SCHEMA_VERSION = 1 as const;
 export const LAUNCHER_AFTER_QUIT_FLAG = "--od-launcher-after-quit" as const;

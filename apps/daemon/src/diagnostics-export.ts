@@ -12,18 +12,18 @@ import {
   DIAGNOSTICS_FILENAME_PREFIX,
   diagnosticsFileName,
   type LogSource,
-} from '@open-design/diagnostics';
+} from '@rethra-design/diagnostics';
 import {
   APP_KEYS,
-  OPEN_DESIGN_SIDECAR_CONTRACT,
+  RETHRA_DESIGN_SIDECAR_CONTRACT,
   SIDECAR_MODES,
   type LegacySidecarRuntimeLayout,
-} from '@open-design/sidecar-proto';
+} from '@rethra-design/sidecar-proto';
 import {
   resolveLogFilePath,
   resolveRuntimeNamespaceRoot,
   type SidecarRuntimeContext,
-} from '@open-design/sidecar';
+} from '@rethra-design/sidecar';
 
 import { readCurrentAppVersionInfo } from './app-version.js';
 import {
@@ -94,7 +94,7 @@ export interface DiagnosticsHandlerOptions {
   projectRoot: string;
   /** Directory containing per-run event logs at <runsDir>/<runId>/events.jsonl. */
   runsDir?: string | null;
-  /** OpenDesign data dir (OD_DATA_DIR), used to locate the AMR OpenCode home. */
+  /** RethraDesign data dir (OD_DATA_DIR), used to locate the AMR OpenCode home. */
   dataDir?: string | null;
 }
 
@@ -149,7 +149,7 @@ async function buildSidecarLogSources(
   // accounts for that (a plain `resolveNamespaceRoot` here resolved every
   // daemon/web log to an ENOENT phantom path and captured none of them).
   const namespaceRoot = resolveRuntimeNamespaceRoot({
-    contract: OPEN_DESIGN_SIDECAR_CONTRACT,
+    contract: RETHRA_DESIGN_SIDECAR_CONTRACT,
     runtime,
     runtimeMode: SIDECAR_MODES.RUNTIME,
   });
@@ -158,7 +158,7 @@ async function buildSidecarLogSources(
   for (const app of apps) {
     const absolutePath = resolveLogFilePath({
       app,
-      contract: OPEN_DESIGN_SIDECAR_CONTRACT,
+      contract: RETHRA_DESIGN_SIDECAR_CONTRACT,
       runtimeRoot: namespaceRoot,
     });
     sources.push({
@@ -216,13 +216,13 @@ async function buildSidecarLogSources(
 function resolveDesktopCrashDumpsDir(runtime: SidecarRuntimeContext<LegacySidecarRuntimeLayout> | null): string | null {
   if (runtime == null) return null;
   const namespaceRoot = resolveRuntimeNamespaceRoot({
-    contract: OPEN_DESIGN_SIDECAR_CONTRACT,
+    contract: RETHRA_DESIGN_SIDECAR_CONTRACT,
     runtime,
     runtimeMode: SIDECAR_MODES.RUNTIME,
   });
   const desktopLog = resolveLogFilePath({
     app: APP_KEYS.DESKTOP,
-    contract: OPEN_DESIGN_SIDECAR_CONTRACT,
+    contract: RETHRA_DESIGN_SIDECAR_CONTRACT,
     runtimeRoot: namespaceRoot,
   });
   return join(dirname(desktopLog), 'crashes');
@@ -269,7 +269,7 @@ export function createDiagnosticsExportHandler(options: DiagnosticsHandlerOption
       const result = await buildDiagnosticsZip({
         context: {
           app: {
-            name: 'open-design',
+            name: 'rethra-design',
             version: versionInfo?.version,
             channel: versionInfo?.channel,
             packaged: versionInfo?.packaged,
@@ -338,11 +338,11 @@ export function createDiagnosticsExportHandler(options: DiagnosticsHandlerOption
         },
         redaction: { username },
         crashReports: {
-          // Restrict to OpenDesign's own process names. A generic "Electron"
+          // Restrict to RethraDesign's own process names. A generic "Electron"
           // substring would sweep up crash reports from any other Electron
           // app on the host (VS Code, Slack, …) and leak unrelated user data
           // into the support bundle.
-          matchSubstrings: ['Open Design', 'open-design'],
+          matchSubstrings: ['Rethra Design', 'rethra-design'],
           withinDays: 7,
           maxReports: 10,
           homeDir: home,

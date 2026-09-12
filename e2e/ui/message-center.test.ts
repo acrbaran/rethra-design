@@ -3,8 +3,8 @@ import { routeAgents, suppressWhatsNew } from '@/playwright/mock-factory';
 import { ensureRailOpen } from '@/playwright/rail';
 import type { Page } from '@playwright/test';
 
-const STORAGE_KEY = 'open-design:config';
-const READ_KEY = 'open-design.message-center.anonymous-read-ids.v1';
+const STORAGE_KEY = 'rethra-design:config';
+const READ_KEY = 'rethra-design.message-center.anonymous-read-ids.v1';
 
 test.describe.configure({ timeout: 30_000 });
 
@@ -17,8 +17,8 @@ async function seedEntryHome(page: Page, options?: { locale?: string }) {
     window.localStorage.clear();
     window.sessionStorage.clear();
     if (locale) {
-      window.localStorage.setItem('open-design:locale', locale);
-      window.localStorage.setItem('open-design:locale-source', 'manual');
+      window.localStorage.setItem('rethra-design:locale', locale);
+      window.localStorage.setItem('rethra-design:locale-source', 'manual');
     }
     window.localStorage.setItem(
       key,
@@ -38,7 +38,7 @@ async function seedEntryHome(page: Page, options?: { locale?: string }) {
     );
   }, { key: STORAGE_KEY, locale: options?.locale ?? null });
 
-  await page.route('**/api/github/open-design', async (route) => {
+  await page.route('**/api/github/rethra-design', async (route) => {
     await route.fulfill({ json: { stargazers_count: 80300 } });
   });
 
@@ -78,7 +78,7 @@ async function seedEntryHome(page: Page, options?: { locale?: string }) {
 
 async function gotoEntryHome(page: Page, timeout = 10_000) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.getByText('Loading OpenDesign…')).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.getByText('Loading RethraDesign…')).toHaveCount(0, { timeout: 15_000 });
   await expect(page.getByTestId('home-hero')).toBeVisible({ timeout });
   await ensureRailOpen(page);
 }
@@ -194,7 +194,7 @@ test('[P1] targeted Go Plan announcement opens automatically once and stays dism
   // normal Home helper here: it opens the rail, which is deliberately blocked
   // by the modal backdrop we are trying to witness.
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.getByText('Loading OpenDesign…')).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.getByText('Loading RethraDesign…')).toHaveCount(0, { timeout: 15_000 });
   await expect(page.getByTestId('home-hero')).toBeVisible();
 
   const announcement = page.getByTestId('go-plan-sunset-dialog');
@@ -206,7 +206,7 @@ test('[P1] targeted Go Plan announcement opens automatically once and stays dism
   await expect(announcement).toHaveCount(0);
 
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await expect(page.getByText('Loading OpenDesign…')).toHaveCount(0, { timeout: 15_000 });
+  await expect(page.getByText('Loading RethraDesign…')).toHaveCount(0, { timeout: 15_000 });
   await expect(page.getByTestId('home-hero')).toBeVisible();
   await expect(announcement).toHaveCount(0);
 });

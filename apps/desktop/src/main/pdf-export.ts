@@ -1,8 +1,8 @@
 import { writeFile } from "node:fs/promises";
 
 import { BrowserWindow, dialog } from "electron";
-import type { DesktopExportPdfInput, DesktopExportPdfResult } from "@open-design/sidecar-proto";
-import { findRealElementRange, findRealTagEnd, findRealTagOffset, HTML_TAG_PATTERNS } from '@open-design/contracts/runtime/html-injection-points';
+import type { DesktopExportPdfInput, DesktopExportPdfResult } from "@rethra-design/sidecar-proto";
+import { findRealElementRange, findRealTagEnd, findRealTagOffset, HTML_TAG_PATTERNS } from '@rethra-design/contracts/runtime/html-injection-points';
 
 export type PageSize = { height: number; width: number };
 
@@ -261,7 +261,7 @@ function injectBaseHref(doc: string, baseHref: string | undefined): string {
   if (!baseHref) return doc;
   const tag = `<base href="${escapeHtmlAttribute(baseHref)}">`;
   // Structural lookup: a `<head>` an author wrote into a script string or an
-  // attribute is not this document's head (nexu-io/open-design#7410).
+  // attribute is not this document's head (nexu-io/rethra-design#7410).
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);
   if (headEnd >= 0) return doc.slice(0, headEnd) + tag + doc.slice(headEnd);
   const htmlEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.htmlOpen);
@@ -275,11 +275,11 @@ function injectTitle(doc: string, title: string): string {
   // and `$'` inside the (user-derived) title via String.prototype.replace's
   // GetSubstitution, corrupting titles that contain them (#6795).
   // The document's own <title>, not one an author stored in a script string:
-  // replacing that would rewrite their content (nexu-io/open-design#7410).
+  // replacing that would rewrite their content (nexu-io/rethra-design#7410).
   const existing = findRealElementRange(doc, HTML_TAG_PATTERNS.titleOpen, 'title');
   if (existing) return doc.slice(0, existing.start) + tag + doc.slice(existing.end);
   // Structural lookup: a `<head>` an author wrote into a script string or an
-  // attribute is not this document's head (nexu-io/open-design#7410).
+  // attribute is not this document's head (nexu-io/rethra-design#7410).
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);
   if (headEnd >= 0) return doc.slice(0, headEnd) + tag + doc.slice(headEnd);
   const htmlEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.htmlOpen);

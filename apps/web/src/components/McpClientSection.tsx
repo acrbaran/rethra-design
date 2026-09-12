@@ -1,6 +1,6 @@
 // External MCP servers panel.
 //
-// OpenDesign connects to the configured servers as a CLIENT and surfaces
+// RethraDesign connects to the configured servers as a CLIENT and surfaces
 // their tools to the underlying agent (Claude Code, Hermes, Kimi for v1).
 // This panel is the user-facing form; persistence flows through
 // `state/mcp.ts` -> daemon `/api/mcp/servers`.
@@ -13,13 +13,13 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Button } from '@open-design/components';
+import { Button } from '@rethra-design/components';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackIntegrationsMcpTabClick,
   trackSettingsExternalMcpClick,
 } from '../analytics/events';
-import type { TrackingExternalMcpElement } from '@open-design/contracts/analytics';
+import type { TrackingExternalMcpElement } from '@rethra-design/contracts/analytics';
 import {
   disconnectMcpOAuth,
   fetchMcpOAuthStatus,
@@ -223,7 +223,7 @@ const ID_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/i;
 
 // Picker grouping. Mirrors `McpTemplateCategory` in `packages/contracts`.
 // The order here is the *display* order in the picker — keep it intentional
-// so the most useful categories for OpenDesign (visual generation, then
+// so the most useful categories for RethraDesign (visual generation, then
 // editing, then publishing surfaces) sit at the top.
 function categoryOrder(t: Translate): ReadonlyArray<{
   id: NonNullable<McpTemplate['category']>;
@@ -1175,7 +1175,7 @@ function McpOAuthControl({ serverId }: { serverId: string }) {
     window.addEventListener('message', onMessage);
     let bc: BroadcastChannel | null = null;
     if (typeof BroadcastChannel !== 'undefined') {
-      bc = new BroadcastChannel('open-design-mcp-oauth');
+      bc = new BroadcastChannel('rethra-design-mcp-oauth');
       bc.onmessage = (ev) => onMessage(ev as MessageEvent);
     }
     return () => {

@@ -53,7 +53,7 @@ import type { ChatMessage } from '../../src/types';
 const PROJECT_ID = 'project-1';
 const CONVERSATION_ID = 'conv-1';
 const MESSAGE_ID = 'msg-1';
-const ARTIFACT = 'opendesign-seed-pitch.html';
+const ARTIFACT = 'rethradesign-seed-pitch.html';
 const COVER_URL = `/api/projects/${PROJECT_ID}/chat-artifact-snapshots/snap-1/thumbnail`;
 const RAW_URL = `/api/projects/${PROJECT_ID}/raw/${ARTIFACT}`;
 
@@ -214,7 +214,7 @@ const readyRef = {
 function renderProjectView() {
   const project = {
     id: PROJECT_ID,
-    name: 'OpenDesign 种子轮路演 Deck',
+    name: 'RethraDesign 种子轮路演 Deck',
     skillId: null,
     designSystemId: null,
   } as never;

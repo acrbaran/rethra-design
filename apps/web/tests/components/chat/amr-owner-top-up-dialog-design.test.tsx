@@ -100,8 +100,8 @@ let styleEl: HTMLStyleElement;
 beforeEach(() => {
   window.localStorage.clear();
   // 产品稿是中文原件,判据钉在中文上。
-  window.localStorage.setItem('open-design:locale', 'zh-CN');
-  window.localStorage.setItem('open-design:locale-source', 'manual');
+  window.localStorage.setItem('rethra-design:locale', 'zh-CN');
+  window.localStorage.setItem('rethra-design:locale-source', 'manual');
   styleEl = document.createElement('style');
   // 顺序照产品里的层叠:先接缝,再 Button primitive,最后弹窗自己的 Module。
   styleEl.textContent = `${seamCss}\n${buttonCss}\n${dialogCss}`;

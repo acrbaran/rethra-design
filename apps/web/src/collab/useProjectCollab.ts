@@ -5,7 +5,7 @@ import type {
   ProjectContentTransferState,
   ProjectVisibility,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { resolveCollabSession } from './collab-session';
 import {
   lastResolvedTeamProjects as cachedTeamProjects,

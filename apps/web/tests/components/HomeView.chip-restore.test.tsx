@@ -239,7 +239,7 @@ describe('HomeView chip/plugin selection survives a real unmount+remount', () =>
 
   it.each(['mobile', 'wireframe'])('migrates the legacy top-level %s chip into a nested Prototype scene', async (legacyChipId) => {
     window.localStorage.setItem(
-      'open-design:home-composer:chip',
+      'rethra-design:home-composer:chip',
       JSON.stringify({
         chipId: legacyChipId,
         pluginId: 'example-web-prototype',
@@ -264,7 +264,7 @@ describe('HomeView chip/plugin selection survives a real unmount+remount', () =>
       expect(screen.getByTestId('home-hero-template-trigger').textContent).toContain('Prototype');
       expect(screen.getByTestId(`home-hero-subtype-${legacyChipId}`).getAttribute('aria-selected'))
         .toBe('true');
-      expect(JSON.parse(window.localStorage.getItem('open-design:home-composer:chip') ?? '{}'))
+      expect(JSON.parse(window.localStorage.getItem('rethra-design:home-composer:chip') ?? '{}'))
         .toMatchObject({ chipId: 'prototype', prototypeSubtypeId: legacyChipId });
     });
     expect(fetchMock.mock.calls.some(
@@ -276,7 +276,7 @@ describe('HomeView chip/plugin selection survives a real unmount+remount', () =>
     // Seed localStorage as if a prior mount had bound the Prototype chip,
     // then remount with a catalog that no longer has that plugin installed.
     window.localStorage.setItem(
-      'open-design:home-composer:chip',
+      'rethra-design:home-composer:chip',
       JSON.stringify({ chipId: 'prototype', pluginId: 'example-web-prototype', projectKind: 'prototype' }),
     );
     const fetchMock = fetchMockFor([]);
@@ -297,7 +297,7 @@ describe('HomeView chip/plugin selection survives a real unmount+remount', () =>
     // No crash, no error banner, and the stale pointer is cleared so it does
     // not keep retrying on every future mount.
     await waitFor(() => {
-      expect(window.localStorage.getItem('open-design:home-composer:chip')).toBeNull();
+      expect(window.localStorage.getItem('rethra-design:home-composer:chip')).toBeNull();
     });
     expect(screen.queryByRole('alert')).toBeNull();
   });

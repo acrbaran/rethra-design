@@ -5,11 +5,11 @@ import { join } from 'node:path';
 import { useLayoutEffect, useRef, useState, type ReactElement } from 'react';
 import { act, cleanup, createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { installMockOpenDesignHost } from '@open-design/host/testing';
+import { installMockRethraDesignHost } from '@rethra-design/host/testing';
 import type {
-  OpenDesignHostPreviewNavigationFailure,
-  OpenDesignHostPreviewNavigationFailureListener,
-} from '@open-design/host';
+  RethraDesignHostPreviewNavigationFailure,
+  RethraDesignHostPreviewNavigationFailureListener,
+} from '@rethra-design/host';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ANNOTATION_EVENT } from '../../src/components/PreviewDrawOverlay';
 
@@ -108,7 +108,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 /** A team workspace context — the only state that can address the resource hub,
  *  and therefore the only one where the public "Publish file" entry is offered. */
@@ -1914,7 +1914,7 @@ describe('FileViewer SVG artifacts', () => {
       value: vi.fn(),
     });
     const userAgent = vi.spyOn(window.navigator, 'userAgent', 'get')
-      .mockReturnValue('OpenDesign/0.20 Electron/41.3.0');
+      .mockReturnValue('RethraDesign/0.20 Electron/41.3.0');
     try {
       const renderViewer = (liveHtml: string, workspaceActive = true) => (
         <FileViewer
@@ -2064,7 +2064,7 @@ describe('FileViewer SVG artifacts', () => {
       value: vi.fn(),
     });
     const userAgent = vi.spyOn(window.navigator, 'userAgent', 'get')
-      .mockReturnValue('OpenDesign/0.20 Electron/41.3.0');
+      .mockReturnValue('RethraDesign/0.20 Electron/41.3.0');
     const contentWindow = { postMessage } as unknown as Window;
     const contentWindowGetter = vi.spyOn(
       HTMLIFrameElement.prototype,
@@ -6794,7 +6794,7 @@ describe('FileViewer SVG artifacts', () => {
     expect(menuItems).not.toContain('Screenshot');
   });
 
-  it('keeps an artifact-card Share request limited to OpenDesign Quick Share', async () => {
+  it('keeps an artifact-card Share request limited to RethraDesign Quick Share', async () => {
     const file = baseFile({
       name: 'index.html',
       path: 'index.html',
@@ -7294,7 +7294,7 @@ describe('FileViewer SVG artifacts', () => {
         exports: ['html'],
       },
     });
-    const restoreHost = installMockOpenDesignHost();
+    const restoreHost = installMockRethraDesignHost();
     const fetchMock = vi.fn(async (input: unknown) => {
       const url = typeof input === 'string'
         ? input
@@ -7352,7 +7352,7 @@ describe('FileViewer SVG artifacts', () => {
       mime: 'text/html',
       kind: 'html',
     });
-    const restoreHost = installMockOpenDesignHost();
+    const restoreHost = installMockRethraDesignHost();
     const fetchMock = vi.fn(async (input: unknown) => {
       const url = typeof input === 'string'
         ? input
@@ -9367,13 +9367,13 @@ describe('FileViewer tweaks toolbar', () => {
 
   it('keeps a verified srcDoc frame visible when Electron reports a late ERR_ABORTED', () => {
     vi.useFakeTimers();
-    let latestNavigationFailure: OpenDesignHostPreviewNavigationFailure | null = null;
-    let navigationFailureListener: OpenDesignHostPreviewNavigationFailureListener | null = null;
-    const emitNavigationFailure = (failure: OpenDesignHostPreviewNavigationFailure) => {
+    let latestNavigationFailure: RethraDesignHostPreviewNavigationFailure | null = null;
+    let navigationFailureListener: RethraDesignHostPreviewNavigationFailureListener | null = null;
+    const emitNavigationFailure = (failure: RethraDesignHostPreviewNavigationFailure) => {
       latestNavigationFailure = failure;
       navigationFailureListener?.(failure);
     };
-    const restoreHost = installMockOpenDesignHost({
+    const restoreHost = installMockRethraDesignHost({
       host: {
         preview: {
           getLatestNavigationFailure: () => latestNavigationFailure,
@@ -9449,8 +9449,8 @@ describe('FileViewer tweaks toolbar', () => {
 
   it('uses an exact active ERR_ABORTED to probe an unverified generation once', () => {
     vi.useFakeTimers();
-    let navigationFailureListener: OpenDesignHostPreviewNavigationFailureListener | null = null;
-    const restoreHost = installMockOpenDesignHost({
+    let navigationFailureListener: RethraDesignHostPreviewNavigationFailureListener | null = null;
+    const restoreHost = installMockRethraDesignHost({
       host: {
         preview: {
           subscribeNavigationFailure: (listener) => {
@@ -9496,10 +9496,10 @@ describe('FileViewer tweaks toolbar', () => {
     }
   });
 
-  it('immediately recovers an exact active Open Design blob navigation abort', () => {
+  it('immediately recovers an exact active Rethra Design blob navigation abort', () => {
     vi.useFakeTimers();
-    let navigationFailureListener: OpenDesignHostPreviewNavigationFailureListener | null = null;
-    const restoreHost = installMockOpenDesignHost({
+    let navigationFailureListener: RethraDesignHostPreviewNavigationFailureListener | null = null;
+    const restoreHost = installMockRethraDesignHost({
       host: {
         preview: {
           subscribeNavigationFailure: (listener) => {
@@ -9545,8 +9545,8 @@ describe('FileViewer tweaks toolbar', () => {
 
   it('probes the active unverified frame when Electron loses the aborted frame name', () => {
     vi.useFakeTimers();
-    let navigationFailureListener: OpenDesignHostPreviewNavigationFailureListener | null = null;
-    const restoreHost = installMockOpenDesignHost({
+    let navigationFailureListener: RethraDesignHostPreviewNavigationFailureListener | null = null;
+    const restoreHost = installMockRethraDesignHost({
       host: {
         preview: {
           subscribeNavigationFailure: (listener) => {
@@ -9595,8 +9595,8 @@ describe('FileViewer tweaks toolbar', () => {
 
   it('keeps live edit styles on the replacement frame and replays them when its bridge becomes ready', async () => {
     vi.useFakeTimers();
-    let navigationFailureListener: OpenDesignHostPreviewNavigationFailureListener | null = null;
-    const restoreHost = installMockOpenDesignHost({
+    let navigationFailureListener: RethraDesignHostPreviewNavigationFailureListener | null = null;
+    const restoreHost = installMockRethraDesignHost({
       host: {
         preview: {
           subscribeNavigationFailure: (listener) => {
@@ -13613,7 +13613,7 @@ describe('applyInspectOverridesToSource', () => {
     expect(next.indexOf('<style data-od-inspect-overrides>')).toBeLessThan(next.indexOf('<main'));
   });
 
-  // Regression for nexu-io/open-design#362: if a source file has more than
+  // Regression for nexu-io/rethra-design#362: if a source file has more than
   // one inspect override block (manual edit, or an earlier buggy save), the
   // splicer must drop them all before inserting the new block. A non-global
   // regex would only strip the first, so save-then-reload could resurrect an
@@ -13634,7 +13634,7 @@ describe('applyInspectOverridesToSource', () => {
     expect(cleared).not.toContain('data-od-inspect-overrides');
   });
 
-  // Regression for nexu-io/open-design#362: the splicer must be HTML-aware
+  // Regression for nexu-io/rethra-design#362: the splicer must be HTML-aware
   // when locating its own override block and the head insertion point.
   // Generated artifacts commonly carry inline scripts/styles that mention
   // `</head>` or `<style data-od-inspect-overrides>` as text, e.g. a
@@ -13700,7 +13700,7 @@ describe('applyInspectOverridesToSource', () => {
     expect(allMatches).toHaveLength(1);
   });
 
-  // Regression for nexu-io/open-design#362: the splicer must look at real
+  // Regression for nexu-io/rethra-design#362: the splicer must look at real
   // attribute names, not just substring-match the marker text against the
   // whole opening tag. A `\bdata-od-inspect-overrides\b` regex over the
   // full tag matches both a longer attribute name (`-note` suffix) and the
@@ -13810,7 +13810,7 @@ describe('serializeInspectOverrides', () => {
     expect(out).not.toContain('[data-od-id="hero"]');
   });
 
-  // Regression for nexu-io/open-design#362: standard deck slides ship as
+  // Regression for nexu-io/rethra-design#362: standard deck slides ship as
   // `<section data-screen-label="01 Cover">`. The bridge keys overrides by
   // the raw label and posts a CSS.escape'd selector, so the host must
   // accept whitespace/leading-digit ids and detect the selector kind by
@@ -13907,7 +13907,7 @@ describe('serializeInspectOverrides', () => {
   });
 });
 
-// Regression for nexu-io/open-design#362: the host owns the inspect override
+// Regression for nexu-io/rethra-design#362: the host owns the inspect override
 // map authoritatively. Hydration parses the artifact source on load so an
 // initial Save-to-source preserves prior rules even when the user edits a
 // different element, and forging the iframe's od:inspect-overrides reply
@@ -13980,7 +13980,7 @@ describe('parseInspectOverridesFromSource', () => {
     expect(parseInspectOverridesFromSource(source)).toEqual({});
   });
 
-  // Regression for nexu-io/open-design#362: hydration must require an
+  // Regression for nexu-io/rethra-design#362: hydration must require an
   // actual `data-od-inspect-overrides` attribute name, not a boundary-only
   // substring match against the whole opening tag. Otherwise a sibling
   // attribute name with `-note` suffix or a tooltip whose value contains

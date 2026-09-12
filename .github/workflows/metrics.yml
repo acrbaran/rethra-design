@@ -11,20 +11,20 @@ permissions:
 jobs:
   metrics:
     name: Generate issue and PR activity SVG
-    if: github.repository == 'nexu-io/open-design'
+    if: github.repository == 'nexu-io/rethra-design'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
 
-      - name: Generate OpenDesign bot token
-        id: open-design-bot-token
+      - name: Generate RethraDesign bot token
+        id: rethra-design-bot-token
         uses: actions/create-github-app-token@v3.2.0
         with:
           client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
           owner: nexu-io
-          repositories: open-design
+          repositories: rethra-design
           permission-administration: read
           permission-contents: read
           permission-issues: read
@@ -38,10 +38,10 @@ jobs:
           # the git history.
           filename: github-metrics.svg
 
-          # Auth: use the OpenDesign GitHub App for follow-up metrics
+          # Auth: use the RethraDesign GitHub App for follow-up metrics
           # that need private repository API access, but do not grant write
           # permissions because this workflow publishes to R2 instead of git.
-          token: ${{ steps.open-design-bot-token.outputs.token }}
+          token: ${{ steps.rethra-design-bot-token.outputs.token }}
           output_action: none
 
           # Use the repository template (per-repo metrics, not user metrics).
@@ -50,7 +50,7 @@ jobs:
           template: repository
           base: ''
           user: nexu-io
-          repo: open-design
+          repo: rethra-design
 
           # Keep this README image focused on the maintenance signal that is not
           # covered elsewhere: issue and PR follow-up status. Contributors and

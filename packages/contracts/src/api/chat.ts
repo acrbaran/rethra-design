@@ -194,7 +194,7 @@ export interface ChatRequest {
   context?: RunContextSelection;
   appliedPluginSnapshotId?: string | null;
   /**
-   * Run-scoped media execution policy. Omitted means current OpenDesign
+   * Run-scoped media execution policy. Omitted means current RethraDesign
    * behavior: media generation is enabled and OD may execute its configured
    * local providers.
    */
@@ -611,7 +611,7 @@ export interface ChatRunDiagnosticValue<T> {
   state: ChatRunDiagnosticState;
   value?: T;
   evidence?: ChatRunDiagnosticEvidence;
-  source: 'open-design-daemon' | 'agent-runtime' | 'model-provider';
+  source: 'rethra-design-daemon' | 'agent-runtime' | 'model-provider';
   complete?: boolean;
   definition?: string;
   missingReason?: string;
@@ -625,8 +625,8 @@ export interface ChatRunDiagnosticValue<T> {
 export interface ChatRunExecutionDiagnostics {
   schemaVersion: 1;
   collectorVersion:
-    | 'open-design-execution-diagnostics-v1'
-    | 'open-design-execution-diagnostics-v2';
+    | 'rethra-design-execution-diagnostics-v1'
+    | 'rethra-design-execution-diagnostics-v2';
   collectedAt: number;
   eventStreamCompleteness: 'complete' | 'partial';
   timing: {

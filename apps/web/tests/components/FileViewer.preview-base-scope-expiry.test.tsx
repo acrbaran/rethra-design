@@ -27,7 +27,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   CollabProvider,
   type CollabContextValue,

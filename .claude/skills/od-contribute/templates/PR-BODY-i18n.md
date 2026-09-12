@@ -21,7 +21,7 @@
 
 ```bash
 # Render preview locally
-cd open-design
+cd rethra-design
 # (or just open the .md file in any Markdown viewer)
 ```
 

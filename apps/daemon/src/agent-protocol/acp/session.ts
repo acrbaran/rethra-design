@@ -7,7 +7,7 @@
  * connectionTest.ts and server.ts (via the acp/ barrel).
  */
 import path from 'node:path';
-import type { ExecutionProfile } from '@open-design/contracts';
+import type { ExecutionProfile } from '@rethra-design/contracts';
 import {
   createDsmlArtifactTextSuppressor,
   createToolCallTextSuppressor,
@@ -194,7 +194,7 @@ export function attachAcpSession({
   envFormat = 'array',
   stdioMcpRemovedInVersion,
   send,
-  clientName = 'open-design',
+  clientName = 'rethra-design',
   clientVersion = 'runtime-adapter',
   stageTimeoutMs = DEFAULT_STAGE_TIMEOUT_MS,
   executionProfile = 'filesystem',
@@ -945,7 +945,7 @@ export function attachAcpSession({
       // Fall back to the direct-child timer below.
     }
     // Some ACP agents keep the child process alive after stdin closes,
-    // waiting for another prompt. Each OpenDesign run owns one process per
+    // waiting for another prompt. Each RethraDesign run owns one process per
     // turn, so close it once this prompt is cleanly complete.
     if (!terminalOwnedByCaller) {
       const cleanExitTimer = setTimeout(() => {

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 //
-// Acceptance: the Settings → 本机 CLI → OpenDesign card must not offer 「升级」
+// Acceptance: the Settings → 本机 CLI → RethraDesign card must not offer 「升级」
 // to a workspace that is already on the TOP plan tier there is.
 //
 // Product ruling (owner, from a real packaged client on Team Max):
@@ -17,7 +17,7 @@
 // the workspace-resolved tier. Both must read the SAME resolved tier.
 
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import type { WorkspaceCollabContext } from '@open-design/contracts';
+import type { WorkspaceCollabContext } from '@rethra-design/contracts';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SettingsDialog } from '../../src/components/SettingsDialog';

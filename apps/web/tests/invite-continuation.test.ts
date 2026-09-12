@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type {
   WorkspaceCollabContext,
   WorkspaceInviteAcceptResponse,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   clearPendingInviteContinuation,
   deriveWorkspaceActivation,
@@ -64,9 +64,9 @@ function acceptResponse(overrides: Partial<WorkspaceInviteAcceptResponse> = {}):
     continuation: {
       nonce: 'nonce-abc',
       deeplinkUrl:
-        'opendesign://workspace/invite/continue?workspace_id=ws-1&member_id=mem-7&invite_id=inv-42&nonce=nonce-abc',
+        'rethradesign://workspace/invite/continue?workspace_id=ws-1&member_id=mem-7&invite_id=inv-42&nonce=nonce-abc',
       expiresAt: 10_000,
-      fallbackDownloadUrl: 'https://open-design.example/download',
+      fallbackDownloadUrl: 'https://rethra-design.example/download',
     },
     currentWorkspaceContext: context(),
     ...overrides,
@@ -113,9 +113,9 @@ describe('pending continuation storage', () => {
         inviteId: 'inv-99',
         continuation: {
           nonce: 'nonce-xyz',
-          deeplinkUrl: 'opendesign://workspace/invite/continue?workspace_id=ws-1&member_id=mem-7&invite_id=inv-99&nonce=nonce-xyz',
+          deeplinkUrl: 'rethradesign://workspace/invite/continue?workspace_id=ws-1&member_id=mem-7&invite_id=inv-99&nonce=nonce-xyz',
           expiresAt: 20_000,
-          fallbackDownloadUrl: 'https://open-design.example/download',
+          fallbackDownloadUrl: 'https://rethra-design.example/download',
         },
       }),
     );

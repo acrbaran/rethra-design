@@ -13,7 +13,7 @@ import { useT } from '../i18n';
 import type {
   GenUISurfaceSpec,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { workspaceResourceUrl } from '../collab/workspace-identity';
 
 export interface PendingSurface {

@@ -1,6 +1,6 @@
 # Azure Container Instances
 
-This guide deploys the Docker image to Azure Container Instances (ACI) with persistent OpenDesign data. Before choosing or documenting any daemon data mount, read root `AGENTS.md` → **Daemon data directory contract**. That section is mandatory and must not be restated here.
+This guide deploys the Docker image to Azure Container Instances (ACI) with persistent Rethra Design data. Before choosing or documenting any daemon data mount, read root `AGENTS.md` → **Daemon data directory contract**. That section is mandatory and must not be restated here.
 
 ACI is the daemon upstream in this topology. The browser-facing app URL must be served by an authenticated TLS reverse proxy that forwards traffic to ACI, injects the daemon bearer token on `/api/*` requests, and sends a browser origin listed in `OD_ALLOWED_ORIGINS`.
 
@@ -13,10 +13,10 @@ ACI is the daemon upstream in this topology. The browser-facing app URL must be 
 ## Step 1: Choose Names
 
 ```bash
-export RESOURCE_GROUP=open-design-aci
+export RESOURCE_GROUP=rethra-design-aci
 export LOCATION=eastus
-export DEPLOYMENT_NAME=open-design-aci
-export DNS_LABEL=open-design-$RANDOM
+export DEPLOYMENT_NAME=rethra-design-aci
+export DNS_LABEL=rethra-design-$RANDOM
 export BROWSER_ORIGIN=https://od.example.com
 export OD_API_TOKEN="$(openssl rand -hex 32)"
 ```
@@ -75,7 +75,7 @@ Do not open this URL directly in a browser. The daemon requires `Authorization: 
 Serve `BROWSER_ORIGIN` from a TLS reverse proxy that authenticates users before forwarding traffic to the ACI upstream. The proxy must add the daemon token to API requests:
 
 ```nginx
-upstream open_design_aci {
+upstream rethra_design_aci {
   server <aci-fqdn>:7456;
 }
 
@@ -96,13 +96,13 @@ server {
     proxy_read_timeout 1h;
     proxy_send_timeout 1h;
     gzip off;
-    proxy_pass http://open_design_aci;
+    proxy_pass http://rethra_design_aci;
   }
 
   location / {
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_pass http://open_design_aci;
+    proxy_pass http://rethra_design_aci;
   }
 }
 ```
@@ -136,7 +136,7 @@ Before running it:
 
 - Create an Azure Resource Manager service connection.
 - Set `OD_API_TOKEN` as a secret pipeline variable.
-- Update `resourceGroupName`, `location`, `openDesignImage`, and `browserOrigin`.
+- Update `resourceGroupName`, `location`, `rethraDesignImage`, and `browserOrigin`.
 - Replace `<your-azure-service-connection>` with your service connection name.
 
 ## Operations
@@ -146,7 +146,7 @@ View logs:
 ```bash
 az container logs \
   --resource-group "$RESOURCE_GROUP" \
-  --name open-design
+  --name rethra-design
 ```
 
 Restart the container group:
@@ -154,7 +154,7 @@ Restart the container group:
 ```bash
 az container restart \
   --resource-group "$RESOURCE_GROUP" \
-  --name open-design
+  --name rethra-design
 ```
 
 Delete all Azure resources created by this guide:

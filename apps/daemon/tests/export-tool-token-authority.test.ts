@@ -14,7 +14,7 @@ import type {
   DesktopExportArtifactResult,
   DesktopRenderSlidesInput,
   DesktopRenderSlidesResult,
-} from '@open-design/sidecar-proto';
+} from '@rethra-design/sidecar-proto';
 import {
   closeDatabase,
   ensureWorkspaceProject,

@@ -3,7 +3,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
-import { parseLauncherAfterQuitArgs, parseLauncherDelegatedArgs } from "@open-design/launcher-proto";
+import { parseLauncherAfterQuitArgs, parseLauncherDelegatedArgs } from "@rethra-design/launcher-proto";
 import { describe, expect, it, vi } from "vitest";
 
 import type { PackagedLauncherRuntime } from "../src/launcher-runtime.js";
@@ -16,10 +16,10 @@ import {
 function fakeRuntime(payloadDesktopProcess: boolean): PackagedLauncherRuntime {
   return {
     config: {} as PackagedLauncherRuntime["config"],
-    desktopExecutablePath: "/tmp/payload/Open Design Beta.app/Contents/MacOS/Open Design Beta",
+    desktopExecutablePath: "/tmp/payload/Rethra Design Beta.app/Contents/MacOS/Rethra Design Beta",
     descriptor: {} as PackagedLauncherRuntime["descriptor"],
     electronNodeCommand: null,
-    installedLaunchPath: "/Applications/Open Design Beta.app",
+    installedLaunchPath: "/Applications/Rethra Design Beta.app",
     launcherPaths: {} as PackagedLauncherRuntime["launcherPaths"],
     paths: { dataRoot: "/tmp/data", runtimeRoot: "/tmp/runtime" } as PackagedLauncherRuntime["paths"],
     payloadDesktopProcess,
@@ -64,12 +64,12 @@ describe("payload desktop delegation", () => {
   });
 
   it("forwards only the OS invite URL across an outer-to-payload cold start", () => {
-    const deeplink = "opendesign://workspace/invite/continue?nonce=payload-cold-start";
-    expect(findPackagedDeeplinkArg(["Open Design.exe", "--unrelated", deeplink])).toBe(deeplink);
-    expect(findPackagedDeeplinkArg(["Open Design.exe", "--unrelated"])).toBeNull();
+    const deeplink = "rethradesign://workspace/invite/continue?nonce=payload-cold-start";
+    expect(findPackagedDeeplinkArg(["Rethra Design.exe", "--unrelated", deeplink])).toBe(deeplink);
+    expect(findPackagedDeeplinkArg(["Rethra Design.exe", "--unrelated"])).toBeNull();
     const plan = planPackagedPayloadDesktopDelegation(fakeRuntime(false), {
       currentPid: 4321,
-      forwardedArgs: ["Open Design.exe", "--unrelated", deeplink],
+      forwardedArgs: ["Rethra Design.exe", "--unrelated", deeplink],
       timeoutMs: 60_000,
     });
 

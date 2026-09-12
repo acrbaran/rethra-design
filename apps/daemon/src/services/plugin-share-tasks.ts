@@ -1,6 +1,6 @@
 import type { randomUUID } from 'node:crypto';
 
-export type PluginShareAction = 'publish-github' | 'contribute-open-design';
+export type PluginShareAction = 'publish-github' | 'contribute-rethra-design';
 
 export interface PluginShareTask {
   id: string;
@@ -74,11 +74,11 @@ function pluginShareActionToCli(action: PluginShareAction) {
     };
   }
   return {
-    argv: ['plugin', 'open-design-pr'],
-    title: 'OpenDesign PR',
-    command: 'od plugin open-design-pr',
-    successMessage: 'Opened OpenDesign PR flow.',
-    failureCode: 'open-design-pr-failed',
+    argv: ['plugin', 'rethra-design-pr'],
+    title: 'RethraDesign PR',
+    command: 'od plugin rethra-design-pr',
+    successMessage: 'Opened RethraDesign PR flow.',
+    failureCode: 'rethra-design-pr-failed',
   };
 }
 
@@ -92,7 +92,7 @@ function pluginShareProgressPlan(action: PluginShareAction) {
     ];
   }
   return [
-    'Ensure the OpenDesign fork exists',
+    'Ensure the RethraDesign fork exists',
     'Clone the fork and prepare a branch',
     'Copy the plugin into plugins/community',
     'Push the branch and open the PR form',
@@ -194,7 +194,7 @@ export function createPluginShareTaskStore(deps: CreatePluginShareTaskStoreDeps)
     task.status = 'done';
     task.result = {
       message: url
-        ? (action === 'publish-github' ? `Published plugin to ${url}.` : `Opened OpenDesign PR flow at ${url}.`)
+        ? (action === 'publish-github' ? `Published plugin to ${url}.` : `Opened RethraDesign PR flow at ${url}.`)
         : share.successMessage,
       ...(url ? { url } : {}),
       log: stepLog,

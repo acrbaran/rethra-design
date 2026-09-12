@@ -4,12 +4,12 @@ import {
   SIDECAR_MODES,
   SIDECAR_SOURCES,
   type SidecarSource,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 import {
   parseLauncherAfterQuitArgs,
   parseLauncherDelegatedArgs,
   parseLauncherHandoffResumeArgs,
-} from "@open-design/launcher-proto";
+} from "@rethra-design/launcher-proto";
 import {
   bootstrapSidecarProcess,
   isCurrentSidecarLauncher,
@@ -20,7 +20,7 @@ import {
   type SidecarClient,
   type SidecarRuntimeContext,
   type SidecarStamp,
-} from "@open-design/sidecar";
+} from "@rethra-design/sidecar";
 import {
   recordIncomingUpdateLifecycle,
   applyLoopbackConnectionLimitSwitch,
@@ -28,8 +28,8 @@ import {
   createSplashWindow,
   setSplashStage,
   type DesktopMainHandle,
-} from "@open-design/desktop/main";
-import { releaseChannelFromNamespace, releaseChannelFromVersion } from "@open-design/release";
+} from "@rethra-design/desktop/main";
+import { releaseChannelFromNamespace, releaseChannelFromVersion } from "@rethra-design/release";
 import { join } from "node:path";
 import { app, dialog } from "electron";
 
@@ -175,7 +175,7 @@ async function main(): Promise<void> {
     });
     if (existingOwner != null) {
       throw new Error(
-        `Cannot install MCP while the existing ${existingOwner.stamp.mode} desktop runtime has no healthy daemon. Quit Open Design and retry.`,
+        `Cannot install MCP while the existing ${existingOwner.stamp.mode} desktop runtime has no healthy daemon. Quit Rethra Design and retry.`,
       );
     }
   }
@@ -376,7 +376,7 @@ async function main(): Promise<void> {
   // lack of a target should surface as the protocol layer's structured 503.
   registerOdProtocol(() => sidecars.currentWebUrl());
 
-  const { runDesktopMain } = await import("@open-design/desktop/main");
+  const { runDesktopMain } = await import("@rethra-design/desktop/main");
   let desktopHandle: DesktopMainHandle | null = null;
   const invokeDesktop = async (action: string, input: unknown) => {
     if (desktopHandle == null) throw new Error("packaged desktop sidecar is not running");

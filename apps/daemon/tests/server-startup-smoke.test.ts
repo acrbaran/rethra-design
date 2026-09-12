@@ -513,7 +513,7 @@ describe('daemon startup route smoke', () => {
 
       const failedPackage = await fetchResultPackage(started.url, failedRun.id);
       expect(failedPackage).toMatchObject({
-        schema: 'open-design.run-result-package.v1',
+        schema: 'rethra-design.run-result-package.v1',
         run: {
           id: failedRun.id,
           status: 'failed',
@@ -544,7 +544,7 @@ describe('daemon startup route smoke', () => {
 
       const canceledPackage = await fetchResultPackage(started.url, canceledRunId);
       expect(canceledPackage).toMatchObject({
-        schema: 'open-design.run-result-package.v1',
+        schema: 'rethra-design.run-result-package.v1',
         run: {
           id: canceledRunId,
           status: 'canceled',

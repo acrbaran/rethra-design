@@ -1,6 +1,6 @@
-# 发布 OpenDesign 插件
+# 发布 Rethra Design 插件
 
-OpenDesign registry v1 复用 GitHub 作为后端。CLI 是 canonical workflow；
+Rethra Design registry v1 复用 GitHub 作为后端。CLI 是 canonical workflow；
 产品 UI 和 agent 创建流程只是包装这些命令。
 
 ## 1. 创建
@@ -9,7 +9,7 @@ OpenDesign registry v1 复用 GitHub 作为后端。CLI 是 canonical workflow�
 od plugin scaffold --id vendor/plugin-name --title "Plugin name" --out ./plugins/community
 ```
 
-公开 registry ID 必须是 `vendor/plugin-name`。生成的 `open-design.json`
+公开 registry ID 必须是 `vendor/plugin-name`。生成的 `rethra-design.json`
 需要包含 `plugin.repo`，指向插件的源码仓库或源码子目录。
 
 ## 2. 校验和打包
@@ -20,7 +20,7 @@ od plugin pack ./plugins/community/plugin-name --out ./dist
 ```
 
 registry 接受任何能通过 validate 和 pack 的插件。源码仓库不需要特殊结构，
-只需要 `SKILL.md` 和 `open-design.json`。
+只需要 `SKILL.md` 和 `rethra-design.json`。
 
 ## 3. 登录
 
@@ -29,18 +29,18 @@ od plugin login
 od plugin whoami --json
 ```
 
-这两个命令包装 GitHub CLI。token 留在 `gh`，OpenDesign 不保存 GitHub
+这两个命令包装 GitHub CLI。token 留在 `gh`，Rethra Design 不保存 GitHub
 凭据。
 
 ## 4. 发布
 
 ```bash
-od plugin publish vendor/plugin-name --to open-design --repo https://github.com/vendor/plugin-name
+od plugin publish vendor/plugin-name --to rethra-design --repo https://github.com/vendor/plugin-name
 ```
 
 v1 会打开 GitHub registry review flow。发布 payload 包含插件 ID、版本、
 源码仓库、能力摘要、包 digest 和 registry entry path。合并之后，CI 重新生成
-`open-design-marketplace.json`。
+`rethra-design-marketplace.json`。
 
 ## 5. 从 registry 安装
 

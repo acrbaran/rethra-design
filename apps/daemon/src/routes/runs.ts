@@ -17,7 +17,7 @@ import {
   type StrategyTaskProjectionV2,
   type ProjectMetadata as ContractProjectMetadata,
   type RunResultPackageResponse,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   buildRunCreatedV4Aliases,
   buildRunFinishedV4Aliases,
@@ -30,8 +30,8 @@ import {
   type TrackingDesignSystemEditSurface,
   type RunTaskLineageProps,
   type TrackingRunRecoveryActionType,
-} from '@open-design/contracts/analytics';
-import type { OdNativeEvent } from '@open-design/agui-adapter';
+} from '@rethra-design/contracts/analytics';
+import type { OdNativeEvent } from '@rethra-design/agui-adapter';
 import { newInsertId, readAnalyticsContext } from '../analytics.js';
 import type { AnalyticsContext } from '../analytics.js';
 import { spawnEnvForAgent } from '../agents.js';
@@ -75,7 +75,7 @@ import { parseMediaExecutionPolicyInput } from '../media/policy.js';
 import { isManagedProjectCwd } from '../mcp-config.js';
 import {
   normalizeExternalPluginRunAnalyticsHints,
-  OPEN_DESIGN_PLUGIN_ID,
+  RETHRA_DESIGN_PLUGIN_ID,
   resolvePluginGenerationSloWindowMs,
   validatePluginWorkflowId,
 } from '../mcp-observability.js';
@@ -868,8 +868,8 @@ function externalPluginAttributionMismatch(
       ? (incoming as Record<string, unknown>)
       : null;
   const existingIsPlugin =
-    existing?.externalPluginId === OPEN_DESIGN_PLUGIN_ID;
-  const nextIsPlugin = next?.externalPluginId === OPEN_DESIGN_PLUGIN_ID;
+    existing?.externalPluginId === RETHRA_DESIGN_PLUGIN_ID;
+  const nextIsPlugin = next?.externalPluginId === RETHRA_DESIGN_PLUGIN_ID;
   if (!existingIsPlugin && !nextIsPlugin) return false;
   if (!existingIsPlugin || !nextIsPlugin) return true;
   return EXTERNAL_PLUGIN_ANALYTICS_KEYS.some(
@@ -2979,7 +2979,7 @@ export function registerRunRoutes(app: Express, ctx: RegisterRunRoutesDeps) {
         res,
         409,
         'RUN_NOT_RECHARGE_RESUMABLE',
-        'Only a failed OpenDesign Cloud run waiting for recharge can be resumed with the same request',
+        'Only a failed RethraDesign Cloud run waiting for recharge can be resumed with the same request',
       );
     }
     if (preparedRun.kind === 'assistant_claim_conflict') {
@@ -3174,7 +3174,7 @@ export function registerRunRoutes(app: Express, ctx: RegisterRunRoutesDeps) {
     const analytics =
       run?.externalPluginAnalytics
       && run.externalPluginAnalytics.externalPluginId
-        === OPEN_DESIGN_PLUGIN_ID
+        === RETHRA_DESIGN_PLUGIN_ID
         ? run.externalPluginAnalytics
         : null;
     if (!run || !analytics) {
@@ -3371,7 +3371,7 @@ export function registerRunRoutes(app: Express, ctx: RegisterRunRoutesDeps) {
       run,
       { mode: 'read', allowNavigationQuery: true },
     )) return;
-    const { encodeOdEventForAgui } = await import('@open-design/agui-adapter');
+    const { encodeOdEventForAgui } = await import('@rethra-design/agui-adapter');
     const sse = createSseResponse(res);
     const lastEventId = Number(req.get('Last-Event-ID') || req.query.after || 0);
     const emitMapped = (record: RunEventRecord) => {
@@ -3870,7 +3870,7 @@ export function registerRunRoutes(app: Express, ctx: RegisterRunRoutesDeps) {
         res,
         409,
         'RUN_NOT_RECHARGE_RESUMABLE',
-        'Only a failed Open Design Cloud run waiting for recharge can be resumed with the same request',
+        'Only a failed Rethra Design Cloud run waiting for recharge can be resumed with the same request',
       );
     }
     if (clarificationContinuation) {

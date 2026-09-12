@@ -1,9 +1,9 @@
 ---
-title: Open Design 0.22.2 — 更可靠的更新重启
+title: Rethra Design 0.22.2 — 更可靠的更新重启
 description: 改善 macOS 和 Windows 桌面端的更新重启，后台任务退出较慢时也能保持准确的等待提示。
 ---
 
-Open Design 0.22.2 专注于改善 macOS 和 Windows 桌面端的更新可靠性。
+Rethra Design 0.22.2 专注于改善 macOS 和 Windows 桌面端的更新可靠性。
 
 ## 🐛 修复
 
@@ -14,7 +14,7 @@ Open Design 0.22.2 专注于改善 macOS 和 Windows 桌面端的更新可靠性
 
 首次升级至 0.22.2 时，退出界面和行为仍由旧版本执行。如果出现退出错误提示后应用又成功重启，新版本仍可能已经安装完成。已经陷入重启循环的客户端可能需要联系客服处理，本补丁不会自动救援这类安装。
 
-> 📥 **下载：** [Open Design 下载页面](https://open-design.ai/download/)。
+> 📥 **下载：** [Rethra Design 下载页面](https://rethra-design.invalid/download/)。
 
 ## 🙏 感谢参与 0.22.2 的贡献者
 

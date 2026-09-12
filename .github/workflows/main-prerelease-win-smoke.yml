@@ -22,18 +22,18 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  OPEN_DESIGN_AMR_PROFILE: prod
+  RETHRA_DESIGN_AMR_PROFILE: prod
   OD_VELA_WEB_URL: ${{ secrets.VELA_WEB_URL_PROD }}
   OD_VELA_WEB_URL_FEATURE_TEST: ${{ secrets.VELA_WEB_URL_FEATURE_TEST }}
   OD_VELA_WEB_URL_TEST: ${{ secrets.VELA_WEB_URL_TEST }}
   OD_VELA_WEB_URL_PROD: ${{ secrets.VELA_WEB_URL_PROD }}
-  OPEN_DESIGN_TELEMETRY_RELAY_URL: ${{ vars.OPEN_DESIGN_TELEMETRY_RELAY_URL }}
+  RETHRA_DESIGN_TELEMETRY_RELAY_URL: ${{ vars.RETHRA_DESIGN_TELEMETRY_RELAY_URL }}
   POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
   POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
 
 jobs:
   smoke:
-    if: github.repository == 'nexu-io/open-design'
+    if: github.repository == 'nexu-io/rethra-design'
     runs-on: windows-latest
     outputs:
       commit: ${{ steps.commit.outputs.commit }}
@@ -213,7 +213,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-main-prerelease-win-canary-report
+          name: rethra-design-main-prerelease-win-canary-report
           path: ${{ runner.temp }}\release-report\win_x64
           if-no-files-found: warn
           retention-days: 14

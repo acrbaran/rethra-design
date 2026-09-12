@@ -13,7 +13,7 @@ import {
   type ReactNode,
 } from "react";
 import { createPortal } from 'react-dom';
-import { Button } from '@open-design/components';
+import { Button } from '@rethra-design/components';
 import { ThinkingOrb } from './composer/ThinkingOrb';
 import { useI18n } from '../i18n';
 import { localizePluginDescription, localizePluginTitle } from './plugins-home/localization';
@@ -35,7 +35,7 @@ import {
 import type {
   ComposerBarClickProps,
   DesignToolboxClickProps,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import { deriveUploadCohort } from '../analytics/upload-tracking';
 import { notifyCompletionFeedbackGesture } from '../utils/notifications';
 import { projectRawUrl, uploadProjectFiles, openFolderDialog, fetchRecentLinkedDirs, pushRecentLinkedDir, dirExists, applyLibraryAsset, fetchLibraryAssetElementHtml } from "../providers/registry";
@@ -48,7 +48,7 @@ import { fetchMcpServers } from "../state/mcp";
 import type { McpServerConfig, McpTemplate } from "../state/mcp";
 import { listPlugins } from "../state/projects";
 import type { AppConfig, ChatAttachment, ChatCommentAttachment, Project, ProjectFile, ProjectMetadata, SkillSummary } from "../types";
-import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@open-design/contracts';
+import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@rethra-design/contracts';
 import type {
   ContextItem,
   AppliedPluginSnapshot,
@@ -61,7 +61,7 @@ import type {
   RunContextSelection,
   WorkspaceCollabContext,
   WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { buildVisualAnnotationAttachment, commentTargetDisplayName } from '../comments';
 import { Icon, type IconName } from "./Icon";
 import { ChatCloseIcon, ChatFileIcon, ChatSendArrowIcon } from "./chat/primitives/icons";
@@ -74,7 +74,7 @@ import {
   type ProjectReferenceSelection,
 } from './ProjectReferenceModal';
 import { assetTitle, elementMetaOf } from './LibraryAssetMeta';
-import type { LibraryAsset, LibraryElementMeta } from '@open-design/contracts';
+import type { LibraryAsset, LibraryElementMeta } from '@rethra-design/contracts';
 import {
   DESIGN_TOOLBOX_ACTIONS,
   designToolboxActionBadge,
@@ -133,7 +133,7 @@ import {
  * design browser's hover "添加到对话" capture, which writes the PNG via
  * writeProjectBase64File before notifying the composer.
  */
-export const STAGE_ATTACHMENT_EVENT = 'opendesign:stage-attachment';
+export const STAGE_ATTACHMENT_EVENT = 'rethradesign:stage-attachment';
 export interface StageAttachmentEventDetail {
   attachments: ChatAttachment[];
 }
@@ -480,7 +480,7 @@ export interface ChatComposerHandle {
   /** Open the standalone toolbox popover (the 设计百宝箱 quick pill above the
    *  composer input; the "+" menu no longer carries a toolbox row). `opener` is
    *  the control focus returns to when the popover is dismissed. */
-  openDesignToolbox: (opener?: HTMLElement | null) => void;
+  rethraDesignToolbox: (opener?: HTMLElement | null) => void;
   /** Open the standalone plugins popover (the 插件 quick pill above the
    *  composer input; the "+" menu no longer carries a plugins row). `opener` is
    *  the control focus returns to when the popover is dismissed. */
@@ -694,7 +694,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
     const [stagedSkills, setStagedSkills] = useState<SkillSummary[]>([]);
     // Legacy standalone design-toolbox popover. The next-step card now renders
     // its own cascading skill menu, so nothing opens this anymore; kept compiling
-    // behind `openDesignToolbox` until the panel subsystem is removed wholesale.
+    // behind `rethraDesignToolbox` until the panel subsystem is removed wholesale.
     const [designToolboxOpen, setDesignToolboxOpen] = useState(false);
     const [pluginsPanelOpen, setPluginsPanelOpen] = useState(false);
     // Shared close timer for the two legacy standalone popovers (插件 /
@@ -1491,7 +1491,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
           pendingEntryFromRef.current = 'next_step';
           applyDesignToolboxSkillByIdRef.current(skillId);
         },
-        openDesignToolbox: (opener?: HTMLElement | null) => {
+        rethraDesignToolbox: (opener?: HTMLElement | null) => {
           cancelComposerPanelClose();
           setComposerEngaged(true);
           panelOpenerRef.current = resolveStandalonePanelOpener(opener);
@@ -3298,7 +3298,7 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
       onRemoveExternalPendingUpload?.(pendingId);
     };
 
-    const openDesignSystemPicker = () => {
+    const rethraDesignSystemPicker = () => {
       const trigger = composerRootRef.current?.querySelector<HTMLButtonElement>(
         '[data-testid="project-ds-picker-trigger"]',
       );
@@ -3793,9 +3793,9 @@ export const ChatComposer = forwardRef<ChatComposerHandle, Props>(
                 });
                 setFigmaHelpOpen(true);
               }}
-              onOpenDesignSystems={projectId && designSystemPicker ? () => {
+              onRethraDesignSystems={projectId && designSystemPicker ? () => {
                 trackComposerBar({ element: 'design_system_open' });
-                openDesignSystemPicker();
+                rethraDesignSystemPicker();
               } : undefined}
               // 插件 and 设计百宝箱 live inside the "+" menu (right below
               // 工作目录) as hover-expand submenus. The toolbox flyout reuses

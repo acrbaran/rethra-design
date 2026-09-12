@@ -3,7 +3,7 @@ import fs, { mkdtempSync, rmSync, writeFileSync, mkdirSync, readFileSync, exists
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { Brand } from '@open-design/contracts';
+import type { Brand } from '@rethra-design/contracts';
 
 import {
   closeDatabase,
@@ -211,7 +211,7 @@ describe('agent-driven brand extraction engine', () => {
   it('adopts the brand canvas for the default theme when the brand is explicitly dark-first', () => {
     const darkCanvasBrand: Brand = {
       ...VALID_BRAND,
-      name: 'OpenDesign',
+      name: 'RethraDesign',
       colors: [
         { role: 'background', hex: '#050505', oklch: 'oklch(14% 0 0)', name: 'Black', usage: 'source hero background' },
         { role: 'surface', hex: '#0a0a0a', oklch: 'oklch(17% 0 0)', name: 'Panel', usage: 'source cards' },
@@ -242,7 +242,7 @@ describe('agent-driven brand extraction engine', () => {
   it('still falls back to the light default theme when brand neutrals are ambiguous', () => {
     const midGrayBrand: Brand = {
       ...VALID_BRAND,
-      name: 'OpenDesign',
+      name: 'RethraDesign',
       colors: [
         { role: 'background', hex: '#808080', oklch: 'oklch(60% 0 0)', name: 'Gray', usage: 'source background' },
         { role: 'foreground', hex: '#f4f4f4', oklch: 'oklch(96% 0 0)', name: 'White', usage: 'source text' },
@@ -346,11 +346,11 @@ describe('agent-driven brand extraction engine', () => {
 
   it('prefers source-backed human brand tokens over script/debug color noise', () => {
     const brand = brandFromMaterial({
-      url: 'https://open-design.ai/',
-      finalUrl: 'https://open-design.ai/',
-      siteName: 'OpenDesign',
-      title: 'OpenDesign',
-      description: 'OpenDesign design system.',
+      url: 'https://rethra-design.invalid/',
+      finalUrl: 'https://rethra-design.invalid/',
+      siteName: 'RethraDesign',
+      title: 'RethraDesign',
+      description: 'RethraDesign design system.',
       colors: [
         { hex: '#262626', count: 19, sources: ['css-var:--ink'] },
         { hex: '#15140f', count: 15, sources: ['css-var:--shadow-ink'] },
@@ -366,15 +366,15 @@ describe('agent-driven brand extraction engine', () => {
       googleFontsUrls: [],
       fontFiles: [],
       logos: [],
-      headings: ['OpenDesign The Open-source Claude Design alternative'],
-      paragraphs: ['OpenDesign is a local-first design platform.'],
+      headings: ['RethraDesign The Open-source Claude Design alternative'],
+      paragraphs: ['RethraDesign is a local-first design platform.'],
       navLabels: [],
       extraPages: [],
       screenshot: null,
       thin: false,
       blocked: false,
       materialMd: '',
-    }, 'https://open-design.ai/');
+    }, 'https://rethra-design.invalid/');
 
     expect(brand.colors.find((color) => color.role === 'accent')?.hex).toBe('#63fe13');
     expect(brand.typography.body.family).toBe('Albert Sans');

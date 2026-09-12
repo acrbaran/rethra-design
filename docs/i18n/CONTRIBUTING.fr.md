@@ -1,4 +1,4 @@
-# Contribuer à OpenDesign
+# Contribuer à Rethra Design
 
 Merci d'envisager de contribuer. OD reste volontairement petit : l'essentiel
 de la valeur vit dans des **fichiers** (Skills, Design Systems, morceaux de
@@ -25,7 +25,7 @@ une PR doit atteindre avant d’être mergée.
 | Améliorer la doc, porter une section en Français / Deutsch / 中文, corriger une faute | documentation | `README.md`, `docs/i18n/README.fr.md`, `docs/i18n/README.de.md`, `docs/i18n/README.zh-CN.md`, `docs/`, `QUICKSTART.md` | une PR |
 
 Si vous ne savez pas dans quelle catégorie tombe votre idée, [ouvrez d'abord
-une discussion ou une issue](https://github.com/nexu-io/open-design/issues/new)
+une discussion ou une issue](https://github.com/acrbaran/rethra-design/issues/new)
 et nous vous orienterons vers la bonne surface.
 
 ---
@@ -36,13 +36,13 @@ Le setup complet en une page se trouve dans [`QUICKSTART.fr.md`](QUICKSTART.fr.m
 TL;DR pour contribuer :
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable           # sélectionne la version de pnpm définie par packageManager
 pnpm install
 pnpm tools-dev run web    # boucle daemon + web au premier plan
 pnpm typecheck            # tsc -b --noEmit
-pnpm --filter @open-design/web build  # build du paquet web si nécessaire
+pnpm --filter @rethra-design/web build  # build du paquet web si nécessaire
 ```
 
 Node `~24` et pnpm `10.33.x` sont requis. `nvm` / `fnm` sont optionnels ;
@@ -54,7 +54,7 @@ pour les pièges de configuration les plus courants.
 
 ## Configuration Docker
 
-Exécutez OpenDesign sans installer Node.js ou pnpm localement.
+Exécutez Rethra Design sans installer Node.js ou pnpm localement.
 
 ### Prérequis
 
@@ -64,7 +64,7 @@ Vérifiez que Docker Desktop et Compose v2 sont installés :
 docker compose version
 ```
 
-### Démarrer OpenDesign
+### Démarrer Rethra Design
 
 Depuis la racine du dépôt, préparez le fichier d'environnement :
 
@@ -80,7 +80,7 @@ Dans `.env`, renseignez `OD_API_TOKEN=` avec le token généré, puis démarrez 
 docker compose up -d
 ```
 
-Ouvrez `http://127.0.0.1:7456`. Si le navigateur demande des identifiants, utilisez `open-design` comme nom d'utilisateur et la valeur de `OD_API_TOKEN` comme mot de passe.
+Ouvrez `http://127.0.0.1:7456`. Si le navigateur demande des identifiants, utilisez `rethra-design` comme nom d'utilisateur et la valeur de `OD_API_TOKEN` comme mot de passe.
 
 ### Commandes courantes
 
@@ -104,10 +104,10 @@ docker compose up -d
 Ajustez ces valeurs dans `deploy/.env` en conservant votre `OD_API_TOKEN` :
 
 ```env
-OPEN_DESIGN_PORT=7456
-OPEN_DESIGN_MEM_LIMIT=384m
-OPEN_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
-OPEN_DESIGN_IMAGE=ghcr.io/nexu-io/od:latest
+RETHRA_DESIGN_PORT=7456
+RETHRA_DESIGN_MEM_LIMIT=384m
+RETHRA_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
+RETHRA_DESIGN_IMAGE=ghcr.io/nexu-io/od:latest
 ```
 
 Les projets et la base de données sont persistés dans des volumes Docker. Pour les règles de stockage du daemon, consultez la section **Daemon data directory contract** du fichier [`AGENTS.md`](../../AGENTS.md#daemon-data-directory-contract) à la racine.
@@ -300,7 +300,7 @@ L'allemand utilise le vouvoiement formel `Sie`, car OD s'adresse à des créateu
 
 Les PR de localisation doivent traduire les éléments d'interface, la documentation principale et les métadonnées de galerie destinées uniquement à l'affichage dans `apps/web/src/i18n/content.ts`. Elles ne doivent pas traduire `skills/`, `design-systems/` ni les corps de prompts exécutés par les agents. Ces prompts sont des entrées de workflow ; conserver une langue source commune évite de multiplier leur validation par langue.
 
-Lors de l'ajout ou du renommage d'un skill, d'un système de design ou d'un modèle de prompt, mettez à jour les métadonnées d'affichage allemandes et lancez `pnpm --filter @open-design/web test` : `content.test.ts` détecte les écarts de couverture en allemand. Les erreurs du daemon, les noms de fichiers exportés et les textes d'artefacts générés par les agents restent des limites connues, sauf si une PR les inclut explicitement.
+Lors de l'ajout ou du renommage d'un skill, d'un système de design ou d'un modèle de prompt, mettez à jour les métadonnées d'affichage allemandes et lancez `pnpm --filter @rethra-design/web test` : `content.test.ts` détecte les écarts de couverture en allemand. Les erreurs du daemon, les noms de fichiers exportés et les textes d'artefacts générés par les agents restent des limites connues, sauf si une PR les inclut explicitement.
 
 Pour les étapes détaillées d'ajout d'une locale (dictionnaire UI, README,
 language switcher, terminologie régionale), voir [`TRANSLATIONS.md`](../../TRANSLATIONS.md).
@@ -384,7 +384,7 @@ afin de voir si la violation vient du modèle ou du prompt.
 ## Poser des questions
 
 - Question d'architecture, question de design, "bug ou mauvaise utilisation ?" →
-  [GitHub Discussions](https://github.com/nexu-io/open-design/discussions)
+  [GitHub Discussions](https://github.com/acrbaran/rethra-design/discussions)
   (préféré, car searchable pour la personne suivante).
 - "Comment écrire un Skill qui fait X ?" → ouvrez une discussion. Nous y
   répondrons et transformerons la réponse en ajout dans
@@ -444,7 +444,7 @@ Le tl;dr : livrez de bonnes PR, faites des reviews réfléchies, traînez
 dans les [Discussions][discussions] / sur [Discord][discord], et le reste
 se fait tout seul.
 
-[discussions]: https://github.com/nexu-io/open-design/discussions
+[discussions]: https://github.com/acrbaran/rethra-design/discussions
 [discord]: https://discord.gg/mHAjSMV6gz
 
 ---

@@ -1,15 +1,15 @@
 # Privacy
 
-This page describes what data the OpenDesign desktop and web app collects,
+This page describes what data the Rethra Design desktop and web app collects,
 when it collects it, and how you stay in control. It documents the behavior
 shipped in the app — the same controls live under **Settings → Privacy**.
 
-OpenDesign is **local-first**. Your projects, generated files, and BYOK API
+Rethra Design is **local-first**. Your projects, generated files, and BYOK API
 keys stay on your machine. Local project/file workflows remain available when
 telemetry services are unreachable; model-backed features still depend on the
 runtime or provider you choose.
 
-OpenDesign has two telemetry classes:
+Rethra Design has two telemetry classes:
 
 - **Product analytics and quality traces** are on by default and can be
   disabled or narrowed under **Settings → Privacy**.
@@ -84,7 +84,7 @@ normal analytics client loads are not lost; daemon and packaged-startup events
 have equivalent direct safety paths.
 
 When metrics and content sharing are both enabled, detailed run-quality traces
-are sent through the OpenDesign telemetry relay to
+are sent through the Rethra Design telemetry relay to
 [Langfuse](https://langfuse.com). Maintainer smoke-test configurations may use
 direct Langfuse credentials instead. Public client/relay configuration does
 not expose the team's private write credentials.
@@ -112,11 +112,11 @@ under the applicable retention policy.
 
 The API keys you configure for coding agents and model providers are stored
 locally and used by the local app/daemon to call the provider you selected.
-They are not telemetry fields and are never sent to the OpenDesign team.
+They are not telemetry fields and are never sent to the Rethra Design team.
 
-## OpenDesign AMR
+## Rethra Design AMR
 
-“OpenDesign AMR” is OpenDesign’s official, first-party model service. Because
+“Rethra Design AMR” is Rethra Design’s official, first-party model service. Because
 the two are part of the same product family operated by the same team, we may
 share information between them as needed to provide, connect, and improve the
 combined experience — for example, to recognize that you arrived from Open
@@ -128,4 +128,4 @@ any data involved still follows the controls described on this page.
 
 This document tracks the data handling of the shipped app. When the telemetry
 behavior changes, this page is updated alongside it. For questions, open a
-[GitHub Discussion](https://github.com/nexu-io/open-design/discussions).
+[GitHub Discussion](https://github.com/acrbaran/rethra-design/discussions).

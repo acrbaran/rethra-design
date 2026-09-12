@@ -1,7 +1,7 @@
 import {
   type DeliverableSyntaxDiagnostic,
   type DeliverableSyntaxSafeFixRule,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { load } from 'cheerio';
 import { parse as parseJavaScript, type Token } from 'acorn';
 import { randomBytes } from 'node:crypto';

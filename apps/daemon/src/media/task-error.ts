@@ -1,4 +1,4 @@
-import { mediaFailureNextStep } from '@open-design/contracts';
+import { mediaFailureNextStep } from '@rethra-design/contracts';
 
 import type { MediaTaskError } from './tasks.js';
 

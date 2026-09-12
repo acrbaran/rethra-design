@@ -93,7 +93,7 @@ describe('deliverable syntax tool route', () => {
     const response = await test.check();
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-      schema: 'open-design.deliverable-syntax-tool/v1',
+      schema: 'rethra-design.deliverable-syntax-tool/v1',
       status: 'skipped',
       repair: { action: 'none', attempt: 0, maxAttempts: 3 },
     });
@@ -125,7 +125,7 @@ describe('deliverable syntax tool route', () => {
     });
     expect(passed.body.agentMessage).toBeUndefined();
     expect(test.run.deliverableSyntaxValidation.metrics).toEqual({
-      schema: 'open-design.deliverable-syntax-metrics/v1',
+      schema: 'rethra-design.deliverable-syntax-metrics/v1',
       checkCount: 2,
       checkerDurationMs: 10,
       repairableCheckCount: 1,

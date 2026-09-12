@@ -1,4 +1,4 @@
-import type { OpenDesignPlanContractV2 } from '@open-design/contracts';
+import type { RethraDesignPlanContractV2 } from '@rethra-design/contracts';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -7,7 +7,7 @@ import {
 } from '../../../src/strategies/od-next/protocol.js';
 
 const plan = {
-  schema: 'open-design.plan-contract/v2',
+  schema: 'rethra-design.plan-contract/v2',
   strategy: {
     id: 'od-next-strategy',
     version: '2.0.0',
@@ -58,7 +58,7 @@ const plan = {
 } as const;
 
 const state = {
-  schema: 'open-design.strategy-state/v2',
+  schema: 'rethra-design.strategy-state/v2',
   route: 'full_plan',
   inputStage: 'request',
   outcome: 'plan_ready',
@@ -74,9 +74,9 @@ describe('OD Next machine protocol stream', () => {
   it('recognizes exact blocks across every chunk boundary and never returns machine bytes', () => {
     const wire = [
       'Ready to build.\n',
-      machineBlock('open-design-plan-contract', plan),
+      machineBlock('rethra-design-plan-contract', plan),
       '\n',
-      machineBlock('open-design-runtime-state', state),
+      machineBlock('rethra-design-runtime-state', state),
       '\nOne open decision remains.',
     ].join('');
 
@@ -84,8 +84,8 @@ describe('OD Next machine protocol stream', () => {
       const stream = new OdNextMachineProtocolStream();
       const visible = stream.push(wire.slice(0, split)) + stream.push(wire.slice(split));
       const result = stream.finish();
-      expect(visible).not.toContain('open-design-plan-contract');
-      expect(visible).not.toContain('open-design-runtime-state');
+      expect(visible).not.toContain('rethra-design-plan-contract');
+      expect(visible).not.toContain('rethra-design-runtime-state');
       expect(result.visibleText).toBe('Ready to build.\n\n\nOne open decision remains.');
       expect(result.issues).toEqual([]);
       expect(result.planContract).toEqual(plan);
@@ -100,16 +100,16 @@ describe('OD Next machine protocol stream', () => {
     const stream = new OdNextMachineProtocolStream();
     stream.push([
       '先对齐两个问题。',
-      '<open-design-runtime-state>',
+      '<rethra-design-runtime-state>',
       JSON.stringify({
-        schema: 'open-design.strategy-state/v2',
+        schema: 'rethra-design.strategy-state/v2',
         route: 'full_plan',
         inputStage: 'request',
         outcome: 'clarification_required',
         executionMode: 'simple',
         reasonCodes: ['scope_required'],
       }),
-      '</open-design-runtime-state>',
+      '</rethra-design-runtime-state>',
     ].join('\n'));
     const result = stream.finish();
     expect(result.issues).toEqual([]);
@@ -137,9 +137,9 @@ describe('OD Next machine protocol stream', () => {
     const stream = new OdNextMachineProtocolStream();
     const visible = stream.push([
       'summary',
-      machineBlock('open-design-plan-contract', plan),
-      machineBlock('open-design-plan-contract', plan),
-      machineBlock('open-design-runtime-state', state),
+      machineBlock('rethra-design-plan-contract', plan),
+      machineBlock('rethra-design-plan-contract', plan),
+      machineBlock('rethra-design-runtime-state', state),
     ].join('\n'));
     const result = stream.finish();
 
@@ -154,12 +154,12 @@ describe('OD Next machine protocol stream', () => {
   it('keeps one schema-valid fenced contract only as a repair anchor', () => {
     const stream = new OdNextMachineProtocolStream();
     stream.push([
-      '<open-design-plan-contract>',
+      '<rethra-design-plan-contract>',
       '```json',
       JSON.stringify(plan),
       '```',
-      '</open-design-plan-contract>',
-      machineBlock('open-design-runtime-state', state),
+      '</rethra-design-plan-contract>',
+      machineBlock('rethra-design-runtime-state', state),
     ].join('\n'));
     const result = stream.finish();
 
@@ -177,14 +177,14 @@ describe('OD Next machine protocol stream', () => {
     // task went straight to a terminal block.
     const stream = new OdNextMachineProtocolStream();
     stream.push([
-      '<open-design-plan-contract>',
+      '<rethra-design-plan-contract>',
       'Here is the plan:',
       '```json',
       JSON.stringify(plan),
       '```',
       'Let me know if you want changes.',
-      '</open-design-plan-contract>',
-      machineBlock('open-design-runtime-state', state),
+      '</rethra-design-plan-contract>',
+      machineBlock('rethra-design-runtime-state', state),
     ].join('\n'));
     const result = stream.finish();
 
@@ -197,10 +197,10 @@ describe('OD Next machine protocol stream', () => {
     // partial object mistaken for a declaration.
     const stream = new OdNextMachineProtocolStream();
     stream.push([
-      '<open-design-plan-contract>',
+      '<rethra-design-plan-contract>',
       JSON.stringify(plan).slice(0, 60),
-      '</open-design-plan-contract>',
-      machineBlock('open-design-runtime-state', state),
+      '</rethra-design-plan-contract>',
+      machineBlock('rethra-design-runtime-state', state),
     ].join('\n'));
     const result = stream.finish();
 
@@ -215,11 +215,11 @@ describe('OD Next machine protocol stream', () => {
     };
     const stream = new OdNextMachineProtocolStream();
     stream.push([
-      '<open-design-plan-contract>',
+      '<rethra-design-plan-contract>',
       'plan follows',
       JSON.stringify(withBrace),
-      '</open-design-plan-contract>',
-      machineBlock('open-design-runtime-state', state),
+      '</rethra-design-plan-contract>',
+      machineBlock('rethra-design-runtime-state', state),
     ].join('\n'));
     const result = stream.finish();
 
@@ -229,7 +229,7 @@ describe('OD Next machine protocol stream', () => {
   it('suppresses malformed and oversized reserved blocks instead of leaking them', () => {
     const stream = new OdNextMachineProtocolStream({ maxMachineBlockBytes: 64 });
     const visible = stream.push(
-      `before<open-design-plan-contract data-x="bad">${'x'.repeat(200)}\n</open-design-plan-contract>after`,
+      `before<rethra-design-plan-contract data-x="bad">${'x'.repeat(200)}\n</rethra-design-plan-contract>after`,
     );
     const result = stream.finish();
 
@@ -243,7 +243,7 @@ describe('OD Next machine protocol stream', () => {
   });
 
   it('consumes an incomplete closing tag at EOF across every chunk boundary', () => {
-    const complete = machineBlock('open-design-plan-contract', plan);
+    const complete = machineBlock('rethra-design-plan-contract', plan);
     const wire = `summary\n${complete.slice(0, -1)}`;
 
     for (let split = 0; split <= wire.length; split += 1) {
@@ -265,7 +265,7 @@ describe('OD Next machine protocol stream', () => {
   });
 
   it('leaves the ordinary Run path byte-for-byte unchanged', () => {
-    const ordinary = `Visible <open-design-runtime-state>{"not":"active"}</open-design-runtime-state>`;
+    const ordinary = `Visible <rethra-design-runtime-state>{"not":"active"}</rethra-design-runtime-state>`;
     expect(passThroughOrdinaryAssistantText(null, ordinary)).toBe(ordinary);
 
     const strategy = new OdNextMachineProtocolStream();
@@ -274,14 +274,14 @@ describe('OD Next machine protocol stream', () => {
   });
 
   it('does not terminate suppression on a closing-tag string inside JSON', () => {
-    const hostile = structuredClone(plan) as unknown as OpenDesignPlanContractV2;
-    hostile.taskProfile.goal = 'Never leak </open-design-plan-contract> machine bytes';
+    const hostile = structuredClone(plan) as unknown as RethraDesignPlanContractV2;
+    hostile.taskProfile.goal = 'Never leak </rethra-design-plan-contract> machine bytes';
     hostile.decisionSummary.goal = hostile.taskProfile.goal;
     const stream = new OdNextMachineProtocolStream();
     const visible = stream.push([
       'summary',
-      machineBlock('open-design-plan-contract', hostile),
-      machineBlock('open-design-runtime-state', state),
+      machineBlock('rethra-design-plan-contract', hostile),
+      machineBlock('rethra-design-runtime-state', state),
     ].join('\n'));
     const result = stream.finish();
 

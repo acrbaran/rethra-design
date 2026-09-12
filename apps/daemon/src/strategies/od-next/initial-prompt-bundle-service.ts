@@ -9,7 +9,7 @@ import {
   type OdNextPromptBundleHeadV2,
   type OdNextPromptBundleRecipeIdentityV2,
   type OdNextStrategyRequestRecipeV2,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import {
   detectDeckIntentSignal,
@@ -62,7 +62,7 @@ import { daemonOwnedOdNextPlanningCatalog } from './resolver.js';
 type SqliteDb = Parameters<typeof getProject>[0];
 type IntentSignals = ReturnType<typeof latchConversationIntentSignals>;
 
-// Keep this header grammar aligned with parseFormAnswers in @open-design/contracts.
+// Keep this header grammar aligned with parseFormAnswers in @rethra-design/contracts.
 const FORM_ANSWERS_HEADER_RE =
   /^\s*\[form answers(?:\s*[\u2014\-:]\s*([^\]\r\n]+))?\]\s*(?:\r?\n|$)/i;
 
@@ -105,7 +105,7 @@ interface DaemonSystemPromptResult {
   prompt: string;
   /**
    * Structured cache-stable head of the canonical Bundle
-   * (`open_design_core_system_prompt`, `session_skills`, `active_stages`). Null
+   * (`rethra_design_core_system_prompt`, `session_skills`, `active_stages`). Null
    * when the run has no verified OD Next recipe, which the Bundle path treats
    * as fatal rather than falling back to an untyped Markdown payload.
    */

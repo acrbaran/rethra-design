@@ -49,7 +49,7 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { hasOdCard, OD_NEXT_STRATEGY_ID, type ProjectMediaTask } from '@open-design/contracts';
+import { hasOdCard, OD_NEXT_STRATEGY_ID, type ProjectMediaTask } from '@rethra-design/contracts';
 import { useAnalytics } from '../analytics/provider';
 import { getResolvedDeviceId } from '../analytics/client';
 import {
@@ -106,11 +106,11 @@ import type {
   ChatSessionMode,
   RunContextSelection,
   WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type {
   TrackingProjectKind,
   TrackingRunRecoveryActionType,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import { isDesignSystemWorkspacePrompt } from '../design-system-auto-prompt';
 import {
   isTodoWriteToolName,
@@ -700,11 +700,11 @@ interface Props {
   ) => Promise<{ message?: string; url?: string } | void> | { message?: string; url?: string } | void;
   activePluginActionPaths?: Set<string>;
   hiddenPluginActionPaths?: Set<string>;
-  // "Share to OpenDesign" button on each completed assistant message —
+  // "Share to RethraDesign" button on each completed assistant message —
   // wired by ProjectView to handleSend with the bundled
   // `od-share-to-community` scenario's trigger prompt.
-  onShareToOpenDesign?: (assistantMessageId: string) => void;
-  shareToOpenDesignBusyMessageId?: string | null;
+  onShareToRethraDesign?: (assistantMessageId: string) => void;
+  shareToRethraDesignBusyMessageId?: string | null;
   forceStreamingMessageIds?: Set<string>;
   initialDraft?: string;
   // Product path of the Home recommendation that started this project. When
@@ -956,7 +956,7 @@ interface Props {
   config?: AppConfig;
 }
 
-const AMR_PROFILE_ENV_KEY = 'OPEN_DESIGN_AMR_PROFILE';
+const AMR_PROFILE_ENV_KEY = 'RETHRA_DESIGN_AMR_PROFILE';
 
 type Tab = 'chat' | 'comments';
 
@@ -1304,8 +1304,8 @@ export function ChatPane({
   onRequestPluginFolderAgentAction,
   activePluginActionPaths,
   hiddenPluginActionPaths,
-  onShareToOpenDesign,
-  shareToOpenDesignBusyMessageId,
+  onShareToRethraDesign,
+  shareToRethraDesignBusyMessageId,
   forceStreamingMessageIds,
   initialDraft,
   onboardingStarterPath = null,
@@ -1687,7 +1687,7 @@ export function ChatPane({
     onBrandBrowserAssistConfirm,
     onArtifactShare,
     onForkFromMessage,
-    onShareToOpenDesign,
+    onShareToRethraDesign,
     onNextStepAiOptimize: onContinueBrandEnrichment,
     onNextStepContinueExtraction: onContinueBrandExtraction,
     onNextStepContinueAiExtraction: onContinueBrandAgentExtraction,
@@ -1701,7 +1701,7 @@ export function ChatPane({
     onBrandBrowserAssistConfirm,
     onArtifactShare,
     onForkFromMessage,
-    onShareToOpenDesign,
+    onShareToRethraDesign,
     onNextStepAiOptimize: onContinueBrandEnrichment,
     onNextStepContinueExtraction: onContinueBrandExtraction,
     onNextStepContinueAiExtraction: onContinueBrandAgentExtraction,
@@ -4493,8 +4493,8 @@ export function ChatPane({
                   onRequestPluginFolderAgentAction={onRequestPluginFolderAgentAction}
                   activePluginActionPaths={activePluginActionPaths}
                   hiddenPluginActionPaths={hiddenPluginActionPaths}
-                  onShareToOpenDesign={onShareToOpenDesign}
-                  shareToOpenDesignBusyMessageId={shareToOpenDesignBusyMessageId}
+                  onShareToRethraDesign={onShareToRethraDesign}
+                  shareToRethraDesignBusyMessageId={shareToRethraDesignBusyMessageId}
                   forceStreamingMessageIds={forceStreamingMessageIds}
                   lastAssistantId={lastAssistantId}
                   lastTurnAssistantId={lastTurnAssistantId}
@@ -5101,7 +5101,7 @@ interface AssistantCallbacks {
   onBrandBrowserAssistConfirm: BrandBrowserAssistConfirm | undefined;
   onArtifactShare: ((fileName: string, anchorId?: string) => void) | undefined;
   onForkFromMessage: ((message: ChatMessage) => void) | undefined;
-  onShareToOpenDesign: ((assistantMessageId: string) => void) | undefined;
+  onShareToRethraDesign: ((assistantMessageId: string) => void) | undefined;
   onNextStepAiOptimize: (() => void) | undefined;
   onNextStepContinueExtraction: (() => void) | undefined;
   onNextStepContinueAiExtraction: (() => void) | undefined;
@@ -5554,8 +5554,8 @@ function ChatRows({
   onRequestPluginFolderAgentAction,
   activePluginActionPaths,
   hiddenPluginActionPaths,
-  onShareToOpenDesign,
-  shareToOpenDesignBusyMessageId,
+  onShareToRethraDesign,
+  shareToRethraDesignBusyMessageId,
   forceStreamingMessageIds,
   lastAssistantId,
   lastTurnAssistantId,
@@ -5637,8 +5637,8 @@ function ChatRows({
   onRequestPluginFolderAgentAction?: (relativePath: string, action: PluginFolderAgentAction) => void;
   activePluginActionPaths?: Set<string>;
   hiddenPluginActionPaths?: Set<string>;
-  onShareToOpenDesign?: (assistantMessageId: string) => void;
-  shareToOpenDesignBusyMessageId?: string | null;
+  onShareToRethraDesign?: (assistantMessageId: string) => void;
+  shareToRethraDesignBusyMessageId?: string | null;
   forceStreamingMessageIds?: Set<string>;
   lastAssistantId: string | undefined;
   lastTurnAssistantId: string | undefined;
@@ -5770,12 +5770,12 @@ function ChatRows({
         onRequestPluginFolderAgentAction={onRequestPluginFolderAgentAction}
         activePluginActionPaths={activePluginActionPaths}
         hiddenPluginActionPaths={hiddenPluginActionPaths}
-        onShareToOpenDesign={
-          onShareToOpenDesign
-            ? () => assistantCallbacksRef.current.onShareToOpenDesign?.(m.id)
+        onShareToRethraDesign={
+          onShareToRethraDesign
+            ? () => assistantCallbacksRef.current.onShareToRethraDesign?.(m.id)
             : undefined
         }
-        shareToOpenDesignBusy={shareToOpenDesignBusyMessageId === m.id}
+        shareToRethraDesignBusy={shareToRethraDesignBusyMessageId === m.id}
         showRole={assistantRoleByMessageId.get(m.id) ?? true}
         isLast={m.id === lastAssistantId}
         isLastTurn={m.id === lastTurnAssistantId}
@@ -6547,7 +6547,7 @@ function queuedTipPlacement(
   );
 }
 
-  const QUEUED_SEND_DRAG_MIME = 'application/x-open-design-queued-send';
+  const QUEUED_SEND_DRAG_MIME = 'application/x-rethra-design-queued-send';
 
 type QueuedSendDropEdge = 'before' | 'after';
 
@@ -6883,7 +6883,7 @@ export function buildRunErrorDiagnosticText(input: RunErrorDiagnosticInput): str
   }
 
   lines.push(
-    'OpenDesign run error diagnostics',
+    'RethraDesign run error diagnostics',
     `trace_id: ${input.traceId ?? 'n/a'}`,
     `run_id: ${input.traceId ?? 'n/a'}`,
     `error_code: ${input.errorCode ?? 'n/a'}`,

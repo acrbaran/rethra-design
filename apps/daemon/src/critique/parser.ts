@@ -1,4 +1,4 @@
-import type { PanelEvent } from '@open-design/contracts/critique';
+import type { PanelEvent } from '@rethra-design/contracts/critique';
 import { parseV1 } from './parsers/v1.js';
 
 /**

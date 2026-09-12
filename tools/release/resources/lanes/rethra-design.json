@@ -1,0 +1,30 @@
+{
+  "lanes": {
+    "beta": {
+      "channel": "beta",
+      "storagePrefix": "beta",
+      "productName": "Rethra Design Beta"
+    },
+    "betas": {
+      "channel": "betas",
+      "storagePrefix": "betas",
+      "productName": "Rethra Design Betas",
+      "publicOrigin": "https://s3.nexu.space/od-releases"
+    },
+    "prerelease": {
+      "channel": "prerelease",
+      "storagePrefix": "prerelease",
+      "productName": "Rethra Design Prerelease"
+    },
+    "preview": {
+      "channel": "preview",
+      "storagePrefix": "preview",
+      "productName": "Rethra Design Preview"
+    },
+    "stable": {
+      "channel": "stable",
+      "storagePrefix": "stable",
+      "productName": "Rethra Design"
+    }
+  }
+}

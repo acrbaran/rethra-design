@@ -12,7 +12,7 @@ import type { Page } from '@playwright/test';
 import { pathToFileURL } from 'node:url';
 import { T } from '@/timeouts';
 
-const STORAGE_KEY = 'open-design:config';
+const STORAGE_KEY = 'rethra-design:config';
 test.describe.configure({ timeout: T.xlong });
 
 function artifactPreview(page: Page) {
@@ -32,7 +32,7 @@ test('[P0] manual edit inspector previews and persists page and selected element
   const projectId = await createEmptyProject(page, 'Manual edit smoke');
   await seedHtmlArtifact(page, projectId, 'manual-edit.html', manualEditHtml());
   await page.goto(`/projects/${projectId}/files/manual-edit.html`);
-  await openDesignFile(page, 'manual-edit.html');
+  await rethraDesignFile(page, 'manual-edit.html');
 
   await expect(artifactPreview(page)).toBeVisible();
   const frame = artifactPreviewFrame(page);
@@ -122,7 +122,7 @@ test('[P0] manual edit mode preserves the current page in a multi-page mobile ap
   const projectId = await createEmptyProject(page, 'Multi-page mobile edit');
   await seedHtmlArtifact(page, projectId, 'mobile-app.html', multiPageMobileHtml());
   await page.goto(`/projects/${projectId}/files/mobile-app.html`);
-  await openDesignFile(page, 'mobile-app.html');
+  await rethraDesignFile(page, 'mobile-app.html');
 
   const preview = artifactPreviewFrame(page);
   await expect(preview.getByTestId('mobile-page-home')).toBeVisible();
@@ -189,7 +189,7 @@ test('[P0] manual edit mode preserves a runtime-rendered mobile app page', async
   const projectId = await createEmptyProject(page, 'Runtime-rendered mobile edit');
   await seedHtmlArtifact(page, projectId, 'mobile-app.html', runtimeRenderedMobileHtml());
   await page.goto(`/projects/${projectId}/files/mobile-app.html`);
-  await openDesignFile(page, 'mobile-app.html');
+  await rethraDesignFile(page, 'mobile-app.html');
 
   const preview = artifactPreviewFrame(page);
   await expect(preview.getByTestId('mobile-page-today')).toBeVisible();
@@ -252,7 +252,7 @@ test('[P0] srcDoc page navigation keeps manual edit hover guides across files an
     linkedMobilePageHtml('Profile page', 'profile-screen', 'today.html', 'Today'),
   );
   await page.goto(`/projects/${projectId}/files/today.html`);
-  await openDesignFile(page, 'today.html');
+  await rethraDesignFile(page, 'today.html');
 
   const preview = artifactPreviewFrame(page);
   await expect(preview.getByRole('heading', { name: 'Today page' })).toBeVisible();
@@ -360,7 +360,7 @@ test('[P0] @critical preview toolbar keeps share, download, comment, and zoom ac
     '<svg xmlns="http://www.w3.org/2000/svg" width="2" height="2"><rect width="2" height="2" fill="red"/></svg>',
   );
   await page.goto(`/projects/${projectId}/files/toolbar-preview.html`);
-  await openDesignFile(page, 'toolbar-preview.html');
+  await rethraDesignFile(page, 'toolbar-preview.html');
 
   await expect(page.getByTestId('artifact-preview-frame')).toBeVisible();
   const viewMode = page.getByRole('tablist', { name: 'View mode' });
@@ -463,7 +463,7 @@ test('[P1] preview toolbar exports PDF and PPTX through the daemon contracts', a
 
   await seedHtmlArtifact(page, projectId, 'export-page.html', manualEditHtml());
   await page.goto(`/projects/${projectId}/files/export-page.html`);
-  await openDesignFile(page, 'export-page.html');
+  await rethraDesignFile(page, 'export-page.html');
 
   const pdfMenu = await openShareExportMenu(page);
   await pdfMenu.getByRole('menuitem', { name: /Export as PDF/ }).click();
@@ -492,7 +492,7 @@ test('[P1] preview toolbar exports PDF and PPTX through the daemon contracts', a
 
   await seedDeckArtifact(page, projectId, 'contract-deck.html', 'Contract Deck', ['Intro', 'Details']);
   await page.goto(`/projects/${projectId}/files/contract-deck.html`);
-  await openDesignFile(page, 'contract-deck.html');
+  await rethraDesignFile(page, 'contract-deck.html');
   await expect(artifactPreviewFrame(page).getByRole('heading', { name: 'Intro' })).toBeVisible();
 
   const pptxMenu = await openShareExportMenu(page);
@@ -525,7 +525,7 @@ test('[P1] powered WebGL HTML artifacts open through the isolated preview route'
   await seedHtmlArtifact(page, projectId, 'powered-webgl.html', poweredWebglHtml());
 
   await page.goto(`/projects/${projectId}/files/powered-webgl.html`);
-  await openDesignFile(page, 'powered-webgl.html');
+  await rethraDesignFile(page, 'powered-webgl.html');
 
   const preview = artifactPreview(page);
   await expect(preview).toBeVisible();
@@ -564,7 +564,7 @@ test('[P1] HTML preview toolbar exposes comments, mark, and edit workflows', asy
   await seedHtmlArtifact(page, projectId, 'preview-tools.html', withSnapshotBridge(manualEditHtml()));
   const conversationId = await latestConversationId(page, projectId);
   await page.goto(`/projects/${projectId}/conversations/${conversationId}/files/preview-tools.html`);
-  await openDesignFile(page, 'preview-tools.html');
+  await rethraDesignFile(page, 'preview-tools.html');
 
   await expect(artifactPreview(page)).toBeVisible();
   await expect(artifactPreviewFrame(page).getByRole('heading', { name: 'Original Hero' })).toBeVisible();
@@ -632,7 +632,7 @@ test('[P1] draw annotation composer floats near the selected mark and can be que
   await seedHtmlArtifact(page, projectId, 'draw-position.html', withSnapshotBridge(manualEditHtml()));
   const conversationId = await latestConversationId(page, projectId);
   await page.goto(`/projects/${projectId}/conversations/${conversationId}/files/draw-position.html`);
-  await openDesignFile(page, 'draw-position.html');
+  await rethraDesignFile(page, 'draw-position.html');
 
   await clickPreviewToolbarAction(page, 'board-mode-toggle', /^Comment$/);
   await expect(page.getByTestId('board-mode-toggle')).toHaveAttribute('aria-pressed', 'true');
@@ -708,12 +708,12 @@ test('[P1] first-loop onboarding completes once after a successful artifact expo
         enabled: true,
         env: 'e2e',
         key: 'phc_e2e',
-        host: 'https://analytics.open-design.test',
+        host: 'https://analytics.rethra-design.test',
         installationId: 'e2e-installation',
       },
     });
   });
-  await page.route('https://analytics.open-design.test/**', async (route) => {
+  await page.route('https://analytics.rethra-design.test/**', async (route) => {
     analyticsBodies.push(route.request().postData() ?? '');
     await route.fulfill({ status: 200, json: { status: 1 } });
   });
@@ -724,7 +724,7 @@ test('[P1] first-loop onboarding completes once after a successful artifact expo
   await page.addInitScript(
     ({ id }) => {
       window.sessionStorage.setItem(
-        `open-design:first-loop-entry:${id}`,
+        `rethra-design:first-loop-entry:${id}`,
         JSON.stringify({
           source: 'home_recommendation',
           productType: 'prototype',
@@ -732,14 +732,14 @@ test('[P1] first-loop onboarding completes once after a successful artifact expo
         }),
       );
       window.sessionStorage.setItem(
-        `open-design:first-loop-steps:${id}`,
+        `rethra-design:first-loop-steps:${id}`,
         JSON.stringify(['prompt_sent', 'generated', 'artifact_viewed']),
       );
     },
     { id: projectId },
   );
   await page.goto(`/projects/${projectId}/files/first-loop-export.html`);
-  await openDesignFile(page, 'first-loop-export.html');
+  await rethraDesignFile(page, 'first-loop-export.html');
 
   const shareMenu = await openShareExportMenu(page);
   const [download] = await Promise.all([
@@ -777,7 +777,7 @@ test('[P0] manual edit mode keeps deck navigation available for deck-shaped HTML
   const projectId = await createEmptyProject(page, 'Manual edit deck smoke');
   await seedDeckArtifact(page, projectId, 'manual-deck.html', 'Manual Deck', ['Slide One', 'Slide Two']);
   await page.goto(`/projects/${projectId}/files/manual-deck.html`);
-  await openDesignFile(page, 'manual-deck.html');
+  await rethraDesignFile(page, 'manual-deck.html');
 
   const frame = artifactPreviewFrame(page);
   await expect(frame.getByText('Slide One')).toBeVisible();
@@ -790,7 +790,7 @@ test('[P0] deck presentation host exit remains usable after the sandboxed slide 
   const projectId = await createEmptyProject(page, 'Deck presentation exit smoke');
   await seedDeckArtifact(page, projectId, 'present-exit.html', 'Present Exit', ['Slide One', 'Slide Two']);
   await page.goto(`/projects/${projectId}/files/present-exit.html`);
-  await openDesignFile(page, 'present-exit.html');
+  await rethraDesignFile(page, 'present-exit.html');
 
   await page.getByRole('button', { name: 'Present', exact: true }).click();
   const popupPromise = page.waitForEvent('popup');
@@ -824,7 +824,7 @@ test('[P1] deck thumbnail rail keeps complete 16:9 slides separated and aligned'
     { frameworkDeck: true },
   );
   await page.goto(`/projects/${projectId}/files/thumbnail-rail.html`);
-  await openDesignFile(page, 'thumbnail-rail.html');
+  await rethraDesignFile(page, 'thumbnail-rail.html');
 
   const rail = page.locator('.deck-thumbnail-rail');
   const frames = rail.locator('.deck-thumbnail-frame');
@@ -865,11 +865,11 @@ test('[P0] @critical edited HTML file restores selected tab and preview after re
     '<!doctype html><html><body><main><h1>Secondary Preview</h1></main></body></html>',
   );
   await page.goto(`/projects/${projectId}/files/secondary-preview.html`);
-  await openDesignFile(page, 'secondary-preview.html');
+  await rethraDesignFile(page, 'secondary-preview.html');
   await expect(tabBySuffix(page, 'secondary-preview.html')).toHaveAttribute('aria-selected', 'true');
 
   await openAllProjectFiles(page);
-  await openDesignFile(page, 'restore-edit.html');
+  await rethraDesignFile(page, 'restore-edit.html');
 
   const restoreTab = tabBySuffix(page, 'restore-edit.html');
   const secondaryTab = tabBySuffix(page, 'secondary-preview.html');
@@ -987,7 +987,7 @@ async function gotoEntryHome(page: Page) {
     await waitForLoadingToClear(page).catch(() => {});
     if (await page.getByTestId('home-hero').isVisible({ timeout: 3_000 }).catch(() => false)) break;
   }
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve OpenDesign' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve RethraDesign' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
     await expect(privacyDialog).toHaveCount(0);
@@ -1209,7 +1209,7 @@ async function seedDeckArtifact(
   expect(resp.ok()).toBeTruthy();
 }
 
-async function openDesignFile(page: Page, fileName: string) {
+async function rethraDesignFile(page: Page, fileName: string) {
   const preview = artifactPreview(page);
   await waitForLoadingToClear(page).catch(() => {});
   const activePath = new URL(page.url()).pathname;
@@ -1245,7 +1245,7 @@ async function openDesignFile(page: Page, fileName: string) {
 }
 
 async function waitForLoadingToClear(page: Page) {
-  await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: T.long });
+  await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: T.long });
 }
 
 async function expectFileSource(page: Page, projectId: string, fileName: string, snippets: string[]) {

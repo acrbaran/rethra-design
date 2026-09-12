@@ -4,7 +4,7 @@ name: finalize-release
 #      release takes no more backports, so the label only invites mistakes.
 #   2. Opens a PR bumping main's synchronized workspace versions to X.Y.(Z+1),
 #      keeping main strictly ahead of the just-shipped stable tag (the build
-#      guard requires apps/packaged version > the latest open-design-v* tag),
+#      guard requires apps/packaged version > the latest rethra-design-v* tag),
 #      arms it for the merge queue (gh pr merge --auto enqueues on green), and
 #      requests a @nexu-io/core-maintainers review.
 #
@@ -38,7 +38,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Stable release tag to finalize, e.g. open-design-v0.12.0'
+        description: 'Stable release tag to finalize, e.g. rethra-design-v0.12.0'
         required: true
         default: ''
 
@@ -48,7 +48,7 @@ permissions:
 jobs:
   finalize:
     if: >-
-      github.repository == 'nexu-io/open-design' &&
+      github.repository == 'nexu-io/rethra-design' &&
       (github.event_name == 'workflow_dispatch' ||
        github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
@@ -73,10 +73,10 @@ jobs:
           # release branch, when release-stable runs with a `ref` input).
           if [ "$EVENT" = "workflow_dispatch" ]; then
             req="$INPUT_TAG"
-            case "$req" in open-design-v*) : ;; *) req="open-design-v$req" ;; esac   # allow a bare X.Y.Z
-            state=$(gh release view "$req" --repo nexu-io/open-design --json tagName,isDraft,isPrerelease 2>/dev/null || echo '')
+            case "$req" in rethra-design-v*) : ;; *) req="rethra-design-v$req" ;; esac   # allow a bare X.Y.Z
+            state=$(gh release view "$req" --repo nexu-io/rethra-design --json tagName,isDraft,isPrerelease 2>/dev/null || echo '')
           else
-            state=$(gh release view --repo nexu-io/open-design --json tagName,isDraft,isPrerelease 2>/dev/null || echo '')
+            state=$(gh release view --repo nexu-io/rethra-design --json tagName,isDraft,isPrerelease 2>/dev/null || echo '')
           fi
           if [ -z "$state" ]; then
             echo "No release to finalize (no published stable / dry-run / not shipped)."
@@ -85,8 +85,8 @@ jobs:
           tag=$(printf '%s' "$state" | jq -r '.tagName')
           draft=$(printf '%s' "$state" | jq -r '.isDraft')
           pre=$(printf '%s' "$state" | jq -r '.isPrerelease')
-          ver="${tag#open-design-v}"
-          # Only a published (draft=false), non-prerelease, open-design-vX.Y.Z release finalizes.
+          ver="${tag#rethra-design-v}"
+          # Only a published (draft=false), non-prerelease, rethra-design-vX.Y.Z release finalizes.
           # On a dry-run the latest published release is the previous (already-finalized) stable,
           # which the bump idempotency + tolerant label delete below turn into a clean no-op.
           if [ "$draft" != "false" ] || [ "$pre" != "false" ] || ! printf '%s' "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
@@ -124,8 +124,8 @@ jobs:
         run: |
           set -euo pipefail
           label="backport release/v$VERSION"
-          if gh label list --repo nexu-io/open-design --json name --jq '.[].name' | grep -qxF "$label"; then
-            gh label delete "$label" --repo nexu-io/open-design --yes
+          if gh label list --repo nexu-io/rethra-design --json name --jq '.[].name' | grep -qxF "$label"; then
+            gh label delete "$label" --repo nexu-io/rethra-design --yes
             echo "Deleted label: $label"
           else
             echo "Label '$label' not present; nothing to delete."
@@ -177,28 +177,28 @@ jobs:
             echo "::warning::$BRANCH already exists; a bump PR is likely already open. Skipping."
             exit 0
           fi
-          git config user.name  'open-design-release-bot[bot]'
-          git config user.email 'open-design-release-bot[bot]@users.noreply.github.com'
+          git config user.name  'rethra-design-release-bot[bot]'
+          git config user.email 'rethra-design-release-bot[bot]@users.noreply.github.com'
           git switch -c "$BRANCH"
           git commit -am "chore(release): bump main to $NEXT ahead of stable $VERSION"
           git push origin "$BRANCH"
           head_sha=$(git rev-parse HEAD)
           body=$(printf '%s\n' \
-            "Automated by \`finalize-release\` after publishing \`open-design-v$VERSION\`." \
+            "Automated by \`finalize-release\` after publishing \`rethra-design-v$VERSION\`." \
             "" \
-            "Keeps \`main\` strictly ahead of the shipped stable tag — the build guard requires \`apps/packaged\` version to be greater than the latest \`open-design-v*\` tag. Bumps only the synchronized workspace manifests (those already sharing the monorepo version); independently-versioned packages are left untouched." \
+            "Keeps \`main\` strictly ahead of the shipped stable tag — the build guard requires \`apps/packaged\` version to be greater than the latest \`rethra-design-v*\` tag. Bumps only the synchronized workspace manifests (those already sharing the monorepo version); independently-versioned packages are left untouched." \
             "" \
             "The \`backport release/v$VERSION\` label was already deleted by this same run." \
             "" \
             "**Needs one core-maintainer approval:** this touches CODEOWNERS-owned release manifests, so \`main\`'s code-owner rule requires a human review (a bot approval can't satisfy it). The merge queue is already armed — approve and it squashes in automatically.")
-          pr=$(gh pr create --repo nexu-io/open-design --base main --head "$BRANCH" \
+          pr=$(gh pr create --repo nexu-io/rethra-design --base main --head "$BRANCH" \
             --title "chore(release): bump main to $NEXT ahead of stable $VERSION" \
             --body "$body")
           echo "Opened $pr"
           # Request the code owners who must approve (best-effort; never fail finalize on a hiccup).
-          gh pr edit "$pr" --repo nexu-io/open-design --add-reviewer nexu-io/core-maintainers || \
+          gh pr edit "$pr" --repo nexu-io/rethra-design --add-reviewer nexu-io/core-maintainers || \
             echo "::warning::could not request nexu-io/core-maintainers review on $pr"
           # main is a squash merge queue; --auto arms enqueue-on-green (proven by
           # bake-plugin-previews-automerge — allow_auto_merge=false does not block the queue).
           # --match-head-commit pins the armed SHA so a later push isn't merged untested.
-          gh pr merge "$pr" --repo nexu-io/open-design --squash --auto --match-head-commit "$head_sha"
+          gh pr merge "$pr" --repo nexu-io/rethra-design --squash --auto --match-head-commit "$head_sha"

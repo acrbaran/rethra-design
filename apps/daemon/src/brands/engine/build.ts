@@ -34,7 +34,7 @@ import { seedFromBrand, seedFromMaterial } from "./seed.js";
 import { tokensToJson, tokensToCssVars, tokensToThemeJson } from "./export.js";
 import { renderKitPage } from "./kit.js";
 import { renderArtifact, renderArtifactGallery, brandFontAssets } from "./artifacts/index.js";
-import { findRealTagEnd, HTML_TAG_PATTERNS } from '@open-design/contracts/runtime/html-injection-points';
+import { findRealTagEnd, HTML_TAG_PATTERNS } from '@rethra-design/contracts/runtime/html-injection-points';
 
 // ─────────────────────────── slug ───────────────────────────────────────────
 
@@ -335,7 +335,7 @@ ${links}
   // Inject the file index right after the opening <body> of the gallery doc.
   // Structural lookup even though this document is generated here: the brand's
   // own component HTML is interpolated into it, and that content can carry a
-  // `<body>` of its own (nexu-io/open-design#7410).
+  // `<body>` of its own (nexu-io/rethra-design#7410).
   const bodyEnd = findRealTagEnd(gallery, HTML_TAG_PATTERNS.bodyOpen);
   if (bodyEnd < 0) return gallery;
   return `${gallery.slice(0, bodyEnd)}\n${fileIndex}${gallery.slice(bodyEnd)}`;

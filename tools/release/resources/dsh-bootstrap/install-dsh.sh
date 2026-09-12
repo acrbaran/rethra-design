@@ -23,7 +23,7 @@ NO_LAUNCH=0
 
 usage() {
   cat <<'EOF'
-Install the DeepSeek Harness toolchain supported by OpenDesign.
+Install the DeepSeek Harness toolchain supported by RethraDesign.
 
 Usage:
   install-dsh.sh [--no-launch]
@@ -54,7 +54,7 @@ done
 
 [ -n "${HOME:-}" ] || fail 'HOME is not set.'
 
-INSTALL_ROOT=${OD_DSH_INSTALL_ROOT:-${XDG_DATA_HOME:-$HOME/.local/share}/open-design/toolchains/dsh}
+INSTALL_ROOT=${OD_DSH_INSTALL_ROOT:-${XDG_DATA_HOME:-$HOME/.local/share}/rethra-design/toolchains/dsh}
 BIN_DIR=${OD_DSH_INSTALL_BIN_DIR:-$HOME/.local/bin}
 LAUNCHER=$BIN_DIR/dsh
 DIST_BASE=${OD_DSH_INSTALL_DIST_BASE:-https://nodejs.org/dist/v$NODE_VERSION}
@@ -121,7 +121,7 @@ finish() {
   label=$1
   info "DeepSeek Harness $DSH_VERSION is ready ($label)."
   info "Command: $LAUNCHER"
-  info 'OpenDesign can discover this command without editing your shell profile.'
+  info 'RethraDesign can discover this command without editing your shell profile.'
   if [ "$NO_LAUNCH" -eq 1 ]; then
     return 0
   fi
@@ -239,7 +239,7 @@ fi
 
 runtime_staging=$INSTALL_ROOT/.runtime-dsh-$DSH_VERSION.$$
 mkdir -p "$runtime_staging"
-info "Installing dsh $DSH_VERSION and pnpm $PNPM_VERSION in OpenDesign's user toolchain..."
+info "Installing dsh $DSH_VERSION and pnpm $PNPM_VERSION in RethraDesign's user toolchain..."
 PATH="$managed_node_dir/bin:${PATH:-}" "$managed_node_dir/bin/npm" install \
   --prefix "$runtime_staging" \
   --no-save \

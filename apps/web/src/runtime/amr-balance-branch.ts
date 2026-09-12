@@ -29,7 +29,7 @@ import {
   canReachWorkspaceBillingEntrance,
   type WorkspaceBillingSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import { isMaxPlanTier, resolvePlanTier } from '../collab/team-plan';
 

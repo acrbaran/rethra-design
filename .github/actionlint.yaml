@@ -11,7 +11,7 @@ self-hosted-runner:
     - nexu-win
     - od-ci-hot-poc
     - od-persistent-ci
-    - open-design-ci
+    - rethra-design-ci
     - release-beta
     - blacksmith-2vcpu-ubuntu-2404-arm
     - blacksmith-4vcpu-ubuntu-2404-arm

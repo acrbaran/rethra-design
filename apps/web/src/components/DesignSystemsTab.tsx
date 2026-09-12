@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { coalescedGet, evictCoalescedGet } from '../lib/coalesced-get';
-import { Button, VisuallyHidden } from '@open-design/components';
+import { Button, VisuallyHidden } from '@rethra-design/components';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackDesignSystemsTemplateCardClick,
@@ -10,11 +10,11 @@ import {
   trackPageView,
   trackWorkspaceResourceActionResult,
 } from '../analytics/events';
-import type { DesignSystemEditClickProps } from '@open-design/contracts/analytics';
+import type { DesignSystemEditClickProps } from '@rethra-design/contracts/analytics';
 import type {
   TrackingDesignSystemStatusAction,
   TrackingDesignSystemStatusValue,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import { useI18n } from '../i18n';
 import { useWorkspaceContext } from '../collab/useWorkspaceContext';
 import {
@@ -33,7 +33,7 @@ import { useWorkspaceSnapshotActivation } from '../collab/workspace-snapshot-act
 import {
   workspaceContextHasTeamIdentity,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type { Locale } from '../i18n/types';
 import {
   localizeDesignSystemCategory,
@@ -57,7 +57,7 @@ import { Toast } from './Toast';
 import type { DesignSystemDetail, DesignSystemSummary, ProjectTemplate, Surface } from '../types';
 import styles from './DesignSystemsTab.module.css';
 import { workspaceAnalyticsDimensions } from '../analytics/workspace';
-import type { TrackingWorkspaceScope } from '@open-design/contracts/analytics';
+import type { TrackingWorkspaceScope } from '@rethra-design/contracts/analytics';
 
 interface Props {
   /** EntryShell parks this mounted tab while another nav surface is visible. */

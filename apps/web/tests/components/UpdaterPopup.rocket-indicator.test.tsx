@@ -14,13 +14,13 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type { OpenDesignHostUpdaterStatusSnapshot } from '@open-design/host';
-import { installMockOpenDesignHost } from '@open-design/host/testing';
+import type { RethraDesignHostUpdaterStatusSnapshot } from '@rethra-design/host';
+import { installMockRethraDesignHost } from '@rethra-design/host/testing';
 
 import { UpdaterPopup } from '../../src/components/UpdaterPopup';
 import { I18nProvider } from '../../src/i18n';
 
-function idleStatus(): OpenDesignHostUpdaterStatusSnapshot {
+function idleStatus(): RethraDesignHostUpdaterStatusSnapshot {
   return {
     arch: 'arm64',
     capabilities: {
@@ -40,12 +40,12 @@ function idleStatus(): OpenDesignHostUpdaterStatusSnapshot {
 }
 
 function downloadedStatus(
-  overrides: Partial<OpenDesignHostUpdaterStatusSnapshot> = {},
-): OpenDesignHostUpdaterStatusSnapshot {
+  overrides: Partial<RethraDesignHostUpdaterStatusSnapshot> = {},
+): RethraDesignHostUpdaterStatusSnapshot {
   return {
     ...idleStatus(),
     availableVersion: '1.2.3-beta.4',
-    downloadPath: '/tmp/open-design-updater/Open Design Beta.dmg',
+    downloadPath: '/tmp/rethra-design-updater/Rethra Design Beta.dmg',
     state: 'downloaded',
     ...overrides,
   };
@@ -80,11 +80,11 @@ describe('updater rocket indicator', () => {
         installResult: {
           dryRun: true,
           openedAt: '2026-07-28T00:00:00.000Z',
-          path: '/tmp/open-design-updater/Open Design Beta.dmg',
+          path: '/tmp/rethra-design-updater/Rethra Design Beta.dmg',
         },
       }),
     ]) {
-      restoreHost = installMockOpenDesignHost({
+      restoreHost = installMockRethraDesignHost({
         host: { updater: { status: vi.fn(async () => status) } },
       });
 
@@ -102,7 +102,7 @@ describe('updater rocket indicator', () => {
   });
 
   it('renders the rocket once an installer is downloaded and unopened', async () => {
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: { updater: { status: vi.fn(async () => downloadedStatus()) } },
     });
 
@@ -127,13 +127,13 @@ describe('updater rocket indicator', () => {
         installResult: {
           dryRun: true,
           openedAt: '2026-07-28T00:00:00.000Z',
-          path: '/tmp/open-design-updater/Open Design Beta.dmg',
+          path: '/tmp/rethra-design-updater/Rethra Design Beta.dmg',
         },
       });
       return status;
     });
     const quit = vi.fn(async () => ({ ok: true as const }));
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: { updater: { install, quit, status: vi.fn(async () => status) } },
     });
 

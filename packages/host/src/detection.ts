@@ -1,17 +1,17 @@
 import {
-  OPEN_DESIGN_HOST_GLOBAL,
-  OPEN_DESIGN_HOST_VERSION,
-  OPEN_DESIGN_HOST_CLIENT_TYPES,
-  type OpenDesignHostBridge,
-  type OpenDesignHostClientType,
-  type OpenDesignHostGlobalScope,
+  RETHRA_DESIGN_HOST_GLOBAL,
+  RETHRA_DESIGN_HOST_VERSION,
+  RETHRA_DESIGN_HOST_CLIENT_TYPES,
+  type RethraDesignHostBridge,
+  type RethraDesignHostClientType,
+  type RethraDesignHostGlobalScope,
 } from "./protocol.js";
 
 /**
  * @module detection
  *
  * Locates the host bridge on a global scope and structurally validates it.
- * Owns the {@link isOpenDesignHostBridge} type guard plus the scope-lookup
+ * Owns the {@link isRethraDesignHostBridge} type guard plus the scope-lookup
  * helpers used by every renderer-facing accessor.
  */
 
@@ -26,14 +26,14 @@ function hasFunction(record: Record<string, unknown>, key: string): boolean {
 }
 
 /**
- * Structural type guard for a fully-formed {@link OpenDesignHostBridge}: checks
+ * Structural type guard for a fully-formed {@link RethraDesignHostBridge}: checks
  * version, client type, and the presence of every required capability method.
  */
-export function isOpenDesignHostBridge(value: unknown): value is OpenDesignHostBridge {
+export function isRethraDesignHostBridge(value: unknown): value is RethraDesignHostBridge {
   if (!isRecord(value)) return false;
-  if (value.version !== OPEN_DESIGN_HOST_VERSION) return false;
+  if (value.version !== RETHRA_DESIGN_HOST_VERSION) return false;
   const client = value.client;
-  if (!isRecord(client) || client.type !== OPEN_DESIGN_HOST_CLIENT_TYPES.DESKTOP) return false;
+  if (!isRecord(client) || client.type !== RETHRA_DESIGN_HOST_CLIENT_TYPES.DESKTOP) return false;
   if (client.platform != null && typeof client.platform !== "string") return false;
   if (client.osLocale != null && typeof client.osLocale !== "string") return false;
 
@@ -81,11 +81,11 @@ export function isOpenDesignHostBridge(value: unknown): value is OpenDesignHostB
 }
 
 /** @internal Read the host-bridge candidate from a scope (or its `window`). */
-function candidateFromScope(scope: OpenDesignHostGlobalScope): unknown {
-  if (OPEN_DESIGN_HOST_GLOBAL in scope) return scope[OPEN_DESIGN_HOST_GLOBAL];
+function candidateFromScope(scope: RethraDesignHostGlobalScope): unknown {
+  if (RETHRA_DESIGN_HOST_GLOBAL in scope) return scope[RETHRA_DESIGN_HOST_GLOBAL];
   const windowValue = scope.window;
-  if (isRecord(windowValue) && OPEN_DESIGN_HOST_GLOBAL in windowValue) {
-    return windowValue[OPEN_DESIGN_HOST_GLOBAL];
+  if (isRecord(windowValue) && RETHRA_DESIGN_HOST_GLOBAL in windowValue) {
+    return windowValue[RETHRA_DESIGN_HOST_GLOBAL];
   }
   return undefined;
 }
@@ -94,17 +94,17 @@ function candidateFromScope(scope: OpenDesignHostGlobalScope): unknown {
  * Resolve the validated host bridge from `scope`, or `null` when absent or
  * malformed.
  */
-export function getOpenDesignHost(scope: OpenDesignHostGlobalScope = globalThis): OpenDesignHostBridge | null {
+export function getRethraDesignHost(scope: RethraDesignHostGlobalScope = globalThis): RethraDesignHostBridge | null {
   const candidate = candidateFromScope(scope);
-  return isOpenDesignHostBridge(candidate) ? candidate : null;
+  return isRethraDesignHostBridge(candidate) ? candidate : null;
 }
 
-/** True when a valid OpenDesign host bridge is present on `scope`. */
-export function isOpenDesignHostAvailable(scope: OpenDesignHostGlobalScope = globalThis): boolean {
-  return getOpenDesignHost(scope) != null;
+/** True when a valid RethraDesign host bridge is present on `scope`. */
+export function isRethraDesignHostAvailable(scope: RethraDesignHostGlobalScope = globalThis): boolean {
+  return getRethraDesignHost(scope) != null;
 }
 
 /** Detect the host client type on `scope`, falling back to web. */
-export function detectOpenDesignHostClientType(scope: OpenDesignHostGlobalScope = globalThis): OpenDesignHostClientType | "web" {
-  return getOpenDesignHost(scope)?.client.type ?? "web";
+export function detectRethraDesignHostClientType(scope: RethraDesignHostGlobalScope = globalThis): RethraDesignHostClientType | "web" {
+  return getRethraDesignHost(scope)?.client.type ?? "web";
 }

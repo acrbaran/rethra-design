@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import {
   LocalizedTextSchema,
-  OPEN_DESIGN_PLUGIN_SPEC_VERSION,
-  OpenDesignSpecVersionSchema,
+  RETHRA_DESIGN_PLUGIN_SPEC_VERSION,
+  RethraDesignSpecVersionSchema,
 } from './manifest.js';
 
 const MarketplaceEntryDistSchema = z.object({
@@ -27,8 +27,8 @@ const MarketplacePluginVersionSchema = z.object({
 
 export type MarketplacePluginVersion = z.infer<typeof MarketplacePluginVersionSchema>;
 
-// `open-design-marketplace.json` schema (v1). Mirrors
-// `docs/schemas/open-design.marketplace.v1.json`. The federated catalog
+// `rethra-design-marketplace.json` schema (v1). Mirrors
+// `docs/schemas/rethra-design.marketplace.v1.json`. The federated catalog
 // format is intentionally permissive — community catalogs can carry extra
 // fields (e.g. clawhub category tags) without breaking OD installs.
 export const MarketplacePluginEntrySchema = z.object({
@@ -65,7 +65,7 @@ export type MarketplacePluginEntry = z.infer<typeof MarketplacePluginEntrySchema
 
 export const MarketplaceManifestSchema = z.object({
   $schema:     z.string().optional(),
-  specVersion: OpenDesignSpecVersionSchema.default(OPEN_DESIGN_PLUGIN_SPEC_VERSION),
+  specVersion: RethraDesignSpecVersionSchema.default(RETHRA_DESIGN_PLUGIN_SPEC_VERSION),
   name:        z.string().min(1),
   version:     z.string().min(1),
   owner: z.object({

@@ -1,13 +1,13 @@
 // Team resource sharing. A member with publish rights promotes a personal
 // resource — a design system, plugin, or skill — into the team scope: the
 // resource's directory is packed and pushed by the login-backed Vela CLI under
-// its kind, so teammates can pull it into their own workspace. OpenDesign owns
+// its kind, so teammates can pull it into their own workspace. RethraDesign owns
 // the permission gate and scheduling, not backend credentials or byte transfer.
 
 import type {
   WorkspaceCollabContext,
   WorkspaceDirectoryItem,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   contextToResourceHubPrincipal,
   type ResourceHubPrincipal,

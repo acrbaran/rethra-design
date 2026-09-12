@@ -23,7 +23,7 @@ interface Props {
   dockLine?: boolean;
 }
 
-const STORAGE_KEY = 'open-design:pet-position';
+const STORAGE_KEY = 'rethra-design:pet-position';
 
 export interface PetTaskSummary {
   projectId: string;

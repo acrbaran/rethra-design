@@ -7,8 +7,8 @@ import {
   createAgentRuntimeEnv,
   createAgentRuntimeToolPrompt,
   createDaemonDataDirConfiguredAgentEnv,
-  createOpenDesignToolEnv,
-  resolveOpenDesignNodeBin,
+  createRethraDesignToolEnv,
+  resolveRethraDesignNodeBin,
 } from '../../src/server.js';
 import { applyAgentLaunchEnv } from '../../src/runtimes/launch.js';
 import { spawnEnvForAgent } from '../../src/runtimes/env.js';
@@ -16,7 +16,7 @@ import { withPlatform } from './helpers/test-helpers.js';
 
 describe('agent runtime tool environment', () => {
   it('passes the pinned Workspace pair to dynamic Skill wrappers, clearing ambient identity for unbound runs', () => {
-    const scoped = createOpenDesignToolEnv({
+    const scoped = createRethraDesignToolEnv({
       daemonUrl: 'http://127.0.0.1:7456',
       projectId: 'project-a',
       workspaceScope: {
@@ -33,14 +33,14 @@ describe('agent runtime tool environment', () => {
     });
     const unbound = {
       ...scoped,
-      ...createOpenDesignToolEnv({
+      ...createRethraDesignToolEnv({
         daemonUrl: 'http://127.0.0.1:7456',
         projectId: 'unbound',
       }),
     };
     expect(unbound.OD_WORKSPACE_ID).toBe('');
     expect(unbound.OD_WORKSPACE_MEMBER_ID).toBe('');
-    const historical = createOpenDesignToolEnv({
+    const historical = createRethraDesignToolEnv({
       daemonUrl: 'http://127.0.0.1:7456',
       projectId: 'project-a',
       workspaceScope: {
@@ -55,22 +55,22 @@ describe('agent runtime tool environment', () => {
   });
 
   it('prefers explicit OD_NODE_BIN over the process executable', () => {
-    expect(resolveOpenDesignNodeBin({
-      env: { OD_NODE_BIN: 'C:\\Open Design\\resources\\open-design\\bin\\node.exe' },
-      execPath: 'C:\\Users\\Ada\\AppData\\Roaming\\Open Design\\en\\hash\\Open Design.exe',
+    expect(resolveRethraDesignNodeBin({
+      env: { OD_NODE_BIN: 'C:\\Rethra Design\\resources\\rethra-design\\bin\\node.exe' },
+      execPath: 'C:\\Users\\Ada\\AppData\\Roaming\\Rethra Design\\en\\hash\\Rethra Design.exe',
       platform: 'win32',
       resourceRoot: null,
-    })).toBe('C:\\Open Design\\resources\\open-design\\bin\\node.exe');
+    })).toBe('C:\\Rethra Design\\resources\\rethra-design\\bin\\node.exe');
   });
 
   it('resolves the bundled resource node before falling back to process.execPath', () => {
-    expect(resolveOpenDesignNodeBin({
+    expect(resolveRethraDesignNodeBin({
       env: {},
-      execPath: 'C:\\Users\\Ada\\AppData\\Roaming\\Open Design\\en\\hash\\Open Design.exe',
+      execPath: 'C:\\Users\\Ada\\AppData\\Roaming\\Rethra Design\\en\\hash\\Rethra Design.exe',
       platform: 'win32',
-      resourceRoot: 'C:\\Users\\Ada\\AppData\\Local\\Programs\\Open Design\\resources\\open-design',
-      exists: (candidate) => candidate.endsWith('\\resources\\open-design\\bin\\node.exe'),
-    })).toBe('C:\\Users\\Ada\\AppData\\Local\\Programs\\Open Design\\resources\\open-design\\bin\\node.exe');
+      resourceRoot: 'C:\\Users\\Ada\\AppData\\Local\\Programs\\Rethra Design\\resources\\rethra-design',
+      exists: (candidate) => candidate.endsWith('\\resources\\rethra-design\\bin\\node.exe'),
+    })).toBe('C:\\Users\\Ada\\AppData\\Local\\Programs\\Rethra Design\\resources\\rethra-design\\bin\\node.exe');
   });
 
   it('injects daemon URL and run-scoped tool token into agent sessions', () => {
@@ -78,13 +78,13 @@ describe('agent runtime tool environment', () => {
       { PATH: '/bin', OD_TOOL_TOKEN: 'stale-token' },
       'http://127.0.0.1:7456',
       { token: 'fresh-token' },
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
     );
 
     expect(env).toMatchObject({
-      PATH: `/opt/open-design/bin${path.delimiter}/bin`,
+      PATH: `/opt/rethra-design/bin${path.delimiter}/bin`,
       OD_DAEMON_URL: 'http://127.0.0.1:7456',
-      OD_NODE_BIN: '/opt/open-design/bin/node',
+      OD_NODE_BIN: '/opt/rethra-design/bin/node',
       OD_TOOL_TOKEN: 'fresh-token',
     });
   });
@@ -96,7 +96,7 @@ describe('agent runtime tool environment', () => {
       baseEnv,
       'http://127.0.0.1:7456',
       null,
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
       inheritedEnvironment,
     );
 
@@ -149,11 +149,11 @@ describe('agent runtime tool environment', () => {
       { PATH: '/bin', OD_TOOL_TOKEN: 'stale-token' },
       'http://127.0.0.1:7456',
       null,
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
     );
 
     expect(env.OD_DAEMON_URL).toBe('http://127.0.0.1:7456');
-    expect(env.OD_NODE_BIN).toBe('/opt/open-design/bin/node');
+    expect(env.OD_NODE_BIN).toBe('/opt/rethra-design/bin/node');
     expect(env.OD_TOOL_TOKEN).toBeUndefined();
   });
 
@@ -166,7 +166,7 @@ describe('agent runtime tool environment', () => {
       },
       'http://100.64.0.10:7456',
       { token: 'run-scoped-token' },
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
     );
 
     expect(env.OD_TOOL_TOKEN).toBe('run-scoped-token');
@@ -183,7 +183,7 @@ describe('agent runtime tool environment', () => {
         { PATH: '/bin', PATHEXT: '.CPL' },
         'http://127.0.0.1:7456',
         null,
-        '/opt/open-design/bin/node',
+        '/opt/rethra-design/bin/node',
       ),
     );
 
@@ -196,7 +196,7 @@ describe('agent runtime tool environment', () => {
         { PATH: '/bin', PATHEXT: '.CUSTOM;.EXE;.CMD' },
         'http://127.0.0.1:7456',
         null,
-        '/opt/open-design/bin/node',
+        '/opt/rethra-design/bin/node',
       ),
     );
 
@@ -212,7 +212,7 @@ describe('agent runtime tool environment', () => {
         { PATH: '/bin', pathext: '.CPL' },
         'http://127.0.0.1:7456',
         null,
-        '/opt/open-design/bin/node',
+        '/opt/rethra-design/bin/node',
       ),
     );
 
@@ -226,7 +226,7 @@ describe('agent runtime tool environment', () => {
         { PATH: '/bin', PATHEXT: '.CPL' },
         'http://127.0.0.1:7456',
         null,
-        '/opt/open-design/bin/node',
+        '/opt/rethra-design/bin/node',
       ),
     );
 
@@ -238,7 +238,7 @@ describe('agent runtime tool environment', () => {
       { PATH: '/bin' },
       'http://127.0.0.1:7456',
       null,
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
     );
 
     expect(env.OD_DATA_DIR).toBe(process.env.OD_DATA_DIR);
@@ -249,7 +249,7 @@ describe('agent runtime tool environment', () => {
       { PATH: '/bin', OD_DATA_DIR: '/stale/process/data' },
       'http://127.0.0.1:7456',
       null,
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
     );
     const configuredAgentEnv = createDaemonDataDirConfiguredAgentEnv({
       OD_DATA_DIR: '/stale/configured/data',
@@ -261,9 +261,9 @@ describe('agent runtime tool environment', () => {
         base,
         configuredAgentEnv,
       ),
-      ...createOpenDesignToolEnv({
+      ...createRethraDesignToolEnv({
         daemonUrl: 'http://127.0.0.1:7456',
-        hyperFramesBin: '/opt/open-design/hyperframes/bin/hyperframes.mjs',
+        hyperFramesBin: '/opt/rethra-design/hyperframes/bin/hyperframes.mjs',
         projectDir: '/tmp/project',
         projectId: 'project-1',
       }),
@@ -275,7 +275,7 @@ describe('agent runtime tool environment', () => {
     );
     expect(env.OD_PROJECT_ID).toBe('project-1');
     expect(env.OD_PROJECT_DIR).toBe('/tmp/project');
-    expect(env.OD_HYPERFRAMES_BIN).toBe('/opt/open-design/hyperframes/bin/hyperframes.mjs');
+    expect(env.OD_HYPERFRAMES_BIN).toBe('/opt/rethra-design/hyperframes/bin/hyperframes.mjs');
   });
 
   it('names the codex rollout root so a complex Run can observe its native Children', () => {
@@ -300,7 +300,7 @@ describe('agent runtime tool environment', () => {
       { PATH: '/bin', HTTP_PROXY: 'http://127.0.0.1:9', NO_PROXY: '' },
       'http://127.0.0.1:7456',
       { token: 'fresh-token' },
-      '/opt/open-design/bin/node',
+      '/opt/rethra-design/bin/node',
     );
 
     expect(env.HTTP_PROXY).toBe('http://127.0.0.1:9');

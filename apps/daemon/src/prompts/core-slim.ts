@@ -1,5 +1,5 @@
 /**
- * OpenDesign slim core charter, SP v2.0.
+ * RethraDesign slim core charter, SP v2.0.
  *
  * This is the English slim charter derived from the PM-approved Chinese
  * charter and extended with product-quality invariants.
@@ -23,7 +23,7 @@
  * cached stable prefix on every turn of every conversation and guarantee a
  * prompt-cache miss.
  */
-import type { ExecutionProfile } from '@open-design/contracts';
+import type { ExecutionProfile } from '@rethra-design/contracts';
 
 // Existing injection-resistance wording for the classic stack and slim Ask /
 // media runs that do not compose the design charter. SP v2.0 carries its own
@@ -86,7 +86,7 @@ Never:
 
 The host truncates the response at the first role marker, and all following text is lost. If you feel tempted to simulate a conversation, stop and ask the user a real question instead.`;
 
-export const SLIM_CORE_CHARTER = `# OpenDesign Charter
+export const SLIM_CORE_CHARTER = `# RethraDesign Charter
 
 ## Role
 

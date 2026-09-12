@@ -123,7 +123,7 @@ describe('the modal never re-opens for a seen campaign (no URL override left)', 
     // back open. That backdoor is gone: frequency control is the only input.
     window.history.replaceState({}, '', '/?campaign=deepseek-v4-flash');
     window.localStorage.setItem(
-      'open-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
+      'rethra-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
       '1',
     );
 
@@ -139,7 +139,7 @@ describe('the modal never re-opens for a seen campaign (no URL override left)', 
   // (PRD F-14: 旧 Flash 记录不影响本活动).
   it('still shows once to a user who dismissed the previous campaign', () => {
     window.localStorage.setItem(
-      'open-design:campaign-seen:deepseek-v4-flash-unlimited-2026',
+      'rethra-design:campaign-seen:deepseek-v4-flash-unlimited-2026',
       '1',
     );
 
@@ -193,7 +193,7 @@ describe('unpaid DeepSeek path opens public Pricing', () => {
 
     expect(open).toHaveBeenCalledTimes(1);
     const url = new URL(String(open.mock.calls[0]?.[0]));
-    expect(url.origin + url.pathname).toBe('https://open-design.ai/pricing/');
+    expect(url.origin + url.pathname).toBe('https://rethra-design.invalid/pricing/');
     expect(url.searchParams.get('od_locale')).toBe('en');
     expect(url.searchParams.get('od_entry_source')).toBe('deepseek_unpaid_modal');
     expect(url.searchParams.get('od_campaign_id')).toBe('deepseek_v4_pro');
@@ -218,7 +218,7 @@ describe('unpaid DeepSeek path opens public Pricing', () => {
     expect(open).toHaveBeenCalledTimes(1);
     const url = new URL(String(open.mock.calls[0]?.[0]));
     expect(url.searchParams.get('od_device_id')).toBeNull();
-    expect(url.origin + url.pathname).toBe('https://open-design.ai/pricing/');
+    expect(url.origin + url.pathname).toBe('https://rethra-design.invalid/pricing/');
   });
 
   it('shares the DeepSeek frequency key with the paid campaign', () => {
@@ -228,10 +228,10 @@ describe('unpaid DeepSeek path opens public Pricing', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Upgrade and use' }));
 
     expect(window.localStorage.getItem(
-      'open-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
+      'rethra-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
     )).toBe('1');
     expect(window.localStorage.getItem(
-      'open-design:campaign-seen:go-plan-launch-2026',
+      'rethra-design:campaign-seen:go-plan-launch-2026',
     )).toBeNull();
   });
 });
@@ -244,7 +244,7 @@ describe('campaign modal only interrupts the active home view', () => {
 
     expect(screen.queryByTestId(DIALOG)).toBeNull();
     expect(window.localStorage.getItem(
-      'open-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
+      'rethra-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
     )).toBe('1');
   });
 
@@ -309,7 +309,7 @@ describe('campaign modal only interrupts the active home view', () => {
     rerender(<DeepSeekV4FlashCampaign audience="unknown" active />);
     expect(screen.queryByTestId(DIALOG)).toBeNull();
     expect(window.localStorage.getItem(
-      'open-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
+      'rethra-design:campaign-seen:deepseek-v4-dual-unlimited-2026',
     )).toBeNull();
 
     rerender(<DeepSeekV4FlashCampaign audience="paid" active />);

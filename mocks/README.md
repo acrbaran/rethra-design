@@ -7,10 +7,10 @@ the AMR `vela` CLI) that replays pre-recorded sessions in each CLI's
 native protocol — stdout streaming for most, JSON-RPC over stdio for
 ACP and AMR. **Zero LLM tokens.**
 
-Some wrappers cover registered Open Design runtimes; others are retained
+Some wrappers cover registered Rethra Design runtimes; others are retained
 legacy protocol fixtures, and this set is not an exhaustive mirror of
 `apps/daemon/src/runtimes/registry.ts`. In particular, `gemini` is retained as
-a parser/replay fixture and is not a registered Open Design runtime.
+a parser/replay fixture and is not a registered Rethra Design runtime.
 
 Used by:
 
@@ -24,7 +24,7 @@ Used by:
 - **Regression harness** — replay the same trace before and after a
   charter / parser change; diff the events the daemon surfaces.
 
-The recordings are anonymized exports from open-design's Langfuse
+The recordings are anonymized exports from rethra-design's Langfuse
 project (179 traces across 9 agents and 5+ skills as of this commit).
 
 ---
@@ -59,7 +59,7 @@ mode below).
 ## Recordings live on R2, not in this repo
 
 The 179-recording corpus (~4.5 MB) is hosted on Cloudflare R2 at
-`open-design-mocks` and fetched **on demand** — `pnpm install` does NOT
+`rethra-design-mocks` and fetched **on demand** — `pnpm install` does NOT
 pull them, and the repo stays small. Recordings only land in
 `mocks/recordings/` when:
 
@@ -115,7 +115,7 @@ re-harvest.
 
 `mocks/golden/<trace>.events.json` holds the exact event sequence the
 OD daemon emits when fed each (mock CLI → handler) pipeline. Diffed
-on every `pnpm --filter @open-design/daemon test` run by
+on every `pnpm --filter @rethra-design/daemon test` run by
 `apps/daemon/tests/mocks-golden.test.ts`.
 
 A parser refactor that semantically changes events (drops a field,
@@ -123,7 +123,7 @@ renames `sessionId`, stops emitting `turn_end`) fails the diff loudly.
 After an intentional parser change, regenerate:
 
 ```bash
-MOCKS_GOLDEN_UPDATE=1 pnpm --filter @open-design/daemon test mocks-golden
+MOCKS_GOLDEN_UPDATE=1 pnpm --filter @rethra-design/daemon test mocks-golden
 git diff mocks/golden/    # eyeball the new shapes
 git add mocks/golden/ && git commit -m "mocks: refresh goldens for <parser change>"
 ```
@@ -181,7 +181,7 @@ replay gaps:
 > current generic ACP mock emits only message-chunk text, so it does not cover
 > that part of the live contract.
 
-> **Note on `kimi`**: Open Design's registered runtime now launches `kimi acp`
+> **Note on `kimi`**: Rethra Design's registered runtime now launches `kimi acp`
 > and uses ACP JSON-RPC. The current `mocks/bin/kimi` replay wrapper still
 > models the retired prompt-mode stream-json contract; do not treat it as live
 > Kimi contract coverage until the wrapper and its smoke test are migrated.
@@ -264,7 +264,7 @@ The recordings live as one JSONL file per Langfuse trace under
   "tool_call_count": 17,
   "error_count": 0,
   "total_tokens": 12345,
-  "tags": ["agent:claude", "skill:agent-browser", "open-design", ...],
+  "tags": ["agent:claude", "skill:agent-browser", "rethra-design", ...],
   "user_input": "...",
   "session_id": "..."
 }
@@ -377,10 +377,10 @@ etc. The .jsonl itself stays in R2.
 ```bash
 # 1. delete from R2
 export CLOUDFLARE_ACCOUNT_ID=64ad4569ffd912432d6b86d5656484c4
-wrangler r2 object delete open-design-mocks/recordings/v1/<trace-id>.jsonl --remote
+wrangler r2 object delete rethra-design-mocks/recordings/v1/<trace-id>.jsonl --remote
 # 2. drop the entry from manifest.json (edit by hand, or use `jq`)
 # 3. re-upload manifest
-wrangler r2 object put open-design-mocks/recordings/v1/manifest.json \
+wrangler r2 object put rethra-design-mocks/recordings/v1/manifest.json \
   --file mocks/manifest.json --remote
 # 4. git add mocks/manifest.json && git commit && git push
 ```
@@ -490,8 +490,8 @@ under any Node ≥18.
 
 ## Provenance / safety
 
-All recordings come from open-design's own Langfuse project (the
-`open-design` project under the `powerformer` org). Users opted into
+All recordings come from rethra-design's own Langfuse project (the
+`rethra-design` project under the `powerformer` org). Users opted into
 telemetry when they installed the desktop client. The anonymizer
 removed user-identifying paths and project UUIDs before checking in.
 

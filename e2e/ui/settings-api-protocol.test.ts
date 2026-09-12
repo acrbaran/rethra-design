@@ -4,7 +4,7 @@ import { openSettingsDialog, settingsSurface } from '../lib/playwright/amr.js';
 import { routeAgents, suppressWhatsNew } from '../lib/playwright/mock-factory.js';
 import { T } from '@/timeouts';
 
-const STORAGE_KEY = 'open-design:config';
+const STORAGE_KEY = 'rethra-design:config';
 const OPEN_SETTINGS_LABEL = /Open settings|打开设置|開啟設定|Account & settings/i;
 const LOCAL_CLI_LABEL = /Local CLI|本机 CLI|本地 CLI/i;
 const MODEL_POPOVER_SELECTOR = '.model-select-searchable__popover';
@@ -16,13 +16,13 @@ test.beforeEach(async ({ page }) => {
 });
 
 async function waitForLoadingToClear(page: Page) {
-  await expect(page.getByText('Loading OpenDesign…')).toHaveCount(0, { timeout: T.long });
+  await expect(page.getByText('Loading RethraDesign…')).toHaveCount(0, { timeout: T.long });
 }
 
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve OpenDesign' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve RethraDesign' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
   }

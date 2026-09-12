@@ -2,7 +2,7 @@ import fs, { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { WorkspaceDirectoryItem } from '@open-design/contracts';
+import type { WorkspaceDirectoryItem } from '@rethra-design/contracts';
 import {
   createCachedWorkspaceDirectoryFetcher,
   createFreshWorkspaceDirectoryFetcher,
@@ -960,7 +960,7 @@ describe('createVelaWorkspaceContextProvider', () => {
     ) => SESSION as ReturnType<typeof readVelaControlApiContext>);
     const provider = createVelaWorkspaceContextProvider({
       fetch: (async () => jsonResponse(200, B_TEAM_CONTEXT)) as unknown as typeof fetch,
-      configuredEnv: () => ({ OPEN_DESIGN_AMR_PROFILE: profile }),
+      configuredEnv: () => ({ RETHRA_DESIGN_AMR_PROFILE: profile }),
       readSession,
     });
 
@@ -969,8 +969,8 @@ describe('createVelaWorkspaceContextProvider', () => {
     await provider.current({});
 
     expect(readSession.mock.calls.map((call) => call[1])).toEqual([
-      { OPEN_DESIGN_AMR_PROFILE: 'prod' },
-      { OPEN_DESIGN_AMR_PROFILE: 'test' },
+      { RETHRA_DESIGN_AMR_PROFILE: 'prod' },
+      { RETHRA_DESIGN_AMR_PROFILE: 'test' },
     ]);
   });
 
@@ -1052,7 +1052,7 @@ describe('createVelaWorkspaceContextProvider explicit local scope', () => {
     expect(context?.workspaceType).toBe('personal');
     expect(context?.workspaceMemberId).toBe('wm-p1');
     expect(context?.workspaceSettingsUrl).toBe(
-      'https://web.example.com/console/settings?workspaceId=ws-personal-1&source=open_design',
+      'https://web.example.com/console/settings?workspaceId=ws-personal-1&source=rethra_design',
     );
     // Resource semantics from the handoff: a plain read NEVER writes the
     // account-level Active Workspace.
@@ -1097,7 +1097,7 @@ describe('createVelaWorkspaceContextProvider explicit local scope', () => {
 
     expect(initial?.workspaceType).toBe('personal');
     expect(initial?.workspaceSettingsUrl).toBe(
-      'https://web.example.com/console/settings?workspaceId=ws-personal-1&source=open_design',
+      'https://web.example.com/console/settings?workspaceId=ws-personal-1&source=rethra_design',
     );
     expect(refreshed?.workspaceSettingsUrl).toBe(initial?.workspaceSettingsUrl);
   });

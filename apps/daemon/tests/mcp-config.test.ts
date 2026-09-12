@@ -491,10 +491,10 @@ describe('buildOpenCodeMcpConfigContent', () => {
         allowedDirectories: ['/tmp/od-project'],
         extraConfig: {
           provider: {
-            'open-design-byok': {
-              name: 'OpenDesign BYOK',
+            'rethra-design-byok': {
+              name: 'RethraDesign BYOK',
               npm: '@ai-sdk/openai-compatible',
-              options: { apiKey: '{env:OPEN_DESIGN_BYOK_API_KEY}' },
+              options: { apiKey: '{env:RETHRA_DESIGN_BYOK_API_KEY}' },
               models: { 'gpt-4o-mini': { name: 'gpt-4o-mini' } },
             },
           },
@@ -509,8 +509,8 @@ describe('buildOpenCodeMcpConfigContent', () => {
       permission?: { external_directory?: Record<string, string> };
     };
 
-    expect(parsed.provider?.['open-design-byok']).toMatchObject({
-      name: 'OpenDesign BYOK',
+    expect(parsed.provider?.['rethra-design-byok']).toMatchObject({
+      name: 'RethraDesign BYOK',
       npm: '@ai-sdk/openai-compatible',
     });
     expect(parsed.mcp?.['basic-memory']).toBeTruthy();

@@ -1,5 +1,5 @@
 {
-  "name": "@open-design/packaged",
+  "name": "@rethra-design/packaged",
   "version": "0.22.2",
   "private": true,
   "type": "module",
@@ -21,18 +21,18 @@
   "scripts": {
     "build": "node ./esbuild.config.mjs && tsc -p tsconfig.json --emitDeclarationOnly",
     "test": "vitest run -c vitest.config.ts",
-    "typecheck": "pnpm --filter @open-design/desktop build && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
+    "typecheck": "pnpm --filter @rethra-design/desktop build && tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
   },
   "dependencies": {
-    "@open-design/contracts": "workspace:*",
-    "@open-design/daemon": "workspace:*",
-    "@open-design/desktop": "workspace:*",
-    "@open-design/launcher-proto": "workspace:*",
-    "@open-design/platform": "workspace:*",
-    "@open-design/release": "workspace:*",
-    "@open-design/sidecar": "workspace:*",
-    "@open-design/sidecar-proto": "workspace:*",
-    "@open-design/web": "workspace:*"
+    "@rethra-design/contracts": "workspace:*",
+    "@rethra-design/daemon": "workspace:*",
+    "@rethra-design/desktop": "workspace:*",
+    "@rethra-design/launcher-proto": "workspace:*",
+    "@rethra-design/platform": "workspace:*",
+    "@rethra-design/release": "workspace:*",
+    "@rethra-design/sidecar": "workspace:*",
+    "@rethra-design/sidecar-proto": "workspace:*",
+    "@rethra-design/web": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "24.12.2",

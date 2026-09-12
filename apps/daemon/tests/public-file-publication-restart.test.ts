@@ -8,7 +8,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { createCollabRuntime, type CollabRuntime } from '../src/collab/runtime.js';
 import {
   createSqlitePublicFilePublicationStore,

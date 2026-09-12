@@ -7,19 +7,19 @@ import {
   renameWorkspaceArtifactPath,
 } from '../../chat-artifacts/store.js';
 import type { Express, Request, Response } from 'express';
-import type { LintArtifactRequest, LintArtifactResponse } from '@open-design/contracts';
+import type { LintArtifactRequest, LintArtifactResponse } from '@rethra-design/contracts';
 import {
   PREVIEW_OBSERVABILITY_BRIDGE_MARKER,
   buildPreviewBaseHrefBridge,
   buildPreviewObservabilityBridge,
-} from '@open-design/contracts/runtime/preview-observability';
+} from '@rethra-design/contracts/runtime/preview-observability';
 import {
   buildPreviewFocusGuard,
   buildPreviewRedirectGuard,
   buildPreviewSandboxShim,
   PREVIEW_URL_GUARD_MAX_HTML_BYTES,
   previewHtmlHasLoadTimeLocationNavigation,
-} from '@open-design/contracts/runtime/preview-guards';
+} from '@rethra-design/contracts/runtime/preview-guards';
 import {
   endOfTag,
   findRealElementRange,
@@ -27,11 +27,11 @@ import {
   findRealTagOffset,
   HTML_TAG_PATTERNS,
   prependAfterDoctype,
-} from '@open-design/contracts/runtime/html-injection-points';
+} from '@rethra-design/contracts/runtime/html-injection-points';
 import {
   PREVIEW_RUNTIME_STATE_LIMITS,
   PREVIEW_RUNTIME_STATE_VERSION,
-} from '@open-design/contracts/runtime/preview-runtime-state';
+} from '@rethra-design/contracts/runtime/preview-runtime-state';
 import {
   automaticStrategyTaskProfileForProjectMetadata,
   defaultScenarioPluginIdForProjectMetadata,
@@ -52,7 +52,7 @@ import {
   type RestoreProjectAutomaticScenarioResponse,
   type ProjectSyncState,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { readMeta as readBrandMeta } from '../../brands/store.js';
 import { createProjectArtifactFile } from '../../artifacts/create.js';
 import { ArtifactPublicationBlockedError } from '../../artifacts/publication-guard.js';
@@ -1947,7 +1947,7 @@ function buildDesignSystemCopySourceContext(input: {
   return [
     '# Source Project Context',
     '',
-    'This design-system workspace was created from an existing OpenDesign project. Treat the copied project files as the primary source evidence for the generated design system.',
+    'This design-system workspace was created from an existing RethraDesign project. Treat the copied project files as the primary source evidence for the generated design system.',
     '',
     '## Source project',
     '',
@@ -1977,7 +1977,7 @@ function buildDesignSystemCopySourceContext(input: {
     '- Read this file before editing design-system outputs.',
     '- Read the copied files directly from the project workspace; they are source evidence, not generated design-system output.',
     '- Preserve high-signal assets, source examples, UI surfaces, copy, tokens, typography, and interaction patterns from the copied project.',
-    '- Generate a reusable OpenDesign design-system package in this same project: DESIGN.md, README.md, SKILL.md, colors_and_type.css, context/provenance, focused preview cards, preserved assets/build/fonts when available, and ui_kits/app/.',
+    '- Generate a reusable RethraDesign design-system package in this same project: DESIGN.md, README.md, SKILL.md, colors_and_type.css, context/provenance, focused preview cards, preserved assets/build/fonts when available, and ui_kits/app/.',
     '- Before final response, run `"$OD_NODE_BIN" "$OD_BIN" tools connectors design-system-package-audit --path . --fail-on-warnings` and fix every actionable issue.',
     '',
   ].join('\n');
@@ -1997,7 +1997,7 @@ function buildDesignSystemCopyPendingPrompt(input: {
     .slice(0, 140)
     .map((name) => `  - ${name}`);
   return [
-    'Create this project as a complete OpenDesign design system workspace.',
+    'Create this project as a complete RethraDesign design system workspace.',
     '',
     'Autonomy requirement:',
     '- Do not ask setup or clarification questions during design-system generation.',
@@ -3075,7 +3075,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
   app.get('/api/project-locations', async (_req, res) => {
     try {
       const locations = await configuredProjectLocations();
-      /** @type {import('@open-design/contracts').ProjectLocationsResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectLocationsResponse} */
       const body = { locations };
       res.json(body);
     } catch (err: any) {
@@ -3106,7 +3106,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       const config = await writeAppConfig(ctx.paths.RUNTIME_DATA_DIR, { projectLocations: prepared });
       const locations = allProjectLocations(PROJECTS_DIR, config.projectLocations);
       const removedProjectIds = unregisterProjectsForRemovedLocations(previousLocations, config.projectLocations ?? []);
-      /** @type {import('@open-design/contracts').ProjectLocationsResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectLocationsResponse} */
       const body = { locations, removedProjectIds };
       res.json(body);
     } catch (err: any) {
@@ -3183,7 +3183,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           }
         }
       }
-      /** @type {import('@open-design/contracts').ScanProjectLocationsResponse} */
+      /** @type {import('@rethra-design/contracts').ScanProjectLocationsResponse} */
       const body = { scanned, imported, existing, skipped };
       res.json(body);
     } catch (err: any) {
@@ -3233,7 +3233,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       // construction, unbound — so `workspaceId` is always `null`; no binding
       // lookup needed (a `listWorkspaceProjectBindings` scan here would only
       // ever resolve to misses).
-      /** @type {import('@open-design/contracts').ProjectsResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectsResponse} */
       const body = {
         projects: listUnboundProjects(db)
           .filter((project: any) => projectVisibleForLocations(project, locations))
@@ -3279,7 +3279,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           }
         : authoritativeCtx;
       if (ctx.memberStatus === 'removed') {
-        /** @type {import('@open-design/contracts').WorkspaceProjectsResponse} */
+        /** @type {import('@rethra-design/contracts').WorkspaceProjectsResponse} */
         const body = { projects: [] };
         return res.json(body);
       }
@@ -3350,7 +3350,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           groupCountProperties,
         );
       }
-      /** @type {import('@open-design/contracts').WorkspaceProjectsResponse} */
+      /** @type {import('@rethra-design/contracts').WorkspaceProjectsResponse} */
       const body = { projects };
       res.json(body);
     } catch (err: any) {
@@ -4264,7 +4264,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           }
         }
       }
-      /** @type {import('@open-design/contracts').CreateProjectResponse} */
+      /** @type {import('@rethra-design/contracts').CreateProjectResponse} */
       const createdProject = pluginResolutionState.snapshot
         ? getProject(db, id) ?? project
         : project;
@@ -4587,7 +4587,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           // Open-tabs state is convenience metadata; file duplication succeeds
           // without it.
         }
-        /** @type {import('@open-design/contracts').DuplicateProjectResponse} */
+        /** @type {import('@rethra-design/contracts').DuplicateProjectResponse} */
         const body = {
           project: createHome
             ? { ...project, workspaceId: createHome.workspaceId }
@@ -4649,7 +4649,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       const targetProjectId = randomId();
       const targetName = normalizeDesignSystemCopyName(req.body?.name, sourceProject);
       const requestedPendingPrompt = normalizePendingPrompt(req.body?.pendingPrompt);
-      const sourceNotes = `Created from OpenDesign project "${sourceProject.name}" (${sourceProject.id}).`;
+      const sourceNotes = `Created from RethraDesign project "${sourceProject.name}" (${sourceProject.id}).`;
       let createdDesignSystemId: string | null = null;
       let insertedProject = false;
       try {
@@ -4759,7 +4759,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
           metadata,
         );
         await linkUserDesignSystemProject(USER_DESIGN_SYSTEMS_DIR, designSystem.id, targetProjectId);
-        /** @type {import('@open-design/contracts').CreateDesignSystemProjectFromProjectResponse} */
+        /** @type {import('@rethra-design/contracts').CreateDesignSystemProjectFromProjectResponse} */
         const body = {
           project: createHome
             ? { ...project, workspaceId: createHome.workspaceId }
@@ -4814,7 +4814,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
     }
     const resolvedDir = projectDetailResolvedDir(PROJECTS_DIR, project, resolveProjectDir);
     const binding = getWorkspaceProjectByProjectId(db, project.id);
-    /** @type {import('@open-design/contracts').ProjectResponse} */
+    /** @type {import('@rethra-design/contracts').ProjectResponse} */
     const body = {
       project: {
         ...project,
@@ -4856,7 +4856,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       knownWorkspaceType: workspaceTypes?.typeOf(binding?.workspaceId) ?? null,
       ...(ctx.configuredEnv ? { configuredEnv: ctx.configuredEnv() } : {}),
     });
-    /** @type {import('@open-design/contracts').ProjectWorkspaceScopeResponse} */
+    /** @type {import('@rethra-design/contracts').ProjectWorkspaceScopeResponse} */
     const body = { scope };
     res.json(body);
   });
@@ -5239,7 +5239,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
         // reached teammates after the NEXT file edit — or never.
         ctx.collabSync.refreshTeamProjectMetadata(req.params.id);
       }
-      /** @type {import('@open-design/contracts').ProjectResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectResponse} */
       const body = { project };
       res.json(body);
     } catch (err: any) {
@@ -5300,7 +5300,7 @@ export function registerProjectRoutes(app: Express, ctx: RegisterProjectRoutesDe
       await cancelRunsOwnedBy(design.runs, { projectId: req.params.id });
       dbDeleteProject(db, req.params.id);
       await removeProjectDir(PROJECTS_DIR, req.params.id).catch(() => {});
-      /** @type {import('@open-design/contracts').OkResponse} */
+      /** @type {import('@rethra-design/contracts').OkResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -6312,7 +6312,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       // request-coalescing window, so transport caches must always revalidate
       // this dynamic inventory.
       res.setHeader('Cache-Control', 'no-store');
-      /** @type {import('@open-design/contracts').ProjectFilesResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectFilesResponse} */
       const body = { files };
       res.json(body);
     } catch (err: any) {
@@ -6417,7 +6417,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       const folders = await listProjectFolders(PROJECTS_DIR, req.params.id, {
         metadata: project.metadata,
       });
-      /** @type {import('@open-design/contracts').ProjectFoldersResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectFoldersResponse} */
       const body = { folders };
       res.json(body);
     } catch (err: any) {
@@ -6451,7 +6451,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         name,
         project.metadata,
       );
-      /** @type {import('@open-design/contracts').ProjectFolderResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectFolderResponse} */
       const body = { folder };
       res.json(body);
     } catch (err: any) {
@@ -6485,7 +6485,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         folderPath,
         project.metadata,
       );
-      /** @type {import('@open-design/contracts').DeleteProjectFolderResponse} */
+      /** @type {import('@rethra-design/contracts').DeleteProjectFolderResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -6540,7 +6540,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         sendApiError(res, 503, 'PREVIEW_SCOPE_NOT_FOUND', 'preview scope not found');
         return;
       }
-      /** @type {import('@open-design/contracts').ProjectPreviewUrlResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectPreviewUrlResponse} */
       const body = {
         url: `/api/projects/${encodeURIComponent(project.id)}/preview/${scope}/${encodeProjectPathForUrl(meta.name)}`,
         file: meta.name,
@@ -6608,7 +6608,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         sendApiError(res, 404, 'PREVIEW_SCOPE_NOT_FOUND', 'preview scope not found');
         return;
       }
-      /** @type {import('@open-design/contracts').ProjectPreviewScopeRenewResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectPreviewScopeRenewResponse} */
       const body = { expiresAt };
       res.setHeader('Cache-Control', 'no-store');
       res.json(body);
@@ -6969,7 +6969,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       } catch (error) {
         console.warn('[chat-artifacts] delete bookkeeping failed', error);
       }
-      /** @type {import('@open-design/contracts').DeleteProjectFileResponse} */
+      /** @type {import('@rethra-design/contracts').DeleteProjectFileResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -7080,7 +7080,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       if (!file) {
         return sendApiError(res, 404, 'FILE_NOT_FOUND', 'file not found');
       }
-      /** @type {import('@open-design/contracts').ProjectFileVersionsResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectFileVersionsResponse} */
       const body = { file, versions };
       res.setHeader('Cache-Control', 'no-store');
       res.json(body);
@@ -7176,7 +7176,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       if (!version) {
         return sendApiError(res, 400, 'BAD_REQUEST', 'version could not be created');
       }
-      /** @type {import('@open-design/contracts').CreateProjectFileVersionResponse} */
+      /** @type {import('@rethra-design/contracts').CreateProjectFileVersionResponse} */
       const body = { version };
       res.json(body);
     } catch (err: any) {
@@ -7253,7 +7253,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
           return { file, version, versionWarning };
         },
       );
-      /** @type {import('@open-design/contracts').RestoreProjectFileVersionResponse} */
+      /** @type {import('@rethra-design/contracts').RestoreProjectFileVersionResponse} */
       const body = { file, version, ...(versionWarning ? { versionWarning } : {}) };
       res.json(body);
     } catch (err: any) {
@@ -7286,7 +7286,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
         versionId,
         project.metadata,
       );
-      /** @type {import('@open-design/contracts').ProjectFileVersionResponse} */
+      /** @type {import('@rethra-design/contracts').ProjectFileVersionResponse} */
       const typedBody = body;
       res.setHeader('Cache-Control', 'no-store');
       res.json(typedBody);
@@ -7435,7 +7435,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
                 (versionLock) => writeAndCapture(versionLock),
               )
               : await writeAndCapture();
-            /** @type {import('@open-design/contracts').ProjectFileResponse} */
+            /** @type {import('@rethra-design/contracts').ProjectFileResponse} */
             const body = {
               file: meta,
               ...(versionCapture ? { version: versionCapture.version } : {}),
@@ -7553,7 +7553,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
             (versionLock) => writeAndCapture(versionLock),
           )
           : await writeAndCapture();
-        /** @type {import('@open-design/contracts').ProjectFileResponse} */
+        /** @type {import('@rethra-design/contracts').ProjectFileResponse} */
         const body = {
           file: meta,
           ...(versionCapture ? { version: versionCapture.version } : {}),
@@ -7638,7 +7638,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       } catch (error) {
         console.warn('[chat-artifacts] rename bookkeeping failed', error);
       }
-      /** @type {import('@open-design/contracts').RenameProjectFileResponse} */
+      /** @type {import('@rethra-design/contracts').RenameProjectFileResponse} */
       const body = result;
       res.json(body);
     } catch (err: any) {
@@ -7677,7 +7677,7 @@ export function registerProjectFileRoutes(app: Express, ctx: RegisterProjectFile
       } catch (error) {
         console.warn('[chat-artifacts] delete bookkeeping failed', error);
       }
-      /** @type {import('@open-design/contracts').DeleteProjectFileResponse} */
+      /** @type {import('@rethra-design/contracts').DeleteProjectFileResponse} */
       const body = { ok: true };
       res.json(body);
     } catch (err: any) {
@@ -7783,7 +7783,7 @@ export function registerProjectUploadRoutes(app: Express, ctx: RegisterProjectUp
             // skip files that vanished mid-flight
           }
         }
-        /** @type {import('@open-design/contracts').UploadProjectFilesResponse} */
+        /** @type {import('@rethra-design/contracts').UploadProjectFilesResponse} */
         const body = { files: out };
         res.json(body);
       } catch (err: any) {

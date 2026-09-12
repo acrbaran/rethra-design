@@ -27,7 +27,7 @@ import {
 let codexRuntime: Awaited<ReturnType<typeof createFakeAgentRuntimes>>['codex'];
 const AMR_AGENT = {
   id: 'amr',
-  name: 'OpenDesign AMR',
+  name: 'RethraDesign AMR',
   bin: 'vela',
   available: true,
   version: 'test',
@@ -208,7 +208,7 @@ test('[P0] @critical AMR insufficient-balance failures hand the turn to the upgr
         return opened.find((href) => {
           const url = new URL(href, window.location.href);
           return (
-            url.searchParams.get('od_origin') === 'open_design' &&
+            url.searchParams.get('od_origin') === 'rethra_design' &&
             url.searchParams.get('od_entry_source') === 'chat_upgrade_card'
           );
         }) ?? null;
@@ -264,7 +264,7 @@ test('[P0] @critical AMR auth failures return to the existing sign-in gate witho
   await sendPrompt(page, 'AMR auth failure recovery smoke');
   await page.reload({ waitUntil: 'domcontentloaded' });
   await expect(page).toHaveURL(/\/onboarding$/, { timeout: T.long });
-  await expect(page.getByRole('heading', { name: /Sign in to OpenDesign|登录 OpenDesign/i })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Sign in to RethraDesign|登录 RethraDesign/i })).toBeVisible();
   await expect(page.getByRole('alertdialog')).toHaveCount(0);
   expect(loginRequested).toBe(false);
 });
@@ -361,7 +361,7 @@ test('[P0] @critical AMR model catalog invalid-key failures return to sign-in wi
   loggedIn = false;
   await page.reload({ waitUntil: 'domcontentloaded' });
   await expect(page).toHaveURL(/\/onboarding$/, { timeout: T.long });
-  await expect(page.getByRole('heading', { name: /Sign in to OpenDesign|登录 OpenDesign/i })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Sign in to RethraDesign|登录 RethraDesign/i })).toBeVisible();
   await expect(page.getByRole('alertdialog')).toHaveCount(0);
   expect(loginRequested).toBe(false);
 });
@@ -460,7 +460,7 @@ test('[P0] @critical non-AMR model failures stay recoverable while Cloud is sign
   await expect
     .poll(() => new URL(page.url()).pathname, { timeout: T.medium })
     .toBe('/onboarding');
-  await expect(page.getByRole('heading', { name: /Sign in to OpenDesign|登录 OpenDesign/i })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Sign in to RethraDesign|登录 RethraDesign/i })).toBeVisible();
   await expect
     .poll(async () => {
       const raw = await page.evaluate((key) => window.localStorage.getItem(key), STORAGE_KEY);
@@ -629,7 +629,7 @@ test('[P1] Settings AMR upgrade opens the attributed plans URL for the active pr
   const url = new URL(openedUrl);
   expect(url.pathname).toBe('/pricing/');
   expect(url.searchParams.get('billing')).toBeNull();
-  expect(url.searchParams.get('od_origin')).toBe('open_design');
+  expect(url.searchParams.get('od_origin')).toBe('rethra_design');
   expect(url.searchParams.get('od_entry_source')).toBe('settings_amr_upgrade');
   expect(url.searchParams.get('od_entry_id')).toBeTruthy();
 });
@@ -684,7 +684,7 @@ test('[P0] @critical Settings preserves AMR account, recharge shortcut, and mode
 
   await settings.getByTestId('settings-agent-select-codex').click();
   await expect(settings.getByTestId('settings-agent-select-codex')).toHaveAttribute('aria-pressed', 'true');
-  await expect(settings.getByTestId('settings-agent-select-amr')).toContainText('OpenDesign');
+  await expect(settings.getByTestId('settings-agent-select-amr')).toContainText('RethraDesign');
 
   await settings.getByTestId('settings-agent-select-amr').click();
   await expect(settings.getByTestId('settings-agent-select-amr')).toHaveAttribute('aria-pressed', 'true');
@@ -692,7 +692,7 @@ test('[P0] @critical Settings preserves AMR account, recharge shortcut, and mode
   await expect(settings.locator('.agent-card-amr-profile-badge')).toContainText(/test/i);
   const amrConsole = settings.getByRole('link', { name: /Manage|管理/i });
   await expect(amrConsole).toBeVisible();
-  await expect(amrConsole).toHaveAttribute('href', /source=open_design/);
+  await expect(amrConsole).toHaveAttribute('href', /source=rethra_design/);
 
   await settings.getByRole('combobox', { name: 'Model', exact: true }).click();
   modelPopover = page.getByTestId('settings-agent-model-popover-amr');
@@ -773,7 +773,7 @@ test('[P0] after an AMR failure the user can switch to Codex and complete a fres
 test('[P0] upstream outages keep Retry available and offer the Cloud switch', async ({ page }) => {
   await stubCatalogsEmpty(page);
   await stubRuntimeAgents(page);
-  const root = join(tmpdir(), `open-design-upstream-ui-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
+  const root = join(tmpdir(), `rethra-design-upstream-ui-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
   const runtimes = await createFakeAgentRuntimes({ root: join(root, 'agents'), runtimeIds: ['claude'] });
   const config = {
     mode: 'daemon',
@@ -854,8 +854,8 @@ test('[P0] upstream outages keep Retry available and offer the Cloud switch', as
 
 test('[P1] zh-CN run failure guidance shows actionable copy and expandable raw source', async ({ page }) => {
   await page.addInitScript(() => {
-    window.localStorage.setItem('open-design:locale', 'zh-CN');
-    window.localStorage.setItem('open-design:locale-source', 'manual');
+    window.localStorage.setItem('rethra-design:locale', 'zh-CN');
+    window.localStorage.setItem('rethra-design:locale-source', 'manual');
   });
   await stubCatalogsEmpty(page);
   await stubRuntimeAgents(page);
@@ -1054,7 +1054,7 @@ async function setupAmrWorkspace(
 ) {
   await stubCatalogsEmpty(page);
 
-  const root = join(tmpdir(), `open-design-amr-ui-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
+  const root = join(tmpdir(), `rethra-design-amr-ui-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
   const homeDir = join(root, 'home');
   const fakeVelaSessionId = `fake-amr-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const velaBin = await writeFakeVelaBin(join(root, 'bin'), {
@@ -1100,7 +1100,7 @@ async function setupAmrWorkspace(
         VELA_LINK_URL: 'http://localhost:18081',
         VELA_RUNTIME_KEY: 'fake-runtime-key',
         FAKE_VELA_SESSION_ID: fakeVelaSessionId,
-        ...(options.profile ? { OPEN_DESIGN_AMR_PROFILE: options.profile } : {}),
+        ...(options.profile ? { RETHRA_DESIGN_AMR_PROFILE: options.profile } : {}),
       },
       codex: codexRuntime.env,
     },

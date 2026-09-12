@@ -5,7 +5,7 @@ import type {
   ProjectDesignTokenSuggestionProp,
   ProjectDesignTokenSuggestionQuery,
   ProjectDesignTokenSuggestionsResponse,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { readDesignSystem } from './design-systems/index.js';
 
 type ProjectFileLike = {

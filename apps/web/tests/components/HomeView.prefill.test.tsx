@@ -56,7 +56,7 @@ const AUTHORING_PLUGIN = {
     od: {
       kind: 'scenario',
       taskKind: 'new-generation',
-      useCase: { query: 'Create an OpenDesign plugin for {{pluginGoal}}.' },
+      useCase: { query: 'Create an RethraDesign plugin for {{pluginGoal}}.' },
       inputs: [
         {
           name: 'pluginGoal',
@@ -291,14 +291,14 @@ const LIVE_ARTIFACT_PLUGIN = {
     ...DEFAULT_PLUGIN.manifest,
     name: 'example-live-artifact',
     title: 'Live Artifact',
-    description: 'Create refreshable, auditable OpenDesign artifacts.',
+    description: 'Create refreshable, auditable RethraDesign artifacts.',
     od: {
       kind: 'scenario',
       taskKind: 'new-generation',
       mode: 'prototype',
       scenario: 'live',
       useCase: {
-        query: 'Create refreshable, auditable OpenDesign artifacts backed by connector or local data.',
+        query: 'Create refreshable, auditable RethraDesign artifacts backed by connector or local data.',
       },
       context: {
         skills: [{ path: './SKILL.md' }],
@@ -333,9 +333,9 @@ const LIVE_ARTIFACT_IMAGE_TEMPLATE_PLUGIN = {
 };
 
 const AUTHORING_DEFAULT_SCENARIO_INPUTS = {
-  artifactKind: 'OpenDesign plugin',
-  audience: 'OpenDesign plugin authors',
-  topic: 'packaging a reusable workflow as an OpenDesign plugin',
+  artifactKind: 'RethraDesign plugin',
+  audience: 'RethraDesign plugin authors',
+  topic: 'packaging a reusable workflow as an RethraDesign plugin',
 };
 
 const REFLY_DESIGN_SYSTEM = {
@@ -919,7 +919,7 @@ describe('HomeView prompt handoff', () => {
     await waitFor(() => {
       expect(screen.getByTestId('home-hero-active-plugin').textContent).toContain('Web Prototype');
     });
-    expect(JSON.parse(window.localStorage.getItem('open-design:home-composer:chip')!)).toEqual({
+    expect(JSON.parse(window.localStorage.getItem('rethra-design:home-composer:chip')!)).toEqual({
       chipId: 'prototype',
       pluginId: 'example-web-prototype',
       projectKind: 'prototype',
@@ -1006,9 +1006,9 @@ describe('HomeView prompt handoff', () => {
     ));
     expect(JSON.parse(String((applyCall?.[1] as RequestInit).body))).toMatchObject({
       inputs: {
-        artifactKind: 'OpenDesign plugin',
-        audience: 'OpenDesign plugin authors',
-        topic: 'packaging a reusable workflow as an OpenDesign plugin',
+        artifactKind: 'RethraDesign plugin',
+        audience: 'RethraDesign plugin authors',
+        topic: 'packaging a reusable workflow as an RethraDesign plugin',
       },
     });
     await waitFor(() => {
@@ -1023,9 +1023,9 @@ describe('HomeView prompt handoff', () => {
       pluginId: 'od-new-generation',
       appliedPluginSnapshotId: 'snap-default',
       pluginInputs: {
-        artifactKind: 'OpenDesign plugin',
-        audience: 'OpenDesign plugin authors',
-        topic: 'packaging a reusable workflow as an OpenDesign plugin',
+        artifactKind: 'RethraDesign plugin',
+        audience: 'RethraDesign plugin authors',
+        topic: 'packaging a reusable workflow as an RethraDesign plugin',
       },
       projectKind: 'other',
     }));
@@ -1169,7 +1169,7 @@ describe('HomeView prompt handoff', () => {
     await waitFor(() => {
       expect(screen.getByTestId('home-hero-template-trigger').textContent).toContain('Prototype');
       expect(subtypeChip.getAttribute('aria-selected')).toBe('true');
-      expect(JSON.parse(window.localStorage.getItem('open-design:home-composer:chip') ?? '{}'))
+      expect(JSON.parse(window.localStorage.getItem('rethra-design:home-composer:chip') ?? '{}'))
         .toMatchObject({ chipId: 'prototype', prototypeSubtypeId: subtype });
     });
 

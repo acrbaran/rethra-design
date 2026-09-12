@@ -4,12 +4,12 @@ import { fileURLToPath } from "node:url";
 
 import {
   APP_KEYS,
-  OPEN_DESIGN_SIDECAR_CONTRACT,
+  RETHRA_DESIGN_SIDECAR_CONTRACT,
   SIDECAR_DEFAULTS,
   SIDECAR_SOURCES,
-} from "@open-design/sidecar-proto";
-import { bootstrapSidecarProcess, readCurrentSidecarStamp } from "@open-design/sidecar";
-import { releaseChannelFromNamespace } from "@open-design/release";
+} from "@rethra-design/sidecar-proto";
+import { bootstrapSidecarProcess, readCurrentSidecarStamp } from "@rethra-design/sidecar";
+import { releaseChannelFromNamespace } from "@rethra-design/release";
 
 import {
   PACKAGED_NAMESPACE_ENV,
@@ -34,25 +34,25 @@ function resolveHeadlessNamespaceBaseRoot(): string {
     xdgDataHome != null && xdgDataHome.length > 0
       ? xdgDataHome
       : join(homedir(), ".local", "share");
-  return join(dataBase, "open-design", "namespaces");
+  return join(dataBase, "rethra-design", "namespaces");
 }
 
 function resolveHeadlessAmrProfile(): PackagedConfig["amrProfile"] {
-  return resolvePackagedAmrProfile(process.env.OPEN_DESIGN_AMR_PROFILE);
+  return resolvePackagedAmrProfile(process.env.RETHRA_DESIGN_AMR_PROFILE);
 }
 
 function resolveHeadlessConfig(): PackagedConfig {
-  const namespace = OPEN_DESIGN_SIDECAR_CONTRACT.normalizeNamespace(
+  const namespace = RETHRA_DESIGN_SIDECAR_CONTRACT.normalizeNamespace(
     process.env[PACKAGED_NAMESPACE_ENV] ?? SIDECAR_DEFAULTS.namespace,
   );
   const namespaceBaseRoot = resolveHeadlessNamespaceBaseRoot();
 
   // OD_RESOURCE_ROOT may be set by a launcher script; otherwise default to a
-  // sibling open-design/ directory relative to the node_modules that contain
+  // sibling rethra-design/ directory relative to the node_modules that contain
   // this file — the layout written by tools-pack linux headless-install.
   const resourceRoot =
     process.env.OD_RESOURCE_ROOT
-    ?? join(__dirname, "..", "..", "..", "open-design");
+    ?? join(__dirname, "..", "..", "..", "rethra-design");
 
   return {
     amrProfile: resolveHeadlessAmrProfile(),
@@ -64,7 +64,7 @@ function resolveHeadlessConfig(): PackagedConfig {
     nodeCommand: null,
     resourceRoot,
     telemetryRelayUrl:
-      process.env.OPEN_DESIGN_TELEMETRY_RELAY_URL?.trim() || null,
+      process.env.RETHRA_DESIGN_TELEMETRY_RELAY_URL?.trim() || null,
     updateMetadataUrl: process.env.OD_UPDATE_METADATA_URL?.trim() || null,
     posthogKey: process.env.POSTHOG_KEY?.trim() || null,
     posthogHost: process.env.POSTHOG_HOST?.trim() || null,
@@ -116,7 +116,7 @@ async function main(): Promise<void> {
 
 void main().catch((error: unknown) => {
   process.stderr.write(
-    `open-design headless failed: ${
+    `rethra-design headless failed: ${
       error instanceof Error ? error.message : String(error)
     }\n`,
   );

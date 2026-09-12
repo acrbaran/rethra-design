@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { DECK_STRUCTURED_SLIDE_SELECTOR } from '@open-design/contracts/runtime/deck-stage-fallback';
+import { DECK_STRUCTURED_SLIDE_SELECTOR } from '@rethra-design/contracts/runtime/deck-stage-fallback';
 import { buildSrcdoc } from '../../src/runtime/srcdoc';
 
 const deckHtml = `<!doctype html>
@@ -38,7 +38,7 @@ describe('buildSrcdoc', () => {
     );
 
     const dom = new JSDOM(doc, {
-      url: 'http://open-design.local/',
+      url: 'http://rethra-design.local/',
       runScripts: 'dangerously',
     });
     dom.window.dispatchEvent(new dom.window.MessageEvent('message', {
@@ -63,7 +63,7 @@ describe('buildSrcdoc', () => {
       { baseHref: 'od://app/api/projects/project-1/preview/scope-1/' },
     );
     const dom = new JSDOM(doc, {
-      url: 'http://open-design.local/',
+      url: 'http://rethra-design.local/',
       runScripts: 'dangerously',
     });
     const before = dom.window.document.documentElement;
@@ -544,7 +544,7 @@ describe('buildSrcdoc', () => {
     expect(srcdoc).not.toContain('data-od-selection-bridge');
   });
 
-  // Regression for nexu-io/open-design#362: the bridge must accept an
+  // Regression for nexu-io/rethra-design#362: the bridge must accept an
   // od:inspect-replay message that replaces its in-memory override map
   // with the host's authoritative set. Without this, toggling Inspect
   // off/on or switching to Comment mode reloads the iframe from
@@ -633,7 +633,7 @@ describe('buildSrcdoc', () => {
     expect(srcdoc).not.toContain('html[data-od-comment-mode] body iframe');
   });
 
-  // Regression for nexu-io/open-design#892: imported designs (e.g. Claude
+  // Regression for nexu-io/rethra-design#892: imported designs (e.g. Claude
   // Design ZIP) may not carry data-od-id annotations. The selection bridge
   // depends on these attributes to identify clickable targets, so we
   // auto-annotate structural elements when they are missing.

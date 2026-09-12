@@ -1,25 +1,25 @@
-<h1 align="center">OpenDesign: Die quelloffene Alternative zu Claude Design</h1>
+<h1 align="center">Rethra Design: Die quelloffene Alternative zu Claude Design</h1>
 
-> ⚡ **[OpenDesign Cloud — der offizielle Modell-Service.](https://open-design.ai/zh/pricing/)** Einmal aufladen und Agent- sowie Bildmodelle direkt in OpenDesign nutzen: GPT, Claude und DeepSeek für Agents; GPT Image 2.0, Seedream 5.0 Pro und Nano Banana 2.0 für Bilder.
+> ⚡ **[Rethra Design Cloud — der offizielle Modell-Service.](https://rethra-design.invalid/zh/pricing/)** Einmal aufladen und Agent- sowie Bildmodelle direkt in Rethra Design nutzen: GPT, Claude und DeepSeek für Agents; GPT Image 2.0, Seedream 5.0 Pro und Nano Banana 2.0 für Bilder.
 >
-> 🚀 **[DeepSeek V4 Flash und V4 Pro sind jetzt verfügbar.](https://open-design.ai/zh/pricing/)** Nutzen Sie Spitzenintelligenz für Prototypen, Präsentationen, Designsysteme und alltägliche Agent-Aufgaben. Open-Design-Mitglieder können beide Modelle zwei Wochen lang unbegrenzt direkt in der App verwenden.
+> 🚀 **[DeepSeek V4 Flash und V4 Pro sind jetzt verfügbar.](https://rethra-design.invalid/zh/pricing/)** Nutzen Sie Spitzenintelligenz für Prototypen, Präsentationen, Designsysteme und alltägliche Agent-Aufgaben. Rethra-Design-Mitglieder können beide Modelle zwei Wochen lang unbegrenzt direkt in der App verwenden.
 >
-> 🧩 **[DeepSeek Harness wird jetzt unterstützt.](https://open-design.ai/zh/agents/deepseek-harness-design/)** Verbinden Sie DeepSeeks offizielles `dsh` Agent Harness als native Laufzeit mit OpenDesign — inklusive strukturiertem Denken, Tool-Aufrufen, Modellerkennung, Abbruch und Sitzungsfortsetzung. Generierte Dateien bleiben für Live-Vorschau und Auslieferung im Open-Design-Workflow.
+> 🧩 **[DeepSeek Harness wird jetzt unterstützt.](https://rethra-design.invalid/zh/agents/deepseek-harness-design/)** Verbinden Sie DeepSeeks offizielles `dsh` Agent Harness als native Laufzeit mit Rethra Design — inklusive strukturiertem Denken, Tool-Aufrufen, Modellerkennung, Abbruch und Sitzungsfortsetzung. Generierte Dateien bleiben für Live-Vorschau und Auslieferung im Rethra-Design-Workflow.
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="OpenDesign hero banner" width="100%" />
+  <img src="https://repo-assets.rethra-design.invalid/resources/images/hero.png" alt="Rethra Design hero banner" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://open-design.ai/">Website</a> ·
-  <a href="https://open-design.ai/">Download</a> ·
-  <a href="https://open-design.ai/cloud/">OpenDesign Cloud</a> ·
+  <a href="https://rethra-design.invalid/">Website</a> ·
+  <a href="https://rethra-design.invalid/">Download</a> ·
+  <a href="https://rethra-design.invalid/cloud/">Rethra Design Cloud</a> ·
   <a href="https://discord.gg/mHAjSMV6gz">Discord</a> ·
-  <a href="https://x.com/OpenDesignHQ">@OpenDesignHQ folgen</a>
+  <a href="https://x.com/RethraDesignHQ">@RethraDesignHQ folgen</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/open-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
+  <a href="https://github.com/acrbaran/rethra-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/rethra-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
   <a href="../../LICENSE"><img alt="license" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat" /></a>
   <a href="https://discord.gg/mHAjSMV6gz"><img alt="discord" src="https://img.shields.io/discord/1479002485040480266?style=flat&logo=discord&logoColor=white&label=discord&color=5865F2&cacheSeconds=3600" /></a>
   <a href="QUICKSTART.de.md"><img alt="quickstart" src="https://img.shields.io/badge/quickstart-3%20commands-green?style=flat" /></a>
@@ -29,11 +29,11 @@
 
 ---
 
-## Was ist OpenDesign
+## Was ist Rethra Design
 
 🎨 **Die local-first, quelloffene Alternative zu Claude Design.** &nbsp;🖥️ **Native Desktop-App für macOS und Windows.** &nbsp;⚡ **100+ funktionale Skills + separater Rendering-Vorlagenkatalog** · ✨ **151 markenreife Designsystem-Pakete** · 📦 **277 sofort einsetzbare Plugins.** &nbsp;🖼️ Erzeugt **Web- · Desktop- · Mobile-Prototypen**, **Live-Dashboards / Artefakte**, **Präsentationen**, **Bilder**, **Videos** sowie **HyperFrames**-Motion-Graphics. 🔒 Sandboxed iframe-Vorschau · Export als HTML / PDF / PPTX / MP4. &nbsp;🤖 **Läuft auf Claude Code · OpenClaw · Codex · Cursor · OpenCode · Qwen · Copilot · Hermes · Kimi · Antigravity und 25 unterschiedlichen lokalen CLI-Programmen**, oder über BYOK an jedem OpenAI-kompatiblen Endpunkt.
 
-OpenDesign ist das, was entsteht, wenn die **agent-native** Schleife, die Anthropic mit Claude Design eingeführt hat — das Briefing erkunden, die Richtung festlegen, das Artefakt streamen, kritisieren, ausliefern — nicht länger geschlossen ist und zu einem **Dateisystem aus funktionalen Skills, Rendering-Designvorlagen, Designsystemen und Plugins** wird, das die Coding-Agents, die schon auf deinem Laptop liegen, lesen, schreiben und neu kombinieren können. Dein CLI wird zur Design-Engine, dein Laptop zum Studio und die `DESIGN.md` deines Teams zum Markenvertrag.
+Rethra Design ist das, was entsteht, wenn die **agent-native** Schleife, die Anthropic mit Claude Design eingeführt hat — das Briefing erkunden, die Richtung festlegen, das Artefakt streamen, kritisieren, ausliefern — nicht länger geschlossen ist und zu einem **Dateisystem aus funktionalen Skills, Rendering-Designvorlagen, Designsystemen und Plugins** wird, das die Coding-Agents, die schon auf deinem Laptop liegen, lesen, schreiben und neu kombinieren können. Dein CLI wird zur Design-Engine, dein Laptop zum Studio und die `DESIGN.md` deines Teams zum Markenvertrag.
 
 Es ist außerdem die **Figma-Alternative für das Agent-Zeitalter** — statt Pixel auf einer Leinwand zu schieben, liefert es einseitige Artefakte in echtem CSS, echten Schriften, echten Komponenten, direkt exportiert als HTML / PDF / PPTX / MP4 — bereits durch dein Designsystem geformt, bereits lauffähig in dem Agent, den du jeden Tag verwendest.
 
@@ -42,7 +42,7 @@ Es ist außerdem die **Figma-Alternative für das Agent-Zeitalter** — statt Pi
 
 ## Produkt-Rundgang
 
-Ein kurzer Blick auf den Kern-Workflow von OpenDesign. Starten Sie auf **Home** mit einem Briefing, entdecken Sie wiederverwendbare Skills unter **Plugins** und verwandeln Sie Markenreferenzen in ein **Design System**. Wechseln Sie anschließend ins **Studio** eines Projekts, um Prototypen, Präsentationen, Mobile Apps, Bilder, Dokumente und HyperFrames an einem Ort zu erstellen und weiterzuentwickeln.
+Ein kurzer Blick auf den Kern-Workflow von Rethra Design. Starten Sie auf **Home** mit einem Briefing, entdecken Sie wiederverwendbare Skills unter **Plugins** und verwandeln Sie Markenreferenzen in ein **Design System**. Wechseln Sie anschließend ins **Studio** eines Projekts, um Prototypen, Präsentationen, Mobile Apps, Bilder, Dokumente und HyperFrames an einem Ort zu erstellen und weiterzuentwickeln.
 
 ### Kernseiten
 
@@ -108,7 +108,7 @@ Im Studio eines Projekts bleiben Unterhaltung, generierte Dateien und Live-Vorsc
 
 ## Plattform-Kompatibilität
 
-> OpenDesign wird als **Skills, ein CLI und ein MCP-Server** ausgeliefert, die gängige Coding-Agents nativ konsumieren. Sobald OD installiert ist, verdrahtet ein einziges `od mcp install <agent>` den MCP-Server in die Konfiguration dieses Agents, und du rufst dieselben Tools aus jedem Agent heraus auf.
+> Rethra Design wird als **Skills, ein CLI und ein MCP-Server** ausgeliefert, die gängige Coding-Agents nativ konsumieren. Sobald OD installiert ist, verdrahtet ein einziges `od mcp install <agent>` den MCP-Server in die Konfiguration dieses Agents, und du rufst dieselben Tools aus jedem Agent heraus auf.
 
 | Coding-Agent / Plattform &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Status &nbsp;&nbsp; | Einzeiler zur MCP-Server-Installation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
@@ -133,7 +133,7 @@ Im Studio eines Projekts bleiben Unterhaltung, generierte Dateien und Live-Vorsc
 `od mcp install <agent> --print` für eine Trockenlauf-Vorschau · `--uninstall` zum Entfernen · vollständige Liste mit `od mcp install --help`.
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 25 coding-agent CLIs OpenDesign supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Amp · CodeBuddy · Mimo · AtomCode · Devin · Trae" width="100%" />
+  <img src="https://repo-assets.rethra-design.invalid/resources/images/coding-agents.png" alt="The 25 coding-agent CLIs Rethra Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Amp · CodeBuddy · Mimo · AtomCode · Devin · Trae" width="100%" />
 </p>
 
 **Kein CLI installiert?** Der BYOK-Proxy unter `POST /api/proxy/{anthropic,openai,azure,google,ollama,senseaudio}/stream` gibt dir dieselbe Schleife (ohne Prozess-Spawn) — füge `baseUrl` + `apiKey` + `model` ein, mit Unterstützung für OpenAI, Anthropic, Azure OpenAI, Google Gemini, Ollama, LM Studio, vLLM oder jeden OpenAI-kompatiblen Endpunkt. Pro-Ziel-SSRF-Schutz blockiert interne IPs / Link-Local / CGNAT am Daemon-Rand.
@@ -223,7 +223,7 @@ Jedes Deck exportiert als **HTML** (einzelne Datei, eingebettete Assets), **PDF*
 
 ### 5 · Video & HyperFrames — agent-native Motion-Graphics
 
-**[HyperFrames][hyperframes]** ist HeyGens quelloffenes, agent-natives Video-Framework, integriert als vollwertiger Bestandteil von OpenDesign. Der Agent schreibt HTML + CSS + GSAP, und HyperFrames rendert es über headless Chrome + FFmpeg zu einem deterministischen MP4. Kombiniere es mit **Seedance 2.0** für filmisches t2v / i2v, **Veo 3 / Sora 2 / Kling 2** für geroutete Modellvarianten und **Suno v5 / Lyria 2** für die Audioebene.
+**[HyperFrames][hyperframes]** ist HeyGens quelloffenes, agent-natives Video-Framework, integriert als vollwertiger Bestandteil von Rethra Design. Der Agent schreibt HTML + CSS + GSAP, und HyperFrames rendert es über headless Chrome + FFmpeg zu einem deterministischen MP4. Kombiniere es mit **Seedance 2.0** für filmisches t2v / i2v, **Veo 3 / Sora 2 / Kling 2** für geroutete Modellvarianten und **Suno v5 / Lyria 2** für die Audioebene.
 
 <table>
 <tr>
@@ -246,11 +246,11 @@ Jedes Deck exportiert als **HTML** (einzelne Datei, eingebettete Assets), **PDF*
 
 ---
 
-## Warum OpenDesign
+## Warum Rethra Design
 
 > **Im April 2026 veröffentlichte Anthropic Claude Design — das erste Mal, dass ein LLM aufhörte, Prosa zu schreiben, und begann, Design-Artefakte direkt auszuliefern.** Es ging viral. Aber es blieb closed-source, nur kostenpflichtig, nur cloudbasiert, gebunden an Anthropics Modell, Anthropics Skills, Anthropics Oberfläche. Kein Checkout, kein Self-Hosting, kein Vercel-Deploy, kein eigener Agent zum Einsetzen.
 
-OpenDesign (OD) ist die quelloffene Alternative. Dieselbe Schleife, dasselbe artefakt-zentrierte mentale Modell, ohne den Lock-in:
+Rethra Design (OD) ist die quelloffene Alternative. Dieselbe Schleife, dasselbe artefakt-zentrierte mentale Modell, ohne den Lock-in:
 
 - 🤖 **Agent-native, modellunabhängig.** Wir liefern keinen Agent. Die `claude` / `codex` / `cursor-agent` / `copilot` / `hermes` / `kimi`, die bereits in deinem `PATH` liegen, sind die Design-Engine. Mit einem Klick wechseln.
 - 🧠 **Markenreif von Haus aus.** Jedes Rendering liest die `DESIGN.md` des aktiven Pakets als zentralen Markenvertrag. 151 Designsystem-Pakete werden mit dem Repo ausgeliefert; ältere Pakete können nur aus `DESIGN.md` bestehen, neuere zusätzlich `manifest.json`, `tokens.css`, Komponenten, Assets und Herkunftsangaben enthalten. Lege einen Ordner ab, der Picker findet ihn.
@@ -261,7 +261,7 @@ OpenDesign (OD) ist die quelloffene Alternative. Dieselbe Schleife, dasselbe art
 
 ### Vergleich
 
-| | Claude Design | Figma | Lovable / v0 / Bolt | **OpenDesign** |
+| | Claude Design | Figma | Lovable / v0 / Bolt | **Rethra Design** |
 |---|---|---|---|---|
 | Open Source | ❌ | ❌ | ❌ | **✅ Apache-2.0** |
 | Self-Hosting / Desktop | ❌ | ❌ | ❌ | **✅ macOS + Windows + Docker** |
@@ -278,17 +278,17 @@ OpenDesign (OD) ist die quelloffene Alternative. Dieselbe Schleife, dasselbe art
 
 ### 🖥️ Die Desktop-App herunterladen (empfohlen — keine Konfiguration)
 
-Der schnellste Weg, OpenDesign zu nutzen. Kein Node, kein pnpm, kein Klonen.
+Der schnellste Weg, Rethra Design zu nutzen. Kein Node, kein pnpm, kein Klonen.
 
-- **macOS** (Apple Silicon · Intel x64) → [**open-design.ai**](https://open-design.ai/) oder [GitHub Releases](https://github.com/nexu-io/open-design/releases)
-- **Windows** (x64) → [**open-design.ai**](https://open-design.ai/) oder [GitHub Releases](https://github.com/nexu-io/open-design/releases)
-- **Linux** (AppImage, optionale Spur) → [GitHub Releases](https://github.com/nexu-io/open-design/releases)
+- **macOS** (Apple Silicon · Intel x64) → [**rethra-design.invalid**](https://rethra-design.invalid/) oder [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
+- **Windows** (x64) → [**rethra-design.invalid**](https://rethra-design.invalid/) oder [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
+- **Linux** (AppImage, optionale Spur) → [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
 
 Nach der Installation erkennt die App jedes Coding-Agent-CLI in deinem `PATH` und lädt 100+ funktionale Skills, den separaten Rendering-Vorlagenkatalog und 151 Designsystem-Pakete.
 
 ### 🤖 In deinen Coding-Agent installieren (keine UI)
 
-Du kannst OpenDesign nutzen, ohne jemals die GUI zu öffnen — rufe es als Skill, Plugin oder MCP-Server innerhalb von Claude Code, Codex, Cursor, Copilot, OpenClaw, Antigravity, Hermes, Kimi und mehr auf.
+Du kannst Rethra Design nutzen, ohne jemals die GUI zu öffnen — rufe es als Skill, Plugin oder MCP-Server innerhalb von Claude Code, Codex, Cursor, Copilot, OpenClaw, Antigravity, Hermes, Kimi und mehr auf.
 
 ```bash
 # One-line install into the agent you're using:
@@ -300,16 +300,16 @@ od mcp install <agent>
 Dann, innerhalb des Agents:
 
 ```
-> Use open-design to generate a landing page with the Linear design system
+> Use rethra-design to generate a landing page with the Linear design system
 ```
 
-In einem dateisystemgestützten lokalen CLI-Lauf kombiniert der Agent den gewählten funktionalen Skill oder die Designvorlage mit deiner `DESIGN.md`, schreibt die kanonischen Projektdateien und OpenDesign zeigt diese Dateien an. Ein BYOK-/Plain-API-Lauf ohne Dateisystemwerkzeuge gibt stattdessen genau einen vollständigen `<artifact>`-Block zurück.
+In einem dateisystemgestützten lokalen CLI-Lauf kombiniert der Agent den gewählten funktionalen Skill oder die Designvorlage mit deiner `DESIGN.md`, schreibt die kanonischen Projektdateien und Rethra Design zeigt diese Dateien an. Ein BYOK-/Plain-API-Lauf ohne Dateisystemwerkzeuge gibt stattdessen genau einen vollständigen `<artifact>`-Block zurück.
 
 ### 🐳 Mit Docker ausführen
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design/deploy
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design/deploy
 cp .env.example .env
 echo "OD_API_TOKEN=$(openssl rand -hex 32)" >> .env
 docker compose up -d
@@ -318,15 +318,15 @@ docker compose up -d
 
 ### 🚀 Auf Sealos bereitstellen
 
-[![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/open-design/)
+[![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/rethra-design/)
 
-Die Sealos-App-Store-Vorlage führt das veröffentlichte Open-Design-Docker-Image mit persistentem Workspace-Speicher und Basic Auth am öffentlichen Proxy aus. Folgen Sie für eigene öffentliche oder gemeinsam genutzte Docker-Deployments den Reverse-Proxy- und `OPEN_DESIGN_ALLOWED_ORIGINS`-Hinweisen in [`deploy/README.md`](../../deploy/README.md#local-compose).
+Die Sealos-App-Store-Vorlage führt das veröffentlichte Rethra-Design-Docker-Image mit persistentem Workspace-Speicher und Basic Auth am öffentlichen Proxy aus. Folgen Sie für eigene öffentliche oder gemeinsam genutzte Docker-Deployments den Reverse-Proxy- und `RETHRA_DESIGN_ALLOWED_ORIGINS`-Hinweisen in [`deploy/README.md`](../../deploy/README.md#local-compose).
 
 ### 🧑‍💻 Aus dem Quellcode ausführen
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable && pnpm install
 pnpm tools-dev run web
 ```
@@ -343,13 +343,13 @@ Node `~24`, pnpm `10.33.x`. Windows-Nutzer, siehe [`docs/windows-troubleshooting
 2. **Ein Designer (oder der Agent) legt die Richtung fest.** Keine Marke? Wähle aus 5 kuratierten Richtungen. Du hast eine Marke? Lege einen Screenshot / eine URL ab → der Agent verbindet GitHub, importiert Figma und kodifiziert eine wiederverwendbare `DESIGN.md`.
 3. **Der Agent erstellt das erste Ergebnis.** Plugin + funktionaler Skill oder Designvorlage + `DESIGN.md` sind gebunden. Dateisystemgestützte CLI-Läufe schreiben kanonische Projektdateien; BYOK-/Plain-API-Läufe ohne Dateiwerkzeuge liefern einen vollständigen `<artifact>`-Block.
 4. **Übergabe an das Engineering.** Das Artefakt ist echtes HTML/CSS — lege es in Cursor, Codex oder Claude Code, um als Code weiterzubauen. Oder exportiere PPTX / PDF / MP4 direkt ins Marketing.
-5. **OpenDesign wird mit der Nutzung klüger.** Deine Screenshots, Schriften, Farbpaletten und bestätigten Artefakte sammeln sich als Voreinstellungen für die nächste Sitzung an. Weniger Nacharbeit, weniger Drift.
+5. **Rethra Design wird mit der Nutzung klüger.** Deine Screenshots, Schriften, Farbpaletten und bestätigten Artefakte sammeln sich als Voreinstellungen für die nächste Sitzung an. Weniger Nacharbeit, weniger Drift.
 
 ---
 
-## OpenDesign aus deinem Coding-Agent nutzen
+## Rethra Design aus deinem Coding-Agent nutzen
 
-OpenDesign liefert einen **stdio-MCP-Server** und **Installationsskripte pro Agent** aus. Jeder MCP-kompatible Agent in einem anderen Repo kann Dateien aus deinen lokalen Open-Design-Projekten direkt lesen — Token-CSS, JSX-Komponenten, Einstiegs-HTML — als eine strukturierte, nach Namen abfragbare API. Der Agent sieht immer die Live-Datei, nicht einen veralteten Export.
+Rethra Design liefert einen **stdio-MCP-Server** und **Installationsskripte pro Agent** aus. Jeder MCP-kompatible Agent in einem anderen Repo kann Dateien aus deinen lokalen Rethra-Design-Projekten direkt lesen — Token-CSS, JSX-Komponenten, Einstiegs-HTML — als eine strukturierte, nach Namen abfragbare API. Der Agent sieht immer die Live-Datei, nicht einen veralteten Export.
 
 ```bash
 # One-line install (16+ CLIs supported):
@@ -365,7 +365,7 @@ od skills list --json
 
 **Warum MCP?** Bei jeder Iteration ein ZIP zu exportieren und neu anzuhängen, bricht den Flow. MCP legt die Designquelle direkt offen — der Agent sieht immer die Live-Datei.
 
-**Für einen Agent, der bei null startet,** platziert der Installer `~/.config/<agent>/open-design.json` (oder das Plattform-Äquivalent) plus ein Copy-Paste-MCP-Snippet. Cursor bekommt einen Ein-Klick-Deeplink; Claude Code bekommt einen `claude mcp add-json`-Einzeiler; jeder andere Agent bekommt JSON in dem Schema, das seine Konfiguration erwartet. Vollständiger Ablauf pro Agent → **Settings → MCP server** in der Desktop-App, oder [`docs/agent-adapters.md`](../../docs/agent-adapters.md).
+**Für einen Agent, der bei null startet,** platziert der Installer `~/.config/<agent>/rethra-design.json` (oder das Plattform-Äquivalent) plus ein Copy-Paste-MCP-Snippet. Cursor bekommt einen Ein-Klick-Deeplink; Claude Code bekommt einen `claude mcp add-json`-Einzeiler; jeder andere Agent bekommt JSON in dem Schema, das seine Konfiguration erwartet. Vollständiger Ablauf pro Agent → **Settings → MCP server** in der Desktop-App, oder [`docs/agent-adapters.md`](../../docs/agent-adapters.md).
 
 **Sicherheitsmodell.** Standardmäßig schreibgeschützt, der Daemon bindet an `127.0.0.1`, und SSRF wird am Proxy-Rand blockiert. LAN-Freigabe erfordert ein explizites `OD_BIND_HOST` plus `OD_ALLOWED_ORIGINS`. Connector-Anmeldedaten und Live-Artefakt-Vorschau-Routen bleiben unabhängig davon nur über Loopback erreichbar.
 
@@ -439,7 +439,7 @@ Importiere die Bibliothek erneut über [`scripts/sync-design-systems.ts`](../../
 
 ## Plugins
 
-**277 offizielle Plugins plus 183 remixbare Referenzbeispiele** liegen in [`plugins/_official/`](../../plugins/_official/). Jeder Eintrag ist ein portables Plugin-Verzeichnis mit `open-design.json` und dem typspezifischen Payload, etwa `SKILL.md` für Agent-Workflows, `template.json` für Medienvorlagen oder `DESIGN.md` für Designsystem-Einträge.
+**277 offizielle Plugins plus 183 remixbare Referenzbeispiele** liegen in [`plugins/_official/`](../../plugins/_official/). Jeder Eintrag ist ein portables Plugin-Verzeichnis mit `rethra-design.json` und dem typspezifischen Payload, etwa `SKILL.md` für Agent-Workflows, `template.json` für Medienvorlagen oder `DESIGN.md` für Designsystem-Einträge.
 
 | Kategorie | Anzahl | Inhalt |
 |---|---|---|
@@ -481,33 +481,33 @@ Jeder Befehl unterstützt `--json`, sodass du ihn über `jq` / `xargs` in Automa
 
 ### Ein Plugin bauen
 
-Ein Open-Design-Plugin benötigt `open-design.json` plus den Payload seines Typs. Workflow-Skills und Szenarien enthalten zusätzlich `SKILL.md`; andere Plugin-Typen verwenden ihren eigenen Payload:
+Ein Rethra-Design-Plugin benötigt `rethra-design.json` plus den Payload seines Typs. Workflow-Skills und Szenarien enthalten zusätzlich `SKILL.md`; andere Plugin-Typen verwenden ihren eigenen Payload:
 
 ```
 my-plugin/
-├── open-design.json    ← required: marketplace metadata + inputs + pipeline + capabilities
+├── rethra-design.json    ← required: marketplace metadata + inputs + pipeline + capabilities
 ├── SKILL.md            ← required for agent-skill/scenario entries; omit for other plugin types
 ├── README.md           ← optional: usage, install, registry links
 ├── preview/            ← optional: index.html / poster.png (strongly recommended for visual plugins)
 └── examples/           ← optional: concrete use cases
 ```
 
-Zentrale `open-design.json`-Felder sind `specVersion`, `name`, `version`, das optionale `compat.agentSkills[].path` für Einträge, die einen Agent Skill bereitstellen, sowie `od.kind`, `od.taskKind`, `od.mode`, `od.capabilities[]` und `od.inputs[]`.
+Zentrale `rethra-design.json`-Felder sind `specVersion`, `name`, `version`, das optionale `compat.agentSkills[].path` für Einträge, die einen Agent Skill bereitstellen, sowie `od.kind`, `od.taskKind`, `od.mode`, `od.capabilities[]` und `od.inputs[]`.
 
 Lokal scaffolden + validieren:
 
 ```bash
 od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
 od plugin validate ./my-plugin                          # check manifest / file layout
-pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
+pnpm guard && pnpm --filter @rethra-design/plugin-runtime typecheck
 ```
 
 Vollständiger Feldsatz und Laufzeitvertrag → [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md); ein Plugin mit einem Coding-Agent entwickeln → [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md); minimale Copy-Paste-Vorlagen → [`plugins/spec/examples/`](../../plugins/spec/examples/).
 
 ### Ein Plugin beitragen
 
-1. Lege den Plugin-Ordner in [`plugins/community/`](../../plugins/community/) (Drittanbieter-Plugins) ab, oder — um es gebündelt mit OpenDesign auszuliefern — in die passende Stufe von [`plugins/_official/`](../../plugins/_official/).
-2. Bestehe die Validierung: `od plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
+1. Lege den Plugin-Ordner in [`plugins/community/`](../../plugins/community/) (Drittanbieter-Plugins) ab, oder — um es gebündelt mit Rethra Design auszuliefern — in die passende Stufe von [`plugins/_official/`](../../plugins/_official/).
+2. Bestehe die Validierung: `od plugin validate`, `pnpm guard`, `pnpm --filter @rethra-design/plugin-runtime typecheck`.
 3. Fülle den PR mithilfe der Vorlage in [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) (ID, Version, Spur, Modus, Capabilities, Trigger-Beispiele; füge für visuelle Plugins einen Screenshot / eine Vorschau bei).
 4. Um in einer externen Registry zu veröffentlichen (skills.sh / ClawHub / eigenständiges GitHub) → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
 
@@ -570,7 +570,7 @@ Vollständige Architektur → [`docs/architecture.md`](../../docs/architecture.m
 - [x] Sidecar-Protokoll + Electron-Desktop + IPC-Automatisierung
 - [x] Artefakt-Lint-API + 5-dimensionales Selbstkritik-Pre-Emit-Gate
 - [x] **0.8.0** — Plugin-Marktplatz-Infrastruktur (261 offizielle Plugins, Manifest-Spezifikation, Installationsskripte pro Agent)
-- [x] **0.9.0** — OpenDesign Cloud (offizieller Model Router in die App integriert: keine Konfiguration, Ein-Klick-Anmeldung)
+- [x] **0.9.0** — Rethra Design Cloud (offizieller Model Router in die App integriert: keine Konfiguration, Ein-Klick-Anmeldung)
 - [x] Gepackte Electron-Builds — macOS (Apple Silicon + Intel) + Windows (x64) + Linux-AppImage (optionale Spur)
 - [ ] Kommentar-Modus für chirurgische Bearbeitungen — teilweise ausgeliefert; zuverlässiges gezieltes Patchen in Arbeit
 - [ ] KI-ausgegebenes Tweaks-Panel-UX — noch nicht implementiert
@@ -588,17 +588,17 @@ Phasenweise Auslieferung → [`docs/roadmap.md`](../../docs/roadmap.md).
 Hinter jedem Kanal stehen echte Menschen.
 
 - 💬 **Discord** — täglicher Chat, Plugin-Sharing, Fragen → [**discord.gg/mHAjSMV6gz**](https://discord.gg/mHAjSMV6gz)
-- 🐦 **X / Twitter** — Release-Notes, Meilensteine, Hinter-den-Kulissen → [**@OpenDesignHQ**](https://x.com/OpenDesignHQ)
-- 🗣️ **GitHub Discussions** — tiefe Q&A, RFCs, „show your work" → [**Discussions**](https://github.com/nexu-io/open-design/discussions)
-- 🐛 **GitHub Issues** — Fehlerberichte, Feature-Wünsche → [**Issues**](https://github.com/nexu-io/open-design/issues)
+- 🐦 **X / Twitter** — Release-Notes, Meilensteine, Hinter-den-Kulissen → [**@RethraDesignHQ**](https://x.com/RethraDesignHQ)
+- 🗣️ **GitHub Discussions** — tiefe Q&A, RFCs, „show your work" → [**Discussions**](https://github.com/acrbaran/rethra-design/discussions)
+- 🐛 **GitHub Issues** — Fehlerberichte, Feature-Wünsche → [**Issues**](https://github.com/acrbaran/rethra-design/issues)
 
-Die Labels [`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) und [`help-wanted`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) sind der einfachste Einstieg.
+Die Labels [`good-first-issue`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) und [`help-wanted`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) sind der einfachste Einstieg.
 
 ---
 
 ## Mitwirken
 
-OpenDesign kommt voran, weil Mitwirkende — Designer, Ingenieure, Prompt-Autoren — immer wieder auftauchen. Viele der meistgenutzten Skills, Designsysteme und Plugins wurden von Menschen außerhalb des Kernteams geschrieben.
+Rethra Design kommt voran, weil Mitwirkende — Designer, Ingenieure, Prompt-Autoren — immer wieder auftauchen. Viele der meistgenutzten Skills, Designsysteme und Plugins wurden von Menschen außerhalb des Kernteams geschrieben.
 
 ### 🎯 Wo anfangen (maximaler Hebel, minimale Änderung)
 
@@ -606,9 +606,9 @@ OpenDesign kommt voran, weil Mitwirkende — Designer, Ingenieure, Prompt-Autore
 |---|---|---|
 | Einen neuen **Skill** | Lege einen Ordner mit `SKILL.md` + `assets/` + `references/` ab | [`skills/`](../../skills/) · Spezifikation in [`docs/skills-protocol.md`](../../docs/skills-protocol.md) |
 | Ein neues **Designsystem** | Lege ein Paket mit `DESIGN.md` als Kern ab; ergänze bei Bedarf `manifest.json`, `tokens.css`, Komponenten, Assets oder Herkunftsangaben | [`design-systems/<brand>/`](../../design-systems/) |
-| Ein neues **Plugin** | Lege `open-design.json` + den typspezifischen Payload unter einem Kategorie-Ordner ab | [`plugins/community/`](../../plugins/community/) · Spezifikation in [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md) · Agent-Entwicklungsleitfaden in [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md) |
+| Ein neues **Plugin** | Lege `rethra-design.json` + den typspezifischen Payload unter einem Kategorie-Ordner ab | [`plugins/community/`](../../plugins/community/) · Spezifikation in [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md) · Agent-Entwicklungsleitfaden in [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md) |
 | Ein neues **Coding-Agent-CLI** unterstützen | Runtime-Definition + Registry-Eintrag; Parser nur bei neuem Wire-Format | [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/runtimes/defs/) |
-| Einen Fehler beheben oder die UI verfeinern | Durchsuche das Label [`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) | [Issues →](https://github.com/nexu-io/open-design/issues) |
+| Einen Fehler beheben oder die UI verfeinern | Durchsuche das Label [`good-first-issue`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) | [Issues →](https://github.com/acrbaran/rethra-design/issues) |
 | Die Dokumentation übersetzen | Aktualisiere die `README.<lang>.md`-Dateien | [`TRANSLATIONS.md`](../../TRANSLATIONS.md) |
 
 ### 🤖 Als Agent mitwirken
@@ -617,8 +617,8 @@ Wenn *du der Agent bist, der dies liest*, ist der schnellste Weg:
 
 ```bash
 # 1. Boot locally
-git clone https://github.com/nexu-io/open-design.git
-cd open-design && corepack enable && pnpm install
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design && corepack enable && pnpm install
 pnpm tools-dev run web
 
 # 2. Find a good-first-issue and assign yourself
@@ -627,7 +627,7 @@ gh issue develop <number>   # create a branch and worktree
 
 # 3. Make the change, run the checks
 pnpm guard && pnpm typecheck
-pnpm --filter @open-design/<package> test
+pnpm --filter @rethra-design/<package> test
 
 # 4. Open the PR
 gh pr create --fill
@@ -635,9 +635,9 @@ gh pr create --fill
 
 Vollständiger agentenfreundlicher Beitragsablauf, Code-Stil und PR-Maßstab → [English](../../CONTRIBUTING.md) ([Deutsch](CONTRIBUTING.de.md) · [Français](CONTRIBUTING.fr.md) · [简体中文](CONTRIBUTING.zh-CN.md) · [日本語](CONTRIBUTING.ja-JP.md) · [Português](CONTRIBUTING.pt-BR.md)).
 
-### 🏅 OpenDesign Fellow-Programm
+### 🏅 Rethra Design Fellow-Programm
 
-Wir rekrutieren weltweit **OpenDesign Fellows** — Fellows gestalten das Produkt gemeinsam mit dem Kernteam, vertreten OpenDesign offiziell in ihrer Region und lassen die Community vor Ort wachsen, unterstützt durch finanzielle Förderung ($1,000 / MR), kostenlose LLM-Credits und einen direkten Review-Track. Details → [`MAINTAINERS.md`](../../MAINTAINERS.md) und die Ankündigung auf [Discord](https://discord.gg/mHAjSMV6gz).
+Wir rekrutieren weltweit **Rethra Design Fellows** — Fellows gestalten das Produkt gemeinsam mit dem Kernteam, vertreten Rethra Design offiziell in ihrer Region und lassen die Community vor Ort wachsen, unterstützt durch finanzielle Förderung ($1,000 / MR), kostenlose LLM-Credits und einen direkten Review-Track. Details → [`MAINTAINERS.md`](../../MAINTAINERS.md) und die Ankündigung auf [Discord](https://discord.gg/mHAjSMV6gz).
 
 ---
 
@@ -670,8 +670,8 @@ Maintainer-Regeln, Beförderungskriterien und das Ausstiegsprotokoll → [`MAINT
 
 Dank an alle, die teilgenommen haben — Code, Doku, Feedback, ein scharfsinniges Issue, einen neuen Skill, ein neues Designsystem.
 
-<a href="https://github.com/nexu-io/open-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="OpenDesign contributors" />
+<a href="https://github.com/acrbaran/rethra-design/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=nexu-io/rethra-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="Rethra Design contributors" />
 </a>
 
 ---
@@ -679,7 +679,7 @@ Dank an alle, die teilgenommen haben — Code, Doku, Feedback, ein scharfsinnige
 ## Repository-Aktivität
 
 <picture>
-  <img alt="OpenDesign — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
+  <img alt="Rethra Design — repository metrics" src="https://repo-assets.rethra-design.invalid/resources/images/github-metrics.svg" />
 </picture>
 
 Das obige SVG wird täglich von [`.github/workflows/metrics.yml`](../../.github/workflows/metrics.yml) mit [`lowlighter/metrics`](https://github.com/lowlighter/metrics) neu generiert.
@@ -689,16 +689,16 @@ Das obige SVG wird täglich von [`.github/workflows/metrics.yml`](../../.github/
 ## Gib uns einen Stern
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star OpenDesign on GitHub — github.com/nexu-io/open-design" width="100%" /></a>
+  <a href="https://github.com/acrbaran/rethra-design"><img src="https://repo-assets.rethra-design.invalid/resources/images/star-us.png" alt="Star Rethra Design on GitHub — github.com/acrbaran/rethra-design" width="100%" /></a>
 </p>
 
 Wenn dir das dreißig Minuten gespart hat, gib ihm ein ★. Sterne zahlen keine Miete — aber sie sagen dem nächsten Designer, Agent und Mitwirkenden, dass dieses Experiment ihre Aufmerksamkeit wert ist. Ein Klick, drei Sekunden, ein echtes Signal.
 
-<a href="https://star-history.dera.page/#nexu-io/open-design&Date">
+<a href="https://star-history.dera.page/#nexu-io/rethra-design&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&theme=dark&cache_bust=2026-08-04" />
-    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-08-04" />
-    <img alt="OpenDesign star history" src="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&theme=dark&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
+    <img alt="Rethra Design star history" src="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
   </picture>
 </a>
 
@@ -716,7 +716,7 @@ Wenn dir das dreißig Minuten gespart hat, gib ihm ein ★. Sterne zahlen keine 
 | [`multica-ai/multica`](https://github.com/multica-ai/multica) | Die Daemon- + Adapter-Architektur — PATH-Scan-Agent-Erkennung, lokaler Daemon als einziger privilegierter Prozess. |
 | [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) | Historische Quelle des ursprünglichen 9-teiligen `DESIGN.md`-Schemas und von 70 upstream-abgeleiteten Systemen; heutige Pakete können diese Basis erweitern. |
 | [`bergside/awesome-design-skills`](https://github.com/bergside/awesome-design-skills) | Quelle der 57 Design-Skills, die unter `design-systems/` hinzugefügt wurden. |
-| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | Das HTML→MP4-Motion-Graphics-Framework, integriert als vollwertiges `hyperframes-html` in OpenDesign. |
+| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | Das HTML→MP4-Motion-Graphics-Framework, integriert als vollwertiges `hyperframes-html` in Rethra Design. |
 | [Claude Code skills][skill] | Die `SKILL.md`-Konvention, die wir wortgetreu übernehmen. |
 
 Detaillierte Herkunft → [`docs/references.md`](../../docs/references.md).

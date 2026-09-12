@@ -18,7 +18,7 @@ import {
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { VisuallyHidden } from '@open-design/components';
+import { VisuallyHidden } from '@rethra-design/components';
 import type {
   CSSProperties,
   DragEvent as ReactDragEvent,
@@ -34,7 +34,7 @@ import type {
   McpServerConfig,
   WorkspaceCollabContext,
   WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { DesignSystemPicker } from './DesignSystemPicker';
 import type { SkillSummary } from '../types';
 import { Icon, type IconName } from './Icon';
@@ -99,7 +99,7 @@ import { TypePillRow } from './home-hero/TypePillRow';
 import { LibraryPicker } from './LibraryPicker';
 import { assetTitle } from './LibraryAssetMeta';
 import { libraryAssetRawUrl } from '../providers/registry';
-import type { LibraryAsset } from '@open-design/contracts';
+import type { LibraryAsset } from '@rethra-design/contracts';
 import { WorkingDirPicker } from './WorkingDirPicker';
 import {
   ProjectReferenceModal,
@@ -1092,7 +1092,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
     });
   }
 
-  function openDesignSystemPicker() {
+  function rethraDesignSystemPicker() {
     const trigger = homeHeroRef.current?.querySelector<HTMLButtonElement>(
       '[data-testid="home-hero-design-system-trigger"]',
     );
@@ -1289,7 +1289,7 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
 
   return (
     <section ref={homeHeroRef} className="home-hero" data-testid="home-hero">
-      {/* #5517 hero header: the OpenDesign logotype replaces the small
+      {/* #5517 hero header: the RethraDesign logotype replaces the small
           brand-mark + name pair, and the tagline subtitle is dropped. The
           static wordmark is now a WebGL pixel-scan effect (round 7) — the
           title heading below it is dropped too, since the animated wordmark
@@ -1963,13 +1963,13 @@ export const HomeHero = forwardRef<HomeHeroHandle, Props>(function HomeHero(
                 });
                 setFigmaHelpOpen(true);
               }}
-              onOpenDesignSystems={onDesignSystemChange ? () => {
+              onRethraDesignSystems={onDesignSystemChange ? () => {
                 trackHomeChatComposerClick(analytics.track, {
                   page_name: 'home',
                   area: 'chat_composer',
                   element: 'design_system_open',
                 });
-                openDesignSystemPicker();
+                rethraDesignSystemPicker();
               } : undefined}
             />
             {libraryPickerOpen ? (
@@ -2324,14 +2324,14 @@ function PluginPromptPresets({
 }
 
 const FIRST_PARTY_WEB_CLONE_SITE_ICONS: Record<string, string> = {
-  'open-design.ai': '/logo.svg',
+  'rethra-design.invalid': '/logo.svg',
 };
 
 function webCloneFaviconUrl(domain: string): string {
   return `https://www.google.com/s2/favicons?sz=128&domain=${encodeURIComponent(domain)}`;
 }
 
-// A Website-clone text example ("Website URL to clone: https://open-design.ai") —
+// A Website-clone text example ("Website URL to clone: https://rethra-design.invalid") —
 // pull the site out so the card can show the site's own mark + bare domain
 // instead of the raw prompt line. First-party bundled examples use local assets
 // so the first screen is stable without waiting on a remote favicon service.
@@ -4256,7 +4256,7 @@ function fallbackPluginPresetPrompt(
 const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
   "en": {
     "web-clone": [
-      "Website URL to clone: https://open-design.ai",
+      "Website URL to clone: https://rethra-design.invalid",
     ],
     prototype: [
       "Design a high-converting website for an AI CRM with a clear hero, feature story, proof points, and trial CTA",
@@ -4391,7 +4391,7 @@ const HOME_PROMPT_EXAMPLES: Record<Locale, Record<string, string[]>> = {
   },
   "zh-CN": {
     "web-clone": [
-      "想要复刻的网站链接：https://open-design.ai",
+      "想要复刻的网站链接：https://rethra-design.invalid",
     ],
     prototype: [
       "为 AI CRM 设计一个高转化官网，包含首屏、功能卖点、客户案例和清晰的试用入口",

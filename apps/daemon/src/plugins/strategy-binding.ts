@@ -2,8 +2,8 @@ import type {
   ProjectMetadata,
   ProjectScenarioTaskProfile,
   ProjectStrategyBinding,
-} from '@open-design/contracts';
-import { automaticStrategyTaskProfileForProjectMetadata } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { automaticStrategyTaskProfileForProjectMetadata } from '@rethra-design/contracts';
 
 const TASK_PROFILES = new Set<ProjectScenarioTaskProfile>([
   'prototype',

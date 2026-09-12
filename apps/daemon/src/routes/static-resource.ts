@@ -5,8 +5,8 @@ import fs from 'node:fs';
 import type {
   DesignSystemTokenContractRebuildJobResponse,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
-import { TeamResourceCopyForbiddenError } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { TeamResourceCopyForbiddenError } from '@rethra-design/contracts';
 import {
   enforceTeamResourceCopyAllowed,
   type TeamResourceStateProvider,
@@ -65,7 +65,7 @@ import {
   type SkillInstallErrorCode,
 } from '../services/skill-installation.js';
 import type { RouteDeps } from '../server-context.js';
-import { findRealElementRange, HTML_TAG_PATTERNS } from '@open-design/contracts/runtime/html-injection-points';
+import { findRealElementRange, HTML_TAG_PATTERNS } from '@rethra-design/contracts/runtime/html-injection-points';
 
 export interface RegisterAtomRoutesDeps {
   db: Database.Database;
@@ -1304,7 +1304,7 @@ export function registerStaticResourceRoutes(app: Express, ctx: RegisterStaticRe
       try {
         const runtimeRoot = fs.realpathSync.native(RUNTIME_DATA_DIR_CANONICAL);
         if (sourceRoot === runtimeRoot || sourceRoot.startsWith(`${runtimeRoot}${path.sep}`)) {
-          return sendApiError(res, 400, 'BAD_REQUEST', 'cannot import OpenDesign runtime data');
+          return sendApiError(res, 400, 'BAD_REQUEST', 'cannot import RethraDesign runtime data');
         }
       } catch {
         // The runtime data directory may not exist yet in first-run tests.
@@ -1502,13 +1502,13 @@ export function assembleExample(templateHtml: string, slidesHtml: string, title:
   const withSlides = templateHtml.replace('<!-- SLIDES_HERE -->', () => slidesHtml);
   // Retitle the template's own <title>. The slides just interpolated above are
   // skill-authored and can carry a <title> of their own, which a text match
-  // would rewrite instead (nexu-io/open-design#7410).
+  // would rewrite instead (nexu-io/rethra-design#7410).
   // The close is located by the raw-text rule rather than searched for as text
   // from the open tag's own start — from there a `</title` sitting in one of
   // its attribute values would match first.
   const range = findRealElementRange(withSlides, HTML_TAG_PATTERNS.titleOpen, 'title');
   if (!range) return withSlides;
-  return `${withSlides.slice(0, range.start)}<title>${title} | OpenDesign Example</title>`
+  return `${withSlides.slice(0, range.start)}<title>${title} | RethraDesign Example</title>`
     + withSlides.slice(range.end);
 }
 

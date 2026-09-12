@@ -148,7 +148,7 @@ skips browser exploration and executes this inside the Docker checkout:
 
 ```bash
 rm -rf apps/web/out apps/web/.next
-OD_WEB_OUTPUT_MODE=server sh -c 'OD_WEB_OUTPUT_MODE= pnpm --filter @open-design/web build && test -d apps/web/out'
+OD_WEB_OUTPUT_MODE=server sh -c 'OD_WEB_OUTPUT_MODE= pnpm --filter @rethra-design/web build && test -d apps/web/out'
 test -f apps/web/out/index.html
 ```
 
@@ -292,8 +292,8 @@ Before or after merging, the Mac mini can run the same sandbox path
 manually:
 
 ```bash
-git clone git@github.com:nexu-io/open-design.git
-cd open-design
+git clone git@github.com:nexu-io/rethra-design.git
+cd rethra-design
 git fetch origin pull/2604/head:agent-pr-explore-sandbox
 git checkout agent-pr-explore-sandbox
 RUNNER_TEMP=/tmp/od-agent-pr-explore-local \

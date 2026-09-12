@@ -22,25 +22,25 @@ import {
   DECK_SLIDE_SELECTOR,
   DECK_STRUCTURED_SLIDE_SELECTOR,
   injectDeckStageFallback,
-} from '@open-design/contracts/runtime/deck-stage-fallback';
+} from '@rethra-design/contracts/runtime/deck-stage-fallback';
 import {
   DECK_PROTOCOL_VERSION,
   DECK_READY_MESSAGE_TYPE,
-} from '@open-design/contracts/runtime/deck-protocol';
+} from '@rethra-design/contracts/runtime/deck-protocol';
 import {
   buildPreviewBaseHrefBridge,
   buildPreviewObservabilityBridge,
-} from '@open-design/contracts/runtime/preview-observability';
+} from '@rethra-design/contracts/runtime/preview-observability';
 import {
   PREVIEW_RUNTIME_STATE_LIMITS,
   PREVIEW_RUNTIME_STATE_VERSION,
-} from '@open-design/contracts/runtime/preview-runtime-state';
+} from '@rethra-design/contracts/runtime/preview-runtime-state';
 import {
   PREVIEW_REDIRECT_GUARD_MAX_HOPS,
   PREVIEW_REDIRECT_GUARD_SELF_REFRESH_MIN_DELAY_MS,
   PREVIEW_REDIRECT_GUARD_WINDOW_MS,
   PREVIEW_REDIRECT_LOOP_MESSAGE,
-} from '@open-design/contracts/runtime/preview-guards';
+} from '@rethra-design/contracts/runtime/preview-guards';
 
 import {
   endOfTag,
@@ -48,14 +48,14 @@ import {
   findRealTagEnd,
   findRealTagOffset,
   HTML_TAG_PATTERNS,
-} from '@open-design/contracts/runtime/html-injection-points';
+} from '@rethra-design/contracts/runtime/html-injection-points';
 
 export {
   PREVIEW_REDIRECT_GUARD_MAX_HOPS,
   PREVIEW_REDIRECT_GUARD_SELF_REFRESH_MIN_DELAY_MS,
   PREVIEW_REDIRECT_GUARD_WINDOW_MS,
   PREVIEW_REDIRECT_LOOP_MESSAGE,
-} from '@open-design/contracts/runtime/preview-guards';
+} from '@rethra-design/contracts/runtime/preview-guards';
 
 import {
   buildManualEditBridge,
@@ -114,7 +114,7 @@ export type SrcdocOptions = {
 // — most reliably a `<meta http-equiv="refresh">` that reloads the same
 // document, or a chain of meta refreshes that cycles (A → B → A → …). In the
 // preview iframe that redirect fires forever, pegging the main thread until the
-// whole design workspace freezes (nexu-io/open-design#710). buildSrcdoc always
+// whole design workspace freezes (nexu-io/rethra-design#710). buildSrcdoc always
 // injects `injectPreviewRedirectGuard`, an in-iframe circuit breaker that:
 //
 //   1. counts meta-refresh navigations across reloads (persisted in
@@ -1295,7 +1295,7 @@ function serializeHtmlDocument(doc: Document): string {
  * Auto-annotate structural HTML elements that lack `data-od-id` or
  * `data-screen-label` so that the selection bridge (Picker / Pods /
  * Tweaks) can target them. This fixes imported designs whose HTML was
- * generated outside of OpenDesign and therefore carries no OD-specific
+ * generated outside of RethraDesign and therefore carries no OD-specific
  * annotations.
  */
 function annotateMissingOdIds(doc: string): string {
@@ -1404,7 +1404,7 @@ function deferTrustedFontStylesheets(doc: string): string {
  *
  * The boundaries are located structurally (see `findRealTagEnd`), so a `<head>`
  * or `<body>` an author wrote into a script string or an attribute is not
- * mistaken for this document's own (nexu-io/open-design#7410).
+ * mistaken for this document's own (nexu-io/rethra-design#7410).
  */
 function injectAtDocumentStart(doc: string, payload: string): string {
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);

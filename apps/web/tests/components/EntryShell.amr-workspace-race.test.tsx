@@ -5,7 +5,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { EntryShell } from '../../src/components/EntryShell';
@@ -90,7 +90,7 @@ function teamContext(workspaceId: string, workspaceMemberId: string): WorkspaceC
 function amrAgent(): AgentInfo {
   return {
     id: 'amr',
-    name: 'OpenDesign AMR',
+    name: 'RethraDesign AMR',
     bin: 'amr',
     available: true,
     models: [{ id: 'glm-5', label: 'GLM 5' }],
@@ -181,7 +181,7 @@ describe('EntryShell AMR workspace precheck race', () => {
         if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
         if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
         if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-        if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+        if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
         return jsonResponse({});
       }) as typeof fetch;
       mockedCheckAmrBalanceGate.mockResolvedValue({ kind: 'allow' });
@@ -249,7 +249,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
     mockedCheckAmrBalanceGate.mockResolvedValue({
@@ -345,7 +345,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
     mockedCheckAmrBalanceGate.mockResolvedValue({ kind: 'allow' });
@@ -416,7 +416,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
     mockedCheckAmrBalanceGate
@@ -502,7 +502,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
 
@@ -592,7 +592,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
 
@@ -660,7 +660,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
 
@@ -704,7 +704,7 @@ describe('EntryShell AMR workspace precheck race', () => {
     );
 
     expect(
-      await screen.findByRole('heading', { name: 'Sign in to OpenDesign' }),
+      await screen.findByRole('heading', { name: 'Sign in to RethraDesign' }),
     ).toBeTruthy();
     expect(window.location.pathname).toBe('/onboarding');
     expect(screen.queryByRole('alertdialog')).toBeNull();
@@ -736,7 +736,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
     mockedCheckAmrBalanceGate.mockResolvedValue({ kind: 'allow' });
@@ -796,9 +796,9 @@ describe('EntryShell AMR workspace precheck race', () => {
     await waitFor(() => expect(onCreateProject).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(window.location.pathname).toBe('/onboarding'));
     expect(
-      await screen.findByRole('heading', { name: 'Sign in to OpenDesign' }),
+      await screen.findByRole('heading', { name: 'Sign in to RethraDesign' }),
     ).toBeTruthy();
-    expect(window.localStorage.getItem('open-design:home-composer:prompt')).toBe(
+    expect(window.localStorage.getItem('rethra-design:home-composer:prompt')).toBe(
       'Keep this draft through Cloud reauthentication',
     );
   });
@@ -837,7 +837,7 @@ describe('EntryShell AMR workspace precheck race', () => {
       if (url.endsWith('/api/plugins')) return jsonResponse({ plugins: [] });
       if (url.endsWith('/api/mcp/servers')) return jsonResponse({ servers: [] });
       if (url.endsWith('/api/community/discord')) return jsonResponse({ stale: true });
-      if (url.endsWith('/api/github/open-design')) return jsonResponse({ stale: true });
+      if (url.endsWith('/api/github/rethra-design')) return jsonResponse({ stale: true });
       return jsonResponse({});
     }) as typeof fetch;
 

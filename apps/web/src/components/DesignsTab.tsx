@@ -1,8 +1,8 @@
 import type { CSSProperties } from "react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { Dialog, DialogDescription, DialogFooter, DialogTitle } from "@open-design/components";
-import type { WorkspaceCollabContext } from "@open-design/contracts";
-import { projectKindFromMetadataToTracking } from "@open-design/contracts/analytics";
+import { Dialog, DialogDescription, DialogFooter, DialogTitle } from "@rethra-design/components";
+import type { WorkspaceCollabContext } from "@rethra-design/contracts";
+import { projectKindFromMetadataToTracking } from "@rethra-design/contracts/analytics";
 import { useAnalytics } from "../analytics/provider";
 import {
   trackPageView,

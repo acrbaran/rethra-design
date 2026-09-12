@@ -5,11 +5,11 @@ import { gunzip } from "node:zlib";
 import { promisify } from "node:util";
 
 import { BrowserWindow, nativeImage } from "electron";
-import type { DesktopRenderSlidesInput, DesktopRenderSlidesResult } from "@open-design/sidecar-proto";
+import type { DesktopRenderSlidesInput, DesktopRenderSlidesResult } from "@rethra-design/sidecar-proto";
 
 import { waitForPrintableContent } from "./pdf-export.js";
 import { bgraBitmapHasPaint, FROZEN_MOTION_CSS } from "./static-capture.js";
-import { findRealTagEnd, findRealTagOffset, HTML_TAG_PATTERNS } from '@open-design/contracts/runtime/html-injection-points';
+import { findRealTagEnd, findRealTagOffset, HTML_TAG_PATTERNS } from '@rethra-design/contracts/runtime/html-injection-points';
 
 // Re-exported so the long-standing import site (and its tests) keep working
 // after the definition moved to the module both capture paths share.
@@ -1994,7 +1994,7 @@ function injectBaseHref(doc: string, baseHref: string | undefined): string {
   if (!baseHref) return doc;
   const tag = `<base href="${escapeHtmlAttribute(baseHref)}">`;
   // Structural lookup: a `<head>` an author wrote into a script string or an
-  // attribute is not this document's head (nexu-io/open-design#7410).
+  // attribute is not this document's head (nexu-io/rethra-design#7410).
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);
   if (headEnd >= 0) return doc.slice(0, headEnd) + tag + doc.slice(headEnd);
   const htmlEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.htmlOpen);
@@ -2201,7 +2201,7 @@ export async function runDomToPptx(
   }
 
   // dom-to-pptx's autoEmbedFonts scanner sees top-level CSSFontFaceRule entries,
-  // but many OpenDesign decks load Google Fonts through an inline `@import`.
+  // but many RethraDesign decks load Google Fonts through an inline `@import`.
   // Expand those imports into a throwaway top-level style so the vendored engine
   // can discover and embed the actual font files instead of only writing their
   // family names into the PPTX. The render window is destroyed after export, so

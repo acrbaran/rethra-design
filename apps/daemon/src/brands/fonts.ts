@@ -4,7 +4,7 @@ import path from "node:path";
 
 import type { Brand } from "./schema.js";
 import { fetchExternalBrandAsset } from "./safe-fetch.js";
-import { findRealTagEnd, HTML_TAG_PATTERNS } from '@open-design/contracts/runtime/html-injection-points';
+import { findRealTagEnd, HTML_TAG_PATTERNS } from '@rethra-design/contracts/runtime/html-injection-points';
 
 /**
  * Webfont self-hosting for a brand workspace.
@@ -210,7 +210,7 @@ export function injectFontFaces(html: string, files: FontFile[], urlPrefix: stri
   const tag = `<style data-brand-fonts>\n${css}\n</style>`;
   // Structural lookup, not a text match: a `<head>` an author wrote into a
   // script string is not this document's head, and a bare `/<head[^>]*>/` also
-  // matches `<header>` (nexu-io/open-design#7410).
+  // matches `<header>` (nexu-io/rethra-design#7410).
   const headEnd = findRealTagEnd(html, HTML_TAG_PATTERNS.headOpen);
   if (headEnd >= 0) return `${html.slice(0, headEnd)}\n${tag}${html.slice(headEnd)}`;
   return tag + html;

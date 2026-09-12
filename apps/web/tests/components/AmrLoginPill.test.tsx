@@ -107,7 +107,7 @@ describe('AmrAccountControl', () => {
     });
 
     expect(
-      screen.getByRole('group', { name: 'OpenDesign Cloud account status' }),
+      screen.getByRole('group', { name: 'RethraDesign Cloud account status' }),
     ).toBeTruthy();
     expect(screen.getByText('Not signed in')).toBeTruthy();
     const signIn = screen.getByRole('button', { name: 'Sign in' });
@@ -279,7 +279,7 @@ describe('AmrLoginPill', () => {
     expect(screen.getByText('leaf@example.com')).toBeTruthy();
     expect(screen.getByText('TEST')).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Manage' }).getAttribute('href')).toBe(
-      'https://open-design.powerformer.net/cloud/dashboard?source=open_design',
+      'https://rethra-design.powerformer.net/cloud/dashboard?source=rethra_design',
     );
   });
 
@@ -294,7 +294,7 @@ describe('AmrLoginPill', () => {
 
     expect(screen.getByText('LOCAL')).toBeTruthy();
     expect(screen.getByRole('link', { name: 'Manage' }).getAttribute('href')).toBe(
-      'http://localhost:5173/dashboard?source=open_design',
+      'http://localhost:5173/dashboard?source=rethra_design',
     );
   });
 
@@ -309,7 +309,7 @@ describe('AmrLoginPill', () => {
 
     expect(screen.queryByText('PROD')).toBeNull();
     expect(screen.getByRole('link', { name: 'Manage' }).getAttribute('href')).toBe(
-      'https://open-design.ai/amr/dashboard?source=open_design',
+      'https://rethra-design.invalid/amr/dashboard?source=rethra_design',
     );
   });
 
@@ -317,7 +317,7 @@ describe('AmrLoginPill', () => {
     const fetchMock = vi.fn(async (input: string | URL | Request) => {
       const url = typeof input === 'string' ? input : input.toString();
       if (url === '/api/attribution/bridge-url') {
-        return jsonResponse({ body: { url: 'https://open-design.ai/amr/dashboard?od_bridge=odbr_12345678' } });
+        return jsonResponse({ body: { url: 'https://rethra-design.invalid/amr/dashboard?od_bridge=odbr_12345678' } });
       }
       if (url === '/api/system/open-external') return jsonResponse({ body: { ok: true } });
       return new Response('{}', { status: 202 });
@@ -346,8 +346,8 @@ describe('AmrLoginPill', () => {
     fireEvent.click(link);
 
     const url = new URL(link.href);
-    expect(url.searchParams.get('source')).toBe('open_design');
-    expect(url.searchParams.get('od_origin')).toBe('open_design');
+    expect(url.searchParams.get('source')).toBe('rethra_design');
+    expect(url.searchParams.get('od_origin')).toBe('rethra_design');
     expect(url.searchParams.get('od_entry_source')).toBe('settings_amr_console');
     expect(url.searchParams.get('od_device_id')).toBe('od-install-abc');
     expect(url.searchParams.get('od_entry_id')).toMatch(/^od-amr-/u);
@@ -366,7 +366,7 @@ describe('AmrLoginPill', () => {
       '/api/system/open-external',
       expect.objectContaining({
         method: 'POST',
-        body: JSON.stringify({ url: 'https://open-design.ai/amr/dashboard?od_bridge=odbr_12345678' }),
+        body: JSON.stringify({ url: 'https://rethra-design.invalid/amr/dashboard?od_bridge=odbr_12345678' }),
       }),
     );
   });
@@ -393,7 +393,7 @@ describe('AmrLoginPill', () => {
     });
 
     const link = screen.getByRole('link', { name: 'Manage' }) as HTMLAnchorElement;
-    expect(link.href).toBe('https://feature.example/dashboard?source=open_design');
+    expect(link.href).toBe('https://feature.example/dashboard?source=rethra_design');
     fireEvent.click(link);
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledWith(
@@ -476,7 +476,7 @@ describe('AmrLoginPill', () => {
     });
   });
 
-  it('passes the OpenDesign device id in login attribution when metrics consent is enabled', async () => {
+  it('passes the RethraDesign device id in login attribution when metrics consent is enabled', async () => {
     const fetchMock = vi.fn(async (input, init) => {
       const url = typeof input === 'string' ? input : (input as URL).toString();
       if (url.endsWith('/api/integrations/vela/status')) {
@@ -638,7 +638,7 @@ describe('AmrLoginPill', () => {
   });
 
   // This pill is what Settings' "Sign in / Register" cloud callout and the
-  // OpenDesign agent card's "Authorize" action both render (SettingsDialog
+  // RethraDesign agent card's "Authorize" action both render (SettingsDialog
   // renders it from a full-page `/settings` route, so the entry rail — and
   // its `useWorkspaceContext` hook — is unmounted the whole time the user is
   // on that page). Besides notifyAmrLoginStatusChanged(), it also fires

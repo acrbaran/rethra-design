@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define the smallest OpenDesign patch that lets an upstream orchestrator call
+Define the smallest Rethra Design patch that lets an upstream orchestrator call
 OD as a creative runtime adapter while the upstream orchestrator keeps authority
 over media provider use.
 
@@ -27,14 +27,14 @@ landed enforcement slice from the still-proposed request/executor work. That
 review-first shape follows the maintainer pattern from recent architecture
 threads:
 
-- Issue [#2146](https://github.com/nexu-io/open-design/issues/2146) accepted a
+- Issue [#2146](https://github.com/acrbaran/rethra-design/issues/2146) accepted a
   focused contract proposal before implementation.
-- Issue [#1969](https://github.com/nexu-io/open-design/issues/1969) asked for a
+- Issue [#1969](https://github.com/acrbaran/rethra-design/issues/1969) asked for a
   focused design note with schema, fixture, and comparison criteria before a
   multi-mode export implementation.
-- Issue [#1637](https://github.com/nexu-io/open-design/issues/1637), PR
-  [#1746](https://github.com/nexu-io/open-design/pull/1746), and PR
-  [#3021](https://github.com/nexu-io/open-design/pull/3021) established that a
+- Issue [#1637](https://github.com/acrbaran/rethra-design/issues/1637), PR
+  [#1746](https://github.com/acrbaran/rethra-design/pull/1746), and PR
+  [#3021](https://github.com/acrbaran/rethra-design/pull/3021) established that a
   broad prototype should become a doc-only integration-shape review surface
   before implementation is treated as mergeable.
 
@@ -43,7 +43,7 @@ first code patch small, and do not make OD a provider router or account owner.
 
 ## Background
 
-OpenDesign already has a media dispatcher. It is local-first and daemon-owned:
+Rethra Design already has a media dispatcher. It is local-first and daemon-owned:
 
 - `apps/daemon/src/routes/media.ts` exposes the project media endpoints,
   including `POST /api/projects/:id/media/generate`.
@@ -727,12 +727,12 @@ daemon must still enforce at the tool/media endpoint.
 ```bash
 pnpm guard
 pnpm typecheck
-pnpm --filter @open-design/daemon test
-pnpm --filter @open-design/web test
+pnpm --filter @rethra-design/daemon test
+pnpm --filter @rethra-design/web test
 ```
 
 Add e2e validation for the first PR that changes run behavior:
 
 ```bash
-pnpm --filter @open-design/e2e test -- <new-media-policy-spec>
+pnpm --filter @rethra-design/e2e test -- <new-media-policy-spec>
 ```

@@ -13,7 +13,7 @@
  *
  * @see apps/packaged/src/sidecars.ts
  * @see apps/daemon/src/legacy-data-migrator.ts
- * @see https://github.com/nexu-io/open-design/issues/710
+ * @see https://github.com/acrbaran/rethra-design/issues/710
  */
 import { EventEmitter } from 'node:events';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -21,8 +21,8 @@ import { tmpdir } from 'node:os';
 import { delimiter, dirname, join, posix } from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { SidecarStamp } from '@open-design/sidecar';
-import { APP_KEYS } from '@open-design/sidecar-proto';
+import type { SidecarStamp } from '@rethra-design/sidecar';
+import { APP_KEYS } from '@rethra-design/sidecar-proto';
 
 import {
   buildPackagedDaemonSpawnEnv,
@@ -119,7 +119,7 @@ describe('resolveDaemonStatusTimeoutMs', () => {
     // Apple Silicon cold boots, after which the parent tears the sidecars down
     // and the desktop falls back to a stale web URL. The wider budget matches
     // the win32/linux "slow, not dead" safety net.
-    // https://github.com/nexu-io/open-design/issues/6637
+    // https://github.com/acrbaran/rethra-design/issues/6637
     expect(resolveDaemonStatusTimeoutMs({}, 'darwin')).toBe(90_000);
   });
 
@@ -129,7 +129,7 @@ describe('resolveDaemonStatusTimeoutMs', () => {
     // EVERY launch and can blow past the 35s baseline. The prewarm pass cuts the
     // usual case to a few seconds; the wider budget is the safety net for slow
     // devices, mirroring the win32 rationale.
-    // https://github.com/nexu-io/open-design/issues/5835
+    // https://github.com/acrbaran/rethra-design/issues/5835
     expect(resolveDaemonStatusTimeoutMs({}, 'linux')).toBe(90_000);
   });
 
@@ -440,16 +440,16 @@ describe('resolvePackagedElectronNodeCommand', () => {
   it('uses the hidden Electron helper as the macOS Electron-as-Node command when available', async () => {
     const root = mkdtempSync(join(tmpdir(), 'od-packaged-electron-helper-'));
     try {
-      const appPath = posix.join(root.replaceAll('\\', '/'), 'Open Design.app');
-      const execPath = posix.join(appPath, 'Contents', 'MacOS', 'Open Design');
+      const appPath = posix.join(root.replaceAll('\\', '/'), 'Rethra Design.app');
+      const execPath = posix.join(appPath, 'Contents', 'MacOS', 'Rethra Design');
       const helperPath = posix.join(
         appPath,
         'Contents',
         'Frameworks',
-        'Open Design Helper.app',
+        'Rethra Design Helper.app',
         'Contents',
         'MacOS',
-        'Open Design Helper',
+        'Rethra Design Helper',
       );
 
       mkdirSync(posix.join(appPath, 'Contents', 'MacOS'), { recursive: true });
@@ -468,7 +468,7 @@ describe('resolvePackagedElectronNodeCommand', () => {
   it('falls back to the main executable when the macOS helper is unavailable', async () => {
     const root = mkdtempSync(join(tmpdir(), 'od-packaged-no-electron-helper-'));
     try {
-      const execPath = join(root, 'Open Design.app', 'Contents', 'MacOS', 'Open Design');
+      const execPath = join(root, 'Rethra Design.app', 'Contents', 'MacOS', 'Rethra Design');
       mkdirSync(dirname(execPath), { recursive: true });
       writeFileSync(execPath, '#!/bin/sh\n', 'utf8');
 
@@ -479,7 +479,7 @@ describe('resolvePackagedElectronNodeCommand', () => {
   });
 
   it('keeps the main executable on non-macOS platforms', async () => {
-    const execPath = '/opt/Open Design/open-design';
+    const execPath = '/opt/Rethra Design/rethra-design';
 
     await expect(resolvePackagedElectronNodeCommand(execPath, 'linux')).resolves.toBe(execPath);
   });
@@ -615,12 +615,12 @@ describe('buildPackagedDaemonSpawnEnv', () => {
   it('forwards the signed packaged launcher used to bootstrap MCP headlessly', () => {
     const env = buildPackagedDaemonSpawnEnv(fakePaths(), {
       appVersion: '1.2.3',
-      daemonCliEntry: '/Applications/Open Design.app/Contents/Resources/app/prebundled/daemon/daemon-cli.mjs',
+      daemonCliEntry: '/Applications/Rethra Design.app/Contents/Resources/app/prebundled/daemon/daemon-cli.mjs',
       legacyDataDir: null,
       mcpBootstrapArgs: [
         '-g',
         '-j',
-        '/Applications/Open Design.app',
+        '/Applications/Rethra Design.app',
         '--args',
         '--headless',
       ],
@@ -635,7 +635,7 @@ describe('buildPackagedDaemonSpawnEnv', () => {
     expect(JSON.parse(env.OD_MCP_BOOTSTRAP_ARGS ?? 'null')).toEqual([
       '-g',
       '-j',
-      '/Applications/Open Design.app',
+      '/Applications/Rethra Design.app',
       '--args',
       '--headless',
     ]);
@@ -676,12 +676,12 @@ describe('buildPackagedDaemonSpawnEnv', () => {
       appVersion: null,
       daemonCliEntry: null,
       legacyDataDir: null,
-      nodeCommand: 'C:\\Users\\Ada\\AppData\\Local\\Programs\\Open Design\\resources\\open-design\\bin\\node.exe',
+      nodeCommand: 'C:\\Users\\Ada\\AppData\\Local\\Programs\\Rethra Design\\resources\\rethra-design\\bin\\node.exe',
       requireDesktopAuth: true,
     });
 
     expect(env.OD_NODE_BIN).toBe(
-      'C:\\Users\\Ada\\AppData\\Local\\Programs\\Open Design\\resources\\open-design\\bin\\node.exe',
+      'C:\\Users\\Ada\\AppData\\Local\\Programs\\Rethra Design\\resources\\rethra-design\\bin\\node.exe',
     );
   });
 
@@ -691,10 +691,10 @@ describe('buildPackagedDaemonSpawnEnv', () => {
       daemonCliEntry: null,
       legacyDataDir: null,
       requireDesktopAuth: true,
-      telemetryRelayUrl: 'https://telemetry.open-design.ai/api/langfuse',
+      telemetryRelayUrl: 'https://telemetry.rethra-design.invalid/api/langfuse',
     });
-    expect(env.OPEN_DESIGN_TELEMETRY_RELAY_URL).toBe(
-      'https://telemetry.open-design.ai/api/langfuse',
+    expect(env.RETHRA_DESIGN_TELEMETRY_RELAY_URL).toBe(
+      'https://telemetry.rethra-design.invalid/api/langfuse',
     );
   });
 
@@ -706,7 +706,7 @@ describe('buildPackagedDaemonSpawnEnv', () => {
       legacyDataDir: null,
       requireDesktopAuth: true,
     });
-    expect(env.OPEN_DESIGN_AMR_PROFILE).toBe('test');
+    expect(env.RETHRA_DESIGN_AMR_PROFILE).toBe('test');
   });
 
   it('forwards the per-profile Vela console origins to the daemon', () => {
@@ -741,7 +741,7 @@ describe('buildPackagedDaemonSpawnEnv', () => {
         requireDesktopAuth: true,
         velaWebUrl: 'https://vela.example.invalid',
       });
-      expect(env.OPEN_DESIGN_AMR_PROFILE).toBe(amrProfile);
+      expect(env.RETHRA_DESIGN_AMR_PROFILE).toBe(amrProfile);
       expect(env.OD_WORKSPACE_CONTEXT_SOURCE).toBe('vela');
       expect(env.OD_TEAM_PROJECTS_TRANSPORT).toBe('vela-cli');
       expect(env.OD_COLLAB_TRANSPORT).toBe('vela-cli');
@@ -800,13 +800,13 @@ describe('buildPackagedDaemonSpawnEnv', () => {
       daemonCliEntry: null,
       legacyDataDir: null,
       requireDesktopAuth: true,
-      velaWebUrl: 'https://open-design.ai/cloud',
+      velaWebUrl: 'https://rethra-design.invalid/cloud',
     });
     expect(env.OD_WORKSPACE_CONTEXT_SOURCE).toBe('vela');
     expect(env.OD_TEAM_PROJECTS_TRANSPORT).toBe('vela-cli');
     expect(env.OD_COLLAB_TRANSPORT).toBe('vela-cli');
     expect(env.OD_RESOURCE_TRANSPORT).toBe('vela-cli');
-    expect(env.OD_VELA_WEB_URL).toBe('https://open-design.ai/cloud');
+    expect(env.OD_VELA_WEB_URL).toBe('https://rethra-design.invalid/cloud');
   });
 
   // The profile allowlist remains the load-bearing half of the gate for every

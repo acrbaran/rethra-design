@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-libra
 import {
   buildWorkspacePermissions,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { App } from '../../src/App';
@@ -125,7 +125,7 @@ vi.mock('../../src/components/EntryView', () => ({
     onCreateProject: (input: unknown) => boolean | Promise<boolean>;
     onCreatePluginShareProject: (
       pluginId: string,
-      action: 'publish-github' | 'contribute-open-design',
+      action: 'publish-github' | 'contribute-rethra-design',
     ) => Promise<unknown>;
     onDeleteProject: (id: string) => void;
     onImportFolderResponse?: (response: {
@@ -880,7 +880,7 @@ describe('App project creation routing', () => {
     stubWorkspaceContext(context.workspaceId, context.workspaceMemberId);
     mockedListProjects.mockResolvedValue([]);
     const pluginChanged = vi.fn();
-    window.addEventListener('open-design:plugins-changed', pluginChanged);
+    window.addEventListener('rethra-design:plugins-changed', pluginChanged);
 
     render(<App />);
     await waitFor(() => {
@@ -952,7 +952,7 @@ describe('App project creation routing', () => {
     expect(mockedInvalidatePluginCatalogCache).not.toHaveBeenCalled();
     expect(pluginChanged).not.toHaveBeenCalled();
     expect(iframePoolHarness.evictMatching).not.toHaveBeenCalled();
-    window.removeEventListener('open-design:plugins-changed', pluginChanged);
+    window.removeEventListener('rethra-design:plugins-changed', pluginChanged);
   });
 
   it('supersedes the Team fallback snapshot when SSE opens, then refreshes once on later focus', async () => {

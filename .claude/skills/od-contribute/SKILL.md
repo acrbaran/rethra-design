@@ -1,6 +1,6 @@
 ---
 name: od-contribute
-description: One-click contribution flow for OpenDesign (nexu-io/open-design) — even for non-coders. Pick one of four cards (ship a Skill or Design System you made with OD; translate docs; fix a typo / write a blog; report a bug), the agent validates and opens a PR (or issue) for you. Trigger words contribute to open design, ship my OD skill, ship my OD design system, translate OD docs, report an OD bug, od-contribute.
+description: One-click contribution flow for Rethra Design (nexu-io/rethra-design) — even for non-coders. Pick one of four cards (ship a Skill or Design System you made with OD; translate docs; fix a typo / write a blog; report a bug), the agent validates and opens a PR (or issue) for you. Trigger words contribute to rethra design, ship my OD skill, ship my OD design system, translate OD docs, report an OD bug, od-contribute.
 allowed-tools:
   - Bash
   - Read
@@ -12,9 +12,9 @@ allowed-tools:
   - WebFetch
 ---
 
-# od-contribute — first-contribution flow for OpenDesign
+# od-contribute — first-contribution flow for Rethra Design
 
-Locked to `nexu-io/open-design`. Branches by **contribution type**, not by issue. Replaces the dev-loop with type-specific no-code validators. Designed so a product user with zero coding background can ship a real PR.
+Locked to `nexu-io/rethra-design`. Branches by **contribution type**, not by issue. Replaces the dev-loop with type-specific no-code validators. Designed so a product user with zero coding background can ship a real PR.
 
 ## Language
 
@@ -38,10 +38,10 @@ source "$(dirname "$0")/config.sh"
 bash "$SKILL_DIR/scripts/check-prereqs.sh"
 ```
 
-- Exit 0: capture `GH_USER=<login>` from stdout. Default `TARGET_FORK="${GH_USER}/open-design"`.
+- Exit 0: capture `GH_USER=<login>` from stdout. Default `TARGET_FORK="${GH_USER}/rethra-design"`.
 - Exit 2: surface the printed install / auth hint **verbatim** and stop. Do not attempt token workarounds.
 
-If `gh repo view "$TARGET_FORK"` fails, ask the user (one `AskUserQuestion`) whether to fork now via `gh repo fork nexu-io/open-design --clone=false`. Default to yes.
+If `gh repo view "$TARGET_FORK"` fails, ask the user (one `AskUserQuestion`) whether to fork now via `gh repo fork nexu-io/rethra-design --clone=false`. Default to yes.
 
 ## Step 2 — Pick contribution type
 
@@ -280,7 +280,7 @@ About to commit:
     + skills/foo/SKILL.md            (1.2 KB)
     + skills/foo/preview.png         (54 KB)
   Push to:  <fork or upstream>
-  Open PR:  nexu-io/open-design:main ← <fork>:<branch>
+  Open PR:  nexu-io/rethra-design:main ← <fork>:<branch>
 ```
 
 Then `git -C "$WORKDIR" diff --stat` and a `head -40` of the rendered PR body for visual sanity.
@@ -317,4 +317,4 @@ Print the PR URL on its own line. Done.
 ## When NOT to use this skill
 
 - The user wants to fix a daemon / web bug or add a feature with code changes → use `auto-github-contributor` instead (it has the TDD loop). This skill deliberately doesn't run lint/typecheck/tests because content paths don't need them.
-- The user wants to *generate* a Skill / Design System from scratch → that's OpenDesign itself. Run OD first, get an artifact, then come back here to ship it.
+- The user wants to *generate* a Skill / Design System from scratch → that's Rethra Design itself. Run OD first, get an artifact, then come back here to ship it.

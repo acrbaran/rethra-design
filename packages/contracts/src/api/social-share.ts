@@ -1,6 +1,6 @@
-export const OPEN_DESIGN_GITHUB_REPO_URL = 'https://github.com/nexu-io/open-design';
+export const RETHRA_DESIGN_GITHUB_REPO_URL = 'https://github.com/acrbaran/rethra-design';
 
-export type SocialShareTargetKind = 'open-design-repo' | 'project-html';
+export type SocialShareTargetKind = 'rethra-design-repo' | 'project-html';
 
 export type SocialSharePlatform =
   | 'x'
@@ -156,14 +156,14 @@ function buildPlatformUrl(
 }
 
 export function buildSocialSharePayload(input: SocialShareRequest): SocialShareResponse {
-  const kind = input.kind === 'project-html' ? 'project-html' : 'open-design-repo';
+  const kind = input.kind === 'project-html' ? 'project-html' : 'rethra-design-repo';
   const url = normalizeSocialShareUrl(input.url)
-    ?? (kind === 'open-design-repo' ? OPEN_DESIGN_GITHUB_REPO_URL : '');
-  const fallbackTitle = kind === 'project-html' ? 'OpenDesign project' : 'OpenDesign';
+    ?? (kind === 'rethra-design-repo' ? RETHRA_DESIGN_GITHUB_REPO_URL : '');
+  const fallbackTitle = kind === 'project-html' ? 'RethraDesign project' : 'RethraDesign';
   const title = cleanText(input.title, fallbackTitle);
   const fallbackText = kind === 'project-html'
-    ? `Built with OpenDesign: ${title}. OpenDesign repo: ${OPEN_DESIGN_GITHUB_REPO_URL}`
-    : 'OpenDesign is an open-source workspace for creating, editing, deploying, and handing off design artifacts.';
+    ? `Built with RethraDesign: ${title}. RethraDesign repo: ${RETHRA_DESIGN_GITHUB_REPO_URL}`
+    : 'RethraDesign is an open-source workspace for creating, editing, deploying, and handing off design artifacts.';
   const text = cleanText(input.text, fallbackText);
   const copyText = cleanText(input.copyText, `${text}\n${url}`);
   const platforms = PLATFORM_DESCRIPTORS.map((descriptor) => ({
@@ -189,7 +189,7 @@ export function buildSocialSharePayload(input: SocialShareRequest): SocialShareR
     title,
     text,
     copyText,
-    githubRepoUrl: OPEN_DESIGN_GITHUB_REPO_URL,
+    githubRepoUrl: RETHRA_DESIGN_GITHUB_REPO_URL,
     platforms,
   };
 }

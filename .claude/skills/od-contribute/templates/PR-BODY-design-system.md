@@ -10,7 +10,7 @@ A new Design System — **{{BRAND_NAME}}** — at `design-systems/{{BRAND_SLUG}}
 
 ## How to try it
 
-1. `cd open-design`
+1. `cd rethra-design`
 2. `pnpm tools-dev run web`
 3. Start a new project and pick **{{BRAND_NAME}}** from the design system picker.
 4. Ask the model: _"{{TRY_PROMPT}}"_

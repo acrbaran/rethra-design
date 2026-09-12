@@ -1,4 +1,4 @@
-import type { ProjectMetadata, TeamProject } from '@open-design/contracts';
+import type { ProjectMetadata, TeamProject } from '@rethra-design/contracts';
 import type {
   UpsertVelaTeamProjectInput,
   VelaTeamProjectCatalogClient,

@@ -115,7 +115,7 @@ describe('internal control markers', () => {
   // a later turn, and `<od-title>LV奢侈品电商原型</od-title>` rendered as body text.
   it('never renders a leaked title marker as prose', () => {
     const content = [
-      '我会使用 Open Design 技能把已确认的电商流程整理为可执行的原型计划。',
+      '我会使用 Rethra Design 技能把已确认的电商流程整理为可执行的原型计划。',
       '<od-title>LV奢侈品电商原型</od-title>',
       '目标已锁定为响应式 LV 奢侈品电商概念原型。',
     ].join('\n\n');
@@ -138,8 +138,8 @@ describe('internal control markers', () => {
   it('never renders OD Next machine protocol blocks as prose', () => {
     const content = [
       'Plan is frozen.',
-      '<open-design-plan-contract>{"schema":"open-design.plan-contract/v2"}</open-design-plan-contract>',
-      '<open-design-runtime-state>{"schema":"open-design.strategy-state/v2"}</open-design-runtime-state>',
+      '<rethra-design-plan-contract>{"schema":"rethra-design.plan-contract/v2"}</rethra-design-plan-contract>',
+      '<rethra-design-runtime-state>{"schema":"rethra-design.strategy-state/v2"}</rethra-design-runtime-state>',
     ].join('\n\n');
 
     render(
@@ -153,8 +153,8 @@ describe('internal control markers', () => {
       />,
     );
 
-    expect(document.body.textContent).not.toContain('open-design-plan-contract');
-    expect(document.body.textContent).not.toContain('open-design-runtime-state');
+    expect(document.body.textContent).not.toContain('rethra-design-plan-contract');
+    expect(document.body.textContent).not.toContain('rethra-design-runtime-state');
     expect(document.body.textContent).toContain('Plan is frozen.');
   });
 });
@@ -247,7 +247,7 @@ describe('AssistantMessage feedback gate', () => {
     );
 
     expect(container.querySelector('[data-user-action-card="plugin-suggestion"]')).toBeTruthy();
-    const contribute = screen.getByRole('button', { name: 'Contribute to open-design' });
+    const contribute = screen.getByRole('button', { name: 'Contribute to rethra-design' });
     expect(contribute).toBeTruthy();
     expect(contribute.classList.contains('plugin-action-button--primary')).toBe(false);
     const toggle = screen.getByRole('button', { name: 'View details' });
@@ -407,7 +407,7 @@ describe('AssistantMessage feedback gate', () => {
   });
 
   /*
-   * 「贡献到 OpenDesign 社区」原来的用例住在这里,走的是下一步引导的
+   * 「贡献到 RethraDesign 社区」原来的用例住在这里,走的是下一步引导的
    * 更多 → 分享 → 贡献 三级路径。产品裁决(2026-08-26)把 `default` 那一档
    * 整档换成 agent 现写的三条行为引导,那条路径连同它的三级菜单一起没了,
    * 这个入口因此**没有落点了**。
@@ -622,7 +622,7 @@ describe('AssistantMessage status badge updates (Bug A)', () => {
               // 不是某一个 label。
               label: 'context_compaction',
               detail:
-                'AMR Cloud reported insufficient balance. Top up at https://open-design.ai/amr/dashboard, then retry.',
+                'AMR Cloud reported insufficient balance. Top up at https://rethra-design.invalid/amr/dashboard, then retry.',
             } as ChatMessage['events'][number],
           ],
         })}
@@ -632,8 +632,8 @@ describe('AssistantMessage status badge updates (Bug A)', () => {
       />,
     );
 
-    const link = screen.getByRole('link', { name: 'https://open-design.ai/amr/dashboard' });
-    expect(link.getAttribute('href')).toBe('https://open-design.ai/amr/dashboard');
+    const link = screen.getByRole('link', { name: 'https://rethra-design.invalid/amr/dashboard' });
+    expect(link.getAttribute('href')).toBe('https://rethra-design.invalid/amr/dashboard');
     expect(link.classList.contains('md-link')).toBe(true);
   });
 
@@ -1372,7 +1372,7 @@ describe('AssistantMessage question forms', () => {
     expect(screen.getByText('Editorial narrative')).toBeTruthy();
     expect(screen.getByRole('img', { name: 'Visual tone: Editorial narrative' })).toHaveAttribute(
       'src',
-      'https://repo-assets.open-design.ai/style-catalog/v1/deck-editorial-narrative-v1.webp',
+      'https://repo-assets.rethra-design.invalid/style-catalog/v1/deck-editorial-narrative-v1.webp',
     );
   });
 
@@ -1414,7 +1414,7 @@ describe('AssistantMessage question forms', () => {
       screen.getByRole('img', { name: 'Visual direction: Expressive consumer' }),
     ).toHaveAttribute(
       'src',
-      'https://repo-assets.open-design.ai/style-catalog/v1/prototype-expressive-consumer-v1.webp',
+      'https://repo-assets.rethra-design.invalid/style-catalog/v1/prototype-expressive-consumer-v1.webp',
     );
     expect(screen.queryByText('prototype-expressive-consumer')).toBeNull();
   });
@@ -1510,37 +1510,37 @@ describe('AssistantMessage question forms', () => {
     {
       projectKind: 'web_clone' as const,
       title: 'Quiet SaaS',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/prototype-quiet-saas-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/prototype-quiet-saas-v1.webp',
     },
     {
       projectKind: 'wireframe' as const,
       title: 'Quiet SaaS',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/prototype-quiet-saas-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/prototype-quiet-saas-v1.webp',
     },
     {
       projectKind: 'live_artifact' as const,
       title: 'Quiet SaaS',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/prototype-quiet-saas-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/prototype-quiet-saas-v1.webp',
     },
     {
       projectKind: 'document' as const,
       title: 'Docs reference',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/document-docs-reference-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/document-docs-reference-v1.webp',
     },
     {
       projectKind: 'image' as const,
       title: 'Editorial photo',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/image-photo-editorial-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/image-photo-editorial-v1.webp',
     },
     {
       projectKind: 'video' as const,
       title: 'Swiss Pulse',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/video-swiss-pulse-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/video-swiss-pulse-v1.webp',
     },
     {
       projectKind: 'hyperframes' as const,
       title: 'Swiss Pulse',
-      src: 'https://repo-assets.open-design.ai/style-catalog/v1/video-swiss-pulse-v1.webp',
+      src: 'https://repo-assets.rethra-design.invalid/style-catalog/v1/video-swiss-pulse-v1.webp',
     },
   ])('keeps selected $projectKind style previews in the answered summary', ({
     projectKind,
@@ -1613,7 +1613,7 @@ describe('AssistantMessage question forms', () => {
     expect(screen.getByRole('img', { name: 'Visual tone: Editorial narrative' })).toBeTruthy();
     expect(screen.getByRole('img', { name: 'Visual tone: Premium pitch' })).toHaveAttribute(
       'src',
-      'https://repo-assets.open-design.ai/style-catalog/v1/deck-premium-pitch-v1.webp',
+      'https://repo-assets.rethra-design.invalid/style-catalog/v1/deck-premium-pitch-v1.webp',
     );
   });
 
@@ -1871,7 +1871,7 @@ describe('AssistantMessage recovered produced files', () => {
   });
 
   it('lists only the authoritative artifact when an earlier edit targeted a wrong project path', () => {
-    const fileName = 'opendesign-b2b-sales-deck.html';
+    const fileName = 'rethradesign-b2b-sales-deck.html';
     const failedPath = `/workspace/projects/wrong-project/${fileName}`;
     const deliveredPath = `/workspace/projects/project-1/${fileName}`;
     const file = producedFile(fileName);

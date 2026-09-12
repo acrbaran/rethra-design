@@ -8,7 +8,7 @@
  * a parsed tree.
  *
  * Finding that offset with a plain text match is what broke
- * nexu-io/open-design#7410. The tags these injectors look for are also
+ * nexu-io/rethra-design#7410. The tags these injectors look for are also
  * perfectly ordinary content: a prototype that builds an HTML document (a print
  * window, an email template, a `srcdoc` payload) writes `<body>` into a script
  * string or onto a `data-` attribute. Splicing there puts the injected
@@ -193,7 +193,7 @@ export function endOfTag(html: string, from: number): number {
  * textual match lands the injected markup inside that string, which ends the
  * author's script early — or closes their attribute early, since the
  * injection carries quotes — and renders the remainder as page text with no
- * console error to explain it (nexu-io/open-design#7410).
+ * console error to explain it (nexu-io/rethra-design#7410).
  *
  * So this walks tag by tag rather than character by character, skipping every
  * place a tag-looking run of text is not this document's markup: comments and

@@ -4,7 +4,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useProjectCollab } from '../src/collab/useProjectCollab';
 

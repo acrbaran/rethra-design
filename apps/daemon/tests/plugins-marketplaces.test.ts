@@ -33,7 +33,7 @@ const VALID_MANIFEST = JSON.stringify({
   version: '1.0.0',
   metadata: { description: 'fixture', version: '1.0.0' },
   plugins: [
-    { name: 'sample-plugin', source: 'github:open-design/sample-plugin', version: '0.1.0' },
+    { name: 'sample-plugin', source: 'github:rethra-design/sample-plugin', version: '0.1.0' },
   ],
 });
 
@@ -141,7 +141,7 @@ describe('marketplaces', () => {
   it('normalizes public marketplace urls to the canonical raw registry', async () => {
     const seenUrls: string[] = [];
     const result = await addMarketplace(db, {
-      url: 'https://open-design.ai/marketplace/community/open-design-marketplace.json',
+      url: 'https://rethra-design.invalid/marketplace/community/rethra-design-marketplace.json',
       fetcher: async (url) => {
         seenUrls.push(url);
         return {
@@ -160,13 +160,13 @@ describe('marketplaces', () => {
 
   it('normalizes legacy branch raw urls to the canonical raw registry', () => {
     expect(resolveMarketplaceFetchUrl(
-      'https://raw.githubusercontent.com/nexu-io/open-design/garnet-hemisphere/plugins/registry/community/open-design-marketplace.json',
+      'https://raw.githubusercontent.com/nexu-io/rethra-design/garnet-hemisphere/plugins/registry/community/rethra-design-marketplace.json',
     )).toBe(marketplaceManifestUrlForRegistry('community'));
   });
 
-  it('requires a raw open-design-marketplace.json document, not a GitHub tree page', async () => {
+  it('requires a raw rethra-design-marketplace.json document, not a GitHub tree page', async () => {
     const result = await addMarketplace(db, {
-      url: 'https://github.com/nexu-io/open-design/tree/garnet-hemisphere/plugins/registry/community',
+      url: 'https://github.com/acrbaran/rethra-design/tree/garnet-hemisphere/plugins/registry/community',
       fetcher: fixtureFetcher('<!doctype html><html><body>GitHub tree page</body></html>'),
     });
 
@@ -186,7 +186,7 @@ describe('marketplaces', () => {
     const updatedManifest = JSON.parse(VALID_MANIFEST);
     updatedManifest.plugins.push({
       name: 'new-plugin',
-      source: 'github:open-design/new-plugin',
+      source: 'github:rethra-design/new-plugin',
       version: '0.2.0',
     });
     updatedManifest.version = '1.0.1';
@@ -204,7 +204,7 @@ describe('marketplaces', () => {
   it('refresh normalizes legacy public urls before fetching', async () => {
     const seeded = ensureMarketplaceManifest(db, {
       id: 'community',
-      url: 'https://open-design.ai/marketplace/community/open-design-marketplace.json',
+      url: 'https://rethra-design.invalid/marketplace/community/rethra-design-marketplace.json',
       trust: 'restricted',
       manifestText: VALID_MANIFEST,
     });
@@ -248,7 +248,7 @@ describe('marketplaces', () => {
   it('upserts a fixed built-in marketplace manifest', () => {
     const result = ensureMarketplaceManifest(db, {
       id: 'official',
-      url: 'https://open-design.ai/marketplace/open-design-marketplace.json',
+      url: 'https://rethra-design.invalid/marketplace/rethra-design-marketplace.json',
       trust: 'official',
       manifestText: VALID_MANIFEST,
       now: 123,
@@ -265,7 +265,7 @@ describe('marketplaces', () => {
     });
     const updated = ensureMarketplaceManifest(db, {
       id: 'official',
-      url: 'https://open-design.ai/marketplace/open-design-marketplace.json',
+      url: 'https://rethra-design.invalid/marketplace/rethra-design-marketplace.json',
       trust: 'official',
       manifestText: updatedManifest,
       now: 456,
@@ -279,13 +279,13 @@ describe('marketplaces', () => {
 
   it('seeds the checked-in default community registry as restricted and resolvable', async () => {
     const communityManifest = await readFile(
-      new URL('../../../plugins/registry/community/open-design-marketplace.json', import.meta.url),
+      new URL('../../../plugins/registry/community/rethra-design-marketplace.json', import.meta.url),
       'utf8',
     );
 
     const seeded = ensureMarketplaceManifest(db, {
       id: 'community',
-      url: 'https://open-design.ai/marketplace/community/open-design-marketplace.json',
+      url: 'https://rethra-design.invalid/marketplace/community/rethra-design-marketplace.json',
       trust: 'restricted',
       manifestText: communityManifest,
       now: 123,
@@ -297,13 +297,13 @@ describe('marketplaces', () => {
     expect(resolved?.marketplaceId).toBe('community');
     expect(resolved?.marketplaceTrust).toBe('restricted');
     expect(resolved?.source).toMatch(
-      /^github:nexu-io\/open-design(?:@[^/]+)?\/plugins\/community\/registry-starter$/,
+      /^github:nexu-io\/rethra-design(?:@[^/]+)?\/plugins\/community\/registry-starter$/,
     );
   });
 
   it('keeps the checked-in official registry populated from bundled plugins', async () => {
     const officialManifestText = await readFile(
-      new URL('../../../plugins/registry/official/open-design-marketplace.json', import.meta.url),
+      new URL('../../../plugins/registry/official/rethra-design-marketplace.json', import.meta.url),
       'utf8',
     );
     const officialManifest = JSON.parse(officialManifestText) as {
@@ -317,45 +317,45 @@ describe('marketplaces', () => {
     expect(officialManifest.metadata?.bundledPreinstallCount).toBe(
       officialManifest.plugins?.length,
     );
-    expect(officialManifest.plugins?.some((plugin) => plugin.name === 'open-design/build-test')).toBe(true);
+    expect(officialManifest.plugins?.some((plugin) => plugin.name === 'rethra-design/build-test')).toBe(true);
     expect(officialManifest.plugins?.every((plugin) =>
-      /^github:nexu-io\/open-design(?:@[^/]+)?\/plugins\/_official\//.test(plugin.source ?? ''),
+      /^github:nexu-io\/rethra-design(?:@[^/]+)?\/plugins\/_official\//.test(plugin.source ?? ''),
     )).toBe(true);
 
     const seeded = ensureMarketplaceManifest(db, {
       id: 'official',
-      url: 'https://open-design.ai/marketplace/open-design-marketplace.json',
+      url: 'https://rethra-design.invalid/marketplace/rethra-design-marketplace.json',
       trust: 'official',
       manifestText: officialManifestText,
       now: 123,
     });
     if (!seeded.ok) throw new Error('official seed failed');
 
-    const resolved = resolvePluginInMarketplaces(db, 'open-design/build-test');
+    const resolved = resolvePluginInMarketplaces(db, 'rethra-design/build-test');
     expect(resolved?.marketplaceId).toBe('official');
     expect(resolved?.marketplaceTrust).toBe('official');
   });
 
-  it('keeps example-open-design-landing catalog version aligned with the bundled manifest', async () => {
+  it('keeps example-rethra-design-landing catalog version aligned with the bundled manifest', async () => {
     const officialManifest = JSON.parse(await readFile(
-      new URL('../../../plugins/registry/official/open-design-marketplace.json', import.meta.url),
+      new URL('../../../plugins/registry/official/rethra-design-marketplace.json', import.meta.url),
       'utf8',
     )) as {
       plugins?: Array<{ name?: string; version?: string }>;
     };
     const sourceManifest = JSON.parse(await readFile(
-      new URL('../../../plugins/_official/examples/open-design-landing/open-design.json', import.meta.url),
+      new URL('../../../plugins/_official/examples/rethra-design-landing/rethra-design.json', import.meta.url),
       'utf8',
     )) as { version?: string };
     const catalogEntry = officialManifest.plugins?.find(
-      (plugin) => plugin.name === 'open-design/example-open-design-landing',
+      (plugin) => plugin.name === 'rethra-design/example-rethra-design-landing',
     );
     expect(catalogEntry?.version).toBe(sourceManifest.version);
   });
 
   it('keeps checked-in community registry entries pointed at source folders that can pack', async () => {
     const communityManifest = JSON.parse(await readFile(
-      new URL('../../../plugins/registry/community/open-design-marketplace.json', import.meta.url),
+      new URL('../../../plugins/registry/community/rethra-design-marketplace.json', import.meta.url),
       'utf8',
     )) as {
       plugins?: Array<{ name?: string; source?: string }>;
@@ -363,17 +363,17 @@ describe('marketplaces', () => {
     const entry = communityManifest.plugins?.find((plugin) => plugin.name === 'community/registry-starter');
     expect(entry?.source).toBeTruthy();
 
-    const sourceSubpath = entry!.source!.replace(/^github:nexu-io\/open-design(?:@[^/]+)?\//, '');
+    const sourceSubpath = entry!.source!.replace(/^github:nexu-io\/rethra-design(?:@[^/]+)?\//, '');
     expect(sourceSubpath).toBe('plugins/community/registry-starter');
 
     const sourceManifest = await readFile(
-      new URL(`../../../${sourceSubpath}/open-design.json`, import.meta.url),
+      new URL(`../../../${sourceSubpath}/rethra-design.json`, import.meta.url),
       'utf8',
     );
     expect(JSON.parse(sourceManifest)).toMatchObject({
       name: 'community-registry-starter',
       plugin: {
-        repo: expect.stringContaining('github.com/nexu-io/open-design'),
+        repo: expect.stringContaining('github.com/acrbaran/rethra-design'),
       },
     });
   });
@@ -387,7 +387,7 @@ describe('resolvePluginInMarketplaces', () => {
     });
     const resolved = resolvePluginInMarketplaces(db, 'sample-plugin');
     expect(resolved).not.toBeNull();
-    expect(resolved!.source).toBe('github:open-design/sample-plugin');
+    expect(resolved!.source).toBe('github:rethra-design/sample-plugin');
     expect(resolved!.pluginVersion).toBe('0.1.0');
     expect(resolved!.marketplaceVersion).toBe('1.0.0');
     expect(resolved!.marketplaceTrust).toBe('restricted');

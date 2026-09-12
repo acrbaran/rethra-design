@@ -1,9 +1,9 @@
-import { isTodoWriteToolName } from '@open-design/contracts';
+import { isTodoWriteToolName } from '@rethra-design/contracts';
 import {
   eventsEndedByAskingUser,
   todoStatusIsUnfinished,
   turnEndedByAskingUser,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type { AgentEvent } from '../types';
 
 export type TodoStatus = 'pending' | 'in_progress' | 'completed' | 'stopped';

@@ -45,7 +45,7 @@ jobs:
           # Do NOT persist the default GITHUB_TOKEN as a github.com credential.
           # The rolling manifest branch is force-pushed below with the release-bot
           # App token (`x-access-token:${APP_TOKEN}`) precisely so the resulting PR
-          # sync is attributed to app/open-design-release-bot and its CI runs
+          # sync is attributed to app/rethra-design-release-bot and its CI runs
           # automatically (a github-actions[bot]-attributed pull_request run is held
           # as `action_required` — GitHub's bot-recursion gate — which starves
           # bake-plugin-previews-automerge.yml, since that reactor only approves +
@@ -78,7 +78,7 @@ jobs:
         # PR opened with it never runs `Validate workspace` — main's required check
         # — and can never clear the merge queue (even manually). Author the rolling
         # branch + PR with the release-bot App instead: its push DOES start CI, and
-        # its distinct identity (app/open-design-release-bot) lets a different bot
+        # its distinct identity (app/rethra-design-release-bot) lets a different bot
         # (github-actions[bot]) approve it in bake-plugin-previews-automerge.yml.
         # Minted here (not at job start) because an App token lives ~1h and the
         # bake render+upload above can run long.
@@ -133,8 +133,8 @@ jobs:
           # basing it on live main would publish a manifest from an older render on top of newer
           # commits. The reactor's base-freshness gate skips a behind PR so the next bake re-renders
           # on the newer tip.
-          git config user.name "open-design-bot"
-          git config user.email "bot@open-design.ai"
+          git config user.name "rethra-design-bot"
+          git config user.email "bot@rethra-design.invalid"
           git checkout -B "$BRANCH"
           git add "$OLD"
           git commit -m "chore(plugin-previews): refresh baked preview manifest"

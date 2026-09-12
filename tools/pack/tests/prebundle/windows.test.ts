@@ -28,13 +28,13 @@ describe("win standalone prebundle policy", () => {
   it("keeps server-mode package topology unchanged", () => {
     expect(
       shouldInstallInternalPackageForWinPrebundle({
-        packageName: "@open-design/web",
+        packageName: "@rethra-design/web",
         webOutputMode: "server",
       }),
     ).toBe(true);
     expect(
       shouldInstallInternalPackageForWinPrebundle({
-        packageName: "@open-design/packaged",
+        packageName: "@rethra-design/packaged",
         webOutputMode: "server",
       }),
     ).toBe(true);
@@ -42,11 +42,11 @@ describe("win standalone prebundle policy", () => {
 
   it("excludes internal packages replaced by win standalone prebundles", () => {
     for (const packageName of [
-      "@open-design/daemon",
-      "@open-design/desktop",
-      "@open-design/packaged",
-      "@open-design/sidecar-proto",
-      "@open-design/web",
+      "@rethra-design/daemon",
+      "@rethra-design/desktop",
+      "@rethra-design/packaged",
+      "@rethra-design/sidecar-proto",
+      "@rethra-design/web",
     ]) {
       expect(
         shouldInstallInternalPackageForWinPrebundle({
@@ -56,9 +56,9 @@ describe("win standalone prebundle policy", () => {
       ).toBe(false);
     }
     for (const packageName of [
-      "@open-design/contracts",
-      "@open-design/platform",
-      "@open-design/sidecar",
+      "@rethra-design/contracts",
+      "@rethra-design/platform",
+      "@rethra-design/sidecar",
     ]) {
       expect(
         shouldInstallInternalPackageForWinPrebundle({ packageName, webOutputMode: "standalone" }),
@@ -68,10 +68,10 @@ describe("win standalone prebundle policy", () => {
 
   it("documents the explicit code-level bundle boundaries", () => {
     expect(WIN_PREBUNDLE_ESBUILD_TARGET).toBe("node24");
-    expect(WIN_PREBUNDLE_POLICIES.packagedMain.externals).toEqual(["@open-design/sidecar", "electron"]);
+    expect(WIN_PREBUNDLE_POLICIES.packagedMain.externals).toEqual(["@rethra-design/sidecar", "electron"]);
     expect(WIN_PREBUNDLE_POLICIES.daemonCli.externals).toEqual([
       "@ffmpeg-installer/ffmpeg",
-      "@open-design/sidecar",
+      "@rethra-design/sidecar",
       "better-sqlite3",
       "blake3-wasm",
       "hyperframes",
@@ -79,13 +79,13 @@ describe("win standalone prebundle policy", () => {
     ]);
     expect(WIN_PREBUNDLE_POLICIES.daemonSidecar.externals).toEqual([
       "@ffmpeg-installer/ffmpeg",
-      "@open-design/sidecar",
+      "@rethra-design/sidecar",
       "better-sqlite3",
       "blake3-wasm",
       "hyperframes",
       "node-pty",
     ]);
-    expect(WIN_PREBUNDLE_POLICIES.webSidecar.externals).toEqual(["@open-design/sidecar"]);
+    expect(WIN_PREBUNDLE_POLICIES.webSidecar.externals).toEqual(["@rethra-design/sidecar"]);
     expect(WIN_DAEMON_PREBUNDLE_ESM_REQUIRE_BANNER).toContain("createRequire");
     // Must match apps/daemon/package.json / the pnpm lockfile, or
     // electron-builder's collector drops the module from the shipped app and
@@ -124,7 +124,7 @@ describe("findForbiddenWinPrebundleInputs", () => {
 
 describe("assertWinPrebundleMetafile", () => {
   it("accepts a safe web sidecar metafile", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-win-prebundle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-win-prebundle-"));
     const metafilePath = join(root, "safe.json");
 
     try {
@@ -143,13 +143,13 @@ describe("assertWinPrebundleMetafile", () => {
   });
 
   it("rejects a packaged main metafile that pulled in web runtime closure", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-win-prebundle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-win-prebundle-"));
     const metafilePath = join(root, "unsafe.json");
 
     try {
       await writeFile(
         metafilePath,
-        JSON.stringify({ inputs: { "/repo/node_modules/@open-design/web/dist/sidecar/index.js": {} } }),
+        JSON.stringify({ inputs: { "/repo/node_modules/@rethra-design/web/dist/sidecar/index.js": {} } }),
         "utf8",
       );
 
@@ -162,7 +162,7 @@ describe("assertWinPrebundleMetafile", () => {
   });
 
   it("rejects a daemon metafile that bundled wasm-backed runtime dependencies", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-win-prebundle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-win-prebundle-"));
     const metafilePath = join(root, "unsafe-daemon.json");
 
     try {
@@ -181,7 +181,7 @@ describe("assertWinPrebundleMetafile", () => {
   });
 
   it("rejects a daemon metafile that bundled node-pty", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-win-prebundle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-win-prebundle-"));
     const metafilePath = join(root, "unsafe-native-daemon.json");
 
     try {
@@ -203,11 +203,11 @@ describe("assertWinPrebundleMetafile", () => {
 describe("renderWinPackagedMainEntry", () => {
   it("renders the prebundled runtime entry shim", () => {
     expect(renderWinPackagedMainEntry(true)).toContain("./prebundled/packaged-main.mjs");
-    expect(renderWinPackagedMainEntry(true)).not.toContain("@open-design/packaged");
+    expect(renderWinPackagedMainEntry(true)).not.toContain("@rethra-design/packaged");
   });
 
   it("renders the package entry shim for non-prebundled mode", () => {
-    expect(renderWinPackagedMainEntry(false)).toContain("@open-design/packaged");
+    expect(renderWinPackagedMainEntry(false)).toContain("@rethra-design/packaged");
     expect(renderWinPackagedMainEntry(false)).not.toContain("./prebundled/packaged-main.mjs");
   });
 });

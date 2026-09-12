@@ -7,7 +7,7 @@ name: cut-patch-release
 #   1. It bumps the PATCH, not the minor: highest release/vX.Y.Z -> X.Y.(Z+1)
 #      (e.g. 0.14.0 -> 0.14.1). Like cut-release, the branch is cut from main HEAD.
 #   2. A pre-flight guard: the current line's minor base X.Y.0 must be a PUBLISHED
-#      stable GitHub Release (tag open-design-vX.Y.0, isDraft=false, isPrerelease=false
+#      stable GitHub Release (tag rethra-design-vX.Y.0, isDraft=false, isPrerelease=false
 #      — i.e. release-stable ran `gh release edit --draft=false --latest`). If it is
 #      not published yet, do NOT cut a branch or launch a prerelease publication;
 #      instead post a Feishu notice that the patch cut was skipped, and stop. The
@@ -49,7 +49,7 @@ concurrency:
 
 jobs:
   cut:
-    if: github.repository == 'nexu-io/open-design'
+    if: github.repository == 'nexu-io/rethra-design'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v2
@@ -100,14 +100,14 @@ jobs:
           # V is now guaranteed to match ^[0-9]+\.[0-9]+\.[0-9]+$.
           # Gate on the minor base of the FINAL V — never the highest branch — so a
           # manual `version=` on a different line is checked against ITS own minor
-          # (e.g. version=0.15.1 gates open-design-v0.15.0, not the latest 0.14.0).
+          # (e.g. version=0.15.1 gates rethra-design-v0.15.0, not the latest 0.14.0).
           vmajor=${V%%.*}; vrest=${V#*.}; vminor=${vrest%%.*}
           MINOR_BASE="${vmajor}.${vminor}.0"
           {
             echo "version=$V"
             echo "branch=release/v$V"
             echo "minor_base=$MINOR_BASE"
-            echo "minor_tag=open-design-v$MINOR_BASE"
+            echo "minor_tag=rethra-design-v$MINOR_BASE"
           } >> "$GITHUB_OUTPUT"
           echo "Cutting patch v$V (branch release/v$V); gating on stable v$MINOR_BASE"
 
@@ -133,7 +133,7 @@ jobs:
           # both are false. A missing release makes `gh release view` exit non-zero,
           # so the `|| published=false` fallback treats "not found" as "not published".
           published=$(gh release view "$MINOR_TAG" \
-            --repo nexu-io/open-design \
+            --repo nexu-io/rethra-design \
             --json isDraft,isPrerelease \
             --jq '(.isDraft or .isPrerelease) | not' 2>/dev/null) || published=false
           echo "release $MINOR_TAG -> published=$published"
@@ -181,8 +181,8 @@ jobs:
           BRANCH: ${{ steps.ver.outputs.branch }}
         run: |
           set -euo pipefail
-          git config user.name  'open-design-release-bot[bot]'
-          git config user.email 'open-design-release-bot[bot]@users.noreply.github.com'
+          git config user.name  'rethra-design-release-bot[bot]'
+          git config user.email 'rethra-design-release-bot[bot]@users.noreply.github.com'
           git switch -c "$BRANCH"
           ( cd apps/packaged && npm pkg set version="$VERSION" )
           # main leads stable by exactly this patch in steady state (finalize-release
@@ -201,7 +201,7 @@ jobs:
         run: |
           set -euo pipefail
           gh label create "backport release/v$VERSION" \
-            --repo nexu-io/open-design \
+            --repo nexu-io/rethra-design \
             --color 0E8A16 \
             --description "Backport this fix to release/v$VERSION" \
             --force

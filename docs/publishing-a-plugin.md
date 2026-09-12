@@ -1,6 +1,6 @@
-# Publishing An OpenDesign Plugin
+# Publishing An Rethra Design Plugin
 
-OpenDesign registry publishing is GitHub-backed in v1. The CLI remains the
+Rethra Design registry publishing is GitHub-backed in v1. The CLI remains the
 canonical workflow; the product UI and agent flows wrap these commands.
 
 ## 1. Scaffold
@@ -12,7 +12,7 @@ od plugin scaffold --id figma-workflow --title "Figma workflow" --out ./plugins/
 The scaffold command creates `./plugins/community/figma-workflow/`. Plugin IDs
 must be lowercase, start with a letter, and use only `[a-z0-9._-]`; slash-
 separated registry paths are used by catalogs, not by `od plugin scaffold`.
-The generated `open-design.json` is the OpenDesign sidecar next to `SKILL.md`.
+The generated `rethra-design.json` is the Rethra Design sidecar next to `SKILL.md`.
 
 ## 2. Validate And Pack
 
@@ -22,7 +22,7 @@ od plugin pack ./plugins/community/figma-workflow
 ```
 
 The registry accepts anything that validates and packs. The source repository
-does not need a special layout beyond `SKILL.md` plus `open-design.json`.
+does not need a special layout beyond `SKILL.md` plus `rethra-design.json`.
 `od plugin pack` writes the archive next to the plugin folder by default.
 
 ## 3. Authenticate
@@ -32,18 +32,18 @@ od plugin login
 od plugin whoami --json
 ```
 
-These commands wrap GitHub CLI. Tokens stay in `gh`; OpenDesign does not store
+These commands wrap GitHub CLI. Tokens stay in `gh`; Rethra Design does not store
 GitHub credentials.
 
 ## 4. Publish
 
 ```bash
-od plugin publish figma-workflow --to open-design --repo https://github.com/acme/figma-workflow
+od plugin publish figma-workflow --to rethra-design --repo https://github.com/acme/figma-workflow
 ```
 
 v1 opens the GitHub registry review flow. The publish payload includes the
 plugin ID, version, repo, capability summary, and target registry entry path.
-After merge, CI regenerates `open-design-marketplace.json`.
+After merge, CI regenerates `rethra-design-marketplace.json`.
 
 ## 5. Install From The Registry
 

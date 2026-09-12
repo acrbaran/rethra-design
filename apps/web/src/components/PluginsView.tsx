@@ -10,7 +10,7 @@ import {
   type SetStateAction,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { Dialog } from '@open-design/components';
+import { Dialog } from '@rethra-design/components';
 import {
   PLUGIN_SHARE_ACTION_PLUGIN_IDS,
   resolveLocalizedText,
@@ -20,7 +20,7 @@ import {
   type PluginSourceKind,
   type SkillSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   fetchSkills,
   importSkill,
@@ -49,7 +49,7 @@ import {
   stableAnalyticsRequestErrorCode,
   workspaceAnalyticsDimensions,
 } from '../analytics/workspace';
-import type { TrackingWorkspaceScope } from '@open-design/contracts/analytics';
+import type { TrackingWorkspaceScope } from '@rethra-design/contracts/analytics';
 import {
   addPluginMarketplace,
   applyPlugin,
@@ -194,22 +194,22 @@ const PLUGIN_SHARE_DETAILS: Record<PluginShareAction, {
     eyebrow: 'GitHub repository',
     fallbackTitle: 'Publish Plugin to GitHub',
     fallbackDescription:
-      'Creates a public GitHub repository for this local OpenDesign plugin.',
+      'Creates a public GitHub repository for this local RethraDesign plugin.',
     confirmLabel: 'Start publishing',
     steps: [
-      'Create a new OpenDesign project for the publish workflow.',
+      'Create a new RethraDesign project for the publish workflow.',
       'Copy this plugin into that project as isolated source context.',
       'Run the official publish action plugin against the local daemon.',
     ],
   },
-  'contribute-open-design': {
-    eyebrow: 'OpenDesign pull request',
-    fallbackTitle: 'Contribute Plugin to OpenDesign',
+  'contribute-rethra-design': {
+    eyebrow: 'RethraDesign pull request',
+    fallbackTitle: 'Contribute Plugin to RethraDesign',
     fallbackDescription:
-      'Opens a pull request that adds this plugin to the OpenDesign community catalog.',
+      'Opens a pull request that adds this plugin to the RethraDesign community catalog.',
     confirmLabel: 'Start contribution',
     steps: [
-      'Create a new OpenDesign project for the contribution workflow.',
+      'Create a new RethraDesign project for the contribution workflow.',
       'Copy this plugin into that project as isolated source context.',
       'Run the official contribution action plugin against the local daemon.',
     ],
@@ -357,8 +357,8 @@ export function PluginsView({
 
   useEffect(() => {
     void refresh();
-    window.addEventListener('open-design:plugins-changed', refresh);
-    return () => window.removeEventListener('open-design:plugins-changed', refresh);
+    window.addEventListener('rethra-design:plugins-changed', refresh);
+    return () => window.removeEventListener('rethra-design:plugins-changed', refresh);
     // Re-run on workspace switch (not just mount) so "installed" reflects the
     // newly active workspace's binding — see `pluginsWorkspaceContext` above.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1403,7 +1403,7 @@ export function ExtensionsMarketplace({
     setLoading(false);
   }
 
-  // `open-design:plugins-changed` re-reads on mutation. Re-registered per
+  // `rethra-design:plugins-changed` re-reads on mutation. Re-registered per
   // identity so the handler always closes over a current `refresh`.
   const marketplaceAccountGeneration = currentWorkspaceAccountGeneration();
   const marketplaceReadMode = workspaceContext
@@ -1427,8 +1427,8 @@ export function ExtensionsMarketplace({
       if (isActiveRef.current) void refresh();
       else catalogStaleRef.current = true;
     };
-    window.addEventListener('open-design:plugins-changed', onPluginsChanged);
-    return () => window.removeEventListener('open-design:plugins-changed', onPluginsChanged);
+    window.addEventListener('rethra-design:plugins-changed', onPluginsChanged);
+    return () => window.removeEventListener('rethra-design:plugins-changed', onPluginsChanged);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [marketplaceIdentity]);
 
@@ -2061,7 +2061,7 @@ export function ExtensionsMarketplace({
         skill={selectedSkill}
         author={
           scope === 'official'
-            ? 'OpenDesign'
+            ? 'RethraDesign'
             : scope === 'team'
               ? 'Nexu Team'
               : t('chat.you')
@@ -2594,7 +2594,7 @@ export function ExtensionsMarketplace({
                   <p>
                     {t('pluginsView.uploadFolderBody', {
                       kind: pluginKindLabel(createKind, t),
-                      manifest: createKind === 'plugin' ? 'open-design.json / SKILL.md' : 'SKILL.md',
+                      manifest: createKind === 'plugin' ? 'rethra-design.json / SKILL.md' : 'SKILL.md',
                     })}
                   </p>
                   <input
@@ -2928,7 +2928,7 @@ function pluginShareSlug(name: string): string {
     name
       .toLowerCase()
       .replace(/[^a-z0-9._-]+/g, '-')
-      .replace(/(^[-._]+|[-._]+$)/g, '') || 'open-design-plugin'
+      .replace(/(^[-._]+|[-._]+$)/g, '') || 'rethra-design-plugin'
   );
 }
 
@@ -3314,7 +3314,7 @@ function AvailablePluginDetailsModal({
                 </h3>
               </div>
               <p className="plugin-details-modal__section-hint">
-                This official catalog entry is bundled with OpenDesign and is ready to use.
+                This official catalog entry is bundled with RethraDesign and is ready to use.
               </p>
             </section>
           ) : (
@@ -3603,7 +3603,7 @@ function SourcesPanel({
               onSourceUrlInput?.();
             }}
             onChange={(event) => setUrl(event.target.value)}
-            placeholder="https://example.com/open-design-marketplace.json"
+            placeholder="https://example.com/rethra-design-marketplace.json"
             disabled={pendingAction === 'add'}
           />
           <select
@@ -3840,7 +3840,7 @@ function PluginImportModal({
           {kind === 'zip' ? (
             <FileImportPanel
               title="Upload zip"
-              body="Choose a .zip archive containing open-design.json, SKILL.md, or .claude-plugin/plugin.json."
+              body="Choose a .zip archive containing rethra-design.json, SKILL.md, or .claude-plugin/plugin.json."
               accept=".zip,application/zip"
               working={working}
               fileLabel={zipFile?.name ?? 'No zip selected'}

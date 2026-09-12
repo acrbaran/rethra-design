@@ -7,7 +7,7 @@
 // instead of regressing back to alphabetical bundled noise.
 
 import { describe, expect, it } from 'vitest';
-import type { InstalledPluginRecord } from '@open-design/contracts';
+import type { InstalledPluginRecord } from '@rethra-design/contracts';
 import {
   pluginVisualScore,
   sortByVisualAppeal,
@@ -134,12 +134,12 @@ describe('sortByVisualAppeal', () => {
         },
       }),
       fixture({
-        id: 'example-open-design-landing',
+        id: 'example-rethra-design-landing',
         od: { mode: 'prototype', preview: { type: 'html', entry: './index.html' } },
       }),
     ];
     const sorted = sortByVisualAppeal(records).map((r) => r.id);
-    expect(sorted[0]).toBe('example-open-design-landing');
+    expect(sorted[0]).toBe('example-rethra-design-landing');
   });
 
   it('keeps numeric featured rank ahead of media bonuses', () => {

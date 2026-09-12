@@ -2,7 +2,7 @@
 
 Reference for the `od-contribute` skill's `validate-skill-submission.sh` step and for guiding a user through assembling a Skill submission.
 
-> **Authoritative source**: read 1–2 existing folders under `skills/` in `nexu-io/open-design` at runtime — conventions evolve faster than this doc.
+> **Authoritative source**: read 1–2 existing folders under `skills/` in `nexu-io/rethra-design` at runtime — conventions evolve faster than this doc.
 
 ## Minimum viable skill
 

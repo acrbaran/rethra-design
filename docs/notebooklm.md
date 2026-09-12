@@ -1,6 +1,6 @@
-# NotebookLM: export issues/PRs from OpenDesign
+# NotebookLM: export issues/PRs from Rethra Design
 
-OpenDesign gets a lot of feedback via GitHub Issues + PRs. If you want NotebookLM to help with:
+Rethra Design gets a lot of feedback via GitHub Issues + PRs. If you want NotebookLM to help with:
 
 - support answers (with citations)
 - clustering + taxonomy of user scenarios
@@ -19,7 +19,7 @@ From the repo root:
 
 ```bash
 pnpm exec tsx scripts/notebooklm-export-github.ts \
-  --repo nexu-io/open-design \
+  --repo nexu-io/rethra-design \
   --issues open \
   --prs open \
   --limit 50
@@ -35,8 +35,8 @@ You can override the output path:
 
 ```bash
 pnpm exec tsx scripts/notebooklm-export-github.ts \
-  --repo nexu-io/open-design \
-  --out notebooklm/open-design-snapshot.md
+  --repo nexu-io/rethra-design \
+  --out notebooklm/rethra-design-snapshot.md
 ```
 
 ### Flags

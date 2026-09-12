@@ -1,11 +1,11 @@
 import { spawn } from "node:child_process";
 import { isAbsolute } from "node:path";
 
-import { SidecarFactory } from "@open-design/sidecar";
+import { SidecarFactory } from "@rethra-design/sidecar";
 import {
   APP_KEYS,
   type DaemonStatusSnapshot,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 
 import { resolveDaemonUrl as resolveDaemonUrlDefault } from "./daemon-url.js";
 
@@ -127,7 +127,7 @@ export async function ensureMcpDaemonUrl(
   if (plan.action === "none") {
     if (daemonUrl != null) return daemonUrl;
     throw new Error(
-      `The registered OpenDesign runtime is unavailable and cannot be launched (${plan.reason}).`,
+      `The registered RethraDesign runtime is unavailable and cannot be launched (${plan.reason}).`,
     );
   }
 
@@ -145,7 +145,7 @@ export async function ensureMcpDaemonUrl(
     if (daemonUrl != null && await probeDaemon(daemonUrl)) return daemonUrl;
   }
   throw new Error(
-    `OpenDesign was launched headlessly but its daemon did not become ready within ${timeoutMs}ms.`,
+    `RethraDesign was launched headlessly but its daemon did not become ready within ${timeoutMs}ms.`,
   );
 }
 

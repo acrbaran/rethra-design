@@ -7,12 +7,12 @@ parameters:
 
 variables:
   vmImageName: ubuntu-latest
-  resourceGroupName: open-design-aci
-  deploymentName: open-design-aci
+  resourceGroupName: rethra-design-aci
+  deploymentName: rethra-design-aci
   location: eastus
   templateFile: deploy/azure/container-instance.bicep
-  openDesignImage: ghcr.io/nexu-io/od:latest
-  dnsNameLabel: open-design-$(Build.BuildId)
+  rethraDesignImage: ghcr.io/nexu-io/od:latest
+  dnsNameLabel: rethra-design-$(Build.BuildId)
   browserOrigin: https://od.example.com
 
 pool:
@@ -22,7 +22,7 @@ steps:
   - checkout: self
 
   - task: AzureCLI@2
-    displayName: Deploy OpenDesign to Azure Container Instances
+    displayName: Deploy RethraDesign to Azure Container Instances
     inputs:
       azureSubscription: ${{ parameters.azureServiceConnection }}
       scriptType: bash
@@ -51,7 +51,7 @@ steps:
           --template-file "$(templateFile)" \
           --parameters \
             odApiToken="$OD_API_TOKEN" \
-            image="$(openDesignImage)" \
+            image="$(rethraDesignImage)" \
             dnsNameLabel="$(dnsNameLabel)" \
             allowedOrigins="$(browserOrigin)"
     env:

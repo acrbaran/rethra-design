@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import type { PluginManifest } from '@open-design/contracts';
+import type { PluginManifest } from '@rethra-design/contracts';
 import {
   parseManifest,
   resolveAppliedPipeline,
@@ -283,10 +283,10 @@ describe('OD Next Strategy V2 pre-Build fixture boundary', () => {
 describe('non-OD-Next scenario golden witness', () => {
   it('preserves the current official default and community fallback critique pipeline', () => {
     const official = loadManifest(
-      `${repoRoot}/plugins/_official/scenarios/od-new-generation/open-design.json`,
+      `${repoRoot}/plugins/_official/scenarios/od-new-generation/rethra-design.json`,
     );
     const community = loadManifest(
-      `${repoRoot}/plugins/community/humanize-ppt/open-design.json`,
+      `${repoRoot}/plugins/community/humanize-ppt/rethra-design.json`,
     );
     if (!official.od?.taskKind || !official.od.pipeline) {
       throw new Error('od-new-generation must declare its task kind and pipeline');

@@ -2,7 +2,7 @@
 // `plugins/_official/examples/<id>/`. We copy SKILL.md + side files
 // (example.html, assets/, references/) so the daemon's bundled walker
 // has everything it needs without reaching outside the plugin folder
-// (the registry only resolves SKILL.md / .claude-plugin / open-design.json
+// (the registry only resolves SKILL.md / .claude-plugin / rethra-design.json
 // inside the plugin root — see `apps/daemon/src/plugins/registry.ts`).
 
 import path from 'node:path';
@@ -99,8 +99,8 @@ export async function runExampleGenerator(opts: ExampleGeneratorOptions): Promis
       title,
       description: typeof fm.description === 'string' ? fm.description.trim() : '',
       license: 'MIT',
-      author: { name: 'OpenDesign', url: 'https://github.com/nexu-io' },
-      homepage: `https://github.com/nexu-io/open-design/tree/main/plugins/_official/${TIER_EXAMPLES}/${id}`,
+      author: { name: 'RethraDesign', url: 'https://github.com/nexu-io' },
+      homepage: `https://github.com/acrbaran/rethra-design/tree/main/plugins/_official/${TIER_EXAMPLES}/${id}`,
       tags: dedupeTags([
         'example',
         'first-party',

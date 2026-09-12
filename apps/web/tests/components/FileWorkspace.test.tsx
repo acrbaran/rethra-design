@@ -11,7 +11,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import {
   DESIGN_FILES_TAB,
@@ -2471,7 +2471,7 @@ describe('FileWorkspace launcher tab creation', () => {
       <FileWorkspace
         projectId="project-1"
         projectKind="prototype"
-        resolvedDir="/tmp/open-design/project-1"
+        resolvedDir="/tmp/rethra-design/project-1"
         files={[]}
         liveArtifacts={[]}
         onRefreshFiles={vi.fn()}
@@ -2494,7 +2494,7 @@ describe('FileWorkspace launcher tab creation', () => {
       <FileWorkspace
         projectId="project-1"
         projectKind="prototype"
-        resolvedDir="/tmp/open-design/project-1"
+        resolvedDir="/tmp/rethra-design/project-1"
         files={[workspaceFile('cover.html')]}
         liveArtifacts={[]}
         onRefreshFiles={vi.fn()}
@@ -2511,7 +2511,7 @@ describe('FileWorkspace launcher tab creation', () => {
         kind: 'design-files',
         label: 'Design Files',
         tabId: '__design_files__',
-        absolutePath: '/tmp/open-design/project-1',
+        absolutePath: '/tmp/rethra-design/project-1',
       });
     });
   });
@@ -3166,7 +3166,7 @@ describe('DesignFilesPanel plugin folders', () => {
         projectId="project-1"
         projectKind="prototype"
         files={[
-          workspaceFile('generated-plugin/open-design.json'),
+          workspaceFile('generated-plugin/rethra-design.json'),
           workspaceFile('generated-plugin/SKILL.md'),
           workspaceFile('generated-plugin/examples/demo.md'),
         ]}

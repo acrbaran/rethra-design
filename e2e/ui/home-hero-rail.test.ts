@@ -18,9 +18,9 @@ import { T } from '@/timeouts';
 
 test.describe.configure({ timeout: T.xlong });
 
-const STORAGE_KEY = 'open-design:config';
-const LOCALE_KEY = 'open-design:locale';
-const LOCALE_SOURCE_KEY = 'open-design:locale-source';
+const STORAGE_KEY = 'rethra-design:config';
+const LOCALE_KEY = 'rethra-design:locale';
+const LOCALE_SOURCE_KEY = 'rethra-design:locale-source';
 
 const HOME_CONFIG = {
   mode: 'daemon',
@@ -181,7 +181,7 @@ const HOME_PLUGINS = [
       name: 'example-live-artifact',
       title: 'Live Artifact',
       version: '0.1.0',
-      description: 'Create refreshable, auditable OpenDesign artifacts.',
+      description: 'Create refreshable, auditable RethraDesign artifacts.',
       od: {
         kind: 'scenario',
         taskKind: 'new-generation',
@@ -189,7 +189,7 @@ const HOME_PLUGINS = [
         scenario: 'live',
         useCase: {
           query:
-            'Create refreshable, auditable OpenDesign artifacts backed by connector or local data.',
+            'Create refreshable, auditable RethraDesign artifacts backed by connector or local data.',
         },
       },
     },
@@ -413,7 +413,7 @@ const PROMPT_TEMPLATES = [
     category: 'product',
     model: 'gpt-image-2',
     aspect: '16:9',
-    source: { repo: 'open-design/image-prompts', license: 'MIT' },
+    source: { repo: 'rethra-design/image-prompts', license: 'MIT' },
   },
   {
     id: 'video-reveal',
@@ -423,7 +423,7 @@ const PROMPT_TEMPLATES = [
     category: 'product',
     model: 'doubao-seedance-2-0-260128',
     aspect: '16:9',
-    source: { repo: 'open-design/video-prompts', license: 'MIT' },
+    source: { repo: 'rethra-design/video-prompts', license: 'MIT' },
   },
   {
     id: 'hyperframes-caption',
@@ -438,7 +438,7 @@ const PROMPT_TEMPLATES = [
 ];
 
 async function waitForLoadingToClear(page: Page) {
-  await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: 15_000 });
+  await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: 15_000 });
 }
 
 async function seedBrowserConfig(page: Page, config: Record<string, unknown>) {
@@ -463,7 +463,7 @@ async function seedBrowserLocale(page: Page, locale: string) {
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve OpenDesign' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve RethraDesign' });
   if (await privacyDialog.isVisible().catch(() => false)) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
   }
@@ -528,7 +528,7 @@ test.beforeEach(async ({ page }) => {
     }
   }, { key: STORAGE_KEY, value: HOME_CONFIG, campaigns: CAMPAIGN_DISMISSAL_STORAGE });
 
-  await page.route('**/api/github/open-design', async (route) => {
+  await page.route('**/api/github/rethra-design', async (route) => {
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -857,12 +857,12 @@ test('[P1] home composer plus menu opens project, local code, Figma help, and de
     await route.fulfill({
       json: {
         project: referenceProject,
-        resolvedDir: '/tmp/open-design/reference-home-project',
+        resolvedDir: '/tmp/rethra-design/reference-home-project',
       },
     });
   });
   await page.route('**/api/dialog/open-folder', async (route) => {
-    await route.fulfill({ json: { path: '/tmp/open-design/local-code-home' } });
+    await route.fulfill({ json: { path: '/tmp/rethra-design/local-code-home' } });
   });
   await page.route('**/api/dir-exists', async (route) => {
     await route.fulfill({ json: { exists: true } });
@@ -1125,12 +1125,12 @@ test('[P1] home composer sends referenced workspace context into project creatio
     await route.fulfill({
       json: {
         project: referenceProject,
-        resolvedDir: '/tmp/open-design/reference-home-payload',
+        resolvedDir: '/tmp/rethra-design/reference-home-payload',
       },
     });
   });
   await page.route('**/api/dialog/open-folder', async (route) => {
-    await route.fulfill({ json: { path: '/tmp/open-design/local-code-home-payload' } });
+    await route.fulfill({ json: { path: '/tmp/rethra-design/local-code-home-payload' } });
   });
   await page.route('**/api/dir-exists', async (route) => {
     await route.fulfill({ json: { exists: true } });
@@ -1160,8 +1160,8 @@ test('[P1] home composer sends referenced workspace context into project creatio
   await expect.poll(() => createBodies.length).toBe(1);
   const metadata = createBodies[0]?.metadata as { linkedDirs?: string[] } | undefined;
   expect(metadata?.linkedDirs ?? []).toEqual([
-    '/tmp/open-design/reference-home-payload',
-    '/tmp/open-design/local-code-home-payload',
+    '/tmp/rethra-design/reference-home-payload',
+    '/tmp/rethra-design/local-code-home-payload',
   ]);
 });
 
@@ -1216,7 +1216,7 @@ test('[P1] home staged workspace context auto-sends into the first project run',
     await route.fulfill({
       json: {
         project: referenceProject,
-        resolvedDir: '/tmp/open-design/reference-home-autosend',
+        resolvedDir: '/tmp/rethra-design/reference-home-autosend',
       },
     });
   });
@@ -1307,7 +1307,7 @@ test('[P1] home staged workspace context auto-sends into the first project run',
     runId: 'home-autosend-context-run',
   });
   await page.route('**/api/dialog/open-folder', async (route) => {
-    await route.fulfill({ json: { path: '/tmp/open-design/local-code-home-autosend' } });
+    await route.fulfill({ json: { path: '/tmp/rethra-design/local-code-home-autosend' } });
   });
   await page.route('**/api/dir-exists', async (route) => {
     await route.fulfill({ json: { exists: true } });
@@ -1344,12 +1344,12 @@ test('[P1] home staged workspace context auto-sends into the first project run',
       expect.objectContaining({
         id: 'project:ref-home-autosend',
         label: 'Reference Home Autosend',
-        absolutePath: '/tmp/open-design/reference-home-autosend',
+        absolutePath: '/tmp/rethra-design/reference-home-autosend',
       }),
       expect.objectContaining({
-        id: 'local-code:/tmp/open-design/local-code-home-autosend',
+        id: 'local-code:/tmp/rethra-design/local-code-home-autosend',
         label: 'local-code-home-autosend',
-        absolutePath: '/tmp/open-design/local-code-home-autosend',
+        absolutePath: '/tmp/rethra-design/local-code-home-autosend',
       }),
     ]),
   );
@@ -1577,8 +1577,8 @@ test('[P1] home suggestion entry remains retryable after create failures', async
 
 test('[P2] zh-CN home smoke exposes the localized creation type, design system, working directory, and run entries', async ({ page }) => {
   await page.addInitScript(() => {
-    window.localStorage.setItem('open-design:locale', 'zh-CN');
-    window.localStorage.setItem('open-design:locale-source', 'manual');
+    window.localStorage.setItem('rethra-design:locale', 'zh-CN');
+    window.localStorage.setItem('rethra-design:locale-source', 'manual');
   });
   await seedBrowserLocale(page, 'zh-CN');
   await routeHomeDesignSystems(page);
@@ -1991,7 +1991,7 @@ test('[P1] selecting another example updates the composer input', async ({ page 
   await expect(input).toHaveText('Create a live Notion dashboard artifact.');
 
   await useExamplePreset(page, 'example-live-artifact');
-  await expect(input).toHaveText('Create refreshable, auditable OpenDesign artifacts.');
+  await expect(input).toHaveText('Create refreshable, auditable RethraDesign artifacts.');
 });
 
 /**

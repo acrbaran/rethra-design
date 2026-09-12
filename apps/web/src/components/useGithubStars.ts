@@ -6,12 +6,12 @@
 // the renderer.
 
 import { useEffect, useState } from 'react';
-import type { OpenDesignGithubRepoResponse } from '@open-design/contracts';
+import type { RethraDesignGithubRepoResponse } from '@rethra-design/contracts';
 
-const API = '/api/github/open-design';
-const REPO = 'https://github.com/nexu-io/open-design';
-const LS_KEY = 'open-design:gh-stars';
-const FAILURE_LS_KEY = 'open-design:gh-stars:last-failure';
+const API = '/api/github/rethra-design';
+const REPO = 'https://github.com/acrbaran/rethra-design';
+const LS_KEY = 'rethra-design:gh-stars';
+const FAILURE_LS_KEY = 'rethra-design:gh-stars:last-failure';
 export const GITHUB_STARS_FALLBACK_LABEL = '40K+';
 
 // One-hour soft cache — long enough to dodge GitHub's 60/hr
@@ -128,7 +128,7 @@ export function useGithubStars(): number | null {
           rememberFetchFailure();
           return;
         }
-        const data = (await res.json()) as Partial<OpenDesignGithubRepoResponse>;
+        const data = (await res.json()) as Partial<RethraDesignGithubRepoResponse>;
         if (typeof data.stargazers_count !== 'number') {
           rememberFetchFailure();
           return;

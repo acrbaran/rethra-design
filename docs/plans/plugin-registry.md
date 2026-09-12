@@ -1,10 +1,10 @@
-# OpenDesign Plugin Registry — Plan (living)
+# Rethra Design Plugin Registry — Plan (living)
 
-> **One sentence:** Turn the existing `open-design-marketplace.json` federation
+> **One sentence:** Turn the existing `rethra-design-marketplace.json` federation
 > into a real npm-/clawhub-/skills.sh-style **registry**: GitHub repo as the v1
 > storage backend, `od` CLI as the canonical client, official site as one
 > rendered consumer, and the whole thing pluggable so a third party can stand
-> up their own OpenDesign plugin source with one config line.
+> up their own Rethra Design plugin source with one config line.
 
 Source spec: [`docs/plugins-spec.md`](../plugins-spec.md) · zh-CN
 [`docs/plugins-spec.zh-CN.md`](../plugins-spec.zh-CN.md).
@@ -32,7 +32,7 @@ References (shape, not API):
   managed DB later must be a one-file swap, not a refactor.
 - [ ] **R3. `SKILL.md` floor stays portable.** A plugin published to OD's
   registry must still install cleanly as a plain agent skill in Claude
-  Code / Cursor / Codex / Gemini CLI / OpenClaw / Hermes. `open-design.json`
+  Code / Cursor / Codex / Gemini CLI / OpenClaw / Hermes. `rethra-design.json`
   remains an additive sidecar (per spec §1).
 - [x] **R4. Trust vocabulary is one set, everywhere.** Contracts, daemon, CLI,
   UI, and website all use **`official` / `trusted` / `restricted`**. (Today
@@ -73,7 +73,7 @@ Concrete relationship:
 
 ```text
 Plugin source repo
-  open-design.json includes plugin.repo
+  rethra-design.json includes plugin.repo
         |
         | od plugin validate / pack / publish
         v
@@ -82,9 +82,9 @@ Plugin artifact
         |
         v
 Registry index
-  v1: open-design/plugin-registry or this repo
-      community/**/open-design.json
-      generated open-design-marketplace.json
+  v1: rethra-design/plugin-registry or this repo
+      community/**/rethra-design.json
+      generated rethra-design-marketplace.json
   future: DatabaseRegistryBackend
         |
         | od marketplace search / od plugin install
@@ -109,7 +109,7 @@ Product surface semantics:
   status later.
 - **Plugins / Team** is the enterprise governance layer: private catalogs,
   organization allowlists, approvals, audit, and policy.
-- **open-design.ai/plugins** is the public renderer of the official and
+- **rethra-design.invalid/plugins** is the public renderer of the official and
   community registry sources, not a separate source of truth.
 
 Agent consumption boundary:
@@ -150,21 +150,21 @@ Create plugin
   -> od plugin login/whoami through gh
   -> od plugin publish
   -> GitHub registry PR
-  -> generated open-design-marketplace.json
+  -> generated rethra-design-marketplace.json
   -> Available for downstream users after refresh
 ```
 
 The `Create plugin` button should therefore launch an agent workflow that helps
-the user describe the plugin, writes `SKILL.md` and `open-design.json`, adds
+the user describe the plugin, writes `SKILL.md` and `rethra-design.json`, adds
 examples/preview metadata, validates locally, installs a test copy, packs it,
 and then drives the GitHub-backed publish PR. The CLI remains canonical; the
 agent is the product wrapper around the CLI workflow.
 
 v1 registry scope is intentionally simple: a GitHub repo with reviewable source
-entries plus a generated `open-design-marketplace.json`. The JSON is what
+entries plus a generated `rethra-design-marketplace.json`. The JSON is what
 daemon/CLI/UI fetch; the source entries are what humans review in PRs. This can
-start in the main OpenDesign repo, but the code path must still be expressed as
-`RegistryBackend` so moving to `open-design/plugin-registry` or a database later
+start in the main Rethra Design repo, but the code path must still be expressed as
+`RegistryBackend` so moving to `rethra-design/plugin-registry` or a database later
 does not change the product model.
 
 ### 1.1 Storage abstraction
@@ -207,15 +207,15 @@ interface RegistryBackend {
 
 ### 1.2 GitHub-backed v1 layout
 
-A dedicated public repo — proposed **`open-design/plugin-registry`** — owns the
+A dedicated public repo — proposed **`rethra-design/plugin-registry`** — owns the
 canonical official catalog. Third parties fork the same shape and point their
 own `marketplace.json` URL at it.
 
 ```text
-open-design/plugin-registry/
+rethra-design/plugin-registry/
 ├── plugins/
 │   └── <vendor>/<plugin-name>/
-│       ├── manifest.json              ← latest copy of open-design.json
+│       ├── manifest.json              ← latest copy of rethra-design.json
 │       ├── versions/
 │       │   ├── 0.1.0.json             ← frozen manifest snapshot per version
 │       │   └── 0.2.0.json
@@ -224,7 +224,7 @@ open-design/plugin-registry/
 │       └── tarball.txt                ← canonical archive URL (GitHub release)
 ├── marketplace.json                   ← generated index; what daemons fetch
 ├── schema/
-│   └── open-design.marketplace.v1.json
+│   └── rethra-design.marketplace.v1.json
 ├── .github/workflows/
 │   ├── validate-pr.yml                ← schema + manifest + license + a11y
 │   └── publish-index.yml              ← rebuild + commit marketplace.json
@@ -247,7 +247,7 @@ stable after publish; rename means new id plus alias/deprecation metadata.
 
 **Source repo policy:** accept "anything that packs". The source repo does not
 need a special layout if `od plugin validate` and `od plugin pack` pass. The
-manifest must include `plugin.repo` in `open-design.json`, pointing to the
+manifest must include `plugin.repo` in `rethra-design.json`, pointing to the
 canonical source repository or subdirectory.
 
 **Tarball fallback:** GitHub Releases are the default archive host, but raw
@@ -262,7 +262,7 @@ Fallback archives require integrity hashes.
 2. Read or create a GitHub release on the plugin's **own** source repo,
    upload the tarball, capture release asset URL + SHA-256.
 3. `gh auth status` to confirm login (no token persisted by `od`).
-4. Fork (or reuse fork of) `open-design/plugin-registry` via `gh repo fork`.
+4. Fork (or reuse fork of) `rethra-design/plugin-registry` via `gh repo fork`.
 5. Check out a branch `publish/<vendor>-<name>-<version>`.
 6. Write/refresh `plugins/<vendor>/<name>/manifest.json` and
    `versions/<version>.json`, append entry to a per-plugin index, run
@@ -273,7 +273,7 @@ Fallback archives require integrity hashes.
    tarball download + checksum, manifest replay, optional preview render.
 9. On merge, `publish-index.yml` regenerates `marketplace.json` and pushes
    it to `main`. GitHub Pages / CDN serves it as the fetchable marketplace
-   JSON, while `https://open-design.ai/plugins/` renders the public browser
+   JSON, while `https://rethra-design.invalid/plugins/` renders the public browser
    and detail pages over that same source data.
 
 **Yanking** uses the same PR shape with a `yanked: true, reason: "..."` patch
@@ -305,7 +305,7 @@ swap symlink, rollback on failure).
 - `gh` is a first-class dependency of `od` registry workflows. Installing
   `od` should ensure `gh` is present when the platform channel can bootstrap
   it; otherwise the installer fails with exact remediation.
-- `od plugin login` wraps `gh auth login` with OpenDesign copy, scopes, and
+- `od plugin login` wraps `gh auth login` with Rethra Design copy, scopes, and
   host guidance. `od plugin whoami` wraps `gh auth status` plus `gh api user`.
 - `od plugin logout` may wrap `gh auth logout`, but only after explicit
   confirmation because it affects the user's global GitHub CLI session.
@@ -321,11 +321,11 @@ swap symlink, rollback on failure).
 
 Two consumers of the same `marketplace.json`:
 
-- **Official site (open-design.ai/plugins)** — static, SSG against
-  repo-owned `plugins/registry/*/open-design-marketplace.json` sources. Browse,
+- **Official site (rethra-design.invalid/plugins)** — static, SSG against
+  repo-owned `plugins/registry/*/rethra-design-marketplace.json` sources. Browse,
   search, copy install command, render plugin details, preview asset,
   capability & permission summary, version history, publisher links, and
-  canonical SEO pages. `open-design.ai/marketplace` can be kept as an alias
+  canonical SEO pages. `rethra-design.invalid/marketplace` can be kept as an alias
   once routes are finalized.
 - **Self-hosted third-party site** — out of the box, anyone running the
   same registry repo template gets the static site as a copy-paste
@@ -369,15 +369,15 @@ This repo now has the first registry closure in place:
   source/ref, manifest digest, and archive integrity. Snapshot records carry
   the same audit trail for agent/runtime replay.
 - The packaged daemon seeds built-in `official` and `community` registry
-  sources from `plugins/registry/*/open-design-marketplace.json`. `official` is
+  sources from `plugins/registry/*/rethra-design-marketplace.json`. `official` is
   verified and can also hydrate bundled preinstalls; `community` is restricted
   by default and feeds Available entries for user-initiated installs.
 - Bundled official plugins now carry `sourceMarketplaceId=official` and
-  `sourceMarketplaceEntryName=open-design/<plugin-id>`, so they are modeled as
+  `sourceMarketplaceEntryName=rethra-design/<plugin-id>`, so they are modeled as
   preinstalled official registry entries while keeping offline first-run bytes
   in the runtime image.
 - `od plugin login` and `od plugin whoami` now delegate to `gh`, and
-  registry publishing now has three paths: `--to open-design` produces the
+  registry publishing now has three paths: `--to rethra-design` produces the
   human review target/link, `--to marketplace-json --catalog <path>` upserts a
   self-hosted static catalog entry, and `GithubRegistryBackend.publish/yank`
   produces deterministic PR mutation payloads for a real GitHub mutator.
@@ -398,12 +398,12 @@ This repo now has the first registry closure in place:
 - The extracted marketing-site repository now exposes the public SEO renderer at `/plugins/` plus
   static per-plugin detail pages. It reads `plugins/registry/official`,
   `plugins/registry/community`, and bundled official manifests at build time,
-  so open-design.ai can show the ecosystem without calling daemon APIs.
+  so rethra-design.invalid can show the ecosystem without calling daemon APIs.
 - The `Create plugin` product prompt is agent-assisted and explicitly drives
   scaffold/validate/local install/pack/login/whoami/publish expectations.
 - Registry evaluation cases now live in
   [`docs/testing/plugin-registry-eval-cases.md`](../testing/plugin-registry-eval-cases.md).
-  The first covered set locks raw `open-design-marketplace.json` source input,
+  The first covered set locks raw `rethra-design-marketplace.json` source input,
   populated official seed loading, default community seed loading,
   provenance/trust inheritance, bundled official `Use` behavior in Available,
   direct GitHub imports, the Create/Publish agent handoff surfaces, version
@@ -456,7 +456,7 @@ first, headless, JSON-emitting.
   These now cover marketplace plugins/search/doctor/login, versioned install,
   policy-aware upgrade, marketplace info, yanking, and gh-backed login/whoami.
 - [x] **P1.2 GitHub backend module.** `apps/daemon/src/registry/github-backend.ts`
-  implements `RegistryBackend` against `open-design/plugin-registry`. Uses
+  implements `RegistryBackend` against `rethra-design/plugin-registry`. Uses
   raw HTTPS/static reads and a narrow mutation client for PR creation, keeping
   `gh`/GitHub auth outside daemon persistence.
 - [x] **P1.3 Publish orchestrator, first mutation-capable slice.**
@@ -495,7 +495,7 @@ first, headless, JSON-emitting.
   `/plugins` remains registry discovery/management.
 - [x] **P2.4 Agent-assisted Create plugin flow.** The `Create plugin` action
   should start an agent workflow that gathers intent, scaffolds the plugin,
-  writes `SKILL.md`/`open-design.json`, validates, installs a local test copy,
+  writes `SKILL.md`/`rethra-design.json`, validates, installs a local test copy,
   packs, checks `gh` login/whoami, and publishes by opening a GitHub registry
   PR through `od plugin publish`. Current slice upgrades the product prompt,
   CLI wrapper, marketplace-json self-host publish, and tested GitHub PR
@@ -512,14 +512,14 @@ first, headless, JSON-emitting.
 
 ### P3 — Official website + ecosystem
 
-- [x] **P3.1 Stand up `open-design/plugin-registry` repo shape.** Schema, validation
+- [x] **P3.1 Stand up `rethra-design/plugin-registry` repo shape.** Schema, validation
   workflow, index-publishing workflow, OWNERS, contribution guide. Seed with
   the bundled plugins currently shipped in `plugins/_official/`. The local repo
   now carries the source shape and generated registry inputs; creating the
   external GitHub repo is an operational launch step, not a code blocker.
 - [x] **P3.2 Static site renderer.** The extracted marketing-site repository now
-  statically generates `open-design.ai/plugins` and per-plugin detail routes
-  from `plugins/registry/*/open-design-marketplace.json` plus bundled official
+  statically generates `rethra-design.invalid/plugins` and per-plugin detail routes
+  from `plugins/registry/*/rethra-design-marketplace.json` plus bundled official
   manifests, with SEO metadata, search JSON, and `od://` detail links.
 - [x] **P3.3 Submission guide.** `docs/publishing-a-plugin.md` + zh-CN. The
   guide must be runnable end-to-end with `od plugin init` →
@@ -530,7 +530,7 @@ first, headless, JSON-emitting.
   exit option exists.
 - [x] **P3.5 `od plugin publish --to marketplace-json`.** Lets third-party
   catalog owners accept submissions from their own users using the same CLI by
-  writing/upserting their own static `open-design-marketplace.json`.
+  writing/upserting their own static `rethra-design-marketplace.json`.
 - [x] **P3.6 Registry doctor.** `od marketplace doctor` validates every entry
   is downloadable, manifest parseable, checksum match, permissions present.
   Surface in web Sources tab too.
@@ -543,7 +543,7 @@ first, headless, JSON-emitting.
 
 - [x] **P4.1 DB-backed RegistryBackend.** Same interface, SQLite or Postgres.
   Validates R2.
-- [x] **P4.2 Search index.** Static `open-design.ai/plugins/search.json`
+- [x] **P4.2 Search index.** Static `rethra-design.invalid/plugins/search.json`
   exposes the website search index; CLI still works against
   `marketplace.json` directly. Typesense/Meilisearch can replace the static
   file later without changing registry semantics.
@@ -564,7 +564,7 @@ first, headless, JSON-emitting.
    but public publish requires the namespaced id.
 2. **Plugin source-of-truth repo.** The source repo can be any shape that
    survives `od plugin validate` and `od plugin pack`. Registry publish
-   requires a `plugin.repo` field in `open-design.json` pointing to source.
+   requires a `plugin.repo` field in `rethra-design.json` pointing to source.
 3. **Tarball hosting fallback.** If GitHub Releases are unavailable
    (enterprise / mirror), raw HTTPS or object-storage archive URLs are
    accepted with mandatory integrity hash.
@@ -583,7 +583,7 @@ first, headless, JSON-emitting.
 
 - [ ] `R1`–`R6` invariants each have a regression test that fails when
   violated.
-- [ ] A third party can fork `open-design/plugin-registry`, change two
+- [ ] A third party can fork `rethra-design/plugin-registry`, change two
   config values, run one workflow, and have a working OD plugin source at
   their own URL — verified with an e2e fixture catalog.
 - [ ] Every UI action in `PluginsView.tsx` Sources/Available tabs is

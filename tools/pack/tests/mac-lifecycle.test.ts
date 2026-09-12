@@ -5,8 +5,8 @@ import { join } from "node:path";
 import type { ChildProcess } from "node:child_process";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { DesktopStatusSnapshot } from "@open-design/sidecar-proto";
-import type { SidecarStopResult } from "@open-design/sidecar";
+import type { DesktopStatusSnapshot } from "@rethra-design/sidecar-proto";
+import type { SidecarStopResult } from "@rethra-design/sidecar";
 
 import type { ToolPackConfig } from "@/config/index.js";
 import { resolveMacPaths } from "@/mac/paths.js";
@@ -23,7 +23,7 @@ const collectProcessTreePids = vi.fn(
     rootPids.filter((pid): pid is number => typeof pid === "number"),
 );
 const listProcessSnapshots = vi.fn(async () => [] as Array<{ command: string; pid: number; ppid: number }>);
-const matchesStampedProcess = vi.fn<typeof import("@open-design/platform").matchesStampedProcess>(() => false);
+const matchesStampedProcess = vi.fn<typeof import("@rethra-design/platform").matchesStampedProcess>(() => false);
 const stopProcesses = vi.fn(async (pids: number[]) => ({ remainingPids: [], stoppedPids: pids }));
 const spawnLoggedProcess = vi.fn(async ({ env }: { env: NodeJS.ProcessEnv }) => {
   return Object.assign(new EventEmitter(), {
@@ -67,8 +67,8 @@ const stopSidecars = vi.fn(async (requests: Array<{ options?: Record<string, num
   };
 });
 
-vi.mock("@open-design/sidecar", async () => ({
-  ...(await vi.importActual<typeof import("@open-design/sidecar")>("@open-design/sidecar")),
+vi.mock("@rethra-design/sidecar", async () => ({
+  ...(await vi.importActual<typeof import("@rethra-design/sidecar")>("@rethra-design/sidecar")),
   findSidecarProcesses,
   getSidecarStatus,
   convergeSidecarLaunch,
@@ -76,7 +76,7 @@ vi.mock("@open-design/sidecar", async () => ({
   stopSidecars,
 }));
 
-vi.mock("@open-design/platform", () => ({
+vi.mock("@rethra-design/platform", () => ({
   collectProcessTreePids,
   createProcessStampArgs: vi.fn(() => []),
   isProcessAlive: vi.fn(() => true),
@@ -147,11 +147,11 @@ afterEach(() => {
 
 describe("startPackedMacApp", () => {
   it("accepts a clean launcher exit when the delegated desktop becomes healthy", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     try {
       const config = makeConfig(root);
       const paths = resolveMacPaths(config);
-      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Open Design");
+      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Rethra Design");
       const delegatedPid = 5678;
 
       await mkdir(join(paths.installedAppPath, "Contents", "MacOS"), { recursive: true });
@@ -191,11 +191,11 @@ describe("startPackedMacApp", () => {
   });
 
   it("rejects a non-zero launcher exit before desktop handoff", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     try {
       const config = makeConfig(root);
       const paths = resolveMacPaths(config);
-      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Open Design");
+      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Rethra Design");
 
       await mkdir(join(paths.installedAppPath, "Contents", "MacOS"), { recursive: true });
       await writeFile(executablePath, "#!/bin/sh\nexit 1\n", "utf8");
@@ -213,18 +213,18 @@ describe("startPackedMacApp", () => {
   });
 
   it("writes a launch override when the bundled config is missing", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     try {
       const config = makeConfig(root);
       const paths = resolveMacPaths(config);
-      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Open Design");
+      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Rethra Design");
 
       await mkdir(join(paths.installedAppPath, "Contents", "MacOS"), { recursive: true });
       await writeFile(executablePath, "#!/bin/sh\nexit 0\n", "utf8");
       await chmod(executablePath, 0o755);
 
       const result = await startPackedMacApp(config);
-      const launchConfigPath = join(config.roots.runtime.namespaceRoot, "runtime", "open-design-config.json");
+      const launchConfigPath = join(config.roots.runtime.namespaceRoot, "runtime", "rethra-design-config.json");
       const launchEnv = spawnLoggedProcess.mock.calls[0]?.[0]?.env as NodeJS.ProcessEnv | undefined;
 
       expect(result.source).toBe("installed");
@@ -239,12 +239,12 @@ describe("startPackedMacApp", () => {
   });
 
   it("passes a launch override config path for portable mac starts", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     try {
       const config = makeConfig(root);
       const paths = resolveMacPaths(config);
-      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Open Design");
-      const bundledConfigPath = join(paths.installedAppPath, "Contents", "Resources", "open-design-config.json");
+      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Rethra Design");
+      const bundledConfigPath = join(paths.installedAppPath, "Contents", "Resources", "rethra-design-config.json");
 
       await mkdir(join(paths.installedAppPath, "Contents", "MacOS"), { recursive: true });
       await mkdir(join(paths.installedAppPath, "Contents", "Resources"), { recursive: true });
@@ -254,15 +254,15 @@ describe("startPackedMacApp", () => {
         bundledConfigPath,
         `${JSON.stringify({
           appVersion: "1.2.3",
-          daemonCliEntryRelative: "open-design/bin/od",
+          daemonCliEntryRelative: "rethra-design/bin/od",
           namespace: config.namespace,
-          nodeCommandRelative: "open-design/bin/node",
+          nodeCommandRelative: "rethra-design/bin/node",
         }, null, 2)}\n`,
         "utf8",
       );
 
       const result = await startPackedMacApp(config);
-      const launchConfigPath = join(config.roots.runtime.namespaceRoot, "runtime", "open-design-config.json");
+      const launchConfigPath = join(config.roots.runtime.namespaceRoot, "runtime", "rethra-design-config.json");
       const launchEnv = spawnLoggedProcess.mock.calls[0]?.[0]?.env as NodeJS.ProcessEnv | undefined;
 
       expect(result.source).toBe("installed");
@@ -278,11 +278,11 @@ describe("startPackedMacApp", () => {
   });
 
   it("uses the preview executable name for preview release namespaces", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     try {
       const config = makeConfig(root, { namespace: "release-preview" });
       const paths = resolveMacPaths(config);
-      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Open Design Preview");
+      const executablePath = join(paths.installedAppPath, "Contents", "MacOS", "Rethra Design Preview");
 
       await mkdir(join(paths.installedAppPath, "Contents", "MacOS"), { recursive: true });
       await writeFile(executablePath, "#!/bin/sh\nexit 0\n", "utf8");
@@ -301,7 +301,7 @@ describe("startPackedMacApp", () => {
 
 describe("stopPackedMacApp", () => {
   it("waits for a packaged-source payload desktop to exit after graceful shutdown", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     const config = makeConfig(root);
     const payloadDesktop = { command: "payload-desktop", pid: 4242, ppid: 1 };
 
@@ -338,7 +338,7 @@ describe("stopPackedMacApp", () => {
   });
 
   it("keeps output and runtime roots when a packaged generation survives cleanup", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     const config = makeConfig(root);
     const outputMarker = join(config.roots.output.namespaceRoot, "artifact.txt");
     const runtimeMarker = join(config.roots.runtime.namespaceRoot, "runtime.txt");
@@ -370,7 +370,7 @@ describe("stopPackedMacApp", () => {
 
 describe("inspectPackedMacApp", () => {
   it("targets the reachable packaged sidecar when a tools-pack process marker is stale", async () => {
-    const root = await mkdtemp(join(tmpdir(), "open-design-tools-pack-mac-lifecycle-"));
+    const root = await mkdtemp(join(tmpdir(), "rethra-design-tools-pack-mac-lifecycle-"));
     try {
       findSidecarProcesses.mockImplementation(async (stamp: { source: string }) =>
         stamp.source === "tools-pack" ? [{ pid: 1234 }] : [],

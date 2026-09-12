@@ -17,7 +17,7 @@ import type {
   AmrAuthStage,
   AmrAuthStageResult,
   AmrAuthStageSource,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import type {
   ApiErrorResponse,
   ChatAnalyticsHints,
@@ -40,8 +40,8 @@ import type {
   SseErrorPayload,
   StrategyTaskProjectionV2,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
-import { OD_NEXT_AGENT_DECLARED_BLOCK_REASON } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { OD_NEXT_AGENT_DECLARED_BLOCK_REASON } from '@rethra-design/contracts';
 import type { StreamHandlers } from './anthropic';
 
 /**
@@ -146,7 +146,7 @@ export function latestUserPromptFromHistory(history: ChatMessage[]): string {
 function truncateForTranscript(content: string): string {
   if (content.length <= MAX_TRANSCRIPT_MESSAGE_CHARS) return content;
   const omitted = content.length - MAX_TRANSCRIPT_MESSAGE_CHARS;
-  return `${content.slice(0, MAX_TRANSCRIPT_MESSAGE_CHARS)}\n\n[OpenDesign truncated ${omitted} chars from this prior message before sending it to the agent. Full content remains in persisted history.]`;
+  return `${content.slice(0, MAX_TRANSCRIPT_MESSAGE_CHARS)}\n\n[RethraDesign truncated ${omitted} chars from this prior message before sending it to the agent. Full content remains in persisted history.]`;
 }
 
 function escapeTranscriptRoleDelimiters(content: string): string {
@@ -205,7 +205,7 @@ function buildPriorRunContextWarning(history: ChatMessage[]): string | null {
 
   return [
     '## context warning',
-    `OpenDesign detected ${notes.join(', ')}.`,
+    `RethraDesign detected ${notes.join(', ')}.`,
     'Keep this turn compact: summarize prior tool output, read large references from temp files, and quote only task-relevant lines.',
   ].join('\n');
 }
@@ -650,8 +650,8 @@ export interface DaemonReattachOptions {
   onStrategyTaskSettled?: (strategyTask: StrategyTaskProjectionV2) => void;
 }
 
-export const RUNS_CHANGED_EVENT = 'open-design:runs-changed';
-export const DAEMON_RUN_FINISHED_EVENT = 'open-design:daemon-run-finished';
+export const RUNS_CHANGED_EVENT = 'rethra-design:runs-changed';
+export const DAEMON_RUN_FINISHED_EVENT = 'rethra-design:daemon-run-finished';
 
 export interface DaemonRunFinishedEventDetail {
   agentId: string;
@@ -711,13 +711,13 @@ export function createGenericDaemonDisconnectError(): Error & { code: string } {
  *
  * ⚠️ THE CARD COPY IS STILL A DRAFT — W41's, not product's.
  * `docs/design/run-errors/error-ux-design.md` has no cell for "the agent
- * answered and Open Design could not record the answer". S21, the nearest,
+ * answered and Rethra Design could not record the answer". S21, the nearest,
  * covers an empty / malformed / looping model response, which this is not: the
  * reply is complete, readable, and already on screen. Product should rewrite
  * the two locale strings; the routing and the reason codes are settled.
  */
 export const STRATEGY_TASK_BLOCKED_MESSAGE =
-  "The agent's reply did not carry the machine-readable state Open Design needs "
+  "The agent's reply did not carry the machine-readable state Rethra Design needs "
   + 'to record this step, so the task could not continue.';
 
 /**
@@ -809,7 +809,7 @@ function shouldSuppressLifecycleExitFallback(
 }
 
 const AMR_OPENCODE_INCOMPLETE_MESSAGE =
-  'OpenDesign started, but the run did not complete. Please retry or check the run details for the session stream error.';
+  'RethraDesign started, but the run did not complete. Please retry or check the run details for the session stream error.';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -841,7 +841,7 @@ function daemonCreateRunError(response: Response, responseText: string): Error {
   if (!apiError || typeof apiError !== 'object') {
     return new Error(`daemon ${response.status}: ${responseText || 'no body'}`);
   }
-  const error = new Error(apiError.message || `OpenDesign service returned ${response.status}`) as Error & {
+  const error = new Error(apiError.message || `RethraDesign service returned ${response.status}`) as Error & {
     code?: string;
     requestId?: string;
     retryable?: boolean;
@@ -917,10 +917,10 @@ function formatOpenCodeSessionError(value: unknown): string | null {
     return message;
   }
   if (statusCode === 404) {
-    return 'The model service returned 404 Not Found for the configured runtime endpoint. Check the OpenDesign link URL or model route.';
+    return 'The model service returned 404 Not Found for the configured runtime endpoint. Check the RethraDesign link URL or model route.';
   }
   if (statusCode === 401 || statusCode === 403) {
-    return 'OpenDesign authentication failed. Please sign in again or refresh the runtime key.';
+    return 'RethraDesign authentication failed. Please sign in again or refresh the runtime key.';
   }
   if (statusCode === 429) {
     return 'The model service rejected the request due to quota or rate limits. Retry later or check quota and rate limits.';
@@ -1332,7 +1332,7 @@ export interface VelaLiveAccount {
 
 export interface VelaLoginStatus {
   loggedIn: boolean;
-  sessionState?: import('@open-design/contracts').AmrSessionState;
+  sessionState?: import('@rethra-design/contracts').AmrSessionState;
   credentialRevision?: string;
   loginInFlight?: boolean;
   profile: string;

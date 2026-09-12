@@ -3,7 +3,7 @@ import {
   workspaceContextHasTeamIdentity,
   type PublicFileManualRevokeRequiredData,
   type PublicProjectFilePublication,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { boundedRequestErrorCode } from '../analytics/workspace';
 import type {
   ConnectorAuthConfigPrepareResponse,
@@ -18,7 +18,7 @@ import type {
   ImportGitHubDesignSystemResponse,
   ImportShadcnDesignSystemRequest,
   ImportShadcnDesignSystemResponse,
-  OpenDesignGithubLatestReleaseResponse,
+  RethraDesignGithubLatestReleaseResponse,
   ImportLocalDesignSystemRequest,
   ImportLocalDesignSystemResponse,
   ReplaceProjectWorkingDirResponse,
@@ -35,7 +35,7 @@ import type {
   SocialShareRequest,
   SocialShareResponse,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type {
   AgentInfo,
   AppVersionInfo,
@@ -86,9 +86,9 @@ import type {
 import type { ArtifactManifest } from '../artifacts/types';
 import { GENERIC_DEPLOY_ENVELOPE_CODES } from '../analytics/deploy-error-code';
 import {
-  isOpenDesignHostAvailable,
+  isRethraDesignHostAvailable,
   openHostExternalUrl,
-} from '@open-design/host';
+} from '@rethra-design/host';
 import {
   coalescedGet,
   evictCoalescedGet,
@@ -1377,13 +1377,13 @@ export interface ConnectorActionResult {
 }
 
 function popupBlockedMessage(): string {
-  return 'Popup blocked. Allow popups for OpenDesign and try again.';
+  return 'Popup blocked. Allow popups for RethraDesign and try again.';
 }
 
 export async function openExternalUrl(url: string): Promise<boolean> {
   const bridgedUrl = await bridgeFirstPartyUrl(url);
   const targetUrl = bridgedUrl ?? url;
-  if (isOpenDesignHostAvailable()) {
+  if (isRethraDesignHostAvailable()) {
     const opened = await openHostExternalUrl(targetUrl);
     if (opened.ok) return true;
   }
@@ -1411,7 +1411,7 @@ export async function openExternalUrl(url: string): Promise<boolean> {
 async function bridgeFirstPartyUrl(url: string): Promise<string | null> {
   try {
     const target = new URL(url);
-    if (!['open-design.ai', 'www.open-design.ai', 'staging.open-design.ai'].includes(target.hostname)) return null;
+    if (!['rethra-design.invalid', 'www.rethra-design.invalid', 'staging.rethra-design.invalid'].includes(target.hostname)) return null;
     const resp = await fetch('/api/attribution/bridge-url', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1436,7 +1436,7 @@ async function decodeConnectorError(resp: Response): Promise<string> {
 
 export async function connectConnector(connectorId: string): Promise<ConnectorActionResult> {
   let authWindow: Window | null = null;
-  const useExternalBrowser = isOpenDesignHostAvailable();
+  const useExternalBrowser = isRethraDesignHostAvailable();
   try {
     if (!useExternalBrowser) {
       authWindow = window.open('about:blank', '_blank');
@@ -1714,9 +1714,9 @@ export type LatestGithubReleaseInfo = {
 
 export async function fetchLatestGithubReleaseInfo(): Promise<LatestGithubReleaseInfo | null> {
   try {
-    const resp = await fetch('/api/github/open-design/releases/latest');
+    const resp = await fetch('/api/github/rethra-design/releases/latest');
     if (!resp.ok) return null;
-    const json = (await resp.json()) as Partial<OpenDesignGithubLatestReleaseResponse>;
+    const json = (await resp.json()) as Partial<RethraDesignGithubLatestReleaseResponse>;
     if (typeof json.tag_name !== 'string' || typeof json.html_url !== 'string') return null;
     return {
       tagName: json.tag_name,
@@ -2179,8 +2179,8 @@ export async function fetchProjectFiles(
   }
 }
 
-export type ProjectDesignTokenSuggestion = import('@open-design/contracts').ProjectDesignTokenSuggestion;
-export type ProjectDesignTokenSuggestionProp = import('@open-design/contracts').ProjectDesignTokenSuggestionProp;
+export type ProjectDesignTokenSuggestion = import('@rethra-design/contracts').ProjectDesignTokenSuggestion;
+export type ProjectDesignTokenSuggestionProp = import('@rethra-design/contracts').ProjectDesignTokenSuggestionProp;
 
 export async function fetchProjectDesignTokenSuggestions(
   projectId: string,
@@ -2572,7 +2572,7 @@ const LEGACY_PREVIEW_SCOPE_REFRESH_MS = 45 * 60 * 1000;
 function previewCapabilityHref(pathname: string): string {
   const runtimeHref = typeof globalThis.location?.href === 'string'
     ? globalThis.location.href
-    : 'http://open-design.local/';
+    : 'http://rethra-design.local/';
   return new URL(pathname, runtimeHref).href;
 }
 
@@ -2591,7 +2591,7 @@ export async function fetchProjectPreviewBaseHref(
     if (!response.ok) return null;
     const body = (await response.json()) as ProjectPreviewUrlResponse;
     if (typeof body.url !== 'string' || !body.url.startsWith('/')) return null;
-    const parsed = new URL(body.url, 'http://open-design.local');
+    const parsed = new URL(body.url, 'http://rethra-design.local');
     const expectedPrefix = `/api/projects/${encodeURIComponent(projectId)}/preview/`;
     if (!parsed.pathname.startsWith(expectedPrefix)) return null;
     const directoryEnd = parsed.pathname.lastIndexOf('/') + 1;
@@ -2617,7 +2617,7 @@ export async function renewProjectPreviewBaseScope(
   href: string,
 ): Promise<number | null> {
   try {
-    const parsed = new URL(href, 'http://open-design.local');
+    const parsed = new URL(href, 'http://rethra-design.local');
     const expectedPrefix = `/api/projects/${encodeURIComponent(projectId)}/preview/`;
     if (!parsed.pathname.startsWith(expectedPrefix)) return null;
     const scopeEnd = parsed.pathname.indexOf('/', expectedPrefix.length);
@@ -3460,14 +3460,14 @@ export async function replaceProjectWorkingDir(
 // editors on demand (PATH probe + macOS bundle scan), and the POST
 // endpoint spawns the chosen app with the project's resolvedDir.
 export async function fetchHostEditors(): Promise<
-  import('@open-design/contracts').HostEditorsResponse
+  import('@rethra-design/contracts').HostEditorsResponse
 > {
   return coalescedGet(
     'host-editors',
     async () => {
       const resp = await fetch('/api/editors');
       if (!resp.ok) throw new Error(`GET /api/editors failed: ${resp.status}`);
-      return (await resp.json()) as import('@open-design/contracts').HostEditorsResponse;
+      return (await resp.json()) as import('@rethra-design/contracts').HostEditorsResponse;
     },
     IN_FLIGHT_SHARE_ONLY_MS,
   );
@@ -3475,9 +3475,9 @@ export async function fetchHostEditors(): Promise<
 
 export async function openProjectInEditor(
   projectId: string,
-  editorId: import('@open-design/contracts').HostEditorId,
+  editorId: import('@rethra-design/contracts').HostEditorId,
   workspaceContext?: WorkspaceCollabContext | null,
-): Promise<import('@open-design/contracts').OpenProjectInEditorResponse> {
+): Promise<import('@rethra-design/contracts').OpenProjectInEditorResponse> {
   const resp = await fetch(
     `/api/projects/${encodeURIComponent(projectId)}/open-in`,
     {
@@ -3493,7 +3493,7 @@ export async function openProjectInEditor(
     const body = await readApiErrorBody(resp);
     throw new Error(body.message);
   }
-  return (await resp.json()) as import('@open-design/contracts').OpenProjectInEditorResponse;
+  return (await resp.json()) as import('@rethra-design/contracts').OpenProjectInEditorResponse;
 }
 
 export async function fetchDesignSystemPreview(
@@ -3719,8 +3719,8 @@ import type {
   LibraryIngestResponse,
   LibraryPairingStartResponse,
   LibrarySyncResponse,
-} from '@open-design/contracts';
-import { LIBRARY_UPLOAD_MAX_BYTES, isLibraryUploadMimeAllowed } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { LIBRARY_UPLOAD_MAX_BYTES, isLibraryUploadMimeAllowed } from '@rethra-design/contracts';
 
 /** Raw bytes URL for a library asset (image src / download href). */
 export function libraryAssetRawUrl(id: string): string {

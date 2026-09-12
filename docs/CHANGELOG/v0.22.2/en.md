@@ -1,9 +1,9 @@
 ---
-title: Open Design 0.22.2 — More reliable update restarts
+title: Rethra Design 0.22.2 — More reliable update restarts
 description: More reliable desktop update restarts on macOS and Windows, with accurate waiting feedback while background work closes.
 ---
 
-Open Design 0.22.2 is a focused desktop update reliability patch for macOS and Windows.
+Rethra Design 0.22.2 is a focused desktop update reliability patch for macOS and Windows.
 
 ## 🐛 Fixed
 
@@ -14,7 +14,7 @@ Open Design 0.22.2 is a focused desktop update reliability patch for macOS and W
 
 The first upgrade to 0.22.2 still uses the older app's shutdown screen and behavior. If it reports a quit error but then restarts successfully, the new version can still be installed. Clients already stuck in a restart loop may need help from customer support; this patch does not automatically recover those installations.
 
-> 📥 **Download:** [Open Design downloads](https://open-design.ai/download/).
+> 📥 **Download:** [Rethra Design downloads](https://rethra-design.invalid/download/).
 
 ## 🙏 Thanks to everyone who shipped 0.22.2
 

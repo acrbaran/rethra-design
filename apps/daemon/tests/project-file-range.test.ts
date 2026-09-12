@@ -201,7 +201,7 @@ describe('GET /api/projects/:id/raw/* range request route', () => {
     await writeFile(path.join(dir, 'body.html'), Buffer.from('<html><body><main>Preview</main></body></html>'));
     // `<head>` is optional markup, so a document can legally have none while a
     // script string contains one — the head-open half of
-    // nexu-io/open-design#7410. `<header>` is here because a bare
+    // nexu-io/rethra-design#7410. `<header>` is here because a bare
     // `/<head[^>]*>/` matches it too.
     await writeFile(
       path.join(dir, 'script-literal-head.html'),
@@ -663,7 +663,7 @@ describe('GET /api/projects/:id/raw/* range request route', () => {
       ),
     );
     // A prototype whose inline script builds an HTML document string — the
-    // shape behind nexu-io/open-design#7410. The literal `</body>` inside the
+    // shape behind nexu-io/rethra-design#7410. The literal `</body>` inside the
     // template literal precedes the document's real one, so an injector that
     // splices at the FIRST `</body>` lands inside the script and truncates it.
     await writeFile(
@@ -905,7 +905,7 @@ describe('GET /api/projects/:id/raw/* range request route', () => {
   });
 
   it('injects the URL preview scroll bridge after a `</body>` written inside a script string', async () => {
-    // nexu-io/open-design#7410: splicing at the first raw-text `</body>` puts
+    // nexu-io/rethra-design#7410: splicing at the first raw-text `</body>` puts
     // the bridge's own `</script>` inside the author's script, which ends that
     // script early and dumps the rest of it on the page as text.
     const bridged = await fetch(`${rawUrl('script-literal-body.html')}?odPreviewBridge=scroll`);
@@ -933,7 +933,7 @@ describe('GET /api/projects/:id/raw/* range request route', () => {
   });
 
   it('injects the URL preview sandbox shim after a `<head>` written inside a script string', async () => {
-    // nexu-io/open-design#7410, head-open half: the document has no real
+    // nexu-io/rethra-design#7410, head-open half: the document has no real
     // `<head>`, so the first textual match is the one inside the script.
     const bridged = await fetch(`${rawUrl('script-literal-head.html')}?odPreviewBridge=sandbox`);
     expect(bridged.status).toBe(200);

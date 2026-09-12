@@ -1,4 +1,4 @@
-import type { MarketplacePluginEntry } from '@open-design/contracts';
+import type { MarketplacePluginEntry } from '@rethra-design/contracts';
 import { describe, expect, it } from 'vitest';
 
 import {

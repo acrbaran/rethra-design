@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type {
   CollabMemberRole,
   WorkspaceBillingState,
@@ -14,7 +14,7 @@ import type {
   WorkspaceProviderMode,
   WorkspaceSeatSummary,
   WorkspaceType,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   markVelaAuthorizationExpired,
   readVelaControlApiContext,

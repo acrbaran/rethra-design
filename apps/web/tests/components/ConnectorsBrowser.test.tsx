@@ -2,7 +2,7 @@
 
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { ConnectorDetail } from '@open-design/contracts';
+import type { ConnectorDetail } from '@rethra-design/contracts';
 
 import { ConnectorsBrowser } from '../../src/components/ConnectorsBrowser';
 import {
@@ -764,7 +764,7 @@ describe('ConnectorsBrowser', () => {
         redirectUrl: 'https://example.com/oauth',
         expiresAt: '2026-05-08T10:00:00.000Z',
       },
-      error: 'Popup blocked. Allow popups for OpenDesign and try again.',
+      error: 'Popup blocked. Allow popups for RethraDesign and try again.',
     });
 
     render(<ConnectorsBrowser composioConfigured />);

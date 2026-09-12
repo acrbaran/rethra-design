@@ -1,30 +1,30 @@
 import {
-  OPEN_DESIGN_HOST_GLOBAL,
-  OPEN_DESIGN_HOST_VERSION,
-  type OpenDesignHostBridge,
-  type OpenDesignHostGlobalScope,
-  type OpenDesignHostUpdaterStatusSnapshot,
+  RETHRA_DESIGN_HOST_GLOBAL,
+  RETHRA_DESIGN_HOST_VERSION,
+  type RethraDesignHostBridge,
+  type RethraDesignHostGlobalScope,
+  type RethraDesignHostUpdaterStatusSnapshot,
 } from "./index.js";
 
-export type MockOpenDesignHost = Partial<Omit<OpenDesignHostBridge, "capture" | "client" | "pdf" | "pet" | "preview" | "project" | "shell" | "updater">> & {
-  browser?: Partial<OpenDesignHostBridge["browser"]>;
-  capture?: Partial<OpenDesignHostBridge["capture"]>;
-  client?: Partial<OpenDesignHostBridge["client"]>;
-  pdf?: Partial<OpenDesignHostBridge["pdf"]>;
-  pet?: Partial<OpenDesignHostBridge["pet"]>;
-  preview?: Partial<NonNullable<OpenDesignHostBridge["preview"]>>;
-  project?: Partial<OpenDesignHostBridge["project"]>;
-  shell?: Partial<OpenDesignHostBridge["shell"]>;
-  updater?: Partial<OpenDesignHostBridge["updater"]>;
+export type MockRethraDesignHost = Partial<Omit<RethraDesignHostBridge, "capture" | "client" | "pdf" | "pet" | "preview" | "project" | "shell" | "updater">> & {
+  browser?: Partial<RethraDesignHostBridge["browser"]>;
+  capture?: Partial<RethraDesignHostBridge["capture"]>;
+  client?: Partial<RethraDesignHostBridge["client"]>;
+  pdf?: Partial<RethraDesignHostBridge["pdf"]>;
+  pet?: Partial<RethraDesignHostBridge["pet"]>;
+  preview?: Partial<NonNullable<RethraDesignHostBridge["preview"]>>;
+  project?: Partial<RethraDesignHostBridge["project"]>;
+  shell?: Partial<RethraDesignHostBridge["shell"]>;
+  updater?: Partial<RethraDesignHostBridge["updater"]>;
 };
 
-export type MockOpenDesignHostOptions = {
-  host?: MockOpenDesignHost;
-  scope?: OpenDesignHostGlobalScope;
+export type MockRethraDesignHostOptions = {
+  host?: MockRethraDesignHost;
+  scope?: RethraDesignHostGlobalScope;
 };
 
-function defaultHost(): OpenDesignHostBridge {
-  const updaterStatus: OpenDesignHostUpdaterStatusSnapshot = {
+function defaultHost(): RethraDesignHostBridge {
+  const updaterStatus: RethraDesignHostUpdaterStatusSnapshot = {
     arch: "arm64",
     capabilities: {
       canApplyInPlace: false,
@@ -41,7 +41,7 @@ function defaultHost(): OpenDesignHostBridge {
     supported: true,
   };
   return {
-    version: OPEN_DESIGN_HOST_VERSION,
+    version: RETHRA_DESIGN_HOST_VERSION,
     browser: {
       clearData: async () => ({ ok: true }),
     },
@@ -65,7 +65,7 @@ function defaultHost(): OpenDesignHostBridge {
       }),
       pickAndReplaceWorkingDir: async () => ({
         ok: true,
-        baseDir: "/tmp/open-design-test",
+        baseDir: "/tmp/rethra-design-test",
         entryFile: null,
       }),
     },
@@ -93,7 +93,7 @@ function defaultHost(): OpenDesignHostBridge {
   };
 }
 
-export function createMockOpenDesignHost(overrides: MockOpenDesignHost = {}): OpenDesignHostBridge {
+export function createMockRethraDesignHost(overrides: MockRethraDesignHost = {}): RethraDesignHostBridge {
   const base = defaultHost();
   return {
     ...base,
@@ -117,24 +117,24 @@ export function createMockOpenDesignHost(overrides: MockOpenDesignHost = {}): Op
   };
 }
 
-export function installMockOpenDesignHost(options: MockOpenDesignHostOptions = {}): () => void {
-  const scope = (options.scope ?? globalThis) as OpenDesignHostGlobalScope;
-  const host = createMockOpenDesignHost(options.host);
+export function installMockRethraDesignHost(options: MockRethraDesignHostOptions = {}): () => void {
+  const scope = (options.scope ?? globalThis) as RethraDesignHostGlobalScope;
+  const host = createMockRethraDesignHost(options.host);
   const windowValue = scope.window;
   const targets = [
     scope,
     ...(typeof windowValue === "object" && windowValue != null && windowValue !== scope
-      ? [windowValue as OpenDesignHostGlobalScope]
+      ? [windowValue as RethraDesignHostGlobalScope]
       : []),
   ];
   const previous = targets.map((target) => ({
-    had: Object.prototype.hasOwnProperty.call(target, OPEN_DESIGN_HOST_GLOBAL),
+    had: Object.prototype.hasOwnProperty.call(target, RETHRA_DESIGN_HOST_GLOBAL),
     target,
-    value: target[OPEN_DESIGN_HOST_GLOBAL],
+    value: target[RETHRA_DESIGN_HOST_GLOBAL],
   }));
 
   for (const target of targets) {
-    Object.defineProperty(target, OPEN_DESIGN_HOST_GLOBAL, {
+    Object.defineProperty(target, RETHRA_DESIGN_HOST_GLOBAL, {
       configurable: true,
       value: host,
       writable: true,
@@ -144,13 +144,13 @@ export function installMockOpenDesignHost(options: MockOpenDesignHostOptions = {
   return () => {
     for (const entry of previous) {
       if (entry.had) {
-        Object.defineProperty(entry.target, OPEN_DESIGN_HOST_GLOBAL, {
+        Object.defineProperty(entry.target, RETHRA_DESIGN_HOST_GLOBAL, {
           configurable: true,
           value: entry.value,
           writable: true,
         });
       } else {
-        delete entry.target[OPEN_DESIGN_HOST_GLOBAL];
+        delete entry.target[RETHRA_DESIGN_HOST_GLOBAL];
       }
     }
   };

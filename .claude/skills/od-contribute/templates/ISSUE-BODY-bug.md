@@ -10,7 +10,7 @@
 
 {{EXPECTED}}
 
-### OpenDesign version
+### Rethra Design version
 
 {{OD_VERSION}}
 

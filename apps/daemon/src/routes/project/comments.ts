@@ -2,8 +2,8 @@ import type { Express, Request } from 'express';
 import type {
   PreviewComment,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
-import { projectKindFromMetadataToTrackingOrLegacyDefault } from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts';
+import { projectKindFromMetadataToTrackingOrLegacyDefault } from '@rethra-design/contracts/analytics';
 import type { RouteDeps } from '../../server-context.js';
 import type { BoundWorkspaceResourceMutationGate } from '../../collab/workspace-resource-mutation.js';
 import { getProject, isProjectCommentAnchorConversationId } from '../../db.js';

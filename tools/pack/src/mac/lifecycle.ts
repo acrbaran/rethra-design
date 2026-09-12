@@ -14,15 +14,15 @@ import {
   type DesktopStatusSnapshot,
   type DesktopUpdateAction,
   type DesktopUpdateResult,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 import {
   convergeSidecarLaunch,
   getSidecarStatus,
   invokeSidecar,
   stopSidecars,
   type SidecarStamp as ConvergedSidecarStamp,
-} from "@open-design/sidecar";
-import { readLogTail } from "@open-design/platform";
+} from "@rethra-design/sidecar";
+import { readLogTail } from "@rethra-design/platform";
 import type { ToolPackConfig } from "../config/index.js";
 import { allPackagedSidecarStopRequests, toolPackSidecarStamp } from "../config/sidecar-stamps.js";
 import { resolveToolPackLauncherLayout } from "../launcher/layout.js";

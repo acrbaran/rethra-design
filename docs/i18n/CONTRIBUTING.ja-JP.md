@@ -1,4 +1,4 @@
-# OpenDesign へのコントリビューション
+# Rethra Design へのコントリビューション
 
 コントリビューションを検討してくださりありがとうございます。OD は意図的に小さく保っています — 価値の大部分はフレームワークコードではなく**ファイル**（Skill、Design System、プロンプトフラグメント）にあります。そのため、最も効果の高いコントリビューションは通常、フォルダ 1 つ、Markdown ファイル 1 つ、または PR サイズの adapter です。
 
@@ -19,7 +19,7 @@
 | 機能追加、バグ修正、[`open-codesign`][ocod] から UX パターンを移植 | コード | `apps/web/src/`、`apps/daemon/` | 通常の PR |
 | ドキュメント改善、Français / Deutsch / 中文 への翻訳、タイポ修正 | ドキュメント | `README.md`、`README.fr.md`、`README.de.md`、`README.zh-CN.md`、`docs/`、`QUICKSTART.md` | PR 1 つ |
 
-アイデアがどのカテゴリに該当するか分からない場合は、[まず discussion / issue を作成](https://github.com/nexu-io/open-design/issues/new)してください。適切な場所をご案内します。
+アイデアがどのカテゴリに該当するか分からない場合は、[まず discussion / issue を作成](https://github.com/acrbaran/rethra-design/issues/new)してください。適切な場所をご案内します。
 
 ---
 
@@ -28,13 +28,13 @@
 完全なセットアップ手順は [`QUICKSTART.md`](../../QUICKSTART.md) にあります。コントリビューター向けの要約：
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable           # packageManager で指定された pnpm を選択
 pnpm install
 pnpm tools-dev run web    # daemon + web フォアグラウンドループ
 pnpm typecheck            # tsc -b --noEmit
-pnpm --filter @open-design/web build  # 必要に応じて web パッケージをビルド
+pnpm --filter @rethra-design/web build  # 必要に応じて web パッケージをビルド
 ```
 
 Node `~24` と pnpm `10.33.x` が必要です。`nvm` / `fnm` はオプション。使用する場合は `nvm install 24 && nvm use 24` または `fnm install 24 && fnm use 24` を実行してください。macOS、Linux、WSL2 が主要プラットフォームです。Windows ネイティブもサポートされています — 一般的なセットアップ時の落とし穴については [`docs/windows-troubleshooting.md`](../../docs/windows-troubleshooting.md) を参照してください。
@@ -254,7 +254,7 @@ CLA は求めません。Apache-2.0 でカバーされます。あなたのコ�
 
 ## 質問する
 
-- アーキテクチャの質問、設計の質問、「これはバグか使い方の問題か」→ [GitHub Discussions](https://github.com/nexu-io/open-design/discussions)（推奨 — 次の人が検索できます）。
+- アーキテクチャの質問、設計の質問、「これはバグか使い方の問題か」→ [GitHub Discussions](https://github.com/acrbaran/rethra-design/discussions)（推奨 — 次の人が検索できます）。
 - 「X をする Skill はどう書けばいい？」→ Discussion を作成してください。回答し、不足しているパターンであれば [`docs/skills-protocol.md`](../../docs/skills-protocol.md) に反映します。
 
 ---
@@ -285,7 +285,7 @@ CLA は求めません。Apache-2.0 でカバーされます。あなたのコ�
 
 tl;dr：良い PR を出し、丁寧にレビューし、[Discussions][discussions] / [Discord][discord] に顔を出していれば、あとは自然と道が開けます。
 
-[discussions]: https://github.com/nexu-io/open-design/discussions
+[discussions]: https://github.com/acrbaran/rethra-design/discussions
 [discord]: https://discord.gg/mHAjSMV6gz
 
 ---

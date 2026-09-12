@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # OD Contribute installer — self-bootstrapping.
-# Fetches the latest od-contribute skill from nexu-io/open-design and installs
+# Fetches the latest od-contribute skill from nexu-io/rethra-design and installs
 # it into every supported AI agent's home directory.
 #
 # Two ways to run this:
 #
 # 1) Tell your AI agent (Claude Code / Codex / Cursor / etc.) in the chat:
 #
-#      curl -sSL https://raw.githubusercontent.com/nexu-io/open-design/main/.claude/skills/od-contribute/install.sh | bash
+#      curl -sSL https://raw.githubusercontent.com/nexu-io/rethra-design/main/.claude/skills/od-contribute/install.sh | bash
 #
 #    The agent's Bash tool runs this. You never open a terminal yourself.
 #
@@ -23,7 +23,7 @@
 
 set -euo pipefail
 
-REPO="nexu-io/open-design"
+REPO="nexu-io/rethra-design"
 BRANCH="${OD_CONTRIBUTE_BRANCH:-main}"
 
 cyan()  { printf '\033[36m%s\033[0m\n' "$*"; }
@@ -46,7 +46,7 @@ curl -fsSL "https://github.com/${REPO}/archive/refs/heads/${BRANCH}.tar.gz" -o "
 
 # Extract just the two paths we need. GitHub tarballs name the root dir
 # <repo>-<branch>/, with slashes in branch names converted to dashes.
-TARBALL_ROOT="open-design-${BRANCH//\//-}"
+TARBALL_ROOT="rethra-design-${BRANCH//\//-}"
 tar -xzf "$TARBALL" -C "$TMPDIR" \
   "${TARBALL_ROOT}/.claude/skills/od-contribute" \
   "${TARBALL_ROOT}/.claude/commands/od-contribute.md" \
@@ -122,15 +122,15 @@ cyan "How to use it:"
 cat <<'EOF'
 
   In Claude Code:  type  /od-contribute  in any chat.
-  In Codex CLI:    type  @od-contribute  or pick "OpenDesign — Contribute" from /skills.
+  In Codex CLI:    type  @od-contribute  or pick "RethraDesign — Contribute" from /skills.
   In other agents: ask the agent to follow ~/.claude/skills/od-contribute/SKILL.md
 
 The skill walks you through one of:
 
-  * shipping a Skill or Design System you made with OpenDesign
+  * shipping a Skill or Design System you made with RethraDesign
   * translating a doc to a new language
   * fixing a typo or writing a use-case blog
   * reporting a clean bug
 
-Need help? OpenDesign Discord:  https://discord.gg/qhbcCH8Am4
+Need help? RethraDesign Discord:  https://discord.gg/qhbcCH8Am4
 EOF

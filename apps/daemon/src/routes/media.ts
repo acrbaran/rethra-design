@@ -7,7 +7,7 @@ import type {
   MediaGenerationResultProps,
   ProjectFile,
   ProjectMediaTaskFile,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type { AnalyticsContext } from '../analytics.js';
 import { defaultMediaExecutionPolicy, mediaPolicyDenial } from '../media/policy.js';
 import { formatMediaTaskDiagnostic } from '../media/diagnostics.js';
@@ -913,7 +913,7 @@ export function registerMediaRoutes(app: Express, ctx: RegisterMediaRoutesDeps) 
       if (existing.length !== recents.length) {
         await writeAppConfig(RUNTIME_DATA_DIR, { recentLinkedDirs: existing });
       }
-      /** @type {import('@open-design/contracts').RecentLinkedDirsResponse} */
+      /** @type {import('@rethra-design/contracts').RecentLinkedDirsResponse} */
       const body = { dirs: existing };
       res.json(body);
     } catch (err: any) {

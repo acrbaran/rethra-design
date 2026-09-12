@@ -868,10 +868,10 @@ describe('connector routes', () => {
     expect(response.status).toBe(200);
     expect(html).toContain('<main aria-labelledby="callback-title">');
     expect(html).toContain('GitHub connected');
-    expect(html).toContain('OpenDesign');
-    expect(html).toContain('open-design:connector-connected');
+    expect(html).toContain('RethraDesign');
+    expect(html).toContain('rethra-design:connector-connected');
     expect(html).toContain('function requestClose()');
-    expect(html).toContain('Your browser blocked automatic closing. You can close this tab and return to OpenDesign.');
+    expect(html).toContain('Your browser blocked automatic closing. You can close this tab and return to RethraDesign.');
     expect(html).not.toContain('<p>Connector connected. You can close this window.</p>');
     expect(readComposioConfig().authConfigIds.github).toBe('ac_github');
 
@@ -1377,7 +1377,7 @@ describe('connector routes', () => {
     const response = await jsonFetch(`${baseUrl}/api/tools/connectors/execute`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ connectorId: 'github', toolName: 'github.github_search_repositories', input: { query: 'open-design' } }),
+      body: JSON.stringify({ connectorId: 'github', toolName: 'github.github_search_repositories', input: { query: 'rethra-design' } }),
     });
 
     expect(response.status).toBe(200);
@@ -1394,7 +1394,7 @@ describe('connector routes', () => {
     const execute = await jsonFetch(`${baseUrl}/api/tools/connectors/execute`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${listOnlyToken}` },
-      body: JSON.stringify({ connectorId: 'github', toolName: 'github.github_search_repositories', input: { query: 'open-design' } }),
+      body: JSON.stringify({ connectorId: 'github', toolName: 'github.github_search_repositories', input: { query: 'rethra-design' } }),
     });
 
     expect(execute.status).toBe(403);

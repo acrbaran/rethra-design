@@ -182,11 +182,11 @@ realMacLaunchServicesTest(
 );
 
 describe("openFirstPartyMailto", () => {
-  const MAILTO = "mailto:support@open-design.ai";
+  const MAILTO = "mailto:support@rethra-design.invalid";
 
   test("refuses anything that is not a mailto", async () => {
     const calls: string[] = [];
-    const opened = await openFirstPartyMailto("https://open-design.ai", {
+    const opened = await openFirstPartyMailto("https://rethra-design.invalid", {
       platform: "darwin",
       readHandlerBundleId: async () => null,
       openWithAppleMail: async (url) => void calls.push(`mail:${url}`),

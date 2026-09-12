@@ -1,11 +1,11 @@
-export interface OpenDesignGithubRepoResponse {
+export interface RethraDesignGithubRepoResponse {
   repo: string;
   stargazers_count: number;
   fetchedAt: number;
   stale: boolean;
 }
 
-export interface OpenDesignGithubLatestReleaseResponse {
+export interface RethraDesignGithubLatestReleaseResponse {
   repo: string;
   tag_name: string;
   html_url: string;

@@ -18,7 +18,7 @@ const pluginManifestPath = path.join(
   '_official',
   'examples',
   'web-clone',
-  'open-design.json',
+  'rethra-design.json',
 );
 
 describe('web-clone shared skill contract', () => {

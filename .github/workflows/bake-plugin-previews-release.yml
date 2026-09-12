@@ -45,7 +45,7 @@ jobs:
           # branches (preview/*, release/v*)" ruleset (deletion / non_fast_forward
           # / pull_request), so a direct push is rejected (GH013) unless the pusher
           # is a bypass actor. github-actions[bot] is NOT one — so the manifest
-          # writeback below force-authenticates as open-design-bot, which IS a
+          # writeback below force-authenticates as rethra-design-bot, which IS a
           # bypass actor, via an explicit token URL. A persisted github.token
           # extraheader would override that inline token on push (see #5357), so
           # drop it; nothing between here and the push needs the persisted cred.
@@ -59,7 +59,7 @@ jobs:
         run: |
           AUTHOR="$(git log -1 --format='%ae')"
           echo "head commit author: $AUTHOR"
-          if [ "$AUTHOR" = "bot@open-design.ai" ]; then
+          if [ "$AUTHOR" = "bot@rethra-design.invalid" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "head commit is the bake bot's manifest commit — skipping to break the loop"
           else
@@ -80,10 +80,10 @@ jobs:
           r2-bucket: ${{ secrets.CLOUDFLARE_R2_REPOSITORY_ASSETS_BUCKET }}
           r2-endpoint: ${{ secrets.CLOUDFLARE_R2_REPOSITORY_ASSETS_URL }}
 
-      - name: Mint the open-design-bot token for the release-branch push
+      - name: Mint the rethra-design-bot token for the release-branch push
         if: ${{ steps.guard.outputs.skip != 'true' }}
         id: bot
-        # open-design-bot (app id 3640364) is a bypass actor on the
+        # rethra-design-bot (app id 3640364) is a bypass actor on the
         # "Protected branches (preview/*, release/v*)" ruleset, so its push clears
         # the pull_request rule that rejects github-actions[bot] (GH013). The
         # release bake pushes the manifest directly (it then rides the non-squash
@@ -94,7 +94,7 @@ jobs:
           client-id: ${{ secrets.BOT_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
           owner: nexu-io
-          repositories: open-design
+          repositories: rethra-design
 
       - name: Commit the authoritative manifest onto the release branch
         if: ${{ steps.guard.outputs.skip != 'true' }}
@@ -112,11 +112,11 @@ jobs:
             *) echo "unexpected diff result: '$diff_result'" >&2; exit 1 ;;
           esac
           cp "$NEW" "$OLD"
-          git config user.name "open-design-bot"
-          git config user.email "bot@open-design.ai"
+          git config user.name "rethra-design-bot"
+          git config user.email "bot@rethra-design.invalid"
           git add "$OLD"
           git commit -m "chore(plugin-previews): refresh baked preview manifest (release cut)"
-          # Push as open-design-bot (a ruleset bypass actor) via an explicit token
+          # Push as rethra-design-bot (a ruleset bypass actor) via an explicit token
           # URL. A plain `git push origin` would authenticate as github-actions[bot]
           # and be rejected by the release/** pull_request rule (GH013).
           git push "https://x-access-token:${BOT_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF#refs/heads/}"

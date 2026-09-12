@@ -1,6 +1,6 @@
 ---
 name: od-share-to-community
-description: Package the user's just-finished work as an OpenDesign plugin without asking for fields the project files already answer, then surface the existing Add-to-My-plugins / Open-Design-PR buttons.
+description: Package the user's just-finished work as an Rethra Design plugin without asking for fields the project files already answer, then surface the existing Add-to-My-plugins / Rethra-Design-PR buttons.
 od:
   scenario: plugin-sharing
   mode: scenario
@@ -8,15 +8,15 @@ od:
 
 # od-share-to-community (scenario)
 
-Triggered by the post-completion "Share to OpenDesign" submission action. The user just finished a piece of work in this project and wants to ship it as a plugin. They have not been asked any questions yet.
+Triggered by the post-completion "Share to Rethra Design" submission action. The user just finished a piece of work in this project and wants to ship it as a plugin. They have not been asked any questions yet.
 
 ## Required outcome
 
 Produce a folder named `generated-plugin/` in the active project workspace. At minimum:
 
 - `SKILL.md` with frontmatter and clear agent instructions.
-- `open-design.json` with valid plugin metadata: `specVersion`, `name`, `version`, `description`, mode, task kind, inputs, plus any pipeline / context references the workflow needs.
-- `plugin.repo` is optional during scaffolding, but do not silently omit it: check `gh --version` and `gh auth status`, then prefer the local account login printed by auth status. Only use `gh api user --jq .login` as a fallback when auth status does not expose a login. If `gh` is missing, not logged in, rate-limited, or cannot resolve a real owner, omit `plugin.repo` instead of inventing an owner and explicitly report the auth problem with `gh auth refresh -h github.com -s repo,workflow`, `gh auth login -h github.com -s repo,workflow`, or `od plugin publish-repo generated-plugin --owner <github-login-or-org>` as recovery commands. Never write placeholder owners such as `open-design-user`, `<vendor>`, `example-user`, `your-org`, or `your-username` into the final manifest.
+- `rethra-design.json` with valid plugin metadata: `specVersion`, `name`, `version`, `description`, mode, task kind, inputs, plus any pipeline / context references the workflow needs.
+- `plugin.repo` is optional during scaffolding, but do not silently omit it: check `gh --version` and `gh auth status`, then prefer the local account login printed by auth status. Only use `gh api user --jq .login` as a fallback when auth status does not expose a login. If `gh` is missing, not logged in, rate-limited, or cannot resolve a real owner, omit `plugin.repo` instead of inventing an owner and explicitly report the auth problem with `gh auth refresh -h github.com -s repo,workflow`, `gh auth login -h github.com -s repo,workflow`, or `od plugin publish-repo generated-plugin --owner <github-login-or-org>` as recovery commands. Never write placeholder owners such as `rethra-design-user`, `<vendor>`, `example-user`, `your-org`, or `your-username` into the final manifest.
 - Optional `examples/` and `assets/` only when they help review or reuse.
 
 ## Auto-derive from the project — do not ask the user fields the files already answer
@@ -32,7 +32,7 @@ What to read, in this order, and what to take from each:
 
 Pick a stable plugin id from what you derived: lowercase letters, numbers, dashes, underscores, dots. Prefer something the brand-spec or artifact metadata suggests over inventing one.
 
-If a field truly cannot be derived (e.g. no artifact.json exists, no brand-spec, the project is too sparse), only then ask the user — and emit **one** consolidated `<question-form>` block, not field-by-field prose questions. Default the answers from whatever you did manage to derive so the user can accept the proposed values directly in the rendered form. `<question-form>` is assistant-text markup rendered by OpenDesign, not a native tool call.
+If a field truly cannot be derived (e.g. no artifact.json exists, no brand-spec, the project is too sparse), only then ask the user — and emit **one** consolidated `<question-form>` block, not field-by-field prose questions. Default the answers from whatever you did manage to derive so the user can accept the proposed values directly in the rendered form. `<question-form>` is assistant-text markup rendered by Rethra Design, not a native tool call.
 
 ## Validate the plugin locally before reporting
 
@@ -42,19 +42,19 @@ Run `od plugin validate` on the folder, then `od plugin pack` for a tarball, the
 
 Write a single summary turn covering: files created, `od plugin validate` status, local install / run status, and `od plugin pack` output. Then STOP.
 
-## Do NOT chain the publish-repo / Open-Design-PR flows yourself
+## Do NOT chain the publish-repo / Rethra-Design-PR flows yourself
 
-Do NOT suggest follow-up CLI commands such as `od plugin publish`, `od plugin publish --to open-design`, `gh repo create`, `git init` / `git remote add` / `git push`, or any other publish / repo wiring. The plugin-folder card under Design Files already exposes three buttons whose prompts drive those flows end-to-end with the right auth gates, fallbacks, and retry rules baked in:
+Do NOT suggest follow-up CLI commands such as `od plugin publish`, `od plugin publish --to rethra-design`, `gh repo create`, `git init` / `git remote add` / `git push`, or any other publish / repo wiring. The plugin-folder card under Design Files already exposes three buttons whose prompts drive those flows end-to-end with the right auth gates, fallbacks, and retry rules baked in:
 
 - **Add to My plugins** — already satisfied by this turn's `od plugin install --source` step.
 - **Publish repo** — creates / updates the author's `plugin.repo` GitHub repo through a gh + git sequence the agent is told exactly how to run.
-- **OpenDesign PR** — opens a draft PR against `nexu-io/open-design` for the community catalog.
+- **Rethra Design PR** — opens a draft PR against `nexu-io/rethra-design` for the community catalog.
 
 Point the user at whichever button they want next; do NOT recreate those flows as freeform shell suggestions in this summary. Recreating them drifts from the button prompts' guarantees and is the source of the bug that closed #2332.
 
 ## Do NOT assume `jq` is on PATH
 
-Do NOT assume the standalone `jq` binary is installed (it is not part of the OD agent runtime baseline and is missing from default macOS / Windows shells). When you need to read the manifest, prefer your built-in file-reading tool, then `cat generated-plugin/open-design.json` followed by manual JSON parsing, then `node -e 'console.log(JSON.parse(require("fs").readFileSync("generated-plugin/open-design.json","utf8")))'`. The `gh ... --jq` flag is fine because gh ships its own embedded library; the brew-installed standalone `jq` is NOT.
+Do NOT assume the standalone `jq` binary is installed (it is not part of the OD agent runtime baseline and is missing from default macOS / Windows shells). When you need to read the manifest, prefer your built-in file-reading tool, then `cat generated-plugin/rethra-design.json` followed by manual JSON parsing, then `node -e 'console.log(JSON.parse(require("fs").readFileSync("generated-plugin/rethra-design.json","utf8")))'`. The `gh ... --jq` flag is fine because gh ships its own embedded library; the brew-installed standalone `jq` is NOT.
 
 ## Language
 
@@ -65,7 +65,7 @@ Mirror the user's chat language in any `<question-form>` titles, labels, descrip
 ```text
 generated-plugin/
   SKILL.md
-  open-design.json
+  rethra-design.json
   examples/
     <copied-from-the-project>
   assets/
@@ -75,5 +75,5 @@ generated-plugin/
 ## Spec references
 
 - `docs/plugins-spec.md`
-- `docs/schemas/open-design.plugin.v1.json`
+- `docs/schemas/rethra-design.plugin.v1.json`
 - The sibling `plugins/_official/scenarios/od-plugin-authoring/SKILL.md` for the from-scratch authoring counterpart.

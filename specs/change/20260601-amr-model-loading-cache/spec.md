@@ -10,17 +10,17 @@ created: '2026-06-01'
 ### Problem Statement
 
 AMR model discovery currently rides on the general agent probing path. The
-OpenDesign AMR runtime still calls legacy `vela models`, waits for that
+Rethra Design AMR runtime still calls legacy `vela models`, waits for that
 catalog before `/api/agents` can return AMR model data, and parses
 production-shaped text ids that the new Vela model discovery contract no
-longer wants OpenDesign to treat as primary.
+longer wants Rethra Design to treat as primary.
 
 The Vela CLI now exposes a split contract:
 
 - `vela model preset --format json`: fast local picker seed.
 - `vela model list --format json`: authoritative remote AMR catalog.
 
-OpenDesign should use the fast preset to occupy AMR model pickers while a
+Rethra Design should use the fast preset to occupy AMR model pickers while a
 background remote catalog refresh fills a loading cache. `/api/agents` can
 keep its existing compatibility payload, but AMR UI surfaces should not rely
 on `/api/agents` for the AMR model list.
@@ -102,26 +102,26 @@ on `/api/agents` for the AMR model list.
 
 - Vela's new contract separates model discovery into `vela model preset`,
   `vela model list`, and legacy `vela models`. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:7-21`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:7-21`.
 - Vela preset is a fast local picker seed, does not require login/config or
   network, is not authoritative, and must not be used as execution fallback.
-  Source: `/private/tmp/open-design-amr-model-catalog-handoff.md:50-61`.
+  Source: `/private/tmp/rethra-design-amr-model-catalog-handoff.md:50-61`.
 - Vela preset JSON is requested with `vela model preset --format json` and
   returns `source: "preset"` plus `data[].id`. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:77-100`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:77-100`.
 - Vela remote list is authoritative, requires a valid profile/control key,
   calls `GET /api/v1/models`, returns requestable model names in `data[].id`,
   and does not fall back to preset. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:102-150`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:102-150`.
 - Legacy `vela models` is text-only compatibility output and should not be
   used by new picker/preflight paths. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:152-164`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:152-164`.
 - New `vela model list` ids are already requestable AMR model names, so Open
   Design should not apply `public_model_*` normalization to new list results.
-  Source: `/private/tmp/open-design-amr-model-catalog-handoff.md:166-180`.
+  Source: `/private/tmp/rethra-design-amr-model-catalog-handoff.md:166-180`.
 - Recommended picker flow is preset first, remote list in parallel or
   immediately after, then remote replaces preset when it succeeds. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:182-189`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:182-189`.
 
 ### Constraints & Dependencies
 
@@ -162,16 +162,16 @@ but AMR picker freshness no longer depends on general agent probing.
 - Decision: Use endpoint `source` values `"preset"` and `"remote"`, matching
   Vela's JSON contract, instead of extending generic `modelsSource` for this
   AMR-only endpoint. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:77-100,127-150`;
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:77-100,127-150`;
   `packages/contracts/src/api/registry.ts:15-18`.
 - Decision: Keep generic `fallback` behavior unchanged. Non-AMR runtime
   probing uses `"fallback"` for static runtime lists, while Vela preset is a
-  CLI-provided local seed, not an OpenDesign static fallback. Source:
+  CLI-provided local seed, not an Rethra Design static fallback. Source:
   `apps/daemon/src/runtimes/detection.ts:27-60`;
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:50-61`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:50-61`.
 - Decision: Parse new Vela JSON by `data[].id` directly and do not apply
   legacy `public_model_*` normalization to `vela model list` results. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:166-180`;
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:166-180`;
   `apps/daemon/src/runtimes/defs/amr.ts:39-117`.
 - Decision: Preserve chat-model filtering and preferred ordering for AMR model
   options after JSON parsing, because AMR currently drives chat completions
@@ -181,13 +181,13 @@ but AMR picker freshness no longer depends on general agent probing.
 - Decision: Keep AMR execution preflight authoritative by using remote
   `vela model list --format json`; preset rows must not populate the execution
   allowlist. Source:
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:56-60,102-112`;
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:56-60,102-112`;
   `apps/daemon/src/server.ts:11328-11414`.
 - Decision: Warm the remote model loading cache when
   `/api/integrations/vela/status` reads `loggedIn: true`, without awaiting the
   refresh before responding. Source:
   `apps/daemon/src/server.ts:6160-6165`;
-  `/private/tmp/open-design-amr-model-catalog-handoff.md:106-112`.
+  `/private/tmp/rethra-design-amr-model-catalog-handoff.md:106-112`.
 - Decision: Keep `/api/agents` AMR payload compatibility for now, and make
   frontend AMR model pickers prefer `/api/amr/models` instead. Source:
   `apps/web/src/components/EntryShell.tsx:904-911,1651-1659`;
@@ -303,7 +303,7 @@ Planned File Changes:
   existing `/api/agents` compatibility. Source:
   `apps/web/src/components/EntryShell.tsx:904-911,1651-1659`.
 - Final validation: run `pnpm guard`, `pnpm typecheck`,
-  `pnpm --filter @open-design/daemon test -- amr-acp-integration`, and
+  `pnpm --filter @rethra-design/daemon test -- amr-acp-integration`, and
   focused web tests touched by the implementation. Source:
   `AGENTS.md` "Validation strategy".
 
@@ -358,11 +358,11 @@ Planned File Changes:
 
 ### Verification
 
-- Passed: `pnpm --filter @open-design/daemon exec vitest run -c vitest.config.ts tests/amr-acp-integration.test.ts`.
-- Passed after log-check import fix: `pnpm --filter @open-design/daemon typecheck`.
-- Passed: `pnpm --filter @open-design/daemon exec vitest run -c vitest.config.ts tests/chat-route.test.ts -t "retries transient AMR Link catalog failures"`.
-- Passed: `pnpm --filter @open-design/web exec vitest run -c vitest.config.ts tests/providers/daemon-amr-models.test.ts`.
-- Passed: `pnpm --filter @open-design/daemon typecheck && pnpm --filter @open-design/web typecheck && pnpm --filter @open-design/contracts typecheck`.
+- Passed: `pnpm --filter @rethra-design/daemon exec vitest run -c vitest.config.ts tests/amr-acp-integration.test.ts`.
+- Passed after log-check import fix: `pnpm --filter @rethra-design/daemon typecheck`.
+- Passed: `pnpm --filter @rethra-design/daemon exec vitest run -c vitest.config.ts tests/chat-route.test.ts -t "retries transient AMR Link catalog failures"`.
+- Passed: `pnpm --filter @rethra-design/web exec vitest run -c vitest.config.ts tests/providers/daemon-amr-models.test.ts`.
+- Passed: `pnpm --filter @rethra-design/daemon typecheck && pnpm --filter @rethra-design/web typecheck && pnpm --filter @rethra-design/contracts typecheck`.
 - Passed: `pnpm typecheck`.
 - Failed: `pnpm guard` due an existing tools layout violation:
   `tools/pr/ -> tools/ top-level entries are allowlisted; expected only

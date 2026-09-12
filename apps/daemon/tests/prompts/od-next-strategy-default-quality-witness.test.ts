@@ -8,12 +8,12 @@ import {
   type AppliedPluginSnapshot,
   type PluginManifest,
   type PluginPipeline,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   parseManifest,
   resolveAppliedPipeline,
   type ScenarioRegistryEntry,
-} from '@open-design/plugin-runtime';
+} from '@rethra-design/plugin-runtime';
 import { composeSystemPrompt } from '../../src/prompts/system.js';
 import { loadAtomBodies } from '../../src/plugins/atom-bodies.js';
 import { registerBundledPlugins } from '../../src/plugins/bundled.js';
@@ -129,10 +129,10 @@ async function composeDefaultPrompt(
 
 beforeAll(async () => {
   officialManifest = loadManifest(
-    'plugins/_official/scenarios/od-new-generation/open-design.json',
+    'plugins/_official/scenarios/od-new-generation/rethra-design.json',
   );
   communityManifest = loadManifest(
-    'plugins/community/humanize-ppt/open-design.json',
+    'plugins/community/humanize-ppt/rethra-design.json',
   );
   db = new Database(':memory:');
   db.exec(`

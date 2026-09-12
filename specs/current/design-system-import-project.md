@@ -2,7 +2,7 @@
 
 ## Purpose
 
-OpenDesign needs imported design systems to satisfy four stakeholders at
+Rethra Design needs imported design systems to satisfy four stakeholders at
 once:
 
 - **Push channel**: system-prompt injection must stay small, dense,

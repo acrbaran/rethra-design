@@ -7,7 +7,7 @@ import {
   buildWorkspaceSeatSummary,
   type CollabCloudComment,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   closeDatabase,
   deleteConversationAndRepairTeamCommentAnchor,

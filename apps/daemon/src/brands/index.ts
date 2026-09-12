@@ -26,7 +26,7 @@ import type {
   BrandMeta,
   BrandSummary,
   ProjectMetadata,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import {
   createUserDesignSystem,

@@ -23,7 +23,7 @@ import { fetchProviderModels } from '../providers/provider-models';
 import {
   canReachWorkspaceBillingEntrance,
   workspaceBillingAuthorityContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type { AgentInfo, AppConfig, ExecMode, ProviderModelOption } from '../types';
 import {
   canUpgradeVelaPlan,
@@ -82,7 +82,7 @@ interface Props {
 }
 
 /**
- * Compact runtime control. Click opens a dropdown with the OpenDesign account
+ * Compact runtime control. Click opens a dropdown with the RethraDesign account
  * and the model picker for the active agent. Execution wiring that is not a
  * per-message choice (execution mode, which CLI agent, PATH rescan, BYOK
  * provider setup) lives in Settings → Execution; this popover keeps the
@@ -254,7 +254,7 @@ export function AvatarMenu({
     [agents],
   );
   const amrAvailable = amrAgent !== null;
-  const amrProfile = config.agentCliEnv?.amr?.OPEN_DESIGN_AMR_PROFILE;
+  const amrProfile = config.agentCliEnv?.amr?.RETHRA_DESIGN_AMR_PROFILE;
 
   // Fetch the live login status when the popover opens so plan-gated model
   // rows route to the signed-in profile's workspace-scoped plans page (see

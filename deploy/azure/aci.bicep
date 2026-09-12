@@ -1,10 +1,10 @@
-// OpenDesign on Azure Container Instances (ACI) — evaluation deployment.
+// RethraDesign on Azure Container Instances (ACI) — evaluation deployment.
 //
 // Single serverless container group with a public FQDN. State lives on the
 // container's local disk, which is EPHEMERAL — it is reset whenever the group
 // is restarted or recreated. This lane is for evaluation and demos.
 //
-// Why no persistent volume: OpenDesign stores SQLite under OD_DATA_DIR, and
+// Why no persistent volume: RethraDesign stores SQLite under OD_DATA_DIR, and
 // SQLite needs real file locking. ACI's only persistent volume type is Azure
 // Files (SMB), where SQLite WAL/locking is unsupported and corrupts. So we
 // keep the data dir on the container's local filesystem.
@@ -14,13 +14,13 @@
 // internet-facing HTTPS use app-service.bicep.
 
 @description('Base name for the deployment. A globally-unique suffix is appended to the DNS label.')
-param name string = 'open-design'
+param name string = 'rethra-design'
 
 @description('Azure region. Defaults to the resource group location.')
 param location string = resourceGroup().location
 
 @description('Container image to run. Pin to a digest (image@sha256:...) for production.')
-param image string = 'docker.io/vanjayak/open-design:latest'
+param image string = 'docker.io/vanjayak/rethra-design:latest'
 
 @secure()
 @minLength(32)
@@ -68,7 +68,7 @@ resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2023-05-01'
     }
     containers: [
       {
-        name: 'open-design'
+        name: 'rethra-design'
         properties: {
           image: image
           ports: [

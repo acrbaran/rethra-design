@@ -1,9 +1,9 @@
 {
-  "name": "@open-design/release",
+  "name": "@rethra-design/release",
   "version": "0.22.1",
   "private": true,
   "type": "module",
-  "description": "Open Design release domain primitives.",
+  "description": "Rethra Design release domain primitives.",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [

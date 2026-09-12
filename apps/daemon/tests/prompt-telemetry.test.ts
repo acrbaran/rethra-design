@@ -16,10 +16,10 @@ import {
 describe('prompt telemetry builder', () => {
   it('binds the raw OD Next inner text identity while keeping its safe body bounded and redacted', () => {
     const finalText = [
-      '<open_design_prompt_bundle schema="open-design.od-next-prompt-bundle/v2">',
+      '<rethra_design_prompt_bundle schema="rethra-design.od-next-prompt-bundle/v2">',
       'Inspect /Users/alice/private/design.ts with sk-test-1234567890123456789012.',
       'x'.repeat(80 * 1024),
-      '</open_design_prompt_bundle>',
+      '</rethra_design_prompt_bundle>',
     ].join('\n');
     const sha256 = createHash('sha256').update(finalText, 'utf8').digest('hex');
     const telemetry = bindOdNextExactSendPromptEvidence({
@@ -30,7 +30,7 @@ describe('prompt telemetry builder', () => {
       finalText,
       persisted: {
         kind: 'bundle',
-        schema: 'open-design.od-next-prompt-bundle/v2',
+        schema: 'rethra-design.od-next-prompt-bundle/v2',
         text: finalText,
         utf8Bytes: Buffer.byteLength(finalText, 'utf8'),
         sha256,
@@ -39,10 +39,10 @@ describe('prompt telemetry builder', () => {
     });
 
     expect(telemetry.odNextExactSend).toEqual({
-      schema: 'open-design.od-next-exact-send-prompt/v1',
+      schema: 'rethra-design.od-next-exact-send-prompt/v1',
       boundary: 'hostComposed',
       kind: 'bundle',
-      promptSchema: 'open-design.od-next-prompt-bundle/v2',
+      promptSchema: 'rethra-design.od-next-prompt-bundle/v2',
       stage: 'request',
       sha256,
       utf8Bytes: Buffer.byteLength(finalText, 'utf8'),
@@ -57,7 +57,7 @@ describe('prompt telemetry builder', () => {
   });
 
   it('rejects raw OD Next text drift before a runtime wrapper can be applied', () => {
-    const finalText = '<open_design_request_turn>repair</open_design_request_turn>';
+    const finalText = '<rethra_design_request_turn>repair</rethra_design_request_turn>';
     const persistedText = `${finalText}\n`;
     expect(() => bindOdNextExactSendPromptEvidence({
       telemetry: buildPromptStackTelemetry({
@@ -67,7 +67,7 @@ describe('prompt telemetry builder', () => {
       finalText,
       persisted: {
         kind: 'turn',
-        schema: 'open-design.od-next-request-turn/v1',
+        schema: 'rethra-design.od-next-request-turn/v1',
         text: persistedText,
         utf8Bytes: Buffer.byteLength(persistedText, 'utf8'),
         sha256: createHash('sha256').update(persistedText, 'utf8').digest('hex'),
@@ -85,7 +85,7 @@ describe('prompt telemetry builder', () => {
     expect(telemetry.hash).toMatch(/^sha256:/u);
     expect(telemetry.bytes).toBeGreaterThan(0);
     expect(telemetry.safePayload).toMatchObject({
-      type: 'open-design.child-injected-prompt',
+      type: 'rethra-design.child-injected-prompt',
       redactionVersion: PROMPT_STACK_REDACTION_VERSION,
       messageCount: 2,
     });
@@ -182,15 +182,15 @@ describe('prompt telemetry builder', () => {
 
   it('normalizes dev-container workspace roots before fingerprinting', () => {
     const first = buildPromptStackTelemetry({
-      composedPrompt: 'open /workspace/open-design/src/App.tsx',
+      composedPrompt: 'open /workspace/rethra-design/src/App.tsx',
       sections: [
-        { kind: 'userRequest', content: 'open /workspace/open-design/src/App.tsx' },
+        { kind: 'userRequest', content: 'open /workspace/rethra-design/src/App.tsx' },
       ],
     });
     const second = buildPromptStackTelemetry({
-      composedPrompt: 'open /workspaces/open-design/src/App.tsx',
+      composedPrompt: 'open /workspaces/rethra-design/src/App.tsx',
       sections: [
-        { kind: 'userRequest', content: 'open /workspaces/open-design/src/App.tsx' },
+        { kind: 'userRequest', content: 'open /workspaces/rethra-design/src/App.tsx' },
       ],
     });
 
@@ -230,12 +230,12 @@ describe('prompt telemetry builder', () => {
   it('redacts non-home Linux project and attachment roots before fingerprinting', () => {
     const first = buildPromptStackTelemetry({
       composedPrompt:
-        'cwd /media/william/disk/project, service /srv/open-design, image @/media/william/disk/screenshot.png',
+        'cwd /media/william/disk/project, service /srv/rethra-design, image @/media/william/disk/screenshot.png',
       sections: [
         {
           kind: 'daemonSystemPrompt',
           content:
-            'cwd /media/william/disk/project, service /srv/open-design, image @/media/william/disk/screenshot.png',
+            'cwd /media/william/disk/project, service /srv/rethra-design, image @/media/william/disk/screenshot.png',
         },
       ],
     });
@@ -255,7 +255,7 @@ describe('prompt telemetry builder', () => {
       `cwd ${PROMPT_STACK_PATH_MARKER}, service ${PROMPT_STACK_PATH_MARKER}, image @${PROMPT_STACK_PATH_MARKER}`,
     );
     expect(first.sections[0]!.redactedContent).not.toContain('/media/william');
-    expect(first.sections[0]!.redactedContent).not.toContain('/srv/open-design');
+    expect(first.sections[0]!.redactedContent).not.toContain('/srv/rethra-design');
     expect(first.promptFingerprint).toBe(second.promptFingerprint);
     expect(first.sections[0]!.fingerprint).toBe(second.sections[0]!.fingerprint);
   });
@@ -263,12 +263,12 @@ describe('prompt telemetry builder', () => {
   it('redacts opt, usr-local, and macOS var-tmp project roots before fingerprinting', () => {
     const first = buildPromptStackTelemetry({
       composedPrompt:
-        'cwd /opt/project, src /usr/local/src/app, temp /var/tmp/project, private temp /private/var/tmp/open-design, route /foo/bar',
+        'cwd /opt/project, src /usr/local/src/app, temp /var/tmp/project, private temp /private/var/tmp/rethra-design, route /foo/bar',
       sections: [
         {
           kind: 'daemonSystemPrompt',
           content:
-            'cwd /opt/project, src /usr/local/src/app, temp /var/tmp/project, private temp /private/var/tmp/open-design, route /foo/bar',
+            'cwd /opt/project, src /usr/local/src/app, temp /var/tmp/project, private temp /private/var/tmp/rethra-design, route /foo/bar',
         },
       ],
     });
@@ -291,7 +291,7 @@ describe('prompt telemetry builder', () => {
     expect(first.sections[0]!.redactedContent).not.toContain('/usr/local/src/app');
     expect(first.sections[0]!.redactedContent).not.toContain('/var/tmp/project');
     expect(first.sections[0]!.redactedContent).not.toContain(
-      '/private/var/tmp/open-design',
+      '/private/var/tmp/rethra-design',
     );
     expect(first.sections[0]!.redactedContent).toContain('/foo/bar');
     expect(first.promptFingerprint).toBe(second.promptFingerprint);

@@ -113,7 +113,7 @@ describe('packaged Codex fixture transport', () => {
           expect(session.completedSuccessfully()).toBe(true);
           const text = events.filter((event) => event.type === 'text_delta').map((event) => event.delta).join('');
           if (index === 0) {
-            const contract = text.match(/<open-design-plan-contract>\s*([\s\S]*?)\s*<\/open-design-plan-contract>/)?.[1];
+            const contract = text.match(/<rethra-design-plan-contract>\s*([\s\S]*?)\s*<\/rethra-design-plan-contract>/)?.[1];
             expect(contract).toBeTruthy();
             // The packaged daemon admits the built-in request input. A fake
             // plan must pass that real gate before its native continuation.

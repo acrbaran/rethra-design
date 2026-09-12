@@ -2,12 +2,12 @@ import { z } from 'zod';
 
 export const OD_NEXT_STRATEGY_ID = 'od-next-strategy' as const;
 export const OD_NEXT_PROMPT_RECIPE_ID = 'od-next-plan-build-v2' as const;
-export const OD_NEXT_APPLIED_STRATEGY_SCHEMA = 'open-design.applied-strategy/v2' as const;
-export const OD_NEXT_PLAN_CONTRACT_SCHEMA = 'open-design.plan-contract/v2' as const;
-export const OD_NEXT_RUNTIME_STATE_SCHEMA = 'open-design.strategy-state/v2' as const;
-export const OD_NEXT_PLAN_CONTRACT_BLOCK = 'open-design-plan-contract' as const;
-export const OD_NEXT_RUNTIME_STATE_BLOCK = 'open-design-runtime-state' as const;
-export const OD_NEXT_BUNDLED_STRATEGY_SCHEMA = 'open-design.bundled-strategy/v2' as const;
+export const OD_NEXT_APPLIED_STRATEGY_SCHEMA = 'rethra-design.applied-strategy/v2' as const;
+export const OD_NEXT_PLAN_CONTRACT_SCHEMA = 'rethra-design.plan-contract/v2' as const;
+export const OD_NEXT_RUNTIME_STATE_SCHEMA = 'rethra-design.strategy-state/v2' as const;
+export const OD_NEXT_PLAN_CONTRACT_BLOCK = 'rethra-design-plan-contract' as const;
+export const OD_NEXT_RUNTIME_STATE_BLOCK = 'rethra-design-runtime-state' as const;
+export const OD_NEXT_BUNDLED_STRATEGY_SCHEMA = 'rethra-design.bundled-strategy/v2' as const;
 
 /**
  * The reason a task carries when the agent itself declared the turn blocked and
@@ -421,7 +421,7 @@ const PlanContractStrategyIdentityV2Schema = z.object({
   snapshotId: z.string().min(1),
 }).strict();
 
-export const OpenDesignPlanContractV2Schema = z.object({
+export const RethraDesignPlanContractV2Schema = z.object({
   schema: z.literal(OD_NEXT_PLAN_CONTRACT_SCHEMA),
   strategy: PlanContractStrategyIdentityV2Schema,
   taskProfile: ResolvedTaskProfileV2Schema,
@@ -446,7 +446,7 @@ export const OpenDesignPlanContractV2Schema = z.object({
     openDecisions: z.array(z.string()),
   }).strict(),
 }).strict().superRefine(rejectForbiddenStrategySemantics);
-export type OpenDesignPlanContractV2 = z.infer<typeof OpenDesignPlanContractV2Schema>;
+export type RethraDesignPlanContractV2 = z.infer<typeof RethraDesignPlanContractV2Schema>;
 
 export const StrategyRuntimeStateV2Schema = z.object({
   schema: z.literal(OD_NEXT_RUNTIME_STATE_SCHEMA),

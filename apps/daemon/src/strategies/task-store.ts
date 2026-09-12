@@ -6,18 +6,18 @@ import {
   OD_NEXT_PROMPT_BUNDLE_SCHEMA_V2,
   OD_NEXT_REQUEST_TURN_SCHEMA_V1,
   OD_NEXT_STRATEGY_ID,
-  OpenDesignPlanContractV2Schema,
+  RethraDesignPlanContractV2Schema,
   StrategyRuntimeStateV2Schema,
   StrategyRuntimeTransitionV2Schema,
   parseOdNextPromptBundleV1,
   parseOdNextPromptBundleV2,
   parseOdNextRequestTurnV1,
-  type OpenDesignPlanContractV2,
+  type RethraDesignPlanContractV2,
   type StrategyExecutionModeV2,
   type StrategyInputStageV2,
   type StrategyOutcomeV2,
   type StrategyRouteV2,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type Database from 'better-sqlite3';
 
 import { getSnapshot } from '../plugins/snapshots.js';
@@ -92,7 +92,7 @@ export interface StrategyTaskFinalTextIdentity {
 }
 
 export interface StrategyTaskFrozenInputIdentity {
-  schema: 'open-design.od-next-frozen-input-identity/v1';
+  schema: 'rethra-design.od-next-frozen-input-identity/v1';
   snapshotId: string;
   strategyPackageHash: string;
   frozenSkillPackageIdentity: string;
@@ -115,7 +115,7 @@ export interface StrategyTaskExecutionRecord {
   outcome: StrategyTaskOutcome;
   executionMode: StrategyExecutionModeV2 | null;
   blockedContext?: StrategyTaskBlockedContext;
-  planContract?: OpenDesignPlanContractV2;
+  planContract?: RethraDesignPlanContractV2;
   planContractHash?: string;
   clarificationCount: 0 | 1;
   planContractRepairAttempts: 0 | 1;
@@ -170,7 +170,7 @@ export interface CompareAndTransitionStrategyTaskInput {
     sourceRunId: string;
     finalText: string;
   };
-  planContract?: OpenDesignPlanContractV2;
+  planContract?: RethraDesignPlanContractV2;
   blockedContext?: {
     reasonCodes: readonly string[];
     visibleText?: string | null;
@@ -328,7 +328,7 @@ export function createStrategyTaskExecution(
     }
     const verifiedFrozenSkillPackage = insertableFrozenSkillPackage(frozenSkillPackage);
     const frozenInputIdentity: StrategyTaskFrozenInputIdentity = {
-      schema: 'open-design.od-next-frozen-input-identity/v1',
+      schema: 'rethra-design.od-next-frozen-input-identity/v1',
       snapshotId,
       strategyPackageHash: binding.data.packageHash,
       frozenSkillPackageIdentity: verifiedFrozenSkillPackage.identity,
@@ -1254,7 +1254,7 @@ function parseFrozenInputIdentity(
   }
   const identity = parsed as Partial<StrategyTaskFrozenInputIdentity>;
   if (
-    identity.schema !== 'open-design.od-next-frozen-input-identity/v1'
+    identity.schema !== 'rethra-design.od-next-frozen-input-identity/v1'
     || identity.snapshotId !== expected.snapshotId
     || identity.strategyPackageHash !== expected.strategyPackageHash
     || identity.frozenSkillPackageIdentity !== expected.frozenSkillPackageIdentity
@@ -1458,7 +1458,7 @@ function validateTransition(
 
   if (next.outcome !== 'running') {
     const state = StrategyRuntimeStateV2Schema.safeParse({
-      schema: 'open-design.strategy-state/v2',
+      schema: 'rethra-design.strategy-state/v2',
       route: next.route,
       inputStage: next.inputStage,
       outcome: next.outcome,
@@ -1476,13 +1476,13 @@ function validateTransition(
 
 function resolvePlanContract(
   current: StrategyTaskExecutionRecord,
-  candidate: OpenDesignPlanContractV2 | undefined,
+  candidate: RethraDesignPlanContractV2 | undefined,
   next: StrategyTaskTransitionState,
 ): { json: string | null; hash: string | null } {
   let contract = current.planContract;
   let hash = current.planContractHash;
   if (candidate) {
-    const parsed = OpenDesignPlanContractV2Schema.safeParse(candidate);
+    const parsed = RethraDesignPlanContractV2Schema.safeParse(candidate);
     if (!parsed.success) {
       throw new InvalidStrategyTaskTransitionError(
         parsed.error.issues[0]?.message ?? 'Plan Contract is invalid.',
@@ -1515,7 +1515,7 @@ function resolvePlanContract(
 }
 
 function validatePlanIdentity(
-  plan: OpenDesignPlanContractV2,
+  plan: RethraDesignPlanContractV2,
   identity: {
     snapshotId: string;
     strategyVersion: string;
@@ -1548,7 +1548,7 @@ function validatePlanIdentity(
 function parseStoredPlanContract(
   json: unknown,
   hash: unknown,
-): { contract?: OpenDesignPlanContractV2; hash?: string } {
+): { contract?: RethraDesignPlanContractV2; hash?: string } {
   if (json == null && hash == null) return {};
   if (typeof json !== 'string' || typeof hash !== 'string' || !/^[a-f0-9]{64}$/u.test(hash)) {
     throw new InvalidStrategyTaskRecordError(
@@ -1561,7 +1561,7 @@ function parseStoredPlanContract(
   } catch {
     throw new InvalidStrategyTaskRecordError('Stored Plan Contract contains invalid JSON.');
   }
-  const parsed = OpenDesignPlanContractV2Schema.safeParse(value);
+  const parsed = RethraDesignPlanContractV2Schema.safeParse(value);
   if (!parsed.success || strategyPlanContractHash(parsed.data) !== hash) {
     throw new InvalidStrategyTaskRecordError(
       'Stored Plan Contract failed schema or hash validation.',
@@ -1570,7 +1570,7 @@ function parseStoredPlanContract(
   return { contract: parsed.data, hash };
 }
 
-export function strategyPlanContractHash(plan: OpenDesignPlanContractV2): string {
+export function strategyPlanContractHash(plan: RethraDesignPlanContractV2): string {
   return createHash('sha256')
     .update(JSON.stringify(canonicalJsonValue(plan)), 'utf8')
     .digest('hex');
@@ -1624,7 +1624,7 @@ function validateStoredState(state: {
     return;
   }
   const parsed = StrategyRuntimeStateV2Schema.safeParse({
-    schema: 'open-design.strategy-state/v2',
+    schema: 'rethra-design.strategy-state/v2',
     route: state.route,
     inputStage: state.inputStage,
     outcome: state.outcome,

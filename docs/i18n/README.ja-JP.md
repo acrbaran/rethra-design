@@ -1,25 +1,25 @@
-<h1 align="center">OpenDesign: オープンソースの Claude Design 代替ツール</h1>
+<h1 align="center">Rethra Design: オープンソースの Claude Design 代替ツール</h1>
 
-> ⚡ **[OpenDesign Cloud——公式モデルサービス。](https://open-design.ai/zh/pricing/)** 一度のチャージで、OpenDesign 内のエージェントモデルと画像モデルを利用できます。エージェントには GPT、Claude、DeepSeek、画像には GPT Image 2.0、Seedream 5.0 Pro、Nano Banana 2.0 を提供します。
+> ⚡ **[Rethra Design Cloud——公式モデルサービス。](https://rethra-design.invalid/zh/pricing/)** 一度のチャージで、Rethra Design 内のエージェントモデルと画像モデルを利用できます。エージェントには GPT、Claude、DeepSeek、画像には GPT Image 2.0、Seedream 5.0 Pro、Nano Banana 2.0 を提供します。
 >
-> 🚀 **[DeepSeek V4 Flash と V4 Pro が利用可能になりました。](https://open-design.ai/zh/pricing/)** プロトタイプ、スライド、デザインシステム、日常的なエージェントタスクに最先端の知能を活用できます。OpenDesign メンバーは、アプリ内で両モデルを 2 週間無制限に利用できます。
+> 🚀 **[DeepSeek V4 Flash と V4 Pro が利用可能になりました。](https://rethra-design.invalid/zh/pricing/)** プロトタイプ、スライド、デザインシステム、日常的なエージェントタスクに最先端の知能を活用できます。Rethra Design メンバーは、アプリ内で両モデルを 2 週間無制限に利用できます。
 >
-> 🧩 **[DeepSeek Harness に対応しました。](https://open-design.ai/zh/agents/deepseek-harness-design/)** DeepSeek 公式の `dsh` Agent Harness を OpenDesign のネイティブランタイムとして接続できます。構造化思考、ツール呼び出し、モデル検出、キャンセル、セッション再開に対応し、生成ファイルはライブプレビューと納品のため OpenDesign のワークフロー内に保持されます。
+> 🧩 **[DeepSeek Harness に対応しました。](https://rethra-design.invalid/zh/agents/deepseek-harness-design/)** DeepSeek 公式の `dsh` Agent Harness を Rethra Design のネイティブランタイムとして接続できます。構造化思考、ツール呼び出し、モデル検出、キャンセル、セッション再開に対応し、生成ファイルはライブプレビューと納品のため Rethra Design のワークフロー内に保持されます。
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/hero.png" alt="OpenDesign hero banner" width="100%" />
+  <img src="https://repo-assets.rethra-design.invalid/resources/images/hero.png" alt="Rethra Design hero banner" width="100%" />
 </p>
 
 <p align="center">
-  <a href="https://open-design.ai/">ウェブサイト</a> ·
-  <a href="https://open-design.ai/">ダウンロード</a> ·
-  <a href="https://open-design.ai/cloud/">OpenDesign Cloud</a> ·
+  <a href="https://rethra-design.invalid/">ウェブサイト</a> ·
+  <a href="https://rethra-design.invalid/">ダウンロード</a> ·
+  <a href="https://rethra-design.invalid/cloud/">Rethra Design Cloud</a> ·
   <a href="https://discord.gg/mHAjSMV6gz">Discord</a> ·
-  <a href="https://x.com/OpenDesignHQ">@OpenDesignHQ をフォロー</a>
+  <a href="https://x.com/RethraDesignHQ">@RethraDesignHQ をフォロー</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/open-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
+  <a href="https://github.com/acrbaran/rethra-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/rethra-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
   <a href="../../LICENSE"><img alt="license" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat" /></a>
   <a href="https://discord.gg/mHAjSMV6gz"><img alt="discord" src="https://img.shields.io/discord/1479002485040480266?style=flat&logo=discord&logoColor=white&label=discord&color=5865F2&cacheSeconds=3600" /></a>
   <a href="QUICKSTART.ja-JP.md"><img alt="quickstart" src="https://img.shields.io/badge/quickstart-3%20commands-green?style=flat" /></a>
@@ -29,11 +29,11 @@
 
 ---
 
-## OpenDesign とは
+## Rethra Design とは
 
 🎨 **ローカルファーストでオープンソースの Claude Design 代替ツール。** &nbsp;🖥️ **macOS と Windows 向けのネイティブデスクトップアプリ。** &nbsp;⚡ **100 種類以上の機能スキル + 独立したレンダリングテンプレートカタログ** · ✨ **151 のデザインシステムパッケージ** · 📦 **277 のすぐ使えるプラグイン。** &nbsp;🖼️ **ウェブ · デスクトップ · モバイルのプロトタイプ**、**ライブダッシュボード／アーティファクト**、**スライド**、**画像**、**動画**、さらに **HyperFrames** のモーショングラフィックスを生成。🔒 サンドボックス化された iframe プレビュー · HTML / PDF / PPTX / MP4 エクスポート。&nbsp;🤖 **25 種類のローカル CLI 実行ファイル上で動作**、もしくは BYOK 経由で任意の OpenAI 互換エンドポイント上でも動作します。
 
-OpenDesign は、そのループをエージェントが読み書きできる **機能スキル・レンダリングデザインテンプレート・デザインシステム・プラグインのファイルシステム** にします。
+Rethra Design は、そのループをエージェントが読み書きできる **機能スキル・レンダリングデザインテンプレート・デザインシステム・プラグインのファイルシステム** にします。
 
 これはまた、**エージェント時代の Figma 代替ツール**でもあります——キャンバス上でピクセルを動かす代わりに、本物の CSS、本物のフォント、本物のコンポーネントによる単一ページのアーティファクトを納品し、HTML / PDF / PPTX / MP4 へ直接エクスポートします。すでにあなたのデザインシステムによって形づくられ、すでに日常的に使うエージェントの中で実行可能です。
 
@@ -42,7 +42,7 @@ OpenDesign は、そのループをエージェントが読み書きできる **
 
 ## プロダクトツアー
 
-OpenDesign の中核ワークフローを手早く紹介します。**Home** でブリーフを入力し、**Plugins** で再利用可能なスキルを探し、ブランドの参考資料を **Design System** に変換します。その後、プロジェクトの **Studio** でプロトタイプ、スライド、モバイルアプリ、画像、ドキュメント、HyperFrame を一か所で作成・改善できます。
+Rethra Design の中核ワークフローを手早く紹介します。**Home** でブリーフを入力し、**Plugins** で再利用可能なスキルを探し、ブランドの参考資料を **Design System** に変換します。その後、プロジェクトの **Studio** でプロトタイプ、スライド、モバイルアプリ、画像、ドキュメント、HyperFrame を一か所で作成・改善できます。
 
 ### コアページ
 
@@ -108,7 +108,7 @@ OpenDesign の中核ワークフローを手早く紹介します。**Home** で
 
 ## プラットフォーム互換性
 
-> OpenDesign は、主流のコーディングエージェントがネイティブに利用する **スキル、CLI、MCP サーバー**として提供されます。OD をインストールすれば、`od mcp install <agent>` 一発で MCP サーバーがそのエージェントの設定に組み込まれ、どのエージェントの内部からでも同じツールを呼び出せます。
+> Rethra Design は、主流のコーディングエージェントがネイティブに利用する **スキル、CLI、MCP サーバー**として提供されます。OD をインストールすれば、`od mcp install <agent>` 一発で MCP サーバーがそのエージェントの設定に組み込まれ、どのエージェントの内部からでも同じツールを呼び出せます。
 
 | コーディングエージェント／プラットフォーム &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ステータス &nbsp;&nbsp; | MCP サーバーのワンラインインストール &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
@@ -133,7 +133,7 @@ OpenDesign の中核ワークフローを手早く紹介します。**Home** で
 `od mcp install <agent> --print` でドライランのプレビュー · `--uninstall` で削除 · 完全な一覧は `od mcp install --help` で確認できます。
 
 <p align="center">
-  <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 25 coding-agent CLIs OpenDesign supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Amp · CodeBuddy · Mimo · AtomCode · Devin · Trae" width="100%" />
+  <img src="https://repo-assets.rethra-design.invalid/resources/images/coding-agents.png" alt="The 25 coding-agent CLIs Rethra Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Vela · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Amp · CodeBuddy · Mimo · AtomCode · Devin · Trae" width="100%" />
 </p>
 
 **CLI を一つもインストールしていない場合は？** `POST /api/proxy/{anthropic,openai,azure,google,ollama,senseaudio}/stream` の BYOK プロキシが同じループ（プロセスのスポーンなし）を提供します——`baseUrl` + `apiKey` + `model` を貼り付けるだけで、OpenAI、Anthropic、Azure OpenAI、Google Gemini、Ollama、LM Studio、vLLM、または任意の OpenAI 互換エンドポイントに対応します。ターゲットごとの SSRF 保護が、内部 IP／リンクローカル／CGNAT をデーモンのエッジでブロックします。
@@ -223,7 +223,7 @@ Runtime 定義は [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/runti
 
 ### 5 · 動画と HyperFrames — エージェントネイティブなモーショングラフィックス
 
-**[HyperFrames][hyperframes]** は HeyGen のオープンソースでエージェントネイティブな動画フレームワークであり、OpenDesign に第一級の存在として統合されています。エージェントが HTML + CSS + GSAP を書き、HyperFrames がそれをヘッドレス Chrome + FFmpeg を通じて決定論的な MP4 にレンダリングします。シネマティックな t2v / i2v のための **Seedance 2.0**、ルーティングされたモデルバリアントのための **Veo 3 / Sora 2 / Kling 2**、そしてオーディオレイヤーのための **Suno v5 / Lyria 2** と組み合わせられます。
+**[HyperFrames][hyperframes]** は HeyGen のオープンソースでエージェントネイティブな動画フレームワークであり、Rethra Design に第一級の存在として統合されています。エージェントが HTML + CSS + GSAP を書き、HyperFrames がそれをヘッドレス Chrome + FFmpeg を通じて決定論的な MP4 にレンダリングします。シネマティックな t2v / i2v のための **Seedance 2.0**、ルーティングされたモデルバリアントのための **Veo 3 / Sora 2 / Kling 2**、そしてオーディオレイヤーのための **Suno v5 / Lyria 2** と組み合わせられます。
 
 <table>
 <tr>
@@ -246,11 +246,11 @@ Runtime 定義は [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/runti
 
 ---
 
-## なぜ OpenDesign なのか
+## なぜ Rethra Design なのか
 
 > **2026 年 4 月、Anthropic は Claude Design をリリースしました——LLM が散文を書くのをやめ、デザインアーティファクトを直接納品し始めた初めての出来事でした。** これは一気に広まりました。しかし、それはクローズドソースのまま、有料のみ、クラウドのみで、Anthropic のモデル、Anthropic のスキル、Anthropic のサーフェスに縛られていました。チェックアウトもなく、セルフホストもなく、Vercel デプロイもなく、自前のエージェントへの差し替えもできません。
 
-OpenDesign (OD) はそのオープンソースの代替ツールです。同じループ、同じアーティファクトファーストのメンタルモデル、ロックインは一切なし:
+Rethra Design (OD) はそのオープンソースの代替ツールです。同じループ、同じアーティファクトファーストのメンタルモデル、ロックインは一切なし:
 
 - 🤖 **エージェントネイティブ、モデル非依存。** 私たちはエージェントを同梱しません。すでにあなたの `PATH` にある `claude` / `codex` / `cursor-agent` / `copilot` / `hermes` / `kimi` がデザインエンジンです。ワンクリックで差し替えられます。
 - 🧠 **デフォルトでブランドグレード。** すべてのレンダリングは、アクティブなパッケージの `DESIGN.md` を中核のブランド契約として読み取ります。151 のデザインシステムパッケージが同梱され、従来のパッケージは `DESIGN.md` だけでも、新しいパッケージは `manifest.json`、`tokens.css`、コンポーネント、アセット、出典情報を追加できます。フォルダをドロップすればピッカーが見つけます。
@@ -261,7 +261,7 @@ OpenDesign (OD) はそのオープンソースの代替ツールです。同じ�
 
 ### 比較
 
-| | Claude Design | Figma | Lovable / v0 / Bolt | **OpenDesign** |
+| | Claude Design | Figma | Lovable / v0 / Bolt | **Rethra Design** |
 |---|---|---|---|---|
 | オープンソース | ❌ | ❌ | ❌ | **✅ Apache-2.0** |
 | セルフホスト／デスクトップ | ❌ | ❌ | ❌ | **✅ macOS + Windows + Docker** |
@@ -278,17 +278,17 @@ OpenDesign (OD) はそのオープンソースの代替ツールです。同じ�
 
 ### 🖥️ デスクトップアプリをダウンロード（推奨——設定ゼロ）
 
-OpenDesign を使う最も速い方法。Node も、pnpm も、クローンも不要です。
+Rethra Design を使う最も速い方法。Node も、pnpm も、クローンも不要です。
 
-- **macOS**（Apple Silicon · Intel x64）→ [**open-design.ai**](https://open-design.ai/) または [GitHub Releases](https://github.com/nexu-io/open-design/releases)
-- **Windows**（x64）→ [**open-design.ai**](https://open-design.ai/) または [GitHub Releases](https://github.com/nexu-io/open-design/releases)
-- **Linux**（AppImage、オプションのレーン）→ [GitHub Releases](https://github.com/nexu-io/open-design/releases)
+- **macOS**（Apple Silicon · Intel x64）→ [**rethra-design.invalid**](https://rethra-design.invalid/) または [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
+- **Windows**（x64）→ [**rethra-design.invalid**](https://rethra-design.invalid/) または [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
+- **Linux**（AppImage、オプションのレーン）→ [GitHub Releases](https://github.com/acrbaran/rethra-design/releases)
 
 インストール後: アプリはあなたの `PATH` 上のすべてのコーディングエージェント CLI を自動検出し、100 種類以上の機能スキル、独立したレンダリングテンプレートカタログ、151 のデザインシステムパッケージを読み込み、エントリービューでブリーフを入力できるようにします。
 
 ### 🤖 コーディングエージェントにインストール（UI なし）
 
-GUI を一度も開くことなく OpenDesign を使えます——Claude Code、Codex、Cursor、Copilot、OpenClaw、Antigravity、Hermes、Kimi などの内部で、スキル、プラグイン、または MCP サーバーとして呼び出せます。
+GUI を一度も開くことなく Rethra Design を使えます——Claude Code、Codex、Cursor、Copilot、OpenClaw、Antigravity、Hermes、Kimi などの内部で、スキル、プラグイン、または MCP サーバーとして呼び出せます。
 
 ```bash
 # One-line install into the agent you're using:
@@ -300,16 +300,16 @@ od mcp install <agent>
 そして、エージェントの内部で:
 
 ```
-> Use open-design to generate a landing page with the Linear design system
+> Use rethra-design to generate a landing page with the Linear design system
 ```
 
-ファイルシステム対応のローカル CLI 実行では、エージェントが選択した機能スキルまたはデザインテンプレートと `DESIGN.md` を合成し、正規プロジェクトファイルを書き、OpenDesign がそれをプレビューします。ファイルツールのない BYOK/API 実行は、完全な `<artifact>` ブロックを 1 つ返します。
+ファイルシステム対応のローカル CLI 実行では、エージェントが選択した機能スキルまたはデザインテンプレートと `DESIGN.md` を合成し、正規プロジェクトファイルを書き、Rethra Design がそれをプレビューします。ファイルツールのない BYOK/API 実行は、完全な `<artifact>` ブロックを 1 つ返します。
 
 ### 🐳 Docker で実行
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design/deploy
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design/deploy
 cp .env.example .env
 echo "OD_API_TOKEN=$(openssl rand -hex 32)" >> .env
 docker compose up -d
@@ -318,15 +318,15 @@ docker compose up -d
 
 ### 🚀 Sealos にデプロイ
 
-[![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/open-design/)
+[![Deploy on Sealos](https://sealos.io/Deploy-on-Sealos.svg)](https://sealos.io/products/app-store/rethra-design/)
 
-Sealos App Store テンプレートは、公開済みの OpenDesign Docker イメージを永続的なワークスペースストレージと公開プロキシの Basic Auth 付きで実行します。独自の公開または共有 Docker デプロイでは、[`deploy/README.md`](../../deploy/README.md#local-compose) のリバースプロキシと `OPEN_DESIGN_ALLOWED_ORIGINS` の手順に従ってください。
+Sealos App Store テンプレートは、公開済みの Rethra Design Docker イメージを永続的なワークスペースストレージと公開プロキシの Basic Auth 付きで実行します。独自の公開または共有 Docker デプロイでは、[`deploy/README.md`](../../deploy/README.md#local-compose) のリバースプロキシと `RETHRA_DESIGN_ALLOWED_ORIGINS` の手順に従ってください。
 
 ### 🧑‍💻 ソースから実行
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable && pnpm install
 pnpm tools-dev run web
 ```
@@ -343,13 +343,13 @@ Node `~24`、pnpm `10.33.x`。Windows ユーザーは [`docs/windows-troubleshoo
 2. **デザイナー（またはエージェント）が方向性を確定します。** ブランドがない？ 5 つの厳選された方向性から選びます。ブランドがある？ スクリーンショット／URL をドロップ → エージェントが GitHub に接続し、Figma をインポートし、再利用可能な `DESIGN.md` に体系化します。
 3. **エージェントが最初の成果物を作ります。** ファイルシステム対応 CLI は正規ファイルを書き、ファイルツールのない BYOK/API は完全な `<artifact>` ブロックを返します。
 4. **エンジニアリングへ引き渡します。** アーティファクトは本物の HTML/CSS です——Cursor、Codex、または Claude Code にドロップして、コードとして開発を続けられます。あるいは PPTX / PDF / MP4 をマーケティングへ直接エクスポートできます。
-5. **OpenDesign は使うほど賢くなります。** あなたのスクリーンショット、フォント、パレット、確定したアーティファクトは、次回のセッションのデフォルトとして蓄積されます。やり直しは減り、ブレも減ります。
+5. **Rethra Design は使うほど賢くなります。** あなたのスクリーンショット、フォント、パレット、確定したアーティファクトは、次回のセッションのデフォルトとして蓄積されます。やり直しは減り、ブレも減ります。
 
 ---
 
-## コーディングエージェントから OpenDesign を使う
+## コーディングエージェントから Rethra Design を使う
 
-OpenDesign は **stdio MCP サーバー**とエージェントごとの**インストールスクリプト**を提供します。別のリポジトリにある MCP 互換のエージェントは、あなたのローカルの OpenDesign プロジェクトからファイル——トークン CSS、JSX コンポーネント、エントリー HTML——を、名前で問い合わせ可能な構造化 API として直接読み取れます。エージェントは常に、古いエクスポートではなくライブのファイルを見ます。
+Rethra Design は **stdio MCP サーバー**とエージェントごとの**インストールスクリプト**を提供します。別のリポジトリにある MCP 互換のエージェントは、あなたのローカルの Rethra Design プロジェクトからファイル——トークン CSS、JSX コンポーネント、エントリー HTML——を、名前で問い合わせ可能な構造化 API として直接読み取れます。エージェントは常に、古いエクスポートではなくライブのファイルを見ます。
 
 ```bash
 # One-line install (16+ CLIs supported):
@@ -365,7 +365,7 @@ od skills list --json
 
 **なぜ MCP なのか？** イテレーションのたびに zip をエクスポートして再アタッチすると、フローが途切れます。MCP はデザインソースを直接公開します——エージェントは常にライブのファイルを見ます。
 
-**ゼロから始めるエージェントのために、**インストーラーは `~/.config/<agent>/open-design.json`（またはプラットフォーム相当のもの）と、コピー＆ペースト用の MCP スニペットを配置します。Cursor にはワンクリックのディープリンク、Claude Code には `claude mcp add-json` のワンライナー、その他すべてのエージェントには、その設定が期待するスキーマの JSON が提供されます。エージェントごとの完全なフロー → デスクトップアプリの **Settings → MCP server**、または [`docs/agent-adapters.md`](../../docs/agent-adapters.md)。
+**ゼロから始めるエージェントのために、**インストーラーは `~/.config/<agent>/rethra-design.json`（またはプラットフォーム相当のもの）と、コピー＆ペースト用の MCP スニペットを配置します。Cursor にはワンクリックのディープリンク、Claude Code には `claude mcp add-json` のワンライナー、その他すべてのエージェントには、その設定が期待するスキーマの JSON が提供されます。エージェントごとの完全なフロー → デスクトップアプリの **Settings → MCP server**、または [`docs/agent-adapters.md`](../../docs/agent-adapters.md)。
 
 **セキュリティモデル。** デフォルトで読み取り専用、デーモンは `127.0.0.1` にバインドし、SSRF はプロキシのエッジでブロックされます。LAN への公開には、明示的な `OD_BIND_HOST` と `OD_ALLOWED_ORIGINS` が必要です。コネクターの認証情報とライブアーティファクトのプレビュールートは、いずれにせよループバック専用のままです。
 
@@ -439,7 +439,7 @@ od skills list --json
 
 ## プラグイン
 
-**277 の公式プラグインと 183 のリミックス可能な例**が [`plugins/_official/`](../../plugins/_official/) にあります。各エントリは `open-design.json` と型固有 payload を持つポータブルディレクトリです。workflow は `SKILL.md`、メディアテンプレートは `template.json`、デザインシステムは `DESIGN.md` を使います。
+**277 の公式プラグインと 183 のリミックス可能な例**が [`plugins/_official/`](../../plugins/_official/) にあります。各エントリは `rethra-design.json` と型固有 payload を持つポータブルディレクトリです。workflow は `SKILL.md`、メディアテンプレートは `template.json`、デザインシステムは `DESIGN.md` を使います。
 
 | カテゴリー | 数 | 内容 |
 |---|---|---|
@@ -481,11 +481,11 @@ od plugin uninstall od-default       # uninstall
 
 ### プラグインを作る
 
-OpenDesign プラグインには `open-design.json` と型固有 payload が必要です。スキルとシナリオは `SKILL.md` も含み、ほかの型は独自 payload を使います:
+Rethra Design プラグインには `rethra-design.json` と型固有 payload が必要です。スキルとシナリオは `SKILL.md` も含み、ほかの型は独自 payload を使います:
 
 ```
 my-plugin/
-├── open-design.json    ← required: marketplace metadata + inputs + pipeline + capabilities
+├── rethra-design.json    ← required: marketplace metadata + inputs + pipeline + capabilities
 ├── SKILL.md            ← required for agent-skill/scenario entries; omit for other plugin types
 ├── README.md           ← optional: usage, install, registry links
 ├── preview/            ← optional: index.html / poster.png (strongly recommended for visual plugins)
@@ -499,15 +499,15 @@ my-plugin/
 ```bash
 od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
 od plugin validate ./my-plugin                          # check manifest / file layout
-pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
+pnpm guard && pnpm --filter @rethra-design/plugin-runtime typecheck
 ```
 
 完全なフィールドセットとランタイム契約 → [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md)。コーディングエージェントでプラグインを開発する → [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md)。コピー＆ペースト用の最小テンプレート → [`plugins/spec/examples/`](../../plugins/spec/examples/)。
 
 ### プラグインを貢献する
 
-1. プラグインフォルダを [`plugins/community/`](../../plugins/community/)（サードパーティプラグイン）にドロップするか、または——OpenDesign に同梱して提供するには——[`plugins/_official/`](../../plugins/_official/) の該当するティアにドロップします。
-2. 検証を通過させます: `od plugin validate`、`pnpm guard`、`pnpm --filter @open-design/plugin-runtime typecheck`。
+1. プラグインフォルダを [`plugins/community/`](../../plugins/community/)（サードパーティプラグイン）にドロップするか、または——Rethra Design に同梱して提供するには——[`plugins/_official/`](../../plugins/_official/) の該当するティアにドロップします。
+2. 検証を通過させます: `od plugin validate`、`pnpm guard`、`pnpm --filter @rethra-design/plugin-runtime typecheck`。
 3. [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) のテンプレートを使って PR を記入します（ID、バージョン、レーン、モード、機能、トリガー例。ビジュアルプラグインにはスクリーンショット／プレビューを添付）。
 4. 外部レジストリ（skills.sh / ClawHub / スタンドアロンの GitHub）に公開する → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md)。
 
@@ -569,7 +569,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] サイドカープロトコル + Electron デスクトップ + IPC 自動化
 - [x] アーティファクト lint API + 5 次元の自己批評による発行前ゲート
 - [x] **0.8.0** — プラグインマーケットプレイスのインフラ（261 の公式プラグイン、マニフェスト仕様、エージェントごとのインストールスクリプト）
-- [x] **0.9.0** — OpenDesign Cloud（アプリに組み込まれた公式 Model Router: 設定ゼロ、ワンクリックのサインイン）
+- [x] **0.9.0** — Rethra Design Cloud（アプリに組み込まれた公式 Model Router: 設定ゼロ、ワンクリックのサインイン）
 - [x] パッケージ化された Electron ビルド — macOS（Apple Silicon + Intel） + Windows（x64） + Linux AppImage（オプションのレーン）
 - [ ] コメントモードの外科的な編集 — 一部提供済み。信頼性の高いターゲット指定のパッチ適用は進行中
 - [ ] AI が発行する tweaks パネルの UX — 未実装
@@ -587,17 +587,17 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 すべてのチャネルの裏側には、本物の人がいます。
 
 - 💬 **Discord** — 日々のチャット、プラグインの共有、質問 → [**discord.gg/mHAjSMV6gz**](https://discord.gg/mHAjSMV6gz)
-- 🐦 **X / Twitter** — リリースノート、マイルストーン、舞台裏 → [**@OpenDesignHQ**](https://x.com/OpenDesignHQ)
-- 🗣️ **GitHub Discussions** — 深い Q&A、RFC、「成果を見せて」 → [**Discussions**](https://github.com/nexu-io/open-design/discussions)
-- 🐛 **GitHub Issues** — バグ報告、機能リクエスト → [**Issues**](https://github.com/nexu-io/open-design/issues)
+- 🐦 **X / Twitter** — リリースノート、マイルストーン、舞台裏 → [**@RethraDesignHQ**](https://x.com/RethraDesignHQ)
+- 🗣️ **GitHub Discussions** — 深い Q&A、RFC、「成果を見せて」 → [**Discussions**](https://github.com/acrbaran/rethra-design/discussions)
+- 🐛 **GitHub Issues** — バグ報告、機能リクエスト → [**Issues**](https://github.com/acrbaran/rethra-design/issues)
 
-[`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) と [`help-wanted`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) のラベルが、最も入りやすい入口です。
+[`good-first-issue`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) と [`help-wanted`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22) のラベルが、最も入りやすい入口です。
 
 ---
 
 ## 貢献
 
-OpenDesign が動き続けるのは、貢献者——デザイナー、エンジニア、プロンプトの作者——が現れ続けるからです。最もよく使われるスキル、デザインシステム、プラグインの多くは、コアチームの外の人々によって書かれました。
+Rethra Design が動き続けるのは、貢献者——デザイナー、エンジニア、プロンプトの作者——が現れ続けるからです。最もよく使われるスキル、デザインシステム、プラグインの多くは、コアチームの外の人々によって書かれました。
 
 ### 🎯 どこから始めるか（最大のレバレッジ、最小の変更）
 
@@ -605,9 +605,9 @@ OpenDesign が動き続けるのは、貢献者——デザイナー、エンジ
 |---|---|---|
 | 新しい**スキル** | `SKILL.md` + `assets/` + `references/` を備えたフォルダをドロップ | [`skills/`](../../skills/) · 仕様は [`docs/skills-protocol.md`](../../docs/skills-protocol.md) |
 | 新しい**デザインシステム** | `DESIGN.md` を中心とするパッケージをドロップし、必要に応じて `manifest.json`、`tokens.css`、コンポーネント、アセット、出典情報を追加 | [`design-systems/<brand>/`](../../design-systems/) |
-| 新しい**プラグイン** | カテゴリーフォルダの下に `open-design.json` + 種類固有のペイロードをドロップ | [`plugins/community/`](../../plugins/community/) · 仕様は [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md) · エージェント開発ガイドは [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md) |
+| 新しい**プラグイン** | カテゴリーフォルダの下に `rethra-design.json` + 種類固有のペイロードをドロップ | [`plugins/community/`](../../plugins/community/) · 仕様は [`plugins/spec/SPEC.md`](../../plugins/spec/SPEC.md) · エージェント開発ガイドは [`plugins/spec/AGENT-DEVELOPMENT.md`](../../plugins/spec/AGENT-DEVELOPMENT.md) |
 | 新しい**コーディングエージェント CLI** をサポート | Runtime 定義 + registry entry。新しい wire format のみ parser を追加 | [`apps/daemon/src/runtimes/defs/`](../../apps/daemon/src/runtimes/defs/) |
-| バグ修正や UI の磨き上げ | [`good-first-issue`](https://github.com/nexu-io/open-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) ラベルを閲覧 | [Issues →](https://github.com/nexu-io/open-design/issues) |
+| バグ修正や UI の磨き上げ | [`good-first-issue`](https://github.com/acrbaran/rethra-design/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) ラベルを閲覧 | [Issues →](https://github.com/acrbaran/rethra-design/issues) |
 | ドキュメントを翻訳 | `README.<lang>.md` ファイルを更新 | [`TRANSLATIONS.md`](../../TRANSLATIONS.md) |
 
 ### 🤖 エージェントとして貢献する
@@ -616,8 +616,8 @@ OpenDesign が動き続けるのは、貢献者——デザイナー、エンジ
 
 ```bash
 # 1. Boot locally
-git clone https://github.com/nexu-io/open-design.git
-cd open-design && corepack enable && pnpm install
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design && corepack enable && pnpm install
 pnpm tools-dev run web
 
 # 2. Find a good-first-issue and assign yourself
@@ -626,7 +626,7 @@ gh issue develop <number>   # create a branch and worktree
 
 # 3. Make the change, run the checks
 pnpm guard && pnpm typecheck
-pnpm --filter @open-design/<package> test
+pnpm --filter @rethra-design/<package> test
 
 # 4. Open the PR
 gh pr create --fill
@@ -634,9 +634,9 @@ gh pr create --fill
 
 完全なエージェントフレンドリーな貢献フロー、コードスタイル、PR の基準 → [English](../../CONTRIBUTING.md)（[Deutsch](CONTRIBUTING.de.md) · [Français](CONTRIBUTING.fr.md) · [简体中文](CONTRIBUTING.zh-CN.md) · [日本語](CONTRIBUTING.ja-JP.md) · [Português](CONTRIBUTING.pt-BR.md)）。
 
-### 🏅 OpenDesign Fellow プログラム
+### 🏅 Rethra Design Fellow プログラム
 
-私たちは世界中で **OpenDesign Fellow** を募集しています——Fellow はコアチームとともにプロダクトを形づくり、各地域で OpenDesign を公式に代表し、資金面のサポート（$1,000 / MR）、無料の LLM クレジット、直通のレビュートラックに支えられながら、ローカルでコミュニティを育てます。詳細 → [`MAINTAINERS.md`](../../MAINTAINERS.md) と [Discord](https://discord.gg/mHAjSMV6gz) のアナウンス。
+私たちは世界中で **Rethra Design Fellow** を募集しています——Fellow はコアチームとともにプロダクトを形づくり、各地域で Rethra Design を公式に代表し、資金面のサポート（$1,000 / MR）、無料の LLM クレジット、直通のレビュートラックに支えられながら、ローカルでコミュニティを育てます。詳細 → [`MAINTAINERS.md`](../../MAINTAINERS.md) と [Discord](https://discord.gg/mHAjSMV6gz) のアナウンス。
 
 ---
 
@@ -669,8 +669,8 @@ gh pr create --fill
 
 参加してくださったすべての方に感謝します——コード、ドキュメント、フィードバック、鋭い issue、新しいスキル、新しいデザインシステム。
 
-<a href="https://github.com/nexu-io/open-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/open-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="OpenDesign contributors" />
+<a href="https://github.com/acrbaran/rethra-design/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=nexu-io/rethra-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="Rethra Design contributors" />
 </a>
 
 ---
@@ -678,7 +678,7 @@ gh pr create --fill
 ## リポジトリのアクティビティ
 
 <picture>
-  <img alt="OpenDesign — repository metrics" src="https://repo-assets.open-design.ai/resources/images/github-metrics.svg" />
+  <img alt="Rethra Design — repository metrics" src="https://repo-assets.rethra-design.invalid/resources/images/github-metrics.svg" />
 </picture>
 
 上の SVG は、[`lowlighter/metrics`](https://github.com/lowlighter/metrics) を使って [`.github/workflows/metrics.yml`](../../.github/workflows/metrics.yml) によって毎日再生成されます。
@@ -688,16 +688,16 @@ gh pr create --fill
 ## スターをお願いします
 
 <p align="center">
-  <a href="https://github.com/nexu-io/open-design"><img src="https://repo-assets.open-design.ai/resources/images/star-us.png" alt="Star OpenDesign on GitHub — github.com/nexu-io/open-design" width="100%" /></a>
+  <a href="https://github.com/acrbaran/rethra-design"><img src="https://repo-assets.rethra-design.invalid/resources/images/star-us.png" alt="Star Rethra Design on GitHub — github.com/acrbaran/rethra-design" width="100%" /></a>
 </p>
 
 これで 30 分を節約できたなら、★ を付けてください。スターは家賃を払ってはくれません——でも、次のデザイナー、エージェント、貢献者に、この実験が注目に値することを伝えてくれます。ワンクリック、3 秒、本物のシグナルです。
 
-<a href="https://star-history.dera.page/#nexu-io/open-design&Date">
+<a href="https://star-history.dera.page/#nexu-io/rethra-design&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&theme=dark&cache_bust=2026-08-04" />
-    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-08-04" />
-    <img alt="OpenDesign star history" src="https://star-history.dera.page/svg?repos=nexu-io/open-design&type=Date&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&theme=dark&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
+    <img alt="Rethra Design star history" src="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
   </picture>
 </a>
 
@@ -715,7 +715,7 @@ gh pr create --fill
 | [`multica-ai/multica`](https://github.com/multica-ai/multica) | デーモン + アダプターのアーキテクチャ——PATH スキャンによるエージェント検出、唯一の特権プロセスとしてのローカルデーモン。 |
 | [`VoltAgent/awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) | 当初の 9 セクション `DESIGN.md` スキーマと upstream 由来 70 システムの歴史的な出典。現在のパッケージはこの基盤を拡張できます。 |
 | [`bergside/awesome-design-skills`](https://github.com/bergside/awesome-design-skills) | `design-systems/` の下に追加された 57 のデザインスキルの出典。 |
-| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | HTML→MP4 のモーショングラフィックスフレームワークで、OpenDesign に第一級の `hyperframes-html` として統合されています。 |
+| [`heygen-com/hyperframes`](https://github.com/heygen-com/hyperframes) | HTML→MP4 のモーショングラフィックスフレームワークで、Rethra Design に第一級の `hyperframes-html` として統合されています。 |
 | [Claude Code skills][skill] | 私たちがそのまま採用している `SKILL.md` 規約。 |
 
 詳細な来歴 → [`docs/references.md`](../../docs/references.md)。

@@ -274,14 +274,14 @@ describe('computeProducedFiles', () => {
     const before = new Set(['input.png']);
     const next = [
       { name: 'input.png', path: 'input.png', kind: 'image', size: 10 },
-      { name: 'generated-plugin/open-design.json', path: 'generated-plugin/open-design.json', kind: 'code', size: 20 },
+      { name: 'generated-plugin/rethra-design.json', path: 'generated-plugin/rethra-design.json', kind: 'code', size: 20 },
       { name: 'generated-plugin/SKILL.md', path: 'generated-plugin/SKILL.md', kind: 'code', size: 30 },
     ];
 
     expect(
       computeProducedFiles(before, next as never, [], 'project-1')?.map((file) => file.name),
     ).toEqual([
-      'generated-plugin/open-design.json',
+      'generated-plugin/rethra-design.json',
       'generated-plugin/SKILL.md',
     ]);
   });
@@ -2112,13 +2112,13 @@ describe('ProjectView daemon reattach restore', () => {
 
     reattachDaemonRun.mockImplementation(async (options: any) => {
       const error = new Error(
-        'AMR Cloud reported insufficient balance for this model. Top up your AMR balance at https://open-design.ai/amr/dashboard, then retry this run.',
+        'AMR Cloud reported insufficient balance for this model. Top up your AMR balance at https://rethra-design.invalid/amr/dashboard, then retry this run.',
       ) as Error & { code: string; details: unknown };
       error.code = 'AMR_INSUFFICIENT_BALANCE';
       error.details = {
         kind: 'amr_account',
         action: 'recharge',
-        actionUrl: 'https://open-design.ai/amr/dashboard',
+        actionUrl: 'https://rethra-design.invalid/amr/dashboard',
       };
       options.handlers.onError(error);
     });

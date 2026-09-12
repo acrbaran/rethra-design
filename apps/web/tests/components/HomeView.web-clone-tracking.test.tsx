@@ -125,17 +125,17 @@ describe('web-clone example-card tracking', () => {
     expect(screen.queryByTestId('home-hero-plugin-presets')).toBeNull();
     // No remix/duplicate affordance on the web-clone rail.
     expect(document.querySelector('[data-testid^="home-hero-plugin-preset-duplicate"]')).toBeNull();
-    // Site cards show the bare domain (e.g. open-design.ai), not the raw prompt line.
-    expect(textCards.some((c) => (c.textContent ?? '').includes('open-design.ai'))).toBe(true);
+    // Site cards show the bare domain (e.g. rethra-design.invalid), not the raw prompt line.
+    expect(textCards.some((c) => (c.textContent ?? '').includes('rethra-design.invalid'))).toBe(true);
     expect(textCards.every((c) => !(c.textContent ?? '').includes('https://'))).toBe(true);
     expect(document.querySelector('.home-hero__prompt-example--site')).not.toBeNull();
   });
 
   // Contract lock: the shipped Website-clone example set is intentionally
-  // narrowed to the first-party OpenDesign site to avoid shipping third-party
+  // narrowed to the first-party RethraDesign site to avoid shipping third-party
   // brand copies. Assert the exact count + domain so the rail can't silently
   // drift back to the old multi-site set without updating this contract.
-  it('resolves exactly the contracted OpenDesign Website-clone site card', async () => {
+  it('resolves exactly the contracted RethraDesign Website-clone site card', async () => {
     writeHomeGuideStage('done');
     stubPlugins();
     renderHome();
@@ -143,14 +143,14 @@ describe('web-clone example-card tracking', () => {
     await pickHomeTemplate('web-clone');
     const siteCards = await screen.findAllByTestId('home-hero-prompt-example');
     const domains = siteCards.map((c) => (c.textContent ?? '').trim());
-    expect(domains).toEqual(['open-design.ai']);
+    expect(domains).toEqual(['rethra-design.invalid']);
     // Every card must be the site variant (favicon tile + bare domain).
     expect(
       siteCards.every((c) => c.classList.contains('home-hero__prompt-example--site')),
     ).toBe(true);
   });
 
-  it('renders the contracted OpenDesign site card with a local eager logo', async () => {
+  it('renders the contracted RethraDesign site card with a local eager logo', async () => {
     writeHomeGuideStage('done');
     stubPlugins();
     renderHome();
@@ -163,7 +163,7 @@ describe('web-clone example-card tracking', () => {
     expect(logo?.getAttribute('fetchpriority')).toBe('high');
   });
 
-  it('falls back when the local OpenDesign site card logo cannot load', async () => {
+  it('falls back when the local RethraDesign site card logo cannot load', async () => {
     writeHomeGuideStage('done');
     stubPlugins();
     renderHome();
@@ -176,7 +176,7 @@ describe('web-clone example-card tracking', () => {
     fireEvent.error(localLogo!);
     const remoteFallback = siteCard.querySelector<HTMLImageElement>('.home-hero__site-badge img');
     expect(remoteFallback?.getAttribute('src')).toBe(
-      'https://www.google.com/s2/favicons?sz=128&domain=open-design.ai',
+      'https://www.google.com/s2/favicons?sz=128&domain=rethra-design.invalid',
     );
 
     fireEvent.error(remoteFallback!);

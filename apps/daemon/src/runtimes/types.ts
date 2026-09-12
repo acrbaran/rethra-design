@@ -1,7 +1,7 @@
 import type { ExecFileOptions } from 'node:child_process';
-import type { AgentDiagnostic, ModelMetadata } from '@open-design/contracts';
+import type { AgentDiagnostic, ModelMetadata } from '@rethra-design/contracts';
 
-export type { AgentDiagnostic } from '@open-design/contracts';
+export type { AgentDiagnostic } from '@rethra-design/contracts';
 
 export type RuntimeEnv = NodeJS.ProcessEnv | Record<string, string>;
 
@@ -68,7 +68,7 @@ export type RuntimeContext = {
   newSessionId?: string;
   // Per-run plugin isolation for agent subprocesses. External Plugin entry
   // points use this for Local Codex so the child cannot recursively load the
-  // same Codex Plugin and route itself into another OpenDesign workflow.
+  // same Codex Plugin and route itself into another RethraDesign workflow.
   // Operator-wide overrides remain owned by each runtime definition.
   disablePlugins?: boolean;
   /** Daemon-issued opaque native Child handles for one locked complex Run. */
@@ -109,7 +109,7 @@ export type RuntimeListModels = {
 };
 
 export type RuntimeVersionPolicy = {
-  /** Exact version strings exercised by this OpenDesign build. */
+  /** Exact version strings exercised by this RethraDesign build. */
   supportedVersions: string[];
   /**
    * Optional shape of versions this build accepts without having exercised

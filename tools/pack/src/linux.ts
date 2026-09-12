@@ -12,7 +12,7 @@ import {
   type DesktopEvalResult,
   type DesktopScreenshotResult,
   type DesktopStatusSnapshot,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 import {
   convergeSidecarLaunch,
   findSidecarProcesses,
@@ -20,8 +20,8 @@ import {
   invokeSidecar,
   stopSidecars,
   type SidecarStamp,
-} from "@open-design/sidecar";
-import { createPackageManagerInvocation, readLogTail } from "@open-design/platform";
+} from "@rethra-design/sidecar";
+import { createPackageManagerInvocation, readLogTail } from "@rethra-design/platform";
 
 import type { ToolPackConfig } from "./config/index.js";
 import {
@@ -37,8 +37,8 @@ import { runWorkspaceBuild } from "./workspace-build.js";
 
 const execFileAsync = promisify(execFile);
 
-const PRODUCT_NAME = "Open Design";
-const APP_IMAGE_PRODUCT_NAME = "Open-Design";
+const PRODUCT_NAME = "Rethra Design";
+const APP_IMAGE_PRODUCT_NAME = "Rethra-Design";
 const DESKTOP_LOG_ECHO_ENV = "OD_DESKTOP_LOG_ECHO";
 // The containerized build sets this to the standalone pnpm binary fetched by
 // buildDockerArgs; runProductionInstall reads it to avoid invoking `npm` inside
@@ -50,23 +50,23 @@ const CONTAINER_NODE_VERSION = "24.14.1";
 const CONTAINER_TOOLS_PACK_CLI_PATH = "tools/pack/bin/tools-pack.mjs";
 
 export const INTERNAL_PACKAGES = [
-  { directory: "packages/release", name: "@open-design/release" },
-  { directory: "packages/components", name: "@open-design/components" },
-  { directory: "packages/contracts", name: "@open-design/contracts" },
-  { directory: "packages/registry-protocol", name: "@open-design/registry-protocol" },
-  { directory: "packages/sidecar-proto", name: "@open-design/sidecar-proto" },
-  { directory: "packages/launcher-proto", name: "@open-design/launcher-proto" },
-  { directory: "packages/platform", name: "@open-design/platform" },
-  { directory: "packages/sidecar", name: "@open-design/sidecar" },
-  { directory: "packages/download", name: "@open-design/download" },
-  { directory: "packages/host", name: "@open-design/host" },
-  { directory: "packages/agui-adapter", name: "@open-design/agui-adapter" },
-  { directory: "packages/plugin-runtime", name: "@open-design/plugin-runtime" },
-  { directory: "packages/diagnostics", name: "@open-design/diagnostics" },
-  { directory: "apps/daemon", name: "@open-design/daemon" },
-  { directory: "apps/web", name: "@open-design/web" },
-  { directory: "apps/desktop", name: "@open-design/desktop" },
-  { directory: "apps/packaged", name: "@open-design/packaged" },
+  { directory: "packages/release", name: "@rethra-design/release" },
+  { directory: "packages/components", name: "@rethra-design/components" },
+  { directory: "packages/contracts", name: "@rethra-design/contracts" },
+  { directory: "packages/registry-protocol", name: "@rethra-design/registry-protocol" },
+  { directory: "packages/sidecar-proto", name: "@rethra-design/sidecar-proto" },
+  { directory: "packages/launcher-proto", name: "@rethra-design/launcher-proto" },
+  { directory: "packages/platform", name: "@rethra-design/platform" },
+  { directory: "packages/sidecar", name: "@rethra-design/sidecar" },
+  { directory: "packages/download", name: "@rethra-design/download" },
+  { directory: "packages/host", name: "@rethra-design/host" },
+  { directory: "packages/agui-adapter", name: "@rethra-design/agui-adapter" },
+  { directory: "packages/plugin-runtime", name: "@rethra-design/plugin-runtime" },
+  { directory: "packages/diagnostics", name: "@rethra-design/diagnostics" },
+  { directory: "apps/daemon", name: "@rethra-design/daemon" },
+  { directory: "apps/web", name: "@rethra-design/web" },
+  { directory: "apps/desktop", name: "@rethra-design/desktop" },
+  { directory: "apps/packaged", name: "@rethra-design/packaged" },
 ] as const;
 
 export function sanitizeNamespace(value: string): string {
@@ -134,7 +134,7 @@ export function buildDockerArgs(
   //
   // Shell-interpolation safety for the inner `bash -lc` command:
   //   - config.namespace is sanitized at config-time by resolveNamespace() in
-  //     @open-design/sidecar-proto (restricted to namespace charset)
+  //     @rethra-design/sidecar-proto (restricted to namespace charset)
   //   - config.to is enum-validated by resolveToolPackBuildOutput() in config.ts
   //     to one of "all" | "appimage" | "dir"
   //   - config.portable is a boolean
@@ -221,9 +221,9 @@ export function buildDockerArgs(
     `${PRODUCTION_INSTALL_PNPM_BIN_ENV}=${CONTAINER_PNPM_PATH}`,
   ];
   if (config.telemetryRelayUrl != null) {
-    dockerArgs.push("-e", `OPEN_DESIGN_TELEMETRY_RELAY_URL=${config.telemetryRelayUrl}`);
+    dockerArgs.push("-e", `RETHRA_DESIGN_TELEMETRY_RELAY_URL=${config.telemetryRelayUrl}`);
   }
-  const velaBinHost = process.env.OPEN_DESIGN_VELA_CLI_BIN?.trim();
+  const velaBinHost = process.env.RETHRA_DESIGN_VELA_CLI_BIN?.trim();
   if (velaBinHost) {
     // The container only mounts /project, /tools-pack and cache/home dirs by
     // default, so a Vela CLI living outside those (a host path like
@@ -235,10 +235,10 @@ export function buildDockerArgs(
     const velaBinBase = basename(velaBinHost);
     const containerVelaDir = "/opt/vela-cli";
     dockerArgs.push("-v", `${hostVelaDir}:${containerVelaDir}:ro`);
-    dockerArgs.push("-e", `OPEN_DESIGN_VELA_CLI_BIN=${containerVelaDir}/${velaBinBase}`);
+    dockerArgs.push("-e", `RETHRA_DESIGN_VELA_CLI_BIN=${containerVelaDir}/${velaBinBase}`);
   }
   if (config.amrProfile != null) {
-    dockerArgs.push("-e", `OPEN_DESIGN_AMR_PROFILE=${config.amrProfile}`);
+    dockerArgs.push("-e", `RETHRA_DESIGN_AMR_PROFILE=${config.amrProfile}`);
   }
   // The vela web origin is resolved on the host (from the build-time secret)
   // but the packaged config is written inside the container, so the containerized
@@ -271,7 +271,7 @@ export function renderDesktopTemplate(template: string, values: DesktopTemplateV
 }
 
 export function renderLinuxPackagedMainEntry(): string {
-  return 'import("@open-design/packaged").catch((error) => {\n  console.error("packaged entry failed", error);\n  process.exit(1);\n});\n';
+  return 'import("@rethra-design/packaged").catch((error) => {\n  console.error("packaged entry failed", error);\n  process.exit(1);\n});\n';
 }
 
 export function renderLinuxAppImageAppRun(): string {
@@ -377,11 +377,11 @@ function appImageInstallName(namespace: string): string {
 }
 
 function desktopFileName(namespace: string): string {
-  return `open-design-${sanitizeNamespace(namespace)}.desktop`;
+  return `rethra-design-${sanitizeNamespace(namespace)}.desktop`;
 }
 
 function iconFileName(namespace: string): string {
-  return `open-design-${sanitizeNamespace(namespace)}.png`;
+  return `rethra-design-${sanitizeNamespace(namespace)}.png`;
 }
 
 function resolveLinuxPaths(config: ToolPackConfig): LinuxPaths {
@@ -408,8 +408,8 @@ function resolveLinuxPaths(config: ToolPackConfig): LinuxPaths {
       "apps",
       iconFileName(config.namespace),
     ),
-    packagedConfigPath: join(namespaceRoot, "open-design-config.json"),
-    resourceRoot: join(namespaceRoot, "resources", "open-design"),
+    packagedConfigPath: join(namespaceRoot, "rethra-design-config.json"),
+    resourceRoot: join(namespaceRoot, "resources", "rethra-design"),
     tarballsRoot: join(namespaceRoot, "tarballs"),
   };
 }
@@ -533,16 +533,16 @@ async function writeAssembledApp(
   const version = await readPackagedVersion(config);
   const packageVersion = electronBuilderVersionForAppVersion(version);
   const packageJson = {
-    name: "open-design-packaged",
+    name: "rethra-design-packaged",
     version: packageVersion,
     private: true,
     main: "main.cjs",
     dependencies,
     description: "Local-first design product: detects your installed code-agent CLI, runs design skills + design systems, streams artifacts into a sandboxed preview.",
-    author: "Open Design Team",
+    author: "Rethra Design Team",
     repository: {
       type: "git",
-      url: "https://github.com/nexu-io/open-design.git"
+      url: "https://github.com/acrbaran/rethra-design.git"
     }
   };
   await writeFile(paths.assembledPackageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`, "utf8");
@@ -556,7 +556,7 @@ async function writeAssembledApp(
         ...(config.amrProfile == null ? {} : { amrProfile: config.amrProfile }),
         appVersion: version,
         namespace: config.namespace,
-        nodeCommandRelative: "open-design/bin/node",
+        nodeCommandRelative: "rethra-design/bin/node",
         ...(config.telemetryRelayUrl == null ? {} : { telemetryRelayUrl: config.telemetryRelayUrl }),
         ...(config.posthogKey == null ? {} : { posthogKey: config.posthogKey }),
         ...(config.posthogHost == null ? {} : { posthogHost: config.posthogHost }),
@@ -588,7 +588,7 @@ async function writeLinuxBuilderConfig(config: ToolPackConfig, paths: LinuxPaths
   const packageVersion = electronBuilderVersionForAppVersion(packagedVersion);
 
   const builderConfig: Record<string, unknown> = {
-    appId: "io.open-design.desktop",
+    appId: "io.rethra-design.desktop",
     artifactName: `${PRODUCT_NAME}-${namespaceToken}.\${ext}`,
     asar: false,
     buildDependenciesFromSource: false,
@@ -605,14 +605,14 @@ async function writeLinuxBuilderConfig(config: ToolPackConfig, paths: LinuxPaths
     executableName: PRODUCT_NAME,
     extraMetadata: {
       main: "./main.cjs",
-      name: "open-design-packaged-app",
+      name: "rethra-design-packaged-app",
       productName: PRODUCT_NAME,
       version: packageVersion,
       ...(config.portable ? {} : { odToolsPackRuntimeRoot: config.roots.runtime.namespaceBaseRoot }),
     },
     extraResources: [
-      { from: paths.resourceRoot, to: "open-design" },
-      { from: paths.packagedConfigPath, to: "open-design-config.json" },
+      { from: paths.resourceRoot, to: "rethra-design" },
+      { from: paths.packagedConfigPath, to: "rethra-design-config.json" },
       // Vendored dom-to-pptx browser bundle for editable PPTX export (read from
       // process.resourcesPath by the desktop main at runtime).
       domToPptxBundleResource(config),
@@ -633,8 +633,8 @@ async function writeLinuxBuilderConfig(config: ToolPackConfig, paths: LinuxPaths
       target,
       icon: linuxResources.icon,
       category: "Development",
-      synopsis: "Open Design",
-      maintainer: "Open Design Contributors",
+      synopsis: "Rethra Design",
+      maintainer: "Rethra Design Contributors",
     },
     // Keep the AppImage launch fallback explicit. Our top-level AppRun wrapper
     // clears ELECTRON_RUN_AS_NODE before these Chromium flags reach Electron,
@@ -816,7 +816,7 @@ export async function installPackedLinuxApp(config: ToolPackConfig): Promise<Lin
   const rendered = renderDesktopTemplate(template, {
     namespace: sanitizeNamespace(config.namespace),
     execPath: paths.installAppImagePath,
-    iconName: `open-design-${sanitizeNamespace(config.namespace)}`,
+    iconName: `rethra-design-${sanitizeNamespace(config.namespace)}`,
   });
   const tmpDesktopPath = `${paths.installDesktopFilePath}.tmp`;
   await writeFile(tmpDesktopPath, rendered, "utf8");
@@ -1150,12 +1150,12 @@ export type LinuxCleanupResult = {
 
 // Paths resolved relative to the assembled app written during `tools-pack linux build`.
 // The headless entry lives at:
-//   <assembledAppRoot>/node_modules/@open-design/packaged/dist/headless.mjs
+//   <assembledAppRoot>/node_modules/@rethra-design/packaged/dist/headless.mjs
 // The bundled Node binary lives at:
-//   <namespaceRoot>/resources/open-design/bin/node  (populated by copyResourceTree)
+//   <namespaceRoot>/resources/rethra-design/bin/node  (populated by copyResourceTree)
 
 function resolveHeadlessEntryPath(paths: LinuxPaths): string {
-  return join(paths.assembledAppRoot, "node_modules", "@open-design", "packaged", "dist", "headless.mjs");
+  return join(paths.assembledAppRoot, "node_modules", "@rethra-design", "packaged", "dist", "headless.mjs");
 }
 
 function resolveHeadlessBundledNodePath(paths: LinuxPaths): string {
@@ -1163,7 +1163,7 @@ function resolveHeadlessBundledNodePath(paths: LinuxPaths): string {
 }
 
 function headlessLauncherPath(config: ToolPackConfig): string {
-  return join(homedir(), ".local", "bin", `open-design-headless-${sanitizeNamespace(config.namespace)}`);
+  return join(homedir(), ".local", "bin", `rethra-design-headless-${sanitizeNamespace(config.namespace)}`);
 }
 
 function headlessLogPath(config: ToolPackConfig): string {
@@ -1210,7 +1210,7 @@ export async function installPackedLinuxHeadless(config: ToolPackConfig): Promis
   const dataDir = dirname(config.roots.runtime.namespaceBaseRoot);
   const script = [
     "#!/bin/sh",
-    `# Open Design headless launcher — namespace: ${config.namespace}`,
+    `# Rethra Design headless launcher — namespace: ${config.namespace}`,
     `OD_PACKAGED_NAMESPACE=${JSON.stringify(config.namespace)} OD_DATA_DIR=${JSON.stringify(dataDir)} OD_RESOURCE_ROOT=${JSON.stringify(paths.resourceRoot)} exec ${JSON.stringify(nodePath)} ${JSON.stringify(entryPath)} "$@"`,
   ].join("\n") + "\n";
 

@@ -3,7 +3,7 @@ import { test, vi } from 'vitest';
 import { homedir } from 'node:os';
 import { dirname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import * as platform from '@open-design/platform';
+import * as platform from '@rethra-design/platform';
 import {
   antigravity, assert, chmodSync, detectAgents, detectAgentsStream, inspectAgentExecutableResolution, join, minimalAgentDef, mkdirSync, mkdtempSync, opencode, resolveAgentExecutable, rmSync, spawnEnvForAgent, tmpdir, withEnvSnapshot, withPlatform, writeFileSync,
 } from './helpers/test-helpers.js';
@@ -16,7 +16,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
 
 // Claude Code owns its own auth resolution. Preserve credentials from the
 // inherited environment so users who run the local CLI with API-key auth get
-// the same behavior through OpenDesign.
+// the same behavior through RethraDesign.
 test('spawnEnvForAgent preserves inherited Anthropic API credentials for the claude adapter', () => {
   const env = spawnEnvForAgent('claude', {
     ANTHROPIC_API_KEY: 'sk-leak',
@@ -339,7 +339,7 @@ test('spawnEnvForAgent injects the resolved AMR profile after configured env', (
   const env = spawnEnvForAgent(
     'amr',
     {
-      OPEN_DESIGN_AMR_PROFILE: 'feature-test',
+      RETHRA_DESIGN_AMR_PROFILE: 'feature-test',
       VELA_PROFILE: 'prod',
       PATH: '/usr/bin',
     },
@@ -349,7 +349,7 @@ test('spawnEnvForAgent injects the resolved AMR profile after configured env', (
   );
 
   assert.equal(env.VELA_PROFILE, 'feature-test');
-  assert.equal(env.OPEN_DESIGN_AMR_PROFILE, 'feature-test');
+  assert.equal(env.RETHRA_DESIGN_AMR_PROFILE, 'feature-test');
   assert.equal(env.PATH, '/usr/bin');
 });
 
@@ -553,7 +553,7 @@ test('detectAgents includes sanitized install and docs metadata from split runti
 
       assert.ok(amr);
       assert.equal(amr.available, false);
-      assert.equal(amr.installUrl, 'https://open-design.ai/amr');
+      assert.equal(amr.installUrl, 'https://rethra-design.invalid/amr');
       assert.ok(qoder);
       assert.equal(qoder.available, false);
       assert.equal(qoder.installUrl, 'https://qoder.com/download');
@@ -566,7 +566,7 @@ test('detectAgents includes sanitized install and docs metadata from split runti
       assert.ok(kimi);
       assert.equal(
         kimi.docsUrl,
-        'https://www.kimi.com/code/docs/en/kimi-cli/guides/getting-started.html?aff=open-design',
+        'https://www.kimi.com/code/docs/en/kimi-cli/guides/getting-started.html?aff=rethra-design',
       );
     });
   } finally {
@@ -672,7 +672,7 @@ fsTest('detectAgents keeps packaged built-in AMR unavailable when OpenCode canno
   const root = mkdtempSync(join(tmpdir(), 'od-detect-amr-built-in-'));
   try {
     return await withEnvSnapshot(['PATH', 'OD_AGENT_HOME', 'OD_RESOURCE_ROOT', 'VELA_OPENCODE_BIN'], async () => {
-      const resourceRoot = join(root, 'resources', 'open-design');
+      const resourceRoot = join(root, 'resources', 'rethra-design');
       const builtInVela = join(resourceRoot, 'bin', 'vela');
       mkdirSync(join(resourceRoot, 'bin'), { recursive: true });
       writeFileSync(
@@ -702,7 +702,7 @@ fsTest('detectAgents marks AMR available from packaged built-in Vela with the bu
   const root = mkdtempSync(join(tmpdir(), 'od-detect-amr-built-in-'));
   try {
     return await withEnvSnapshot(['PATH', 'OD_AGENT_HOME', 'OD_RESOURCE_ROOT', 'VELA_OPENCODE_BIN'], async () => {
-      const resourceRoot = join(root, 'resources', 'open-design');
+      const resourceRoot = join(root, 'resources', 'rethra-design');
       const builtInVela = join(resourceRoot, 'bin', 'vela');
       const companionTree = join(resourceRoot, 'bin', 'libexec', 'opencode');
       mkdirSync(join(resourceRoot, 'bin'), { recursive: true });
@@ -822,7 +822,7 @@ exit 0
         amr: {
           VELA_BIN: fakeVela,
           VELA_OPENCODE_BIN: fakeOpenCode,
-          OPEN_DESIGN_AMR_PROFILE: 'prod',
+          RETHRA_DESIGN_AMR_PROFILE: 'prod',
         },
       });
       assert.deepEqual(getRememberedLiveModels('amr', 'prod'), [
@@ -834,7 +834,7 @@ exit 0
         amr: {
           VELA_BIN: fakeVela,
           VELA_OPENCODE_BIN: fakeOpenCode,
-          OPEN_DESIGN_AMR_PROFILE: 'prod',
+          RETHRA_DESIGN_AMR_PROFILE: 'prod',
         },
       });
       const amrAgent = agents.find((agent) => agent.id === 'amr');
@@ -1336,7 +1336,7 @@ test('spawnEnvForAgent preserves Anthropic credentials for non-claude adapters',
 
 // Codex CLI owns its own auth resolution. Preserve credentials from the
 // inherited environment so users who run the local CLI with API-key auth get
-// the same behavior through OpenDesign.
+// the same behavior through RethraDesign.
 test('spawnEnvForAgent preserves inherited OPENAI_API_KEY for the codex adapter', () => {
   const env = spawnEnvForAgent('codex', {
     OPENAI_API_KEY: 'sk-stale-byok',

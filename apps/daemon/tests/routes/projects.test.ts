@@ -1441,7 +1441,7 @@ describe('project locations routes', () => {
     const loc0 = body.locations[0]!;
     expect(loc0.id).toBe('default');
     expect(loc0.builtIn).toBe(true);
-    expect(loc0.name).toBe('OpenDesign projects');
+    expect(loc0.name).toBe('RethraDesign projects');
   });
 
   it('PUT /api/project-locations creates external roots and GET returns them alongside default', async () => {
@@ -1492,7 +1492,7 @@ describe('project locations routes', () => {
     const extDir = makeTempDir();
     // Create a project directory with a valid manifest
     const projectDir = path.join(extDir, 'scan-test-proj');
-    const odDir = path.join(projectDir, '.open-design');
+    const odDir = path.join(projectDir, '.rethra-design');
     await mkdir(odDir, { recursive: true });
     const manifest = {
       schemaVersion: 1 as const,
@@ -1504,7 +1504,7 @@ describe('project locations routes', () => {
       designSystemId: null,
     };
     await writeFile(
-      path.join(projectDir, '.open-design', 'project.json'),
+      path.join(projectDir, '.rethra-design', 'project.json'),
       JSON.stringify(manifest, null, 2),
       'utf8',
     );
@@ -1550,7 +1550,7 @@ describe('project locations routes', () => {
     expect(body2.existing).toEqual(['scan-test-proj']);
   });
 
-  it('POST /api/projects with projectLocationId creates project under external root and writes .open-design/project.json', async () => {
+  it('POST /api/projects with projectLocationId creates project under external root and writes .rethra-design/project.json', async () => {
     const extDir = makeTempDir();
     // Register an external location
     await putProjectLocations([{ id: 'create-ext', name: 'Create External', path: extDir }]);
@@ -1579,8 +1579,8 @@ describe('project locations routes', () => {
     const expectedProjectDir = await realpath(path.join(extDir, projectId));
     expect(createBody.project.metadata?.baseDir).toBe(expectedProjectDir);
 
-    // Verify .open-design/project.json was written
-    const manifestPath = path.join(expectedProjectDir, '.open-design', 'project.json');
+    // Verify .rethra-design/project.json was written
+    const manifestPath = path.join(expectedProjectDir, '.rethra-design', 'project.json');
     const manifestRaw = await import('node:fs/promises').then((m) => m.readFile(manifestPath, 'utf8'));
     const manifest = JSON.parse(manifestRaw);
     expect(manifest.schemaVersion).toBe(1);
@@ -1985,7 +1985,7 @@ describe('project locations routes', () => {
 
     // The project directory and manifest should exist on disk
     const expectedProjectDir = await realpath(path.join(extDir, projectId));
-    const manifestPath = path.join(expectedProjectDir, '.open-design', 'project.json');
+    const manifestPath = path.join(expectedProjectDir, '.rethra-design', 'project.json');
     const manifestBefore = await readFile(manifestPath, 'utf8');
     expect(JSON.parse(manifestBefore).id).toBe(projectId);
 

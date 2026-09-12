@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
-import { Button } from '@open-design/components';
+import { Button } from '@rethra-design/components';
 import { reportAgentDetectDiagnostics } from './analytics/agent-detect';
 import { useAnalytics } from './analytics/provider';
 import {
@@ -22,7 +22,7 @@ import {
   deriveConfigureGlobals,
   projectKindFromMetadataToTracking,
   fidelityToTracking,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import type {
   AmrModelsResponse,
   ChatSessionMode,
@@ -35,8 +35,8 @@ import type {
   ProjectWorkspaceScope,
   ProjectScenarioTaskProfile,
   WorkspaceProjectSummary,
-} from '@open-design/contracts';
-import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { DEFAULT_UNSELECTED_SCENARIO_PLUGIN_ID } from '@rethra-design/contracts';
 import { EntryView } from './components/EntryView';
 import type { ProjectTitleHint } from './components/EntryShell';
 import type { IntegrationTab } from './components/IntegrationsView';
@@ -234,7 +234,7 @@ import {
   removeProjectFromDisplaySnapshots,
   writeProjectDisplaySnapshot,
 } from './state/project-display-cache';
-import { getOpenDesignHost, type OpenDesignHostProjectImportSuccess } from '@open-design/host';
+import { getRethraDesignHost, type RethraDesignHostProjectImportSuccess } from '@rethra-design/host';
 import { useI18n } from './i18n';
 import { liveArtifactTabId } from './types';
 import type {
@@ -290,9 +290,9 @@ interface PendingProjectCreation {
   files: readonly File[];
 }
 
-const APP_CONFIG_CHANGED_EVENT = 'open-design:app-config-changed';
+const APP_CONFIG_CHANGED_EVENT = 'rethra-design:app-config-changed';
 const AMR_AGENT_ID = 'amr';
-const AMR_PROFILE_ENV_KEY = 'OPEN_DESIGN_AMR_PROFILE';
+const AMR_PROFILE_ENV_KEY = 'RETHRA_DESIGN_AMR_PROFILE';
 const AGENT_FOCUS_REFRESH_THROTTLE_MS = 10_000;
 
 /**
@@ -894,7 +894,7 @@ function AppInner() {
   const { t } = useI18n();
   const iframeKeepAlivePool = useIframeKeepAlivePool();
   const clientType = useMemo(() => detectClientType(), []);
-  const hostPlatform = useMemo(() => getOpenDesignHost()?.client.platform, []);
+  const hostPlatform = useMemo(() => getRethraDesignHost()?.client.platform, []);
   useModalWindowDragGuard();
   const workspaceContextState = useWorkspaceContext();
   const {
@@ -949,7 +949,7 @@ function AppInner() {
   // Observability marker. `apps/web/src/observability/white-screen.ts`
   // keys its "app actually mounted" success condition on this attribute
   // because the dynamic-import loading shell (`<div class="od-loading-shell">
-  // Loading OpenDesign…</div>`) is itself >MIN_VISIBLE_TEXT and would
+  // Loading RethraDesign…</div>`) is itself >MIN_VISIBLE_TEXT and would
   // otherwise be mistaken for a real mount. Survives subsequent render
   // crashes — once App has mounted at least once, it's no longer a white
   // screen (subsequent failures show up as `$exception`).
@@ -1991,13 +1991,13 @@ function AppInner() {
   }, [applyAmrLoginStatus]);
 
   useEffect(() => {
-    const usesOpenDesignCloud =
+    const usesRethraDesignCloud =
       config.mode === 'daemon'
       && config.agentId === AMR_AGENT_ID;
     const cloudIdentityRejected =
       workspaceContextState.failure === 'reauth-required'
       || (
-        usesOpenDesignCloud
+        usesRethraDesignCloud
         && (
           amrLoginStatus?.loggedIn === false
           || amrLoginStatus?.sessionState === 'reauth_required'
@@ -3582,7 +3582,7 @@ function AppInner() {
   // atomically. The renderer never sees the path, token, or daemon DTO;
   // it receives host-owned project identifiers and refreshes project state
   // through the normal daemon API.
-  const handleImportFolderResponse = useCallback(async (result: OpenDesignHostProjectImportSuccess) => {
+  const handleImportFolderResponse = useCallback(async (result: RethraDesignHostProjectImportSuccess) => {
     rememberLocalProject(result.projectId);
     const importedProjectContext = workspaceContextRef.current;
     const project = await getProject(result.projectId, importedProjectContext);
@@ -4316,7 +4316,7 @@ function AppInner() {
     accountGeneration: number,
   ) => {
     invalidatePluginCatalogCache({ workspaceContext: context, accountGeneration });
-    window.dispatchEvent(new CustomEvent('open-design:plugins-changed'));
+    window.dispatchEvent(new CustomEvent('rethra-design:plugins-changed'));
   }, []);
 
   teamResourceRefreshRefs.current.skill = handleSkillsChanged;
@@ -5449,7 +5449,7 @@ function AppInner() {
           setPendingDesignSystemCreateEntry('design_systems_page');
           navigate({ kind: 'design-system-create' });
         }}
-        onOpenDesignSystem={(id: string) => navigate({ kind: 'design-system-detail', designSystemId: id })}
+        onRethraDesignSystem={(id: string) => navigate({ kind: 'design-system-detail', designSystemId: id })}
         onDesignSystemsRefresh={refreshDesignSystems}
         onPersistComposioKey={handleConfigPersistComposioKey}
         onOpenSettings={openSettings}

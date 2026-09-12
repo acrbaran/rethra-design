@@ -19,7 +19,7 @@ import { expect, test } from '@/playwright/suite';
 import type { Page } from '@playwright/test';
 import { T } from '@/timeouts';
 
-const STORAGE_KEY = 'open-design:config';
+const STORAGE_KEY = 'rethra-design:config';
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript((key) => {
@@ -80,7 +80,7 @@ test('[P1] composer footer controls keep their size hierarchy on one baseline', 
   await expect(page).toHaveURL(/\/projects\//);
   // A cold worker compiles the project route on first open, which can outlive
   // the default assertion window; gate on the loading screen clearing first.
-  await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: T.long });
+  await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: T.long });
   await expect(page.getByTestId('chat-composer')).toBeVisible({ timeout: T.long });
   await expect(page.getByTestId('chat-send')).toBeVisible();
 

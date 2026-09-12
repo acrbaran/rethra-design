@@ -2,7 +2,7 @@ import { agentBinEnvKey, agentSearchDirs } from './executables.js';
 import type { AgentLaunchResolution } from './launch.js';
 import type { AgentAuthProbeResult } from './auth.js';
 import type { AgentDiagnostic, RuntimeAgentDef } from './types.js';
-import type { AgentFixIntent } from '@open-design/contracts';
+import type { AgentFixIntent } from '@rethra-design/contracts';
 
 // Cap on how many searched dirs we attach to a `not-on-path` diagnostic.
 // The resolver walks PATH + the user-toolchain whitelist, which can run to
@@ -91,7 +91,7 @@ export function buildVersionDiagnostic(
     return {
       reason: 'version-probe-failed',
       severity: 'error',
-      message: `${def.name} was found, but OpenDesign could not verify its version.`,
+      message: `${def.name} was found, but RethraDesign could not verify its version.`,
       detail: `Expected ${expected}.`,
       fixActions: [
         { kind: 'openDocs' },
@@ -103,7 +103,7 @@ export function buildVersionDiagnostic(
   return {
     reason: 'untested-version',
     severity: 'warning',
-    message: `${def.name} ${version} has not been tested with this OpenDesign build.`,
+    message: `${def.name} ${version} has not been tested with this RethraDesign build.`,
     detail: `Tested versions: ${expected}.`,
     fixActions: [
       { kind: 'openDocs' },
@@ -119,8 +119,8 @@ export function buildCompatibilityDiagnostic(
   return {
     reason: 'runtime-profile-incompatible',
     severity: 'error',
-    message: `${def.name} is installed, but its OpenDesign profile is missing or incompatible.`,
-    detail: 'Install the pinned OpenDesign profile bundle in Harness profile `open-design`, then rescan.',
+    message: `${def.name} is installed, but its RethraDesign profile is missing or incompatible.`,
+    detail: 'Install the pinned RethraDesign profile bundle in Harness profile `rethra-design`, then rescan.',
     fixActions: [
       { kind: 'openDocs' },
       { kind: 'rescan' },

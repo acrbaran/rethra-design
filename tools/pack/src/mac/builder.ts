@@ -114,13 +114,13 @@ export async function runElectronBuilder(
     executableName: identity.executableName,
     extraMetadata: {
       main: "./main.cjs",
-      name: "open-design-packaged-app",
+      name: "rethra-design-packaged-app",
       productName: identity.productName,
       version: packageVersion,
     },
     extraResources: [
-      { from: paths.resourceRoot, to: "open-design" },
-      { from: paths.packagedConfigPath, to: "open-design-config.json" },
+      { from: paths.resourceRoot, to: "rethra-design" },
+      { from: paths.packagedConfigPath, to: "rethra-design-config.json" },
       // Vendored dom-to-pptx browser bundle for editable PPTX export. The desktop
       // main reads it from process.resourcesPath at runtime.
       domToPptxBundleResource(config),
@@ -139,7 +139,7 @@ export async function runElectronBuilder(
       target: targets,
     },
     // Register the workspace-invite deeplink scheme so macOS routes
-    // `opendesign://workspace/invite/continue?...` to this app (electron-builder
+    // `rethradesign://workspace/invite/continue?...` to this app (electron-builder
     // writes it into Info.plist CFBundleURLTypes; a runtime
     // setAsDefaultProtocolClient alone is unreliable on macOS). The scheme string
     // must match INVITE_DEEPLINK_SCHEME in
@@ -147,7 +147,7 @@ export async function runElectronBuilder(
     protocols: [
       {
         name: `${PRODUCT_NAME} Invite`,
-        schemes: ["opendesign"],
+        schemes: ["rethradesign"],
       },
     ],
     nodeGypRebuild: false,
@@ -157,7 +157,7 @@ export async function runElectronBuilder(
     publish: [
       {
         provider: "generic",
-        url: "https://updates.invalid/open-design",
+        url: "https://updates.invalid/rethra-design",
       },
     ],
   };

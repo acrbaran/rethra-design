@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import type { ChatSessionMode } from '@open-design/contracts';
-import { MAX_NEXT_STEP_SUGGESTIONS } from '@open-design/contracts';
+import type { ChatSessionMode } from '@rethra-design/contracts';
+import { MAX_NEXT_STEP_SUGGESTIONS } from '@rethra-design/contracts';
 import { useI18n } from '../i18n';
 import { localizeSkillDescription, localizeSkillName } from '../i18n/content';
 import type { Dict } from '../i18n/types';
@@ -219,9 +219,9 @@ interface Props {
   // MCP/plugins/connectors/files; this next-step flyout keeps the same shape
   // while using the resource data already owned by the chat pane.
   skills?: SkillSummary[];
-  // Contribute the artifact to the OpenDesign community gallery.
-  onShareToOpenDesign?: () => void;
-  shareToOpenDesignBusy?: boolean;
+  // Contribute the artifact to the RethraDesign community gallery.
+  onShareToRethraDesign?: () => void;
+  shareToRethraDesignBusy?: boolean;
   /**
    * This turn's follow-up suggestions, written by the agent about what it just
    * built and parsed out of its `<od-next key="…">` marker by the daemon.
@@ -349,8 +349,8 @@ export function NextStepActions({
   createDesignSystemBusy = false,
   onPickSkill,
   skills = [],
-  onShareToOpenDesign,
-  shareToOpenDesignBusy = false,
+  onShareToRethraDesign,
+  shareToRethraDesignBusy = false,
   suggestions,
   onSuggestion,
   variant = 'default',
@@ -470,7 +470,7 @@ export function NextStepActions({
         | 'share'
         | 'toolbox_action'
         | 'toolbox_more'
-        | 'share_to_open_design'
+        | 'share_to_rethra_design'
         | 'suggestion',
       chipId?: string,
     ) => {
@@ -516,11 +516,11 @@ export function NextStepActions({
   }, [closeAll, fileName, onDownload, track]);
 
   const handleContribute = useCallback(() => {
-    if (!onShareToOpenDesign || shareToOpenDesignBusy) return;
-    track('share_to_open_design');
-    onShareToOpenDesign();
+    if (!onShareToRethraDesign || shareToRethraDesignBusy) return;
+    track('share_to_rethra_design');
+    onShareToRethraDesign();
     closeAll();
-  }, [closeAll, onShareToOpenDesign, shareToOpenDesignBusy, track]);
+  }, [closeAll, onShareToRethraDesign, shareToRethraDesignBusy, track]);
 
   const handleToolboxAction = useCallback(
     (id: DesignToolboxActionId) => {
@@ -678,7 +678,7 @@ export function NextStepActions({
   // Share group is available whenever any of its three actions can fire.
   const canShare = !!(fileName && onShare);
   const canDownload = !!(fileName && onDownload);
-  const canContribute = !!onShareToOpenDesign;
+  const canContribute = !!onShareToRethraDesign;
   const hasShareGroup = canShare || canDownload || canContribute;
   const showCreateDesignSystem = (
     variant === 'default' ||
@@ -1085,13 +1085,13 @@ export function NextStepActions({
                   type="button"
                   className={styles.flyoutRow}
                   data-testid="next-step-share-contribute"
-                  disabled={shareToOpenDesignBusy}
+                  disabled={shareToRethraDesignBusy}
                   onClick={handleContribute}
                 >
                   <Icon
-                    name={shareToOpenDesignBusy ? 'spinner' : 'globe'}
+                    name={shareToRethraDesignBusy ? 'spinner' : 'globe'}
                     size={14}
-                    className={shareToOpenDesignBusy ? 'icon-spin' : styles.toolboxRowIcon}
+                    className={shareToRethraDesignBusy ? 'icon-spin' : styles.toolboxRowIcon}
                   />
                   <span className={styles.toolboxRowTitle}>{t('nextStep.contribute')}</span>
                 </button>

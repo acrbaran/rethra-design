@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { act, cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { InstalledPluginRecordSchema } from '@open-design/contracts';
+import { InstalledPluginRecordSchema } from '@rethra-design/contracts';
 
 import { PluginDetailView } from '../../src/components/PluginDetailView';
 import { I18nProvider } from '../../src/i18n';
@@ -31,7 +31,7 @@ const PLUGIN = InstalledPluginRecordSchema.parse({
   sourceKind: 'bundled',
   source: '/plugins/research-suite',
   sourceMarketplaceId: 'official',
-  sourceMarketplaceEntryName: 'open-design/research-suite',
+  sourceMarketplaceEntryName: 'rethra-design/research-suite',
   trust: 'bundled',
   capabilitiesGranted: ['prompt:inject'],
   manifest: {
@@ -84,7 +84,7 @@ function knowledgePlugin(
     sourceKind: 'bundled',
     source: `/plugins/${id}`,
     sourceMarketplaceId: 'official',
-    sourceMarketplaceEntryName: `open-design/${id}`,
+    sourceMarketplaceEntryName: `rethra-design/${id}`,
     trust: 'bundled',
     capabilitiesGranted: ['prompt:inject'],
     manifest: {
@@ -184,13 +184,13 @@ describe('PluginDetailView curated installed-extension layout', () => {
 
     const skills = screen.getByRole('region', { name: /knowledge skills/i });
     expect(within(skills).getByText('skills/source-review/SKILL.md')).toBeTruthy();
-    expect(screen.getByText('@OpenDesign')).toBeTruthy();
-    expect(screen.getByText('OpenDesign official')).toBeTruthy();
+    expect(screen.getByText('@RethraDesign')).toBeTruthy();
+    expect(screen.getByText('RethraDesign official')).toBeTruthy();
 
     const advanced = screen.getByTestId('plugin-meta-advanced');
     expect(advanced).not.toHaveAttribute('open');
     expect(within(advanced).getByText('MIT')).toBeTruthy();
-    expect(within(advanced).getByText('od plugin install open-design/research-suite')).toBeTruthy();
+    expect(within(advanced).getByText('od plugin install rethra-design/research-suite')).toBeTruthy();
 
     expect(screen.getByTestId('plugin-detail-preview-iframe').getAttribute('src'))
       .toBe('/api/plugins/research-suite/preview');
@@ -248,8 +248,8 @@ describe('PluginDetailView curated installed-extension layout', () => {
     expect(screen.getByRole('region', { name: /快捷命令/ })).toBeTruthy();
     expect(screen.getByRole('region', { name: /数据连接/ })).toBeTruthy();
     expect(screen.getByRole('region', { name: /知识技能/ })).toBeTruthy();
-    expect(screen.getByText('OpenDesign 官方')).toBeTruthy();
-    expect(screen.getByText('@OpenDesign')).toBeTruthy();
+    expect(screen.getByText('RethraDesign 官方')).toBeTruthy();
+    expect(screen.getByText('@RethraDesign')).toBeTruthy();
   });
 
   it('renders a safe paragraph from the repository humanize-ppt knowledge skill', async () => {

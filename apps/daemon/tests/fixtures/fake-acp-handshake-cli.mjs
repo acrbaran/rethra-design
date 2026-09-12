@@ -37,9 +37,9 @@
  *   FAKE_ACP_INVOCATION_LOG              – append one JSON line per handshake
  *                                          request, tagged with the caller's
  *                                          `clientInfo.name`. `attachAcpSession`
- *                                          identifies as `open-design` and
+ *                                          identifies as `rethra-design` and
  *                                          `detectAcpModels` as
- *                                          `open-design-detect`, so a test can
+ *                                          `rethra-design-detect`, so a test can
  *                                          count real run sessions without
  *                                          counting model-detection probes.
  */

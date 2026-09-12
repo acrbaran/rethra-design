@@ -10,12 +10,12 @@ import ffprobeInstaller from '@ffprobe-installer/ffprobe';
 import {
   convergeSidecarLaunch,
   stopSidecar,
-} from '@open-design/sidecar';
+} from '@rethra-design/sidecar';
 import {
   APP_KEYS,
   SIDECAR_MODES,
   SIDECAR_SOURCES,
-} from '@open-design/sidecar-proto';
+} from '@rethra-design/sidecar-proto';
 import { describe, expect, test } from 'vitest';
 
 import { createSmokeSuite } from '@/vitest/suite';
@@ -93,7 +93,7 @@ html,body{margin:0;width:320px;height:180px;overflow:hidden;background:#10253f}
 .clip{display:grid;place-items:center;width:320px;height:180px;color:white;font:700 28px sans-serif}
 </style></head><body>
 <main id="root" data-composition-id="main" data-start="0" data-duration="0.1" data-width="320" data-height="180" data-fps="30">
-  <section class="clip" data-start="0" data-duration="0.1" data-track-index="1">Open Design</section>
+  <section class="clip" data-start="0" data-duration="0.1" data-track-index="1">Rethra Design</section>
 </main>
 <script>
 window.__timelines=window.__timelines||{};

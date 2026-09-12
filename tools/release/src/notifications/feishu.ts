@@ -207,10 +207,10 @@ function buildCard(): FeishuCard {
       title: {
         tag: "plain_text",
         content: releaseState === "partial"
-          ? `⚠️ Open Design ${channelLabel} ${version} · 未更新 ${channelLabel} latest`
+          ? `⚠️ Rethra Design ${channelLabel} ${version} · 未更新 ${channelLabel} latest`
           : smokeFailures.length > 0
-          ? `⚠️ Open Design ${channelLabel} ${version} · ${smokeFailures.join("、")}`
-          : `🚀 Open Design ${channelLabel} ${version}`,
+          ? `⚠️ Rethra Design ${channelLabel} ${version} · ${smokeFailures.join("、")}`
+          : `🚀 Rethra Design ${channelLabel} ${version}`,
       },
     },
     elements,

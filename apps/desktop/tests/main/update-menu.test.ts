@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { DesktopUpdateStatusSnapshot } from "@open-design/sidecar-proto";
+import type { DesktopUpdateStatusSnapshot } from "@rethra-design/sidecar-proto";
 
 import {
   DEFAULT_DESKTOP_UPDATE_MENU_LABELS,
@@ -73,12 +73,12 @@ describe("macOS update menu", () => {
       status: status("downloaded", {
         artifact: { type: "payload", url: "https://example.test/payload.zip" },
       }),
-    })).toMatchObject({ label: "Restart to Update OpenDesign…", enabled: true, action: "open-dialog" });
+    })).toMatchObject({ label: "Restart to Update RethraDesign…", enabled: true, action: "open-dialog" });
     expect(deriveDesktopUpdateMenuItem({
       labels: DEFAULT_DESKTOP_UPDATE_MENU_LABELS,
       platform: "darwin",
       status: status("downloaded", {
-        artifact: { type: "dmg", url: "https://example.test/OpenDesign.dmg" },
+        artifact: { type: "dmg", url: "https://example.test/RethraDesign.dmg" },
       }),
     })).toMatchObject({ label: "Install Update…", enabled: true, action: "open-dialog" });
     expect(deriveDesktopUpdateMenuItem({
@@ -95,7 +95,7 @@ describe("macOS update menu", () => {
     const item = deriveDesktopUpdateMenuItem({
       labels: {
         ...DEFAULT_DESKTOP_UPDATE_MENU_LABELS,
-        restart: "重新启动以更新 OpenDesign…",
+        restart: "重新启动以更新 RethraDesign…",
       },
       platform: "darwin",
       status: status("downloaded", {
@@ -105,7 +105,7 @@ describe("macOS update menu", () => {
     expect(item).toMatchObject({
       action: "open-dialog",
       enabled: true,
-      label: "重新启动以更新 OpenDesign…",
+      label: "重新启动以更新 RethraDesign…",
       visible: true,
     });
   });

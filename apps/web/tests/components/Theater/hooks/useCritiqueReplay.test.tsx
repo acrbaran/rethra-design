@@ -13,8 +13,8 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
-import type { PanelEvent } from '@open-design/contracts/critique';
+} from '@rethra-design/contracts';
+import type { PanelEvent } from '@rethra-design/contracts/critique';
 
 import { useCritiqueReplay } from '../../../../src/components/Theater/hooks/useCritiqueReplay';
 import type { CritiqueState } from '../../../../src/components/Theater/state/reducer';

@@ -4,7 +4,7 @@ import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
 
-import { createCommandInvocation } from '@open-design/platform';
+import { createCommandInvocation } from '@rethra-design/platform';
 import type {
   AmrAuthErrorKind,
   AmrAuthNetworkPath,
@@ -15,8 +15,8 @@ import type {
   TrackingCampaignConversionSource,
   TrackingCampaignId,
   TrackingPageName,
-} from '@open-design/contracts/analytics';
-import type { AmrSessionState } from '@open-design/contracts';
+} from '@rethra-design/contracts/analytics';
+import type { AmrSessionState } from '@rethra-design/contracts';
 
 import { resolveAgentLaunch } from '../runtimes/launch.js';
 import { spawnEnvForAgent } from '../runtimes/env.js';
@@ -151,7 +151,7 @@ const AMR_ENTRY_SOURCE_PAGE_BY_SOURCE: Record<
 };
 
 const AMR_ANALYTICS_EVENTS_URL =
-  'https://amr-api.open-design.ai/api/v1/analytics/events';
+  'https://amr-api.rethra-design.invalid/api/v1/analytics/events';
 const AMR_ANALYTICS_TIMEOUT_MS = 1500;
 const OD_DEVICE_ID_MAX_LENGTH = 128;
 
@@ -165,13 +165,13 @@ const AMR_ANALYTICS_ENVS: ReadonlySet<AmrAnalyticsEnv> = new Set([
 ]);
 
 export interface AmrEntryAnalyticsPayload {
-  pageName: 'open_design';
+  pageName: 'rethra_design';
   sourcePageName: AmrEntrySourcePageName;
   area: 'amr_entry';
   element: TrackingAmrEntrySource;
   action: 'click_amr_entry';
   entryId: string;
-  sourceProduct: 'open_design';
+  sourceProduct: 'rethra_design';
   sourceDetail: TrackingAmrEntrySource;
   entryOccurredAt: string;
   // Campaign dimensions mirrored from the web consent-gated channel so the
@@ -188,13 +188,13 @@ export interface AmrEntryAnalyticsPayload {
 }
 
 export interface AmrOnboardingProfileAnalyticsPayload {
-  pageName: 'open_design';
+  pageName: 'rethra_design';
   sourcePageName: 'onboarding';
   area: 'onboarding';
   element: 'about_you_submit';
   action: 'submit_profile';
   entryId: string;
-  sourceProduct: 'open_design';
+  sourceProduct: 'rethra_design';
   sourceDetail: TrackingAmrEntrySource;
   entryOccurredAt: string;
   profileOccurredAt: string;
@@ -764,7 +764,7 @@ function readRawVelaControlApiContext(
     const status = readRawVelaLoginStatus(env, configuredEnv);
     return {
       profile,
-      apiUrl: envApiUrl || 'https://amr-api.open-design.ai',
+      apiUrl: envApiUrl || 'https://amr-api.rethra-design.invalid',
       controlKey: envControlKey,
       user: status.user,
       configMtimeMs: null,
@@ -794,7 +794,7 @@ export function readVelaApiContext(
     apiUrl:
       snapshot.stored?.apiUrl?.trim()
       || mergedEnv.VELA_API_URL?.trim()
-      || 'https://amr-api.open-design.ai',
+      || 'https://amr-api.rethra-design.invalid',
   };
 }
 
@@ -1303,11 +1303,11 @@ async function spawnVelaLoginAttempt(
     ...(deps.correlationEnv ?? {}),
     // The UUID is daemon-owned and written after configured/base env so a
     // child cannot replace the correlation key selected for this attempt.
-    OPEN_DESIGN_AMR_AUTH_ATTEMPT_ID: deps.attempt.authAttemptId,
+    RETHRA_DESIGN_AMR_AUTH_ATTEMPT_ID: deps.attempt.authAttemptId,
   };
   // This fallback-only change does not opt the child into a structured stage
   // protocol that the packaged Vela CLI cannot emit.
-  delete env.OPEN_DESIGN_AMR_AUTH_STAGE_FORMAT;
+  delete env.RETHRA_DESIGN_AMR_AUTH_STAGE_FORMAT;
   // Route through createCommandInvocation so an npm/Node-style `vela.cmd` or
   // `vela.bat` shim on Windows gets wrapped under `cmd.exe /d /s /c …` with
   // verbatim args, matching what `execAgentFile` / chat-run spawning do. A
@@ -1556,7 +1556,7 @@ export function parseVelaLoginAttribution(input: unknown): AmrEntryAttribution |
   if (
     typeof value.entryId !== 'string'
     || value.entryId.length === 0
-    || value.sourceProduct !== 'open_design'
+    || value.sourceProduct !== 'rethra_design'
     || typeof value.sourceDetail !== 'string'
     || !AMR_ENTRY_SOURCES.has(value.sourceDetail as TrackingAmrEntrySource)
     || typeof value.occurredAt !== 'string'
@@ -1564,7 +1564,7 @@ export function parseVelaLoginAttribution(input: unknown): AmrEntryAttribution |
   ) {
     return null;
   }
-  const odDeviceId = sanitizeOpenDesignDeviceId(value.odDeviceId);
+  const odDeviceId = sanitizeRethraDesignDeviceId(value.odDeviceId);
   return {
     entryId: value.entryId,
     sourceProduct: value.sourceProduct,
@@ -1597,7 +1597,7 @@ export function parseAmrEntryAnalyticsPayload(
   const odSource = sanitizeOptionalProfileValue(raw.odSource);
   const odUseCase = sanitizeOptionalProfileList(raw.odUseCase);
   if (
-    pageName !== 'open_design'
+    pageName !== 'rethra_design'
     || typeof sourcePageName !== 'string'
     || !AMR_ENTRY_SOURCE_PAGES.has(sourcePageName as AmrEntrySourcePageName)
     || area !== 'amr_entry'
@@ -1606,7 +1606,7 @@ export function parseAmrEntryAnalyticsPayload(
     || action !== 'click_amr_entry'
     || typeof entryId !== 'string'
     || entryId.length === 0
-    || sourceProduct !== 'open_design'
+    || sourceProduct !== 'rethra_design'
     || typeof sourceDetail !== 'string'
     || !AMR_ENTRY_SOURCES.has(sourceDetail as TrackingAmrEntrySource)
     || sourceDetail !== element
@@ -1665,20 +1665,20 @@ export function parseAmrOnboardingProfileAnalyticsPayload(
   const sourceDetail = raw.sourceDetail;
   const entryOccurredAt = raw.entryOccurredAt;
   const profileOccurredAt = raw.profileOccurredAt;
-  const odDeviceId = sanitizeOpenDesignDeviceId(raw.odDeviceId);
+  const odDeviceId = sanitizeRethraDesignDeviceId(raw.odDeviceId);
   const odRole = sanitizeOptionalProfileValue(raw.odRole);
   const odOrgSize = sanitizeOptionalProfileValue(raw.odOrgSize);
   const odSource = sanitizeOptionalProfileValue(raw.odSource);
   const odUseCase = sanitizeOptionalProfileList(raw.odUseCase);
   if (
-    pageName !== 'open_design'
+    pageName !== 'rethra_design'
     || sourcePageName !== 'onboarding'
     || area !== 'onboarding'
     || element !== 'about_you_submit'
     || action !== 'submit_profile'
     || typeof entryId !== 'string'
     || entryId.length === 0
-    || sourceProduct !== 'open_design'
+    || sourceProduct !== 'rethra_design'
     || typeof sourceDetail !== 'string'
     || !AMR_ENTRY_SOURCES.has(sourceDetail as TrackingAmrEntrySource)
     || !AMR_ONBOARDING_PROFILE_SOURCES.has(sourceDetail as TrackingAmrEntrySource)
@@ -1747,7 +1747,7 @@ function sanitizeOptionalProfileList(
   return cleaned.length > 0 ? cleaned : undefined;
 }
 
-function sanitizeOpenDesignDeviceId(value: unknown): string | null {
+function sanitizeRethraDesignDeviceId(value: unknown): string | null {
   if (typeof value !== 'string') return null;
   const trimmed = value.trim();
   if (!trimmed || trimmed.length > OD_DEVICE_ID_MAX_LENGTH) return null;
@@ -1816,12 +1816,12 @@ function velaLoginAttributionEnv(
 ): Record<string, string> {
   if (!attribution) return {};
   return {
-    OPEN_DESIGN_AMR_ENTRY_ID: attribution.entryId,
-    OPEN_DESIGN_AMR_ENTRY_SOURCE: attribution.sourceDetail,
-    OPEN_DESIGN_AMR_ENTRY_AT: attribution.occurredAt,
-    OPEN_DESIGN_AMR_ORIGIN: attribution.sourceProduct,
+    RETHRA_DESIGN_AMR_ENTRY_ID: attribution.entryId,
+    RETHRA_DESIGN_AMR_ENTRY_SOURCE: attribution.sourceDetail,
+    RETHRA_DESIGN_AMR_ENTRY_AT: attribution.occurredAt,
+    RETHRA_DESIGN_AMR_ORIGIN: attribution.sourceProduct,
     ...(attribution.odDeviceId
-      ? { OPEN_DESIGN_AMR_DEVICE_ID: attribution.odDeviceId }
+      ? { RETHRA_DESIGN_AMR_DEVICE_ID: attribution.odDeviceId }
       : {}),
   };
 }
@@ -1836,7 +1836,7 @@ function buildAmrEntryAnalyticsCommon(
   return {
     eventId: `od-amr-entry-${payload.entryId}`,
     eventTime: payload.entryOccurredAt,
-    registryKey: 'open_design_amr_entry',
+    registryKey: 'rethra_design_amr_entry',
     eventName: 'amr_entry',
     eventType: 'click',
     platform: 'web',
@@ -1868,7 +1868,7 @@ function buildAmrOnboardingProfileAnalyticsCommon(
   return {
     eventId: `od-onboarding-profile-${payload.entryId}`,
     eventTime: payload.profileOccurredAt,
-    registryKey: 'open_design_onboarding_profile',
+    registryKey: 'rethra_design_onboarding_profile',
     eventName: 'onboarding_profile',
     eventType: 'result',
     platform: 'web',
@@ -1890,11 +1890,11 @@ function buildAmrOnboardingProfileAnalyticsCommon(
 }
 
 function resolveAmrAnalyticsEventsUrl(env: NodeJS.ProcessEnv): string {
-  return env.OPEN_DESIGN_AMR_ANALYTICS_URL?.trim() || AMR_ANALYTICS_EVENTS_URL;
+  return env.RETHRA_DESIGN_AMR_ANALYTICS_URL?.trim() || AMR_ANALYTICS_EVENTS_URL;
 }
 
 function resolveAmrAnalyticsEnv(env: NodeJS.ProcessEnv): AmrAnalyticsEnv {
-  const raw = env.OPEN_DESIGN_AMR_ANALYTICS_ENV?.trim();
+  const raw = env.RETHRA_DESIGN_AMR_ANALYTICS_ENV?.trim();
   if (raw && AMR_ANALYTICS_ENVS.has(raw as AmrAnalyticsEnv)) {
     return raw as AmrAnalyticsEnv;
   }

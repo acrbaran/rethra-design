@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceScope": "open-design-bundled-fixture",
+  "sourceScope": "rethra-design-bundled-fixture",
   "brandId": "notion",
   "files": [
     "DESIGN.md",

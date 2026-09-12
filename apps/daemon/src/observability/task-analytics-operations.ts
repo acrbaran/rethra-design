@@ -6,7 +6,7 @@ import type {
   StrategyInputStageV2,
   StrategyRouteV2,
   StrategyTaskTypeV2,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import type {
   ObservationAvailabilityCountsV1,
@@ -14,7 +14,7 @@ import type {
   TaskObservationExportContextV1,
 } from './task-observation-aggregation.js';
 
-export const TASK_ANALYTICS_REPORT_SCHEMA = 'open-design.task-analytics-report/v1' as const;
+export const TASK_ANALYTICS_REPORT_SCHEMA = 'rethra-design.task-analytics-report/v1' as const;
 
 export type TaskAnalyticsBucketV1 = StrategyTaskTypeV2 | 'unknown';
 

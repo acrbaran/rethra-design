@@ -8,7 +8,7 @@ import { BrowserWindow, Menu, app, dialog, globalShortcut, shell, type MenuItemC
 
 import {
   APP_KEYS,
-  OPEN_DESIGN_SIDECAR_CONTRACT,
+  RETHRA_DESIGN_SIDECAR_CONTRACT,
   SIDECAR_MESSAGES,
   SIDECAR_MODES,
   isSidecarMode,
@@ -28,7 +28,7 @@ import {
   type RegisterDesktopAuthResult,
   type LegacySidecarRuntimeLayout,
   type WebStatusSnapshot,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 import { dirname, join } from "node:path";
 
 import {
@@ -37,7 +37,7 @@ import {
   SidecarFactory,
   type SidecarClient,
   type SidecarRuntimeContext,
-} from "@open-design/sidecar";
+} from "@rethra-design/sidecar";
 
 import { createDesktopRuntime, type DesktopRuntime } from "./runtime.js";
 import { dispatchInviteDeeplink, registerInviteDeeplink } from "./invite-deeplink.js";
@@ -104,7 +104,7 @@ export {
   type PickAndImportFolderResult,
 } from "./runtime.js";
 
-const AMR_PROFILE_ENV_KEY = "OPEN_DESIGN_AMR_PROFILE";
+const AMR_PROFILE_ENV_KEY = "RETHRA_DESIGN_AMR_PROFILE";
 const AMR_PROFILE_AGENT_ID = "amr";
 const AMR_ENVIRONMENT_PROFILES = ["prod", "test", "feature-test", "local"] as const;
 const APP_CONFIG_CHANGED_IPC_CHANNEL = "od:app-config-changed";
@@ -144,7 +144,7 @@ export function applyOsLocaleSwitch(electronApp: Electron.App): string {
 
 /**
  * Lift Chromium's hardcoded 6-connections-per-origin socket cap for the
- * loopback hosts every OpenDesign renderer talks to (directly in dev,
+ * loopback hosts every RethraDesign renderer talks to (directly in dev,
  * through the od:// proxy's main-process net.fetch when packaged).
  *
  * Long-lived SSE streams pin pool slots, and once the pool saturates,
@@ -207,7 +207,7 @@ export type DesktopMainOptions = {
    */
   discoverDaemonUrl: () => Promise<string | null>;
   registerDesktopAuth: (secret: Buffer) => Promise<boolean>;
-  /** Stable installed launcher used for Windows opendesign:// registration. */
+  /** Stable installed launcher used for Windows rethradesign:// registration. */
   inviteProtocolClientPath?: string | null;
   preloadPath?: string;
   windowTitle?: string;
@@ -569,20 +569,20 @@ function installDesktopMenu(
           {
             label: "Documentation",
             click() {
-              void shell.openExternal("https://github.com/nexu-io/open-design#readme");
+              void shell.openExternal("https://github.com/acrbaran/rethra-design#readme");
             },
           },
           { type: "separator" },
           {
             label: "Contact Us",
             click() {
-              void shell.openExternal("https://x.com/OpenDesignHQ");
+              void shell.openExternal("https://x.com/RethraDesignHQ");
             },
           },
           {
             label: "Report Issue",
             click() {
-              void shell.openExternal("https://github.com/nexu-io/open-design/issues/new");
+              void shell.openExternal("https://github.com/acrbaran/rethra-design/issues/new");
             },
           },
           {
@@ -615,7 +615,7 @@ function installDesktopMenu(
   });
   const registered = globalShortcut.register(developMenuAccelerator, toggleDevelopMenu);
   if (!registered) {
-    console.warn("[open-design desktop] develop menu shortcut unavailable", { accelerator: developMenuAccelerator });
+    console.warn("[rethra-design desktop] develop menu shortcut unavailable", { accelerator: developMenuAccelerator });
   }
   return {
     dispose() {
@@ -714,7 +714,7 @@ export async function runDesktopMain(
   const registered = await options.registerDesktopAuth(desktopAuthSecret);
   if (!registered) {
     console.warn(
-      "[open-design desktop] initial import-token handshake with daemon did not complete; " +
+      "[rethra-design desktop] initial import-token handshake with daemon did not complete; " +
         "first folder-import attempt will lazily retry registration before failing",
     );
   }
@@ -742,13 +742,13 @@ export async function runDesktopMain(
   // reader never looks in. Keeping both sides on `resolveRuntimeNamespaceRoot`
   // co-locates renderer.log with the desktop log dir AND keeps it captured.
   const namespaceRoot = resolveRuntimeNamespaceRoot({
-    contract: OPEN_DESIGN_SIDECAR_CONTRACT,
+    contract: RETHRA_DESIGN_SIDECAR_CONTRACT,
     runtime,
     runtimeMode: SIDECAR_MODES.RUNTIME,
   });
   const desktopLogPath = resolveLogFilePath({
     app: APP_KEYS.DESKTOP,
-    contract: OPEN_DESIGN_SIDECAR_CONTRACT,
+    contract: RETHRA_DESIGN_SIDECAR_CONTRACT,
     runtimeRoot: namespaceRoot,
   });
   const rendererLogPath = join(dirname(desktopLogPath), "renderer.log");
@@ -838,20 +838,20 @@ export async function runDesktopMain(
     shutdownPromise ??= Promise.resolve().then(async () => {
       const startedAt = Date.now();
       let shutdownFailed = false;
-      console.info("[open-design desktop] shutdown started");
+      console.info("[rethra-design desktop] shutdown started");
       updateScheduler?.stop("shutdown");
       await updater.recordLifecycle?.({ stage: "shutdown_started", outcome: "started" });
       await options.beforeShutdown?.((event) => updater.recordLifecycle?.(event) ?? Promise.resolve()).catch((error: unknown) => {
         shutdownFailed = true;
         console.error("desktop beforeShutdown failed", error);
       });
-      console.info("[open-design desktop] shutdown sidecars settled", { durationMs: Date.now() - startedAt });
+      console.info("[rethra-design desktop] shutdown sidecars settled", { durationMs: Date.now() - startedAt });
       disposeMenu();
       removeDiagnosticsIpc();
       await desktop?.close().catch(() => { shutdownFailed = true; });
       // Mark clean only after teardown; a stalled cleanup is not a clean exit.
       endDesktopSessionCleanly({ stateFilePath: sessionStatePath });
-      console.info("[open-design desktop] shutdown completed", { durationMs: Date.now() - startedAt });
+      console.info("[rethra-design desktop] shutdown completed", { durationMs: Date.now() - startedAt });
       await updater.recordLifecycle?.({ stage: "shutdown_completed", outcome: shutdownFailed ? "failed" : "completed", duration_ms: Date.now() - startedAt, repeated_quit_count: shutdownRequestCount - 1 });
       shutdownComplete = true;
       app.quit();
@@ -870,7 +870,7 @@ export async function runDesktopMain(
       });
       const startedAt = Date.now();
       const input = "input" in request ? summarizeDesktopIpcInput(request.input) : null;
-      console.info("[open-design desktop] sidecar action start", { input, type: request.type });
+      console.info("[rethra-design desktop] sidecar action start", { input, type: request.type });
       try {
         const activeDesktop = desktop;
         switch (request.type) {
@@ -908,14 +908,14 @@ export async function runDesktopMain(
             return await updater.handle((request.input as DesktopUpdateInput).action);
         }
       } catch (error) {
-        console.error("[open-design desktop] sidecar action failed", {
+        console.error("[rethra-design desktop] sidecar action failed", {
           durationMs: Date.now() - startedAt,
           error: error instanceof Error ? error.message : String(error),
           type: request.type,
         });
         throw error;
       } finally {
-        console.info("[open-design desktop] sidecar action end", {
+        console.info("[rethra-design desktop] sidecar action end", {
           durationMs: Date.now() - startedAt,
           type: request.type,
         });
@@ -935,7 +935,7 @@ export async function runDesktopMain(
   });
   disposeMenu = menuController.dispose;
 
-  console.info("[open-design desktop] creating desktop runtime");
+  console.info("[rethra-design desktop] creating desktop runtime");
   desktop = await createDesktopRuntime({
     desktopAuthSecret,
     discoverUrl: options.discoverWebUrl,
@@ -969,7 +969,7 @@ export async function runDesktopMain(
     pendingUpdateDialogRequest = false;
     desktop.openUpdateDialog({ source: "mac-app-menu" });
   }
-  console.info("[open-design desktop] desktop runtime created");
+  console.info("[rethra-design desktop] desktop runtime created");
   options.onDesktopReady?.({
     dispatchInviteDeeplink,
     show: () => {
@@ -982,7 +982,7 @@ export async function runDesktopMain(
   // it (best-effort; the events carry no user content). Each is dropped from the
   // queue only once the daemon acks it, so a failed report is retried next launch.
   if (previousUncleanSessions.length > 0) {
-    console.warn("[open-design desktop] prior session(s) ended abnormally (no clean shutdown)", {
+    console.warn("[rethra-design desktop] prior session(s) ended abnormally (no clean shutdown)", {
       count: previousUncleanSessions.length,
     });
     void reportPriorDesktopUncleanExits({
@@ -1003,12 +1003,12 @@ export async function runDesktopMain(
   removeDiagnosticsIpc = registerDesktopDiagnosticsIpc({
     discoverDaemonBaseUrl: resolveDaemonBaseUrl(options),
   });
-  // Route opendesign:// team-invite deeplinks to the daemon (desktop wake-up).
+  // Route rethradesign:// team-invite deeplinks to the daemon (desktop wake-up).
   registerInviteDeeplink({
     resolveDaemonBaseUrl: resolveDaemonBaseUrl(options),
     focus: () => focusDesktopForDeeplink(desktop),
     onCompleted: (outcome) => {
-      console.info("[open-design desktop] invite deeplink continuation completed", outcome);
+      console.info("[rethra-design desktop] invite deeplink continuation completed", outcome);
     },
     protocolClientPath: options.inviteProtocolClientPath,
   });

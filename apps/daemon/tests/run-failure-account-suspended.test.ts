@@ -30,7 +30,7 @@ import {
 } from '../src/run-failure-classification.js';
 
 const SUSPENDED_MESSAGE =
-  'Account temporarily suspended\nWe detected abnormal payment risk on this account and have temporarily suspended account access. If you believe this is a mistake, please contact support@open-design.ai and we will help investigate.';
+  'Account temporarily suspended\nWe detected abnormal payment risk on this account and have temporarily suspended account access. If you believe this is a mistake, please contact support@rethra-design.invalid and we will help investigate.';
 
 function errorEvent(
   code: string,

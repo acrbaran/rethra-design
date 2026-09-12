@@ -285,12 +285,12 @@ describe('deploy file set', () => {
     await writeFile(path.join(dir, 'page.html'), '<!doctype html><body><h1>Hello</h1></body>');
 
     const files = await buildDeployFileSet(projectsRoot, projectId, 'page.html', {
-      hookScriptUrl: 'https://cdn.example.com/open-design-hook.js',
+      hookScriptUrl: 'https://cdn.example.com/rethra-design-hook.js',
     });
     const html = files.find((f) => f.file === 'index.html')?.data.toString('utf8') ?? '';
 
     expect(html).toContain(
-      '<script src="https://cdn.example.com/open-design-hook.js" defer data-open-design-deploy-hook="true" data-closeable="true"></script></body>',
+      '<script src="https://cdn.example.com/rethra-design-hook.js" defer data-rethra-design-deploy-hook="true" data-closeable="true"></script></body>',
     );
   });
 
@@ -491,7 +491,7 @@ describe('deploy file set', () => {
     // A prototype that builds an HTML document string writes `</body>` as
     // ordinary content. Splicing there ends the author's script with the hook
     // tag's own `</script>` and leaks the rest onto the deployed page
-    // (nexu-io/open-design#7410).
+    // (nexu-io/rethra-design#7410).
     const authored = 'const doc = `<body>slip</body>`;';
     const html = '<!doctype html><html><head></head><body>'
       + `<script>${authored}<\/script><main>real</main></body></html>`;
@@ -499,8 +499,8 @@ describe('deploy file set', () => {
     const out = injectDeployHookScript(html, 'https://cdn.example.com/hook.js');
 
     expect(out).toContain(authored);
-    expect(out.indexOf('data-open-design-deploy-hook')).toBeGreaterThan(out.indexOf('<main>real</main>'));
-    expect(out.indexOf('data-open-design-deploy-hook')).toBeLessThan(out.lastIndexOf('</body>'));
+    expect(out.indexOf('data-rethra-design-deploy-hook')).toBeGreaterThan(out.indexOf('<main>real</main>'));
+    expect(out.indexOf('data-rethra-design-deploy-hook')).toBeLessThan(out.lastIndexOf('</body>'));
   });
 
   it('extracts url() and @import refs from inline <style> blocks', () => {

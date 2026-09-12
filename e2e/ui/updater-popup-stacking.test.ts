@@ -44,7 +44,7 @@ test.beforeEach(async ({ page }) => {
       },
       channel: 'prerelease',
       currentVersion: '0.14.1-prerelease.1',
-      downloadPath: '/tmp/open-design-update.dmg',
+      downloadPath: '/tmp/rethra-design-update.dmg',
       enabled: true,
       mode: 'package-launcher',
       platform: 'darwin',
@@ -88,7 +88,7 @@ for (const direction of ['ltr', 'rtl'] as const) {
     await mockAmrPersonalWorkspace(page);
     await page.setViewportSize({ width: 700, height: 600 });
     await page.goto('/', { waitUntil: 'domcontentloaded' });
-    await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: T.long });
+    await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: T.long });
     await expect(page.getByTestId('entry-nav-account')).toBeVisible();
     await page.locator('html').evaluate((element, dir) => element.setAttribute('dir', dir), direction);
 
@@ -132,7 +132,7 @@ test('[P1] signed-out update prompt stays clear of the composer and its agent pi
   await routeSignedOutVelaStatus(page);
   await page.setViewportSize({ width: 700, height: 600 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: T.long });
+  await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: T.long });
   await expect(page.getByTestId('home-hero')).toBeVisible();
 
   // Signed-out has no account capsule, but the updater keeps the same

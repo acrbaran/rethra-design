@@ -3,7 +3,7 @@ import {
   ATTRIBUTION_CLAIM_PATH,
   type AttributionClaimResponse,
   type AttributionClaimSource,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import type { AnalyticsService } from '../analytics.js';
 import type { AppConfigPrefs } from '../app-config.js';
 import {
@@ -13,7 +13,7 @@ import {
   type PendingAttribution,
 } from '../installation.js';
 
-const DEFAULT_ATTRIBUTION_LEDGER_URL = 'https://download.open-design.ai/api/attribution';
+const DEFAULT_ATTRIBUTION_LEDGER_URL = 'https://download.rethra-design.invalid/api/attribution';
 
 type ReadAppConfig = (dataDir: string) => Promise<AppConfigPrefs>;
 
@@ -331,7 +331,7 @@ function trustedFirstPartyUrl(value: string): URL | null {
   try {
     const url = new URL(value);
     if (url.protocol !== 'https:') return null;
-    return ['open-design.ai', 'www.open-design.ai', 'staging.open-design.ai'].includes(url.hostname)
+    return ['rethra-design.invalid', 'www.rethra-design.invalid', 'staging.rethra-design.invalid'].includes(url.hostname)
       ? url
       : null;
   } catch {

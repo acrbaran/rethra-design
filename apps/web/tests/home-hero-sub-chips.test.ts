@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { InstalledPluginRecord } from '@open-design/contracts';
-import { automaticStrategyTaskProfileForRouteId } from '@open-design/contracts';
+import type { InstalledPluginRecord } from '@rethra-design/contracts';
+import { automaticStrategyTaskProfileForRouteId } from '@rethra-design/contracts';
 import {
   filterPluginsBySubChip,
   isSubChipParent,

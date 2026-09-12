@@ -4,7 +4,7 @@
  * event-shape diagnostics. Depends on acp/types, acp/json, and the vela-errors
  * integration; consumed exclusively by acp/session.ts.
  */
-import { isTodoWriteToolName } from '@open-design/contracts';
+import { isTodoWriteToolName } from '@rethra-design/contracts';
 import { createHash } from 'node:crypto';
 import type { JsonObject } from './types.js';
 import { asObject, acpValueKind, objectKeys, extractAcpUpdateText } from './json.js';
@@ -129,7 +129,7 @@ export function acpUpdateDiagnosticText(value: unknown, depth = 0): string[] {
   return parts;
 }
 /**
- * Promotes an AMR `retry` status update into a structured OpenDesign error
+ * Promotes an AMR `retry` status update into a structured RethraDesign error
  * payload when the update's diagnostic text matches a known AMR account failure
  * pattern (e.g. quota exceeded, auth failure). Returns `null` when the update
  * is not a retry or does not match a known pattern.
@@ -150,14 +150,14 @@ export function promotedAmrRetryStatusPayload(update: JsonObject) {
       retryable: false,
       details: {
         ...amrAccountFailureDetails(failure),
-        promoted_by: 'open_design_acp_retry_status',
+        promoted_by: 'rethra_design_acp_retry_status',
       },
     },
   };
 }
 /**
  * Scans a rolling tail of AMR stderr output for known retry/session-failure
- * signals and promotes a match to a structured OpenDesign error payload.
+ * signals and promotes a match to a structured RethraDesign error payload.
  * Returns `null` when the chunk does not contain the expected markers or does
  * not match a known failure pattern.
  *
@@ -177,7 +177,7 @@ export function promotedAmrStderrPayload(chunk: string) {
       retryable: false,
       details: {
         ...amrAccountFailureDetails(failure),
-        promoted_by: 'open_design_acp_stderr_retry_status',
+        promoted_by: 'rethra_design_acp_stderr_retry_status',
       },
     },
   };

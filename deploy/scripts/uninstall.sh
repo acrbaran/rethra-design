@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# OpenDesign — Uninstaller
+# RethraDesign — Uninstaller
 # Stops and removes the Docker Compose deployment
 #
 # Usage: ./uninstall.sh [--keep-data] [--non-interactive]
@@ -82,7 +82,7 @@ for arg in "$@"; do
     --keep-data)       KEEP_DATA=1 ;;
     --help|-h)
       echo "Usage: uninstall.sh [options]"
-      echo "  --keep-data         Preserve the open_design_data volume"
+      echo "  --keep-data         Preserve the rethra_design_data volume"
       echo "  --non-interactive   Skip confirmation prompts"
       exit 0
       ;;
@@ -95,7 +95,7 @@ done
 printf "\n"
 printf "${BOLD}  ┌──────────────────────────────────────┐${RESET}\n"
 printf "${BOLD}  │${RESET}                                      ${BOLD}│${RESET}\n"
-printf "${BOLD}  │${RESET}   ${CYAN}◈${RESET}  ${BOLD}OpenDesign${RESET}                     ${BOLD}│${RESET}\n"
+printf "${BOLD}  │${RESET}   ${CYAN}◈${RESET}  ${BOLD}RethraDesign${RESET}                     ${BOLD}│${RESET}\n"
 printf "${BOLD}  │${RESET}      ${DIM}Uninstaller${RESET}                     ${BOLD}│${RESET}\n"
 printf "${BOLD}  │${RESET}                                      ${BOLD}│${RESET}\n"
 printf "${BOLD}  └──────────────────────────────────────┘${RESET}\n"
@@ -104,9 +104,9 @@ printf "\n"
 # ---------------------------------------------------------------------------
 # Find data volume (Compose prepends project name)
 # ---------------------------------------------------------------------------
-CONTAINER_NAME="${COMPOSE_CONTAINER_NAME:-open-design}"
-VOLUME_BASE="${COMPOSE_VOLUME_NAME:-open_design_data}"
-PROJECT_NAME="${COMPOSE_PROJECT_NAME:-open-design}"
+CONTAINER_NAME="${COMPOSE_CONTAINER_NAME:-rethra-design}"
+VOLUME_BASE="${COMPOSE_VOLUME_NAME:-rethra_design_data}"
+PROJECT_NAME="${COMPOSE_PROJECT_NAME:-rethra-design}"
 
 DATA_VOLUME=""
 for _vol in "${PROJECT_NAME}_${VOLUME_BASE}" "${VOLUME_BASE}"; do
@@ -157,12 +157,12 @@ _do_backup() {
 
 if [ "$KEEP_DATA" = "0" ] && [ -n "$DATA_VOLUME" ]; then
   if [ "$NON_INTERACTIVE" = "0" ]; then
-    _default_backup="${HOME}/open-design-backup-$(date +%Y%m%d%H%M%S)"
+    _default_backup="${HOME}/rethra-design-backup-$(date +%Y%m%d%H%M%S)"
     prompt_text "Backup destination" "$_default_backup"
     BACKUP_DIR="$PROMPT_RESULT"
     _do_backup "$BACKUP_DIR"
   else
-    BACKUP_DIR="${HOME}/open-design-backup-$(date +%Y%m%d%H%M%S)"
+    BACKUP_DIR="${HOME}/rethra-design-backup-$(date +%Y%m%d%H%M%S)"
     _do_backup "$BACKUP_DIR"
   fi
 fi
@@ -205,10 +205,10 @@ if [ "$KEEP_DATA" = "0" ] && [ -n "$DATA_VOLUME" ]; then
 fi
 
 # Remove systemd unit (Linux)
-SYSTEMD_UNIT="${HOME}/.config/systemd/user/open-design.service"
+SYSTEMD_UNIT="${HOME}/.config/systemd/user/rethra-design.service"
 if [ -f "$SYSTEMD_UNIT" ]; then
   step "Removing systemd unit..."
-  systemctl --user disable --now open-design 2>/dev/null || true
+  systemctl --user disable --now rethra-design 2>/dev/null || true
   rm -f "$SYSTEMD_UNIT"
   systemctl --user daemon-reload
   ok "systemd unit removed."

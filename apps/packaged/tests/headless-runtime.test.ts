@@ -6,7 +6,7 @@ import {
   resolvePackagedMcpBootstrapLaunch,
   runPackagedMcpActionAgainstExistingDaemon,
 } from "../src/headless-runtime.js";
-import { APP_KEYS, SIDECAR_SOURCES } from "@open-design/sidecar-proto";
+import { APP_KEYS, SIDECAR_SOURCES } from "@rethra-design/sidecar-proto";
 
 describe("parsePackagedHeadlessRequest", () => {
   it("accepts a headless Codex MCP install request", () => {
@@ -33,15 +33,15 @@ describe("resolvePackagedMcpBootstrapLaunch", () => {
   it("uses macOS open against the stable signed app bundle", () => {
     expect(resolvePackagedMcpBootstrapLaunch({
       currentExecutablePath:
-        "/private/payload/Open Design.app/Contents/MacOS/Open Design",
-      installedLaunchPath: "/Applications/Open Design.app",
+        "/private/payload/Rethra Design.app/Contents/MacOS/Rethra Design",
+      installedLaunchPath: "/Applications/Rethra Design.app",
       platform: "darwin",
     })).toEqual({
       command: "/usr/bin/open",
       args: [
         "-g",
         "-j",
-        "/Applications/Open Design.app",
+        "/Applications/Rethra Design.app",
         "--args",
         "--headless",
       ],
@@ -50,11 +50,11 @@ describe("resolvePackagedMcpBootstrapLaunch", () => {
 
   it("invokes a non-macOS installed launcher directly", () => {
     expect(resolvePackagedMcpBootstrapLaunch({
-      currentExecutablePath: "/tmp/payload/open-design",
-      installedLaunchPath: "/opt/open-design/open-design",
+      currentExecutablePath: "/tmp/payload/rethra-design",
+      installedLaunchPath: "/opt/rethra-design/rethra-design",
       platform: "linux",
     })).toEqual({
-      command: "/opt/open-design/open-design",
+      command: "/opt/rethra-design/rethra-design",
       args: ["--headless"],
     });
   });

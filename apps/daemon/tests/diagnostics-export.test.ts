@@ -11,8 +11,8 @@ import {
   SIDECAR_MODES,
   SIDECAR_SOURCES,
   type LegacySidecarRuntimeLayout,
-} from '@open-design/sidecar-proto';
-import type { SidecarRuntimeContext } from '@open-design/sidecar';
+} from '@rethra-design/sidecar-proto';
+import type { SidecarRuntimeContext } from '@rethra-design/sidecar';
 
 import {
   STANDALONE_LAUNCH_WARNING,
@@ -102,7 +102,7 @@ describe('diagnostics export handler — non-sidecar launch', () => {
         JSON.stringify({
           agentCliEnv: {
             amr: {
-              OPEN_DESIGN_AMR_PROFILE: 'local',
+              RETHRA_DESIGN_AMR_PROFILE: 'local',
               VELA_LINK_URL: 'https://settings-only.example.test/link',
               VELA_RUNTIME_KEY: runtimeKey,
             },
@@ -425,7 +425,7 @@ describe('diagnostics export handler — run event logs', () => {
     const runsDir = join(root, 'runs');
     const runLogPath = join(runsDir, 'run-sensitive', 'events.jsonl');
     const username = userInfo().username;
-    const homePath = `/Users/${username}/open-design/project`;
+    const homePath = `/Users/${username}/rethra-design/project`;
     const secretBearer = 'od_bearer_secret_12345';
     const secretQuery = 'query-token-secret';
     const secretApiKey = 'api-key-secret';
@@ -503,7 +503,7 @@ describe('diagnostics export handler — run event logs', () => {
       expect(runLog).toContain('Bearer [REDACTED]');
       expect(runLog).toContain('access_token=[REDACTED]');
       expect(runLog).toContain('api_key=[REDACTED]');
-      expect(runLog).toContain('/Users/<USER>/open-design/project');
+      expect(runLog).toContain('/Users/<USER>/rethra-design/project');
       expect(runLog).not.toContain(secretBearer);
       expect(runLog).not.toContain(secretQuery);
       expect(runLog).not.toContain(secretApiKey);

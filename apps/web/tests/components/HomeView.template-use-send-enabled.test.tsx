@@ -24,7 +24,7 @@
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import type { WorkspaceCollabContext } from '@open-design/contracts';
+import type { WorkspaceCollabContext } from '@rethra-design/contracts';
 import { HomeView } from '../../src/components/HomeView';
 import { createPluginUseHandoff } from '../../src/components/home-hero/plugin-authoring';
 import { I18nProvider } from '../../src/i18n';
@@ -55,7 +55,7 @@ const BASE = {
   updatedAt: 0,
 };
 
-// Shaped after plugins/_official/examples/html-ppt-pitch-deck/open-design.json:
+// Shaped after plugins/_official/examples/html-ppt-pitch-deck/rethra-design.json:
 // three required fields with a `placeholder` but no `default`, and a useCase
 // query that carries no `{{...}}` placeholders (so the seed comes from the
 // description and no queryTemplate is tracked -> no write-back surface).

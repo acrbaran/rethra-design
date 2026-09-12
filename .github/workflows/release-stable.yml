@@ -115,7 +115,7 @@ permissions:
   packages: write
 
 concurrency:
-  group: open-design-release-stable-${{ inputs.dry_run }}
+  group: rethra-design-release-stable-${{ inputs.dry_run }}
   cancel-in-progress: false
 
 env:
@@ -133,12 +133,12 @@ env:
   # defaults to prod); it exists to satisfy the first half of the gate. A fork
   # or PR build without the secret leaves the origin empty, which keeps the
   # transports dormant rather than half-enabled.
-  OPEN_DESIGN_AMR_PROFILE: prod
+  RETHRA_DESIGN_AMR_PROFILE: prod
   OD_VELA_WEB_URL: ${{ secrets.VELA_WEB_URL_PROD }}
   OD_VELA_WEB_URL_FEATURE_TEST: ${{ secrets.VELA_WEB_URL_FEATURE_TEST }}
   OD_VELA_WEB_URL_TEST: ${{ secrets.VELA_WEB_URL_TEST }}
   OD_VELA_WEB_URL_PROD: ${{ secrets.VELA_WEB_URL_PROD }}
-  OPEN_DESIGN_TELEMETRY_RELAY_URL: ${{ vars.OPEN_DESIGN_TELEMETRY_RELAY_URL }}
+  RETHRA_DESIGN_TELEMETRY_RELAY_URL: ${{ vars.RETHRA_DESIGN_TELEMETRY_RELAY_URL }}
   # PostHog product-analytics ingest. Defined as repository secret + var
   # so official builds ship with analytics enabled; PR builds and forks
   # without these run the daemon in no-op analytics mode (events never
@@ -168,16 +168,16 @@ env:
 jobs:
   metadata:
     name: Prepare release metadata
-    if: github.repository == 'nexu-io/open-design'
+    if: github.repository == 'nexu-io/rethra-design'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
       GITHUB_REPOSITORY: ${{ github.repository }}
-      OPEN_DESIGN_PRERELEASE_METADATA_URL: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}/prerelease/latest/metadata.json
-      OPEN_DESIGN_RELEASE_DRY_RUN: ${{ inputs.dry_run == 'publish' && 'false' || inputs.dry_run }}
-      OPEN_DESIGN_RELEASE_CHANNEL: stable
-      OPEN_DESIGN_RELEASES_PUBLIC_ORIGIN: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}
-      OPEN_DESIGN_STABLE_PRERELEASE_VERSION: ${{ inputs.prerelease_version }}
+      RETHRA_DESIGN_PRERELEASE_METADATA_URL: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}/prerelease/latest/metadata.json
+      RETHRA_DESIGN_RELEASE_DRY_RUN: ${{ inputs.dry_run == 'publish' && 'false' || inputs.dry_run }}
+      RETHRA_DESIGN_RELEASE_CHANNEL: stable
+      RETHRA_DESIGN_RELEASES_PUBLIC_ORIGIN: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}
+      RETHRA_DESIGN_STABLE_PRERELEASE_VERSION: ${{ inputs.prerelease_version }}
     outputs:
       base_version: ${{ steps.stable.outputs.base_version }}
       branch: ${{ steps.stable.outputs.branch }}
@@ -234,7 +234,7 @@ jobs:
         id: prev
         run: |
           set -euo pipefail
-          prev="$(curl -fsSL "$OPEN_DESIGN_PRERELEASE_METADATA_URL" | jq -r '.github.commit // ""' 2>/dev/null || true)"
+          prev="$(curl -fsSL "$RETHRA_DESIGN_PRERELEASE_METADATA_URL" | jq -r '.github.commit // ""' 2>/dev/null || true)"
           echo "previous prerelease commit: ${prev:-<none>}"
           echo "previous_commit=$prev" >> "$GITHUB_OUTPUT"
 
@@ -299,13 +299,13 @@ jobs:
       # (every CI run), workspace typecheck fails because:
       #   - packaged/runtime consumers resolve the daemon package export through
       #     generated `apps/daemon/dist/*.d.ts`
-      #   - `apps/packaged/src/index.ts` dynamic-imports `@open-design/desktop/main`
+      #   - `apps/packaged/src/index.ts` dynamic-imports `@rethra-design/desktop/main`
       #     which resolves to `apps/desktop/dist/main/index.d.ts`
       # Build them explicitly here. Keeps the root `typecheck` script untouched.
       - name: Build daemon and desktop (typecheck dependencies)
         run: |
-          pnpm --filter @open-design/daemon build
-          pnpm --filter @open-design/desktop build
+          pnpm --filter @rethra-design/daemon build
+          pnpm --filter @rethra-design/desktop build
 
       - name: Typecheck workspaces
         run: pnpm -r --workspace-concurrency=4 --if-present run typecheck
@@ -378,7 +378,7 @@ jobs:
           APPLE_SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_SIGNING_CERTIFICATE_PASSWORD }}
         run: |
           set -euo pipefail
-          cert_path="$RUNNER_TEMP/open-design-signing.p12"
+          cert_path="$RUNNER_TEMP/rethra-design-signing.p12"
           if ! printf '%s' "$APPLE_SIGNING_CERTIFICATE_BASE64" | base64 --decode > "$cert_path" 2>/dev/null; then
             printf '%s' "$APPLE_SIGNING_CERTIFICATE_BASE64" | base64 -D > "$cert_path"
           fi
@@ -428,9 +428,9 @@ jobs:
           output="$RUNNER_TEMP/mac-framework-diagnostics.txt"
           source_resolve_log="$RUNNER_TEMP/mac-framework-source-resolve.err"
           source_framework="$(node -e 'const path = require("node:path"); const { createRequire } = require("node:module"); const requireFromDesktop = createRequire(path.join(process.cwd(), "apps/desktop/package.json")); const electron = requireFromDesktop.resolve("electron"); process.stdout.write(path.join(path.dirname(electron), "dist", "Electron.app", "Contents", "Frameworks", "Electron Framework.framework"));' 2>"$source_resolve_log" || true)"
-          app_name="Open Design.app"
+          app_name="Rethra Design.app"
           if [ "${{ needs.metadata.outputs.channel }}" = "prerelease" ]; then
-            app_name="Open Design Prerelease.app"
+            app_name="Rethra Design Prerelease.app"
           fi
           built_framework="$RUNNER_TEMP/tools-pack/out/mac/namespaces/${{ needs.metadata.outputs.namespace }}/builder/mac-arm64/$app_name/Contents/Frameworks/Electron Framework.framework"
 
@@ -492,7 +492,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-stable-mac-build-diagnostics
+          name: rethra-design-stable-mac-build-diagnostics
           path: |
             ${{ runner.temp }}/mac-tools-pack-build.log
             ${{ runner.temp }}/mac-tools-pack-build.json
@@ -519,7 +519,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-mac-e2e-report
+          name: rethra-design-release-mac-e2e-report
           path: ${{ runner.temp }}/release-report/mac
           if-no-files-found: warn
 
@@ -532,7 +532,7 @@ jobs:
           RELEASE_BRANCH: ${{ needs.metadata.outputs.branch }}
           RELEASE_CHANNEL: ${{ needs.metadata.outputs.channel }}
           RELEASE_NAMESPACE: ${{ needs.metadata.outputs.namespace }}
-          RELEASE_NOTES: OpenDesign ${{ needs.metadata.outputs.release_version }}
+          RELEASE_NOTES: RethraDesign ${{ needs.metadata.outputs.release_version }}
           RELEASE_PUBLIC_ORIGIN: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}
           RELEASE_TARGET: mac_arm64
           RELEASE_VERSION: ${{ needs.metadata.outputs.release_version }}
@@ -567,7 +567,7 @@ jobs:
       - name: Upload mac publish manifest
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-mac-arm64-publish-manifest
+          name: rethra-design-release-mac-arm64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests/mac_arm64.json
           if-no-files-found: error
           retention-days: 1
@@ -575,7 +575,7 @@ jobs:
       - name: Upload mac release bundle
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-mac-release-assets
+          name: rethra-design-release-mac-release-assets
           path: ${{ runner.temp }}/release-assets
           retention-days: 1
 
@@ -612,7 +612,7 @@ jobs:
           APPLE_SIGNING_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_SIGNING_CERTIFICATE_PASSWORD }}
         run: |
           set -euo pipefail
-          cert_path="$RUNNER_TEMP/open-design-signing.p12"
+          cert_path="$RUNNER_TEMP/rethra-design-signing.p12"
           if ! printf '%s' "$APPLE_SIGNING_CERTIFICATE_BASE64" | base64 --decode > "$cert_path" 2>/dev/null; then
             printf '%s' "$APPLE_SIGNING_CERTIFICATE_BASE64" | base64 -D > "$cert_path"
           fi
@@ -681,7 +681,7 @@ jobs:
       - name: Upload mac intel publish manifest
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-mac-x64-publish-manifest
+          name: rethra-design-release-mac-x64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests/mac_x64.json
           if-no-files-found: error
           retention-days: 1
@@ -689,7 +689,7 @@ jobs:
       - name: Upload mac intel release bundle
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-mac-intel-release-assets
+          name: rethra-design-release-mac-intel-release-assets
           path: ${{ runner.temp }}/release-assets
           retention-days: 1
 
@@ -859,7 +859,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-win-e2e-report
+          name: rethra-design-release-win-e2e-report
           path: ${{ runner.temp }}/release-report/win
           if-no-files-found: warn
 
@@ -904,7 +904,7 @@ jobs:
             -ReleaseAssetSuffix "" `
             -ReleaseChannel "${{ needs.metadata.outputs.channel }}" `
             -ReleasePublicOrigin "${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}" `
-            -ReleaseNotes "OpenDesign ${{ needs.metadata.outputs.release_version }}" `
+            -ReleaseNotes "RethraDesign ${{ needs.metadata.outputs.release_version }}" `
             -IncludeZip $true
 
       - name: Publish windows platform
@@ -934,7 +934,7 @@ jobs:
       - name: Upload windows publish manifest
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-win-x64-publish-manifest
+          name: rethra-design-release-win-x64-publish-manifest
           path: ${{ runner.temp }}\release-platform-manifests\win_x64.json
           if-no-files-found: error
           retention-days: 1
@@ -942,7 +942,7 @@ jobs:
       - name: Upload windows release bundle
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-win-release-assets
+          name: rethra-design-release-win-release-assets
           path: ${{ runner.temp }}/release-assets
           retention-days: 1
 
@@ -1014,7 +1014,7 @@ jobs:
         env:
           OD_PACKAGED_E2E_LINUX_APPIMAGE: "1"
           OD_PACKAGED_E2E_NAMESPACE: ${{ needs.metadata.outputs.linux_namespace }}
-          OD_PACKAGED_E2E_SCREENSHOT_PATH: ${{ runner.temp }}/release-report/linux/screenshots/open-design-linux-smoke.png
+          OD_PACKAGED_E2E_SCREENSHOT_PATH: ${{ runner.temp }}/release-report/linux/screenshots/rethra-design-linux-smoke.png
           OD_PACKAGED_E2E_TOOLS_PACK_DIR: ${{ runner.temp }}/tools-pack
         run: |
           set -euo pipefail
@@ -1027,7 +1027,7 @@ jobs:
             "releaseVersion": "${{ needs.metadata.outputs.release_version }}",
             "spec": "specs/linux.spec.ts",
             "namespace": "${{ needs.metadata.outputs.linux_namespace }}",
-            "screenshot": "screenshots/open-design-linux-smoke.png",
+            "screenshot": "screenshots/rethra-design-linux-smoke.png",
             "githubRunId": "$GITHUB_RUN_ID",
             "githubRunAttempt": "$GITHUB_RUN_ATTEMPT",
             "commit": "$GITHUB_SHA"
@@ -1041,7 +1041,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-linux-e2e-report
+          name: rethra-design-release-linux-e2e-report
           path: ${{ runner.temp }}/release-report/linux
           if-no-files-found: warn
 
@@ -1084,7 +1084,7 @@ jobs:
       - name: Upload linux publish manifest
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-linux-x64-publish-manifest
+          name: rethra-design-release-linux-x64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests/linux_x64.json
           if-no-files-found: error
           retention-days: 1
@@ -1092,7 +1092,7 @@ jobs:
       - name: Upload linux release bundle
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-release-linux-release-assets
+          name: rethra-design-release-linux-release-assets
           path: ${{ runner.temp }}/release-assets
           retention-days: 1
 
@@ -1194,26 +1194,26 @@ jobs:
       - name: Download mac publish manifest
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-mac-arm64-publish-manifest
+          name: rethra-design-release-mac-arm64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests
 
       - name: Download mac intel publish manifest
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-mac-x64-publish-manifest
+          name: rethra-design-release-mac-x64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests
 
       - name: Download windows publish manifest
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-win-x64-publish-manifest
+          name: rethra-design-release-win-x64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests
 
       - name: Download linux publish manifest
         if: ${{ needs.build_linux.result == 'success' }}
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-linux-x64-publish-manifest
+          name: rethra-design-release-linux-x64-publish-manifest
           path: ${{ runner.temp }}/release-platform-manifests
 
       - name: Pre-flight tag/release check
@@ -1232,39 +1232,39 @@ jobs:
       - name: Download mac release bundle
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-mac-release-assets
+          name: rethra-design-release-mac-release-assets
           path: ${{ runner.temp }}/release-assets/mac
 
       - name: Download mac intel release bundle
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-mac-intel-release-assets
+          name: rethra-design-release-mac-intel-release-assets
           path: ${{ runner.temp }}/release-assets/mac-intel
 
       - name: Download windows release bundle
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-win-release-assets
+          name: rethra-design-release-win-release-assets
           path: ${{ runner.temp }}/release-assets/win
 
       - name: Download linux release bundle
         if: ${{ needs.build_linux.result == 'success' }}
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-linux-release-assets
+          name: rethra-design-release-linux-release-assets
           path: ${{ runner.temp }}/release-assets/linux
 
       - name: Download linux e2e spec report
         if: ${{ needs.build_linux.result == 'success' }}
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-linux-e2e-report
+          name: rethra-design-release-linux-e2e-report
           path: ${{ runner.temp }}/release-report/linux
 
       - name: Download mac e2e spec report
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-mac-e2e-report
+          name: rethra-design-release-mac-e2e-report
           path: ${{ runner.temp }}/release-report/mac
 
       # The windows smoke uploads this artifact with `if-no-files-found: warn`,
@@ -1278,7 +1278,7 @@ jobs:
         if: ${{ inputs.win_x64_smoke_mode != 'skip' }}
         uses: actions/download-artifact@v8
         with:
-          name: open-design-release-win-e2e-report
+          name: rethra-design-release-win-e2e-report
           path: ${{ runner.temp }}/release-report/win
 
       - name: Prepare stable GitHub Release asset plan

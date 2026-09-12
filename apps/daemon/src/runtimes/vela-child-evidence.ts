@@ -5,7 +5,7 @@ import {
   type NormalizedAgentObservationV1,
   type RuntimeObservationEvidenceLevelV1,
   type StrategyInputStageV2,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   buildSafeChildPromptTelemetry,
   type SafeChildPromptInput,
@@ -756,7 +756,7 @@ export function adaptVelaChildRuntimeFactV1(
         bytes: fact.prompt.bytes,
         ...(fact.prompt.safePayload ? { safePayload: fact.prompt.safePayload } : {}),
         limitations: fact.prompt.safePayload
-          ? ['Vela Child Prompt text was re-redacted and bounded by Open Design.']
+          ? ['Vela Child Prompt text was re-redacted and bounded by Rethra Design.']
           : ['Only Prompt hash and byte length are retained from Vela.'],
       }
     : {

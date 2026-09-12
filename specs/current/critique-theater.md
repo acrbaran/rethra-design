@@ -9,7 +9,7 @@ The split is deliberate. Engineers reason about the system; users hire a jury.
 
 ## Purpose
 
-Critique Theater turns OpenDesign's single-pass artifact generation into a panel-tempered, scored, replayable process. Every artifact is born through a visible five-person Design Jury (Designer, Critic, Brand, A11y, Copy) running inside one CLI session, with auto-converging rounds bounded by a configurable score threshold. By default, no artifact ships under 8.0/10.
+Critique Theater turns Rethra Design's single-pass artifact generation into a panel-tempered, scored, replayable process. Every artifact is born through a visible five-person Design Jury (Designer, Critic, Brand, A11y, Copy) running inside one CLI session, with auto-converging rounds bounded by a configurable score threshold. By default, no artifact ships under 8.0/10.
 
 This spec is normative for the v1 implementation and protocol. It is the source of truth that the prompt template, the daemon parser, the SSE event schema, the SQLite columns, the Theater UI components, and the adapter conformance suite all derive from.
 
@@ -26,7 +26,7 @@ This spec is normative for the v1 implementation and protocol. It is the source 
 The non-goals above are intentional, not arbitrary. Future readers should know the tradeoff that led to each.
 
 - **No parallel processes.** A single CLI session keeps the agent's full context coherent: the Designer's draft and every later panelist's notes share one model context, so the Critic can see the actual hierarchy values the Designer chose, the Brand panelist can read the same DESIGN.md the Designer was passed, and the Copy panelist can pick at the verbs the Designer wrote. Splitting this across processes would require a cross-process artifact handoff and a way to replay prior-panelist notes into each one's context, which adds an estimated two to three weeks to the v1 timeline and turns a debugging session into a multi-process trace correlation problem.
-- **No new agent runtime.** The same on-PATH CLI OpenDesign already detects (Claude Code, Codex, Cursor Agent, OpenCode, and the other registered definitions) is how this feature reaches users. Building a runtime would replicate work that the existing daemon already does well, would force users onto a model we picked rather than the one they signed up for, and would lose BYOK at every layer.
+- **No new agent runtime.** The same on-PATH CLI Rethra Design already detects (Claude Code, Codex, Cursor Agent, OpenCode, and the other registered definitions) is how this feature reaches users. Building a runtime would replicate work that the existing daemon already does well, would force users onto a model we picked rather than the one they signed up for, and would lose BYOK at every layer.
 - **No new SSE transport.** SSE is already plumbed through the daemon, the web app, the Electron shell, and the desktop sidecar IPC. A second transport would force every consumer to learn a second connection lifecycle, which is exactly the kind of accidental complexity that takes a feature out of v1.
 - **No configurable cast in v1.** A fixed five-panelist roster lets the composite formula and weight defaults stay constant across every artifact. A configurable cast adds UX surface (per-skill picker, override storage, settings sync) and requires the score formula to redistribute weight on the fly. We commit to v2 once we have data on which roles users actually drop or add.
 - **No new skill protocol.** Critique Theater layers on top of the skill loader; it does not change what a skill is. Existing skills, bundled design systems, and future contributions inherit the panel without per-skill migration work.
@@ -446,16 +446,16 @@ Each failure mode above has an empirical rate target, a deterministic recovery p
 
 | Failure | Target rate | Recovery | Prometheus signal | Alert threshold |
 | --- | --- | --- | --- | --- |
-| `malformed_block` | < 0.5% of runs per adapter | emit `critique.degraded`, fall through to legacy single-pass generation. No retry. | `open_design_critique_degraded_total{reason="malformed_block",adapter="..."}` | sustained > 2% over 1h on any single adapter |
-| `oversize_block` | < 0.1% of runs | same as `malformed_block` plus the parser's position is logged for postmortem | `open_design_critique_degraded_total{reason="oversize_block"}` | any non-zero sustained rate is treated as a model regression and pages |
-| `missing_artifact` | < 0.2% of runs | degraded fallback, prompt template flagged for review (it should make this impossible) | `open_design_critique_degraded_total{reason="missing_artifact"}` | > 1% over 24h |
-| Score never crosses threshold | < 5% of runs at M3 default | apply `fallbackPolicy` (default `ship_best`); badge tagged `below_threshold`; user can re-run | `open_design_critique_runs_total{status="below_threshold"}` | > 15% sustained over 24h is a quality regression |
-| Per-round timeout | < 1% of runs | abort current round, ship best-so-far, badge tagged `timed_out` | `open_design_critique_runs_total{status="timed_out"}` | > 3% over 1h on any adapter |
+| `malformed_block` | < 0.5% of runs per adapter | emit `critique.degraded`, fall through to legacy single-pass generation. No retry. | `rethra_design_critique_degraded_total{reason="malformed_block",adapter="..."}` | sustained > 2% over 1h on any single adapter |
+| `oversize_block` | < 0.1% of runs | same as `malformed_block` plus the parser's position is logged for postmortem | `rethra_design_critique_degraded_total{reason="oversize_block"}` | any non-zero sustained rate is treated as a model regression and pages |
+| `missing_artifact` | < 0.2% of runs | degraded fallback, prompt template flagged for review (it should make this impossible) | `rethra_design_critique_degraded_total{reason="missing_artifact"}` | > 1% over 24h |
+| Score never crosses threshold | < 5% of runs at M3 default | apply `fallbackPolicy` (default `ship_best`); badge tagged `below_threshold`; user can re-run | `rethra_design_critique_runs_total{status="below_threshold"}` | > 15% sustained over 24h is a quality regression |
+| Per-round timeout | < 1% of runs | abort current round, ship best-so-far, badge tagged `timed_out` | `rethra_design_critique_runs_total{status="timed_out"}` | > 3% over 1h on any adapter |
 | Total timeout | < 0.5% of runs | `SIGTERM` CLI, ship best-so-far, transcript marked partial | same series, distinguished by lifecycle attribute | shares the per-round timeout alert |
-| User Interrupt | not an error; signal of latency or unwanted direction | preserve transcript, ship best-so-far if any round closed | `open_design_critique_interrupted_total{adapter="..."}` | > 10% over 24h is a UX problem worth investigating |
-| CLI process crash | < 0.05% of runs | fail loud with `critique.failed`, no silent retry, daemon process surfaces the cause | `open_design_critique_runs_total{status="failed",cause="cli_exit_nonzero"}` | any non-zero sustained rate pages |
-| Daemon restart mid-run | unbounded (depends on operator action) | persist `interrupted` with `recoveryReason="daemon_restart"`, never auto-resume | `open_design_critique_runs_total{status="interrupted",cause="daemon_restart"}` | informational, no alert |
-| Adapter unsupported | adapter-specific; surfaces during conformance | adapter marked `critique:degraded` in registry with 24h TTL; degraded banner once per session | `open_design_critique_degraded_total{reason="adapter_unsupported",adapter="..."}` | one alert per adapter on first hit, suppressed during TTL |
+| User Interrupt | not an error; signal of latency or unwanted direction | preserve transcript, ship best-so-far if any round closed | `rethra_design_critique_interrupted_total{adapter="..."}` | > 10% over 24h is a UX problem worth investigating |
+| CLI process crash | < 0.05% of runs | fail loud with `critique.failed`, no silent retry, daemon process surfaces the cause | `rethra_design_critique_runs_total{status="failed",cause="cli_exit_nonzero"}` | any non-zero sustained rate pages |
+| Daemon restart mid-run | unbounded (depends on operator action) | persist `interrupted` with `recoveryReason="daemon_restart"`, never auto-resume | `rethra_design_critique_runs_total{status="interrupted",cause="daemon_restart"}` | informational, no alert |
+| Adapter unsupported | adapter-specific; surfaces during conformance | adapter marked `critique:degraded` in registry with 24h TTL; degraded banner once per session | `rethra_design_critique_degraded_total{reason="adapter_unsupported",adapter="..."}` | one alert per adapter on first hit, suppressed during TTL |
 
 A run can satisfy multiple labels (a `timed_out` run that also `below_threshold`s, for instance). The `status` label is a single canonical value derived by the orchestrator at run end; downstream histograms attach `cause` and `decision` as separate labels.
 
@@ -496,15 +496,15 @@ Adapters that fail are marked `critique:degraded` in the adapter registry. The d
 
 | Metric | Type | Labels | Purpose |
 | --- | --- | --- | --- |
-| `open_design_critique_runs_total` | counter | `status`, `adapter`, `skill` | Run volume by terminal state. |
-| `open_design_critique_rounds_total` | counter | `adapter`, `skill` | Average rounds per artifact. |
-| `open_design_critique_round_duration_ms` | histogram | `quantile`, `adapter`, `skill`, `round` | Round latency distribution. |
-| `open_design_critique_composite_score` | histogram | `quantile`, `adapter`, `skill` | Output quality distribution. |
-| `open_design_critique_must_fix_total` | counter | `panelist`, `dim`, `adapter`, `skill` | Where the panel finds problems most often. |
-| `open_design_critique_degraded_total` | counter | `reason`, `adapter` | Adapter health proxy. |
-| `open_design_critique_interrupted_total` | counter | `adapter` | User abandonment signal. |
-| `open_design_critique_parser_errors_total` | counter | `kind`, `adapter` | Parser robustness. |
-| `open_design_critique_protocol_version` | gauge | `version` | Active protocol versions in use. |
+| `rethra_design_critique_runs_total` | counter | `status`, `adapter`, `skill` | Run volume by terminal state. |
+| `rethra_design_critique_rounds_total` | counter | `adapter`, `skill` | Average rounds per artifact. |
+| `rethra_design_critique_round_duration_ms` | histogram | `quantile`, `adapter`, `skill`, `round` | Round latency distribution. |
+| `rethra_design_critique_composite_score` | histogram | `quantile`, `adapter`, `skill` | Output quality distribution. |
+| `rethra_design_critique_must_fix_total` | counter | `panelist`, `dim`, `adapter`, `skill` | Where the panel finds problems most often. |
+| `rethra_design_critique_degraded_total` | counter | `reason`, `adapter` | Adapter health proxy. |
+| `rethra_design_critique_interrupted_total` | counter | `adapter` | User abandonment signal. |
+| `rethra_design_critique_parser_errors_total` | counter | `kind`, `adapter` | Parser robustness. |
+| `rethra_design_critique_protocol_version` | gauge | `version` | Active protocol versions in use. |
 
 Structured logs use the existing daemon logger with namespace `critique`. Required events: `run_started`, `round_closed`, `run_shipped`, `degraded`, `parser_recover`, `run_failed`. OpenTelemetry traces wrap each run with spans `critique.run`, `critique.round.<n>`, `critique.parse_chunk`, `critique.scoreboard_eval`, `critique.persist_round`, `critique.ship.persist`.
 

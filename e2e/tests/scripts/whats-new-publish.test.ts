@@ -35,10 +35,10 @@ const validDocument = {
   id: "1.2.3",
   title: "Headline",
   body: "First bullet.\nSecond bullet.",
-  imageUrl: "https://whatsnew.open-design.ai/cover.webp",
-  linkUrl: "https://open-design.ai/release/",
+  imageUrl: "https://whatsnew.rethra-design.invalid/cover.webp",
+  linkUrl: "https://rethra-design.invalid/release/",
   locales: {
-    "zh-CN": { title: "标题", body: "第一条。\n第二条。", linkUrl: "https://open-design.ai/zh/release/" },
+    "zh-CN": { title: "标题", body: "第一条。\n第二条。", linkUrl: "https://rethra-design.invalid/zh/release/" },
   },
 };
 
@@ -109,7 +109,7 @@ describe("what's new document guard", () => {
   });
 
   test("a non-https imageUrl fails", async () => {
-    await expect(check({ ...validDocument, imageUrl: "http://whatsnew.open-design.ai/cover.webp" })).resolves.toBe(
+    await expect(check({ ...validDocument, imageUrl: "http://whatsnew.rethra-design.invalid/cover.webp" })).resolves.toBe(
       false,
     );
   });
@@ -118,7 +118,7 @@ describe("what's new document guard", () => {
     await expect(
       check({
         ...validDocument,
-        locales: { "zh-CN": { ...validDocument.locales["zh-CN"], linkUrl: "open-design.ai/zh/" } },
+        locales: { "zh-CN": { ...validDocument.locales["zh-CN"], linkUrl: "rethra-design.invalid/zh/" } },
       }),
     ).resolves.toBe(false);
   });
@@ -194,7 +194,7 @@ describe("what's new publish branch policy", () => {
         encoding: "utf8",
         env: {
           PATH: process.env.PATH,
-          REPOSITORY: "nexu-io/open-design",
+          REPOSITORY: "nexu-io/rethra-design",
           EVENT_NAME: "workflow_dispatch",
           REF: ref,
           DRY_RUN: String(dryRun),

@@ -6,7 +6,7 @@ import type {
   AutomationProposalStatus,
   CreateAutomationEvolutionProposalRequest,
   MemoryType,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import {
   deleteMemoryEntry,

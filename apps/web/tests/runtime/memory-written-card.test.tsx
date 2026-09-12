@@ -17,8 +17,8 @@
 // 任何一段断掉,这条就红。
 
 import { act, cleanup, render, renderHook, waitFor } from '@testing-library/react';
-import type { MemoryExtractionRecord, OdCard } from '@open-design/contracts';
-import { splitOnOdCards } from '@open-design/contracts';
+import type { MemoryExtractionRecord, OdCard } from '@rethra-design/contracts';
+import { splitOnOdCards } from '@rethra-design/contracts';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {

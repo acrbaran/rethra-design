@@ -5,7 +5,7 @@ Generated from this chat session on 2026-05-30.
 ## Repository
 
 - Worktree: `/Users/pftom/.superset/worktrees/d3aab1a3-c696-403f-9692-7e5bc2dfa1f3/accidental-bolt`
-- Product area: OpenDesign `Design Files` workspace, embedded browser module, desktop host bridge, browser-harness task entry.
+- Product area: Rethra Design `Design Files` workspace, embedded browser module, desktop host bridge, browser-harness task entry.
 
 ## User Queries, In Order
 
@@ -13,7 +13,7 @@ Generated from this chat session on 2026-05-30.
 
    > `[Image #1]` 在 design files 那一排支持一个 plus icon, 增加一个类似 `[Image #2]` 的 browser 模块,然后可以打开浏览器, 支持 `[Image #3]` 如图的能力, 包括上一页/下一页/刷新/输入地址栏/支持展示/搜索和选择历史地址打开各种能在浏览器打开的文件如本地文件/各种服务文件/网站 `[Image #4]` 如图也支持一些 clear/open in browser /等截图的能力
    >
-   > 参考 https://github.com/superset-sh/superset 代码, 里面已经实现了完整的能力了,直接搬过来,确保在 open-design 里面完美适配和使用, 就像内嵌了一个真实的浏览器, 然后那个地址栏 + 浏览器空白页可以给大量的推荐网址, 方便做设计的参考,做的好看/酷/世界级设计
+   > 参考 https://github.com/superset-sh/superset 代码, 里面已经实现了完整的能力了,直接搬过来,确保在 rethra-design 里面完美适配和使用, 就像内嵌了一个真实的浏览器, 然后那个地址栏 + 浏览器空白页可以给大量的推荐网址, 方便做设计的参考,做的好看/酷/世界级设计
    >
    > 比如 svg 的 https://thesvg.org/
    > https://unsplash.com/ 图片的
@@ -107,7 +107,7 @@ Generated from this chat session on 2026-05-30.
   - https://startups.gallery/
   - https://www.worldindots.com/
   - https://getdesign.md/
-- Add browser-use/browser-harness oriented shortcut/task entry so a user can extract page screenshots/design language/assets and apply them to OpenDesign artifacts.
+- Add browser-use/browser-harness oriented shortcut/task entry so a user can extract page screenshots/design language/assets and apply them to Rethra Design artifacts.
 
 ## Current Implementation Status
 
@@ -140,11 +140,11 @@ Implemented behavior:
 
 Passed:
 
-- `pnpm --filter @open-design/web typecheck`
-- `pnpm --filter @open-design/desktop typecheck`
-- `pnpm --filter @open-design/host typecheck`
-- `pnpm --filter @open-design/host test`
-- `pnpm --filter @open-design/packaged test -- desktop-url-allowlist`
+- `pnpm --filter @rethra-design/web typecheck`
+- `pnpm --filter @rethra-design/desktop typecheck`
+- `pnpm --filter @rethra-design/host typecheck`
+- `pnpm --filter @rethra-design/host test`
+- `pnpm --filter @rethra-design/packaged test -- desktop-url-allowlist`
 - Direct targeted web tests from `apps/web`:
   - `pnpm exec vitest run -c vitest.config.ts tests/components/FileWorkspace.test.tsx tests/components/FileWorkspace.design-system.test.tsx`
   - Result: 2 files passed, 38 tests passed.
@@ -158,7 +158,7 @@ Not fully verified:
 
 Observed unrelated test friction:
 
-- Running `pnpm --filter @open-design/web test -- FileWorkspace` or passing paths through the package script unexpectedly exercised the full web test set. It hit unrelated failures/timeouts in `SettingsDialog.execution.test.tsx` or `ExamplesTab.test.tsx`.
+- Running `pnpm --filter @rethra-design/web test -- FileWorkspace` or passing paths through the package script unexpectedly exercised the full web test set. It hit unrelated failures/timeouts in `SettingsDialog.execution.test.tsx` or `ExamplesTab.test.tsx`.
 - Direct `pnpm exec vitest ...` from `apps/web` correctly scoped to FileWorkspace and passed.
 
 ## Next Agent Suggested Checks

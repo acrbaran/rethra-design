@@ -7,7 +7,7 @@ import {
   buildWorkspacePermissions,
   buildWorkspaceSeatSummary,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 const workspaceMock = vi.hoisted(() => ({
   state: {
@@ -286,7 +286,7 @@ describe('HomeView workspace-scoped plugin catalog', () => {
 
     await act(async () => Promise.resolve());
     expect(pluginReads).toBe(0);
-    act(() => window.dispatchEvent(new CustomEvent('open-design:plugins-changed')));
+    act(() => window.dispatchEvent(new CustomEvent('rethra-design:plugins-changed')));
     await act(async () => Promise.resolve());
     expect(pluginReads).toBe(0);
 
@@ -693,7 +693,7 @@ describe('HomeView workspace-scoped plugin catalog', () => {
 
     renderHome();
     await waitFor(() => expect(requestCount).toBe(1));
-    act(() => window.dispatchEvent(new CustomEvent('open-design:plugins-changed')));
+    act(() => window.dispatchEvent(new CustomEvent('rethra-design:plugins-changed')));
     await waitFor(() => expect(requestCount).toBe(2));
 
     eventRead.resolve(new Response(JSON.stringify({ plugins: [plugin('fresh-plugin')] }), {

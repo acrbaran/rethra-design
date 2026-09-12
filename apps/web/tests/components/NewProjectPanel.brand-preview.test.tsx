@@ -3,17 +3,17 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { BrandSummary } from '@open-design/contracts';
-import { isOpenDesignHostAvailable, pickHostWorkingDir } from '@open-design/host';
+import type { BrandSummary } from '@rethra-design/contracts';
+import { isRethraDesignHostAvailable, pickHostWorkingDir } from '@rethra-design/host';
 import { NewProjectPanel } from '../../src/components/NewProjectPanel';
 import { openFolderDialog } from '../../src/providers/registry';
 import type { DesignSystemSummary, SkillSummary } from '../../src/types';
 
-vi.mock('@open-design/host', async () => {
-  const actual = await vi.importActual<typeof import('@open-design/host')>('@open-design/host');
+vi.mock('@rethra-design/host', async () => {
+  const actual = await vi.importActual<typeof import('@rethra-design/host')>('@rethra-design/host');
   return {
     ...actual,
-    isOpenDesignHostAvailable: vi.fn(),
+    isRethraDesignHostAvailable: vi.fn(),
     pickHostWorkingDir: vi.fn(),
   };
 });
@@ -38,7 +38,7 @@ vi.mock('../../src/runtime/brands', () => ({
   useBrandsByDesignSystemId: () => brandsByDesignSystem,
 }));
 
-const mockedIsHostAvailable = vi.mocked(isOpenDesignHostAvailable);
+const mockedIsHostAvailable = vi.mocked(isRethraDesignHostAvailable);
 const mockedOpenFolderDialog = vi.mocked(openFolderDialog);
 
 const skills: SkillSummary[] = [

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://rethra-design.invalid/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "discovery-question-form",
+  "title": "Discovery question form",
+  "version": "0.1.0",
+  "publishedAt": "2026-05-09T13:00:27Z",
+  "description": "Structured clarification form for unresolved material requirements.",
+  "license": "MIT",
+  "author": {
+    "name": "RethraDesign",
+    "url": "https://github.com/nexu-io"
+  },
+  "homepage": "https://github.com/acrbaran/rethra-design/tree/main/plugins/_official/atoms/discovery-question-form",
+  "tags": [
+    "atom",
+    "first-party",
+    "discovery"
+  ],
+  "compat": {
+    "agentSkills": [
+      {
+        "path": "./SKILL.md"
+      }
+    ]
+  },
+  "od": {
+    "kind": "atom",
+    "scenario": "general",
+    "mode": "discovery",
+    "capabilities": [
+      "prompt:inject"
+    ]
+  }
+}

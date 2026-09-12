@@ -14,7 +14,7 @@ import { T } from '@/timeouts';
 
 const AMR_AGENT = {
   id: 'amr',
-  name: 'OpenDesign AMR',
+  name: 'RethraDesign AMR',
   bin: 'vela',
   available: true,
   version: 'test',
@@ -23,9 +23,9 @@ const AMR_AGENT = {
 
 async function seedBalanceFailure(page: Page, locale: 'en' | 'zh-CN') {
   await page.addInitScript((nextLocale) => {
-    window.localStorage.setItem('open-design:locale', nextLocale);
-    window.localStorage.setItem('open-design:locale-source', 'manual');
-    window.localStorage.setItem('open-design.project.chatPanelWidth', '320');
+    window.localStorage.setItem('rethra-design:locale', nextLocale);
+    window.localStorage.setItem('rethra-design:locale-source', 'manual');
+    window.localStorage.setItem('rethra-design.project.chatPanelWidth', '320');
   }, locale);
   await routeAgents(page, [AMR_AGENT]);
   await page.route('**/api/skills', (route) => route.fulfill({ json: { skills: [] } }));
@@ -207,10 +207,10 @@ test('[P1] expanded English balance actions stay inside a narrow ChatPane', asyn
   const recharge = card.getByRole('button', { name: 'Top up' });
   await expect(recharge).toBeVisible({ timeout: T.long });
   await recharge.evaluate((button) => {
-    button.textContent = 'Top up OpenDesign Cloud balance';
+    button.textContent = 'Top up RethraDesign Cloud balance';
   });
   const expandedRecharge = card.getByRole('button', {
-    name: 'Top up OpenDesign Cloud balance',
+    name: 'Top up RethraDesign Cloud balance',
   });
   const retry = card.getByRole('button', { name: 'Retry' });
   await expectActionsContained(card, expandedRecharge, retry);

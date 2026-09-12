@@ -9,11 +9,11 @@ Run the full product locally.
 - **Node.js:** `~24` (Node 24.x). The repo enforces this through `package.json#engines`.
 - **pnpm:** `10.33.x`. The repo pins `pnpm@10.33.2` through `packageManager`; use Corepack so the pinned version is selected automatically.
 - **OS:** macOS, Linux, and WSL2 are the primary paths. If your agent CLIs run inside WSL2, use the [`WSL2 setup guide`](docs/wsl-setup.md). Windows native is supported; see [`docs/windows-troubleshooting.md`](docs/windows-troubleshooting.md) for common PowerShell setup gotchas.
-- **Optional local agent CLI:** OpenDesign supports a registry of local runtimes, including Claude Code, Codex, Devin for Terminal, OpenCode, Cursor Agent, Qwen, Qoder CLI, GitHub Copilot CLI, and others. The current list lives in [`apps/daemon/src/runtimes/registry.ts`](apps/daemon/src/runtimes/registry.ts). If none are installed, use a BYOK runtime configured in Settings.
+- **Optional local agent CLI:** Rethra Design supports a registry of local runtimes, including Claude Code, Codex, Devin for Terminal, OpenCode, Cursor Agent, Qwen, Qoder CLI, GitHub Copilot CLI, and others. The current list lives in [`apps/daemon/src/runtimes/registry.ts`](apps/daemon/src/runtimes/registry.ts). If none are installed, use a BYOK runtime configured in Settings.
 
 ### Local agent CLI and PATH
 
-The daemon scans your **`PATH`** (plus common user toolchain directories). If you install a CLI with **`npm install -g`** or **Homebrew** and OpenDesign still shows it as *not installed*, the GUI may be starting with a minimal `PATH` that does not include your global npm or Homebrew `bin` directory (common on macOS when the app is not launched from a full login shell). Ensure the executable’s directory is on `PATH` for the process that runs the daemon, then use **Rescan** in **Models & providers → Local CLI**.
+The daemon scans your **`PATH`** (plus common user toolchain directories). If you install a CLI with **`npm install -g`** or **Homebrew** and Rethra Design still shows it as *not installed*, the GUI may be starting with a minimal `PATH` that does not include your global npm or Homebrew `bin` directory (common on macOS when the app is not launched from a full login shell). Ensure the executable’s directory is on `PATH` for the process that runs the daemon, then use **Rescan** in **Models & providers → Local CLI**.
 
 [`nvm`](https://github.com/nvm-sh/nvm) / [`fnm`](https://github.com/Schniz/fnm) are optional convenience tools, not required project setup. If you use one, install/select Node 24 before running pnpm:
 
@@ -36,7 +36,7 @@ corepack pnpm --version   # should print 10.33.2
 
 ## Docker Setup
 
-Run OpenDesign in a fully containerised environment without installing Node.js or pnpm locally.
+Run Rethra Design in a fully containerised environment without installing Node.js or pnpm locally.
 
 ### Requirements
 
@@ -51,7 +51,7 @@ docker compose version
 
 ---
 
-## Start OpenDesign
+## Start Rethra Design
 
 From the repository root:
 
@@ -133,16 +133,16 @@ Edit `deploy/.env` to set your own token and adjust other values as needed:
 
 ```env
 # Port exposed on the host
-OPEN_DESIGN_PORT=7456
+RETHRA_DESIGN_PORT=7456
 
 # Container memory limit
-OPEN_DESIGN_MEM_LIMIT=384m
+RETHRA_DESIGN_MEM_LIMIT=384m
 
 # Allowed CORS origins
-OPEN_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
+RETHRA_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
 
 # Docker image tag
-OPEN_DESIGN_IMAGE=ghcr.io/nexu-io/od:latest
+RETHRA_DESIGN_IMAGE=ghcr.io/nexu-io/od:latest
 
 # Required API token for daemon security
 # Generate one with: openssl rand -hex 32
@@ -200,8 +200,8 @@ pnpm tools-dev status          # inspect managed runtimes
 pnpm tools-dev logs            # show daemon/web/desktop logs
 pnpm tools-dev check           # status + recent logs + common diagnostics
 pnpm tools-dev stop            # stop managed runtimes
-pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js for `od`
-pnpm --filter @open-design/web build     # build the web package when needed
+pnpm --filter @rethra-design/daemon build  # build apps/daemon/dist/cli.js for `od`
+pnpm --filter @rethra-design/web build     # build the web package when needed
 pnpm typecheck                 # workspace typecheck
 ```
 
@@ -223,13 +223,13 @@ Image, video, audio, and HyperFrames skills call the local `od` CLI through envi
 If media generation fails with `OD_BIN: parameter not set`, `apps/daemon/dist/cli.js` missing, or `failed to reach daemon at http://127.0.0.1:0`, rebuild the daemon CLI and restart the managed runtime:
 
 ```bash
-pnpm --filter @open-design/daemon build
+pnpm --filter @rethra-design/daemon build
 pnpm tools-dev restart --daemon-port 7457 --web-port 5175
 ls -la apps/daemon/dist/cli.js
 curl -s http://127.0.0.1:7457/api/health
 ```
 
-Then open the project from the OpenDesign app again instead of resuming an old terminal agent session. A daemon-spawned agent should see values like:
+Then open the project from the Rethra Design app again instead of resuming an old terminal agent session. A daemon-spawned agent should see values like:
 
 ```bash
 echo "OD_BIN=$OD_BIN"
@@ -288,7 +288,7 @@ Swap the skill or the design system in the top bar and the next send uses the ne
 ## File map
 
 ```
-open-design/
+rethra-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — spawns local agents + serves APIs
 │   │   └── src/
@@ -316,7 +316,7 @@ open-design/
 │   └── desktop/               # Electron runtime, launched/inspected by tools-dev
 ├── packages/
 │   ├── contracts/             # shared web/daemon app contracts
-│   ├── sidecar-proto/         # OpenDesign sidecar protocol contract
+│   ├── sidecar-proto/         # Rethra Design sidecar protocol contract
 │   ├── sidecar/               # generic sidecar runtime primitives
 │   └── platform/              # generic process/platform primitives
 ├── tools/dev/                 # `pnpm tools-dev` lifecycle and inspect CLI
@@ -332,20 +332,20 @@ open-design/
 
 ## Troubleshooting
 
-- **`better-sqlite3` fails to load / ABI mismatch after a Node.js version change** — `pnpm install` re-runs `postinstall` automatically and rebuilds the native addon for the current Node.js. To rebuild manually or verify the fix: `pnpm --filter @open-design/daemon rebuild better-sqlite3` then `pnpm --filter @open-design/daemon exec node -e "require('better-sqlite3')"`. Requires build tools: `python3`, `make`, `g++` (or `clang++`). If you use `ignore-scripts=true` in your `.npmrc` (common for AUR packages), run `pnpm bootstrap` after `pnpm install`.
+- **`better-sqlite3` fails to load / ABI mismatch after a Node.js version change** — `pnpm install` re-runs `postinstall` automatically and rebuilds the native addon for the current Node.js. To rebuild manually or verify the fix: `pnpm --filter @rethra-design/daemon rebuild better-sqlite3` then `pnpm --filter @rethra-design/daemon exec node -e "require('better-sqlite3')"`. Requires build tools: `python3`, `make`, `g++` (or `clang++`). If you use `ignore-scripts=true` in your `.npmrc` (common for AUR packages), run `pnpm bootstrap` after `pnpm install`.
 - **"no agents found on PATH"** — install one of the local runtimes registered in [`apps/daemon/src/runtimes/registry.ts`](apps/daemon/src/runtimes/registry.ts), make sure its executable is visible to the daemon, then use **Rescan** in **Models & providers → Local CLI**. Or configure a BYOK runtime in Settings.
-- **Claude Code exits with code 1** — OpenDesign was able to start `claude`, but the spawned non-interactive run failed before producing a response. From the same shell or app environment that starts OpenDesign, check:
+- **Claude Code exits with code 1** — Rethra Design was able to start `claude`, but the spawned non-interactive run failed before producing a response. From the same shell or app environment that starts Rethra Design, check:
   ```bash
   claude --version
   claude auth status --text
   printf 'hello' | claude -p --output-format stream-json --verbose --permission-mode bypassPermissions
   ```
-  If the smoke test reports `401`, `apiKeySource: "none"`, or another auth error without a custom endpoint, run `claude`, use `/login`, exit Claude, and retry OpenDesign. If you use multiple Claude profiles, set **Models & providers → Local CLI → Claude Code config directory** to the profile path such as `~/.claude-2`. If `ANTHROPIC_BASE_URL` or a proxy is set, check the endpoint URL, proxy credentials, endpoint auth environment, and model access; remove the custom endpoint only if you want to retry with standard Claude Code auth. On Windows, native PowerShell and WSL use separate Claude installs and credential stores; re-authenticate in the same environment OpenDesign uses, and check Windows Credential Manager if `/login` does not repair native Windows credentials.
+  If the smoke test reports `401`, `apiKeySource: "none"`, or another auth error without a custom endpoint, run `claude`, use `/login`, exit Claude, and retry Rethra Design. If you use multiple Claude profiles, set **Models & providers → Local CLI → Claude Code config directory** to the profile path such as `~/.claude-2`. If `ANTHROPIC_BASE_URL` or a proxy is set, check the endpoint URL, proxy credentials, endpoint auth environment, and model access; remove the custom endpoint only if you want to retry with standard Claude Code auth. On Windows, native PowerShell and WSL use separate Claude installs and credential stores; re-authenticate in the same environment Rethra Design uses, and check Windows Credential Manager if `/login` does not repair native Windows credentials.
 - **daemon 500 on /api/chat** — check the daemon terminal for the stderr tail; usually the CLI rejected its args. Different CLIs take different argv shapes; inspect the matching definition in `apps/daemon/src/runtimes/defs/` if you need to adjust one.
-- **media generation says `OD_BIN` is missing or daemon URL is `:0`** — run the media dispatcher checks above. Do not resume the old CLI session; reopen the project from the OpenDesign app so the daemon can inject fresh `OD_*` variables.
-- **Codex loads too much plugin context** — start OpenDesign with `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` to make daemon-spawned Codex processes run with `--disable plugins`.
+- **media generation says `OD_BIN` is missing or daemon URL is `:0`** — run the media dispatcher checks above. Do not resume the old CLI session; reopen the project from the Rethra Design app so the daemon can inject fresh `OD_*` variables.
+- **Codex loads too much plugin context** — start Rethra Design with `OD_CODEX_DISABLE_PLUGINS=1 pnpm tools-dev` to make daemon-spawned Codex processes run with `--disable plugins`.
 - **artifact never renders** — first identify the run's handoff profile. For a filesystem-capable local runtime, confirm the agent created a previewable project file and that file-write events reached the daemon; it should not emit source in `<artifact>`. For a plain/text-only or BYOK run, confirm the response contains one complete `<artifact>` block. Check daemon logs for the first failed boundary instead of asking a filesystem runtime to fall back to inline source.
-- **Browser authentication prompt on macOS** — keep Docker Desktop's default bridge networking. Sign in with username `open-design` and the `OD_API_TOKEN` value from `deploy/.env` as the password. Host networking is not required. See [`deploy/README.md` — Docker Desktop on macOS](deploy/README.md#docker-desktop-on-macos).
+- **Browser authentication prompt on macOS** — keep Docker Desktop's default bridge networking. Sign in with username `rethra-design` and the `OD_API_TOKEN` value from `deploy/.env` as the password. Host networking is not required. See [`deploy/README.md` — Docker Desktop on macOS](deploy/README.md#docker-desktop-on-macos).
 
 ## Mapping back to the vision
 

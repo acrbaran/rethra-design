@@ -2,12 +2,12 @@ import { memo, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, 
 import type { ArtifactExportFormat } from '../runtime/chat/artifact-export';
 import { AnchoredMenuShell } from './chat/AnchoredMenuShell';
 import { createPortal, flushSync } from 'react-dom';
-import { Button, Input, Select } from '@open-design/components';
+import { Button, Input, Select } from '@rethra-design/components';
 import {
   getLatestHostPreviewNavigationFailure,
   subscribeHostPreviewNavigationFailure,
-  type OpenDesignHostPreviewNavigationFailure,
-} from '@open-design/host';
+  type RethraDesignHostPreviewNavigationFailure,
+} from '@rethra-design/host';
 import { CenteredLoader } from './Loading';
 import { APP_CHROME_FILE_ACTIONS_ID, APP_CHROME_FILE_ACTIONS_SELECTOR } from './AppChromeHeader';
 import {
@@ -17,7 +17,7 @@ import {
 } from './comment-send-result';
 import {
   buildSocialSharePayload,
-  OPEN_DESIGN_GITHUB_REPO_URL,
+  RETHRA_DESIGN_GITHUB_REPO_URL,
   workspaceContextHasTeamIdentity,
   type CollabCloudMemberDirectoryEntry,
   type CollabMemberRole,
@@ -26,13 +26,13 @@ import {
   type SocialShareRequest,
   type SocialShareResponse,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
-import { PREVIEW_OBSERVABILITY_HOST_STATE_MESSAGE_TYPE } from '@open-design/contracts/runtime/preview-observability';
-import { PREVIEW_URL_GUARD_MAX_HTML_BYTES } from '@open-design/contracts/runtime/preview-guards';
+} from '@rethra-design/contracts';
+import { PREVIEW_OBSERVABILITY_HOST_STATE_MESSAGE_TYPE } from '@rethra-design/contracts/runtime/preview-observability';
+import { PREVIEW_URL_GUARD_MAX_HTML_BYTES } from '@rethra-design/contracts/runtime/preview-guards';
 import {
   isPreviewRuntimeState,
   type PreviewRuntimeState,
-} from '@open-design/contracts/runtime/preview-runtime-state';
+} from '@rethra-design/contracts/runtime/preview-runtime-state';
 import {
   appendResourceQuery,
   workspaceIdentityCacheKey,
@@ -48,7 +48,7 @@ import {
   type TrackingArtifactKind,
   type TrackingProjectKind,
   type TrackingDeployProvider,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import { exportErrorCode } from '../analytics/export-error-code';
 import { deployErrorCode } from '../analytics/deploy-error-code';
@@ -170,7 +170,7 @@ import {
   exportReactComponentAsZip,
   captureHostIframeSnapshot,
   imageDataUrlToBlob,
-  isOpenDesignHostAvailable,
+  isRethraDesignHostAvailable,
   openSandboxedPreviewInNewTab,
   prepareImageExportTarget,
   planDeckImageCapture,
@@ -469,7 +469,7 @@ function previewViewportIcon(viewport: PreviewViewportId): string {
   return 'computer-line';
 }
 
-const EXPORT_READY_NUDGE_STORAGE_PREFIX = 'open-design:export-ready-nudge:';
+const EXPORT_READY_NUDGE_STORAGE_PREFIX = 'rethra-design:export-ready-nudge:';
 const COMMENT_SIDE_DOCK_WIDTH = 320;
 const COMMENT_SIDE_DOCK_RAIL_WIDTH = 42;
 const COMMENT_SIDE_DOCK_GAP = 12;
@@ -635,7 +635,7 @@ function persistentPreviewBootstrapUrl(html: string, forceBlob = false): string 
 function previewRuntimeUrl(href: string): string {
   const runtimeHref = typeof globalThis.location?.href === 'string'
     ? globalThis.location.href
-    : 'http://open-design.local/';
+    : 'http://rethra-design.local/';
   return new URL(href, runtimeHref).href;
 }
 type PreviewContentWidthCacheEntry = {
@@ -4893,7 +4893,7 @@ export function CommentSidePanel({
   );
 }
 
-const COMMENT_SIDE_DRAG_MIME = 'application/x-open-design-preview-comment';
+const COMMENT_SIDE_DRAG_MIME = 'application/x-rethra-design-preview-comment';
 
 type CommentSideDropEdge = 'before' | 'after';
 
@@ -7442,7 +7442,7 @@ function HtmlViewer({
   const unknownExportOrigin = (
     status: ArtifactExportOriginProps['artifact_origin_status'] = 'missing_version',
   ): ArtifactExportOriginProps => ({
-    entry_surface: 'open_design_ui',
+    entry_surface: 'rethra_design_ui',
     artifact_origin_status: status,
     origin_entry_surface: 'unknown',
   });
@@ -9996,7 +9996,7 @@ function HtmlViewer({
     return s != null && htmlNeedsFocusGuard(s);
   }, [passiveLargeHtmlPreview, routingHtmlSource]);
   // A self-redirecting artifact needs the redirect-loop guard on whichever
-  // transport owns the document (nexu-io/open-design#710).
+  // transport owns the document (nexu-io/rethra-design#710).
   const needsRedirectGuard = useMemo(() => {
     if (passiveLargeHtmlPreview) return false;
     const s = routingHtmlSource;
@@ -11213,7 +11213,7 @@ function HtmlViewer({
     scheduleSrcDocTransportTimeout,
   ]);
   const handleHostPreviewNavigationFailure = useCallback((
-    failure: OpenDesignHostPreviewNavigationFailure,
+    failure: RethraDesignHostPreviewNavigationFailure,
   ) => {
     const aboutSrcDocFailure = failure.validatedUrl === 'about:srcdoc';
     const localBlobFailure = failure.validatedUrl.startsWith('blob:od://app/');
@@ -11254,7 +11254,7 @@ function HtmlViewer({
       && frame.getAttribute('src') === failure.validatedUrl
     ) {
       // Unlike an eager about:srcdoc acknowledgement, an exact failure for
-      // the active Open Design Blob URL identifies the navigation that owns
+      // the active Rethra Design Blob URL identifies the navigation that owns
       // this frame. Recover immediately instead of adding the fixed 1.5s
       // probe timeout to every affected file-tab activation.
       recoverUnacknowledgedSrcDocTransport(generation, 'host_navigation_abort');
@@ -15036,7 +15036,7 @@ function HtmlViewer({
     const pdfTitle = context?.title ?? exportTitle;
     const pdfSource = context?.content ?? source ?? '';
     const pdfDeck = deckExportSignalForContext(context);
-    if (isOpenDesignHostAvailable()) {
+    if (isRethraDesignHostAvailable()) {
       const res = await exportProjectScreenshotPdf({
         projectId,
         fileName: file.name,
@@ -15255,14 +15255,14 @@ function HtmlViewer({
     await waitForAnimationFrame();
     // Prefer the daemon's off-screen render (desktop only): isolated from the
     // preview pane and, rendering the artifact alone in a hidden window, it can
-    // never capture OpenDesign's own UI. Page exports use the selected preview
+    // never capture RethraDesign's own UI. Page exports use the selected preview
     // preset; desktop pages and decks retain the renderer defaults. `wholeDeck`
     // (Export as image) stitches every slide
     // top-to-bottom into one long image — matching the slide count the viewer
     // reports; otherwise (Copy screenshot, Mark/Draw capture) it grabs the
     // CURRENT slide, mirroring what's on screen. An ordinary page is its
     // full-page capture either way.
-    if (isOpenDesignHostAvailable() && projectId && file.name) {
+    if (isRethraDesignHostAvailable() && projectId && file.name) {
       // Deck-vs-page uses the same signal as PDF export — broader than the viewer's nav
       // signal — so runtime-managed decks (`<deck-stage>` / `data-screen-label`,
       // no literal `.slide`) export as a deck instead of a single page-mode shot
@@ -15509,7 +15509,7 @@ function HtmlViewer({
     // unacceptable for a Chinese-first product. Falls back to the
     // vector/browser print path on web or on failure.
     fireShareExport('pdf', async () => {
-      if (isOpenDesignHostAvailable()) {
+      if (isRethraDesignHostAvailable()) {
         const res = await exportProjectScreenshotPdf({
           projectId,
           fileName: file.name,
@@ -15816,7 +15816,7 @@ function HtmlViewer({
     const title = t('socialShare.projectTitle', { title: exportTitle });
     const text = t('socialShare.projectText', {
       title: exportTitle,
-      repo: OPEN_DESIGN_GITHUB_REPO_URL,
+      repo: RETHRA_DESIGN_GITHUB_REPO_URL,
     });
     return {
       kind: 'project-html',
@@ -15827,7 +15827,7 @@ function HtmlViewer({
       copyText: t('socialShare.projectCopyText', {
         title: exportTitle,
         url: socialShareDisplayUrl,
-        repo: OPEN_DESIGN_GITHUB_REPO_URL,
+        repo: RETHRA_DESIGN_GITHUB_REPO_URL,
       }),
     };
   }, [exportTitle, locale, socialShareDisplayUrl, t]);

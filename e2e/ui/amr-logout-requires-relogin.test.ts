@@ -36,7 +36,7 @@ async function stubCatalogsEmpty(page: import('@playwright/test').Page) {
   await routeAgents(page, [
     {
       id: 'amr',
-      name: 'OpenDesign AMR',
+      name: 'RethraDesign AMR',
       bin: 'vela',
       available: true,
       version: 'test',
@@ -52,7 +52,7 @@ function amrAgentToggle(settings: Locator): Locator {
 
 test('[P0] after local Sign out, the app returns to Cloud sign-in without clearing setup', async ({ page }) => {
   await stubCatalogsEmpty(page);
-  const root = join(tmpdir(), `open-design-amr-logout-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
+  const root = join(tmpdir(), `rethra-design-amr-logout-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`);
   const reloginVelaBin = await writeFakeVelaBin(join(root, 'bin-relogin'), {
     failAuthAtPrompt: true,
     requireLoginConfig: false,
@@ -118,7 +118,7 @@ test('[P0] after local Sign out, the app returns to Cloud sign-in without cleari
 
   const settings = await openSettingsDialog(page);
   // Scope to the AMR agent card: the settings sidebar also carries an
-  // "OpenDesign MCP" nav item, so a surface-wide /OpenDesign/i now resolves
+  // "RethraDesign MCP" nav item, so a surface-wide /RethraDesign/i now resolves
   // to that `settings-nav-item` (which has no aria-pressed) instead of the
   // agent card's select button.
   await expect(amrAgentToggle(settings)).toHaveAttribute('aria-pressed', 'true');
@@ -134,12 +134,12 @@ test('[P0] after local Sign out, the app returns to Cloud sign-in without cleari
   // so the saved AMR setup must survive for reauthentication.
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await expect(
-    page.getByRole('heading', { name: /Sign in to OpenDesign|登录 OpenDesign/i }),
+    page.getByRole('heading', { name: /Sign in to RethraDesign|登录 RethraDesign/i }),
   ).toBeVisible({ timeout: T.long });
-  await expect(page.getByRole('button', { name: /Sign in to OpenDesign|登录 OpenDesign/i })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Sign in to RethraDesign|登录 RethraDesign/i })).toBeVisible();
   await expect(page.getByTestId('home-hero-input')).toHaveCount(0);
   await expect.poll(() => page.evaluate(() => {
-    const raw = window.localStorage.getItem('open-design:config');
+    const raw = window.localStorage.getItem('rethra-design:config');
     return raw ? JSON.parse(raw) : null;
   })).toMatchObject({
     agentId: 'amr',

@@ -75,12 +75,12 @@ env:
   # and a fixture that points at a different backend than the installed build
   # would make the update look like a configuration change. Prerelease packages
   # ship the prod profile, so the fixture does too.
-  OPEN_DESIGN_AMR_PROFILE: prod
+  RETHRA_DESIGN_AMR_PROFILE: prod
   OD_VELA_WEB_URL: ${{ secrets.VELA_WEB_URL_PROD }}
   OD_VELA_WEB_URL_FEATURE_TEST: ${{ secrets.VELA_WEB_URL_FEATURE_TEST }}
   OD_VELA_WEB_URL_TEST: ${{ secrets.VELA_WEB_URL_TEST }}
   OD_VELA_WEB_URL_PROD: ${{ secrets.VELA_WEB_URL_PROD }}
-  OPEN_DESIGN_TELEMETRY_RELAY_URL: ${{ vars.OPEN_DESIGN_TELEMETRY_RELAY_URL }}
+  RETHRA_DESIGN_TELEMETRY_RELAY_URL: ${{ vars.RETHRA_DESIGN_TELEMETRY_RELAY_URL }}
   POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
   POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
 
@@ -187,7 +187,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-prerelease-mac-arm64-smoke-report
+          name: rethra-design-prerelease-mac-arm64-smoke-report
           path: ${{ runner.temp }}/release-report/mac_arm64
           if-no-files-found: warn
           retention-days: 14
@@ -259,7 +259,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-prerelease-mac-x64-smoke-report
+          name: rethra-design-prerelease-mac-x64-smoke-report
           path: ${{ runner.temp }}/release-report/mac_x64
           if-no-files-found: warn
           retention-days: 14
@@ -305,7 +305,7 @@ jobs:
         # product regression.
         run: |
           $ErrorActionPreference = "Stop"
-          $installer = "${{ runner.temp }}\tools-pack\out\win\namespaces\release-prerelease-win\builder\Open Design-release-prerelease-win-setup.exe"
+          $installer = "${{ runner.temp }}\tools-pack\out\win\namespaces\release-prerelease-win\builder\Rethra Design-release-prerelease-win-setup.exe"
           if (-not (Test-Path -LiteralPath $installer)) { throw "staged installer not found at $installer" }
           Unblock-File -LiteralPath $installer
       - name: Setup NSIS
@@ -392,7 +392,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v7
         with:
-          name: open-design-prerelease-win-x64-smoke-report
+          name: rethra-design-prerelease-win-x64-smoke-report
           path: ${{ runner.temp }}\release-report\win_x64
           if-no-files-found: warn
           retention-days: 14

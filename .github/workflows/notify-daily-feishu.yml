@@ -40,7 +40,7 @@ concurrency:
 jobs:
   resolve:
     name: Resolve build ref
-    if: github.repository == 'nexu-io/open-design'
+    if: github.repository == 'nexu-io/rethra-design'
     runs-on: ubuntu-latest
     outputs:
       ref: ${{ steps.pick.outputs.ref }}
@@ -82,7 +82,7 @@ jobs:
         id: recovery
         env:
           BUILD_REF: ${{ steps.pick.outputs.ref }}
-          OPEN_DESIGN_BETA_METADATA_URL: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}/beta/latest/metadata.json
+          RETHRA_DESIGN_BETA_METADATA_URL: ${{ vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}/beta/latest/metadata.json
           PACKAGED_PACKAGE_JSON_PATH: build-source/apps/packaged/package.json
         run: node --experimental-strip-types workflow-source/.github/scripts/release/resolve-daily-beta-recovery.ts
 

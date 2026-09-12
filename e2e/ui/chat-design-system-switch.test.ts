@@ -12,7 +12,7 @@ import { expect, test } from '@/playwright/suite';
 import type { Page } from '@playwright/test';
 import { routeAgents, routeSuccessfulRuns } from '@/playwright/mock-factory';
 
-const STORAGE_KEY = 'open-design:config';
+const STORAGE_KEY = 'rethra-design:config';
 
 const DESIGN_SYSTEMS = [
   {
@@ -105,7 +105,7 @@ test('[P1] chat composer switches the project design system mid-chat', async ({ 
     data: { designSystemId: null },
   });
 
-  await openDesignSystemPicker(page);
+  await rethraDesignSystemPicker(page);
 
   await expect(page.getByTestId('project-ds-picker-popover')).toBeVisible();
   await page
@@ -142,7 +142,7 @@ test('[P1] chat composer switches the project design system mid-chat', async ({ 
   expect(runRequestBodies[0]?.designSystemId).toBe('editorial');
 });
 
-async function openDesignSystemPicker(page: Page) {
+async function rethraDesignSystemPicker(page: Page) {
   const composer = page.getByTestId('chat-composer');
   await composer.getByTestId('composer-design-system-trigger').click();
 }

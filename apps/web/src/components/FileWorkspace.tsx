@@ -10,9 +10,9 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react';
-import { Button } from '@open-design/components';
+import { Button } from '@rethra-design/components';
 import { createPortal } from 'react-dom';
-import type { DesignSystemEditClickProps, TrackingArtifactKind, TrackingProjectKind } from '@open-design/contracts/analytics';
+import type { DesignSystemEditClickProps, TrackingArtifactKind, TrackingProjectKind } from '@rethra-design/contracts/analytics';
 import { useAnalytics } from '../analytics/provider';
 import {
   trackFileManagerClick,
@@ -110,7 +110,7 @@ import {
   type LocalizedText,
   type WorkspaceCollabContext,
   type WorkspaceContextItem,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   notifyTeamProjectsChanged,
   TEAM_PROJECTS_CHANGED_EVENT,
@@ -370,7 +370,7 @@ interface Props {
   readonlyNotice?: string;
   /**
    * Team-share file-sync state for the project. It is rendered on the Design
-   * Files root tab and open design-file tabs (never terminal / side-chat /
+   * Files root tab and rethra design-file tabs (never terminal / side-chat /
    * browser tabs). `downloading` — a non-owner member's local copy has not
    * caught up to the published head. `uploading` — the owner's local edits
    * have not yet been published. Null once caught up / not a shared project.
@@ -619,16 +619,16 @@ const BLANK_PAGE_PRESETS: ProjectPagePreset[] = [
 
 const COMMUNITY_PAGE_PRESETS: ProjectPagePreset[] = [
   {
-    id: 'community-open-design-landing',
+    id: 'community-rethra-design-landing',
     category: 'prototype',
-    title: pageText('OpenDesign Landing', 'OpenDesign 落地页', 'OpenDesign 落地頁'),
+    title: pageText('RethraDesign Landing', 'RethraDesign 落地页', 'RethraDesign 落地頁'),
     description: pageText(
       'Editorial landing page with a strong hero, proof points, and product narrative.',
       '带强主视觉、信任证明和产品叙事的编辑风落地页。',
       '帶強主視覺、信任證明和產品敘事的編輯風落地頁。',
     ),
     icon: 'globe',
-    fileBaseName: 'open-design-landing',
+    fileBaseName: 'rethra-design-landing',
     source: 'community',
     featured: true,
   },
@@ -1681,10 +1681,10 @@ export function FileWorkspace({
       });
     };
     load();
-    window.addEventListener('open-design:plugins-changed', load);
+    window.addEventListener('rethra-design:plugins-changed', load);
     return () => {
       cancelled = true;
-      window.removeEventListener('open-design:plugins-changed', load);
+      window.removeEventListener('rethra-design:plugins-changed', load);
     };
   }, [workspaceContext]);
 
@@ -3343,7 +3343,7 @@ export function FileWorkspace({
   // A persisted file tab can outlive its file. The tab strip hides that stale
   // entry, so keeping it as the visual active target would leave the fixed
   // Design Files tab as the only visible tab while the body tells the user to
-  // open Design Files. Treat the root as the display fallback without erasing
+  // show Design Files. Treat the root as the display fallback without erasing
   // persisted state: an in-flight file refresh may still restore the target.
   const designFilesTabActive =
     activeTab === DESIGN_FILES_TAB || !activeTabHasRenderableSurface;
@@ -4269,7 +4269,7 @@ export function FileWorkspace({
               onRequestBrowserUsePrompt={onRequestBrowserUsePrompt}
               onPageSnapshotToast={handleBrowserPageSnapshotToast}
               onRefreshFiles={refreshFilesWithoutResult}
-              onOpenDesignFiles={() => setPersistedActive(DESIGN_FILES_TAB)}
+              onRethraDesignFiles={() => setPersistedActive(DESIGN_FILES_TAB)}
               onOpenFile={openFile}
               onPageInfoChange={(info) => updateBrowserTabInfo(browserTab.id, info)}
               onAddImageToChat={(attachment) => {
@@ -7027,7 +7027,7 @@ function initialPrototypePage(title: string, body = DEFAULT_PROTOTYPE_PAGE_BODY)
   <main>
     <section class="hero">
       <div>
-        <div class="eyebrow">OpenDesign</div>
+        <div class="eyebrow">RethraDesign</div>
         <h1>${safeTitle}</h1>
         <p>${safeBody}</p>
       </div>
@@ -7169,7 +7169,7 @@ function initialSlidesPage(title: string, body = DEFAULT_SLIDES_PAGE_BODY): stri
   <div class="deck-shell">
     <main class="deck-stage" id="deck-stage">
       <section class="slide active cover" data-screen-label="01 Cover">
-        <div class="kicker">OpenDesign deck</div>
+        <div class="kicker">RethraDesign deck</div>
         <h1>${safeTitle}</h1>
         <p class="body">${safeBody}</p>
         <div class="num">01</div>
@@ -7307,7 +7307,7 @@ function initialDocumentPage(title: string, body = DEFAULT_DOCUMENT_PAGE_BODY): 
 </head>
 <body>
   <article>
-    <div class="meta">OpenDesign document</div>
+    <div class="meta">RethraDesign document</div>
     <h1>${safeTitle}</h1>
     <p>${safeBody}</p>
     <h2>Purpose</h2>

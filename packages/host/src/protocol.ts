@@ -1,43 +1,43 @@
-import type { ReleaseChannel } from "@open-design/release";
+import type { ReleaseChannel } from "@rethra-design/release";
 
 /**
  * @module protocol
  *
- * The OpenDesign renderer host-bridge wire contract: the injected-global name
+ * The RethraDesign renderer host-bridge wire contract: the injected-global name
  * and version, client/updater constant registries, and every request/result
- * type that crosses the host bridge — including the {@link OpenDesignHostBridge}
+ * type that crosses the host bridge — including the {@link RethraDesignHostBridge}
  * shape itself. Pure declarations only; depends on nothing else in the package.
  */
 
-export const OPEN_DESIGN_HOST_GLOBAL = "__od__";
-export const OPEN_DESIGN_HOST_VERSION = 2;
+export const RETHRA_DESIGN_HOST_GLOBAL = "__od__";
+export const RETHRA_DESIGN_HOST_VERSION = 2;
 
-export const OPEN_DESIGN_HOST_CLIENT_TYPES = Object.freeze({
+export const RETHRA_DESIGN_HOST_CLIENT_TYPES = Object.freeze({
   DESKTOP: "desktop",
 } as const);
 
-export type OpenDesignHostClientType =
-  (typeof OPEN_DESIGN_HOST_CLIENT_TYPES)[keyof typeof OPEN_DESIGN_HOST_CLIENT_TYPES];
+export type RethraDesignHostClientType =
+  (typeof RETHRA_DESIGN_HOST_CLIENT_TYPES)[keyof typeof RETHRA_DESIGN_HOST_CLIENT_TYPES];
 
-export type OpenDesignHostClient = {
+export type RethraDesignHostClient = {
   // BCP-47 locale string (e.g. "zh-CN", "pt-BR") the host process read from
   // the OS at startup. The renderer uses this so the packaged desktop app
   // can follow the OS language even when Chromium's built-in
   // `navigator.language` would have defaulted to en-US.
   osLocale?: string;
   platform?: string;
-  type: OpenDesignHostClientType;
+  type: RethraDesignHostClientType;
 };
 
-export type OpenDesignHostFailure = {
+export type RethraDesignHostFailure = {
   details?: unknown;
   ok: false;
   reason: string;
 };
 
-export type OpenDesignHostActionResult =
+export type RethraDesignHostActionResult =
   | { ok: true }
-  | OpenDesignHostFailure;
+  | RethraDesignHostFailure;
 
 /**
  * The workspace attribution the renderer gives the host so a folder import
@@ -57,7 +57,7 @@ export type OpenDesignHostActionResult =
  * it would reject the very `WorkspaceCollabContext` callers pass. Callers hand
  * over a variable, not a fresh literal, so the extra fields ride along fine.
  */
-export type OpenDesignHostWorkspaceContext = {
+export type RethraDesignHostWorkspaceContext = {
   lifecycleState: string;
   memberStatus: string;
   permissions: {
@@ -70,43 +70,43 @@ export type OpenDesignHostWorkspaceContext = {
   workspaceType: string;
 };
 
-export type OpenDesignHostProjectImportInit = {
+export type RethraDesignHostProjectImportInit = {
   designSystemId?: string | null;
   name?: string;
   skillId?: string | null;
-  workspaceContext?: OpenDesignHostWorkspaceContext | null;
+  workspaceContext?: RethraDesignHostWorkspaceContext | null;
 };
 
-export type OpenDesignHostProjectImportSuccess = {
+export type RethraDesignHostProjectImportSuccess = {
   conversationId: string;
   entryFile: string | null;
   ok: true;
   projectId: string;
 };
 
-export type OpenDesignHostProjectImportResult =
-  | OpenDesignHostProjectImportSuccess
+export type RethraDesignHostProjectImportResult =
+  | RethraDesignHostProjectImportSuccess
   | {
       canceled: true;
       ok: false;
     }
-  | OpenDesignHostFailure;
+  | RethraDesignHostFailure;
 
-export type OpenDesignHostProjectReplaceWorkingDirSuccess = {
+export type RethraDesignHostProjectReplaceWorkingDirSuccess = {
   baseDir: string;
   entryFile: string | null;
   ok: true;
 };
 
-export type OpenDesignHostProjectReplaceWorkingDirResult =
-  | OpenDesignHostProjectReplaceWorkingDirSuccess
+export type RethraDesignHostProjectReplaceWorkingDirResult =
+  | RethraDesignHostProjectReplaceWorkingDirSuccess
   | {
       canceled: true;
       ok: false;
     }
-  | OpenDesignHostFailure;
+  | RethraDesignHostFailure;
 
-export type OpenDesignHostPickWorkingDirSuccess = {
+export type RethraDesignHostPickWorkingDirSuccess = {
   baseDir: string;
   ok: true;
   // Single-use HMAC token (minted by the host main process for `baseDir`)
@@ -116,24 +116,24 @@ export type OpenDesignHostPickWorkingDirSuccess = {
   token: string;
 };
 
-export type OpenDesignHostPickWorkingDirResult =
-  | OpenDesignHostPickWorkingDirSuccess
+export type RethraDesignHostPickWorkingDirResult =
+  | RethraDesignHostPickWorkingDirSuccess
   | {
       canceled: true;
       ok: false;
     }
-  | OpenDesignHostFailure;
+  | RethraDesignHostFailure;
 
-export type OpenDesignHostPdfPrintOptions = {
+export type RethraDesignHostPdfPrintOptions = {
   deck?: boolean;
 };
 
-export type OpenDesignHostCaptureClip = { x: number; y: number; width: number; height: number };
-export type OpenDesignHostCaptureOptions = { clip?: OpenDesignHostCaptureClip };
-export type OpenDesignHostCaptureSuccess = { dataUrl: string; h: number; ok: true; w: number };
-export type OpenDesignHostCaptureResult = OpenDesignHostCaptureSuccess | OpenDesignHostFailure;
+export type RethraDesignHostCaptureClip = { x: number; y: number; width: number; height: number };
+export type RethraDesignHostCaptureOptions = { clip?: RethraDesignHostCaptureClip };
+export type RethraDesignHostCaptureSuccess = { dataUrl: string; h: number; ok: true; w: number };
+export type RethraDesignHostCaptureResult = RethraDesignHostCaptureSuccess | RethraDesignHostFailure;
 
-export type OpenDesignHostPreviewNavigationFailure = {
+export type RethraDesignHostPreviewNavigationFailure = {
   errorCode: number;
   eventId: number;
   frameName?: string;
@@ -141,11 +141,11 @@ export type OpenDesignHostPreviewNavigationFailure = {
   validatedUrl: string;
 };
 
-export type OpenDesignHostPreviewNavigationFailureListener = (
-  failure: OpenDesignHostPreviewNavigationFailure,
+export type RethraDesignHostPreviewNavigationFailureListener = (
+  failure: RethraDesignHostPreviewNavigationFailure,
 ) => void;
 
-export type OpenDesignHostBrowserClearDataOptions = {
+export type RethraDesignHostBrowserClearDataOptions = {
   cookies?: boolean;
   storage?: boolean;
 };
@@ -157,16 +157,16 @@ export type OpenDesignHostBrowserClearDataOptions = {
  * muddy gray when the OS is dark but the app theme is explicitly light);
  * `system` restores following the OS.
  */
-export const OPEN_DESIGN_HOST_APPEARANCE_THEMES = Object.freeze({
+export const RETHRA_DESIGN_HOST_APPEARANCE_THEMES = Object.freeze({
   DARK: "dark",
   LIGHT: "light",
   SYSTEM: "system",
 } as const);
 
-export type OpenDesignHostAppearanceTheme =
-  (typeof OPEN_DESIGN_HOST_APPEARANCE_THEMES)[keyof typeof OPEN_DESIGN_HOST_APPEARANCE_THEMES];
+export type RethraDesignHostAppearanceTheme =
+  (typeof RETHRA_DESIGN_HOST_APPEARANCE_THEMES)[keyof typeof RETHRA_DESIGN_HOST_APPEARANCE_THEMES];
 
-export const OPEN_DESIGN_HOST_UPDATER_ACTIONS = Object.freeze({
+export const RETHRA_DESIGN_HOST_UPDATER_ACTIONS = Object.freeze({
   CHECK: "check",
   CLEAR_CACHE: "clear-cache",
   DOWNLOAD: "download",
@@ -175,16 +175,16 @@ export const OPEN_DESIGN_HOST_UPDATER_ACTIONS = Object.freeze({
   STATUS: "status",
 } as const);
 
-export type OpenDesignHostUpdaterAction =
-  (typeof OPEN_DESIGN_HOST_UPDATER_ACTIONS)[keyof typeof OPEN_DESIGN_HOST_UPDATER_ACTIONS];
+export type RethraDesignHostUpdaterAction =
+  (typeof RETHRA_DESIGN_HOST_UPDATER_ACTIONS)[keyof typeof RETHRA_DESIGN_HOST_UPDATER_ACTIONS];
 
 /** @internal Updater actions that return a status snapshot (every action except `quit`). */
-export type OpenDesignHostUpdaterStatusAction = Exclude<
-  OpenDesignHostUpdaterAction,
-  typeof OPEN_DESIGN_HOST_UPDATER_ACTIONS.QUIT
+export type RethraDesignHostUpdaterStatusAction = Exclude<
+  RethraDesignHostUpdaterAction,
+  typeof RETHRA_DESIGN_HOST_UPDATER_ACTIONS.QUIT
 >;
 
-export const OPEN_DESIGN_HOST_UPDATER_STATES = Object.freeze({
+export const RETHRA_DESIGN_HOST_UPDATER_STATES = Object.freeze({
   AVAILABLE: "available",
   CHECKING: "checking",
   DOWNLOADED: "downloaded",
@@ -196,35 +196,35 @@ export const OPEN_DESIGN_HOST_UPDATER_STATES = Object.freeze({
   UNSUPPORTED: "unsupported",
 } as const);
 
-export type OpenDesignHostUpdaterState =
-  (typeof OPEN_DESIGN_HOST_UPDATER_STATES)[keyof typeof OPEN_DESIGN_HOST_UPDATER_STATES];
+export type RethraDesignHostUpdaterState =
+  (typeof RETHRA_DESIGN_HOST_UPDATER_STATES)[keyof typeof RETHRA_DESIGN_HOST_UPDATER_STATES];
 
-export type OpenDesignHostUpdaterMode = "js-incremental" | "package-launcher";
-export type OpenDesignHostUpdaterChannel = ReleaseChannel;
+export type RethraDesignHostUpdaterMode = "js-incremental" | "package-launcher";
+export type RethraDesignHostUpdaterChannel = ReleaseChannel;
 
-export type OpenDesignHostUpdaterActionOptions = {
+export type RethraDesignHostUpdaterActionOptions = {
   payload?: Record<string, unknown>;
 };
 
-export type OpenDesignHostUpdaterCapabilitySet = {
+export type RethraDesignHostUpdaterCapabilitySet = {
   canApplyInPlace: boolean;
   canDownload: boolean;
   canOpenInstaller: boolean;
   requiresManualInstall: boolean;
 };
 
-export type OpenDesignHostUpdaterPathSnapshot = {
+export type RethraDesignHostUpdaterPathSnapshot = {
   downloadRoot?: string;
   manifestPath?: string;
 };
 
-export type OpenDesignHostUpdaterChecksumSnapshot = {
+export type RethraDesignHostUpdaterChecksumSnapshot = {
   algorithm: "sha256" | "sha512";
   url?: string;
   value?: string;
 };
 
-export type OpenDesignHostUpdaterArtifactSnapshot = {
+export type RethraDesignHostUpdaterArtifactSnapshot = {
   name?: string;
   platformKey?: string;
   size?: number;
@@ -232,18 +232,18 @@ export type OpenDesignHostUpdaterArtifactSnapshot = {
   url: string;
 };
 
-export type OpenDesignHostUpdaterProgressSnapshot = {
+export type RethraDesignHostUpdaterProgressSnapshot = {
   receivedBytes: number;
   totalBytes?: number;
 };
 
-export type OpenDesignHostUpdaterErrorSnapshot = {
+export type RethraDesignHostUpdaterErrorSnapshot = {
   code: string;
   details?: unknown;
   message: string;
 };
 
-export type OpenDesignHostUpdaterInstallResult = {
+export type RethraDesignHostUpdaterInstallResult = {
   activeVersion?: string;
   artifactPath?: string;
   dryRun?: boolean;
@@ -254,11 +254,11 @@ export type OpenDesignHostUpdaterInstallResult = {
   path: string;
 };
 
-export type OpenDesignHostUpdaterReleaseSnapshot = {
+export type RethraDesignHostUpdaterReleaseSnapshot = {
   arch: string;
-  artifact: OpenDesignHostUpdaterArtifactSnapshot;
-  checksum: OpenDesignHostUpdaterChecksumSnapshot;
-  channel: OpenDesignHostUpdaterChannel;
+  artifact: RethraDesignHostUpdaterArtifactSnapshot;
+  checksum: RethraDesignHostUpdaterChecksumSnapshot;
+  channel: RethraDesignHostUpdaterChannel;
   downloadedAt: string;
   key: string;
   metadata?: Record<string, unknown>;
@@ -267,29 +267,29 @@ export type OpenDesignHostUpdaterReleaseSnapshot = {
   version: string;
 };
 
-export type OpenDesignHostUpdaterIncomingSnapshot = {
+export type RethraDesignHostUpdaterIncomingSnapshot = {
   arch: string;
-  artifact: OpenDesignHostUpdaterArtifactSnapshot;
-  channel: OpenDesignHostUpdaterChannel;
+  artifact: RethraDesignHostUpdaterArtifactSnapshot;
+  channel: RethraDesignHostUpdaterChannel;
   key?: string;
   metadata?: Record<string, unknown>;
-  progress?: OpenDesignHostUpdaterProgressSnapshot;
+  progress?: RethraDesignHostUpdaterProgressSnapshot;
   startedAt: string;
   version: string;
 };
 
-export type OpenDesignHostUpdaterCacheLifecycleTrigger = "cold-start" | "manual" | "next-version-ready";
+export type RethraDesignHostUpdaterCacheLifecycleTrigger = "cold-start" | "manual" | "next-version-ready";
 
-export type OpenDesignHostUpdaterReleaseLifecycleState =
+export type RethraDesignHostUpdaterReleaseLifecycleState =
   | "cleanup-deferred"
   | "cleanup-removed"
   | "deprecated"
   | "retained"
   | "unknown";
 
-export type OpenDesignHostUpdaterCacheLifecycleSummary = {
+export type RethraDesignHostUpdaterCacheLifecycleSummary = {
   lastRunAt?: string;
-  lastTrigger?: OpenDesignHostUpdaterCacheLifecycleTrigger;
+  lastTrigger?: RethraDesignHostUpdaterCacheLifecycleTrigger;
   platform: string;
   releases: {
     cleanupDeferred: number;
@@ -302,11 +302,11 @@ export type OpenDesignHostUpdaterCacheLifecycleSummary = {
   };
 };
 
-export type OpenDesignHostUpdaterCacheSnapshot = {
-  lifecycle?: OpenDesignHostUpdaterCacheLifecycleSummary;
+export type RethraDesignHostUpdaterCacheSnapshot = {
+  lifecycle?: RethraDesignHostUpdaterCacheLifecycleSummary;
 };
 
-export type OpenDesignHostUpdaterReinstallReason =
+export type RethraDesignHostUpdaterReinstallReason =
   | "launcher-schema"
   | "outer-below-min"
   | "outer-version-unreadable";
@@ -317,47 +317,47 @@ export type OpenDesignHostUpdaterReinstallReason =
  * outer package version; `url` is an optional operator-supplied explanation
  * link.
  */
-export type OpenDesignHostUpdaterReinstallSnapshot = {
+export type RethraDesignHostUpdaterReinstallSnapshot = {
   installedVersion?: string;
   minVersion?: string;
-  reason: OpenDesignHostUpdaterReinstallReason;
+  reason: RethraDesignHostUpdaterReinstallReason;
   url?: string;
 };
 
-export type OpenDesignHostUpdaterStatusSnapshot = {
-  active?: OpenDesignHostUpdaterReleaseSnapshot;
+export type RethraDesignHostUpdaterStatusSnapshot = {
+  active?: RethraDesignHostUpdaterReleaseSnapshot;
   arch: string;
-  artifact?: OpenDesignHostUpdaterArtifactSnapshot;
+  artifact?: RethraDesignHostUpdaterArtifactSnapshot;
   artifactUrl?: string;
   availableVersion?: string;
-  cache?: OpenDesignHostUpdaterCacheSnapshot;
-  capabilities: OpenDesignHostUpdaterCapabilitySet;
-  channel: OpenDesignHostUpdaterChannel;
-  checksum?: OpenDesignHostUpdaterChecksumSnapshot;
+  cache?: RethraDesignHostUpdaterCacheSnapshot;
+  capabilities: RethraDesignHostUpdaterCapabilitySet;
+  channel: RethraDesignHostUpdaterChannel;
+  checksum?: RethraDesignHostUpdaterChecksumSnapshot;
   currentVersion: string;
   downloadPath?: string;
   enabled: boolean;
-  error?: OpenDesignHostUpdaterErrorSnapshot;
-  incoming?: OpenDesignHostUpdaterIncomingSnapshot;
-  installResult?: OpenDesignHostUpdaterInstallResult;
+  error?: RethraDesignHostUpdaterErrorSnapshot;
+  incoming?: RethraDesignHostUpdaterIncomingSnapshot;
+  installResult?: RethraDesignHostUpdaterInstallResult;
   lastCheckedAt?: string;
   metadata?: Record<string, unknown>;
-  mode: OpenDesignHostUpdaterMode;
-  paths?: OpenDesignHostUpdaterPathSnapshot;
+  mode: RethraDesignHostUpdaterMode;
+  paths?: RethraDesignHostUpdaterPathSnapshot;
   platform: string;
-  progress?: OpenDesignHostUpdaterProgressSnapshot;
-  reinstall?: OpenDesignHostUpdaterReinstallSnapshot;
-  state: OpenDesignHostUpdaterState;
+  progress?: RethraDesignHostUpdaterProgressSnapshot;
+  reinstall?: RethraDesignHostUpdaterReinstallSnapshot;
+  state: RethraDesignHostUpdaterState;
   supported: boolean;
 };
 
-export type OpenDesignHostUpdaterResult =
-  | { ok: true; status: OpenDesignHostUpdaterStatusSnapshot }
-  | OpenDesignHostFailure;
+export type RethraDesignHostUpdaterResult =
+  | { ok: true; status: RethraDesignHostUpdaterStatusSnapshot }
+  | RethraDesignHostFailure;
 
-export type OpenDesignHostUpdaterStatusListener = (status: OpenDesignHostUpdaterStatusSnapshot) => void;
+export type RethraDesignHostUpdaterStatusListener = (status: RethraDesignHostUpdaterStatusSnapshot) => void;
 
-export type OpenDesignHostUpdaterMenuLabels = {
+export type RethraDesignHostUpdaterMenuLabels = {
   check: string;
   checking: string;
   downloading: string;
@@ -366,27 +366,27 @@ export type OpenDesignHostUpdaterMenuLabels = {
   restart: string;
 };
 
-export type OpenDesignHostUpdaterOpenDialogRequest = {
+export type RethraDesignHostUpdaterOpenDialogRequest = {
   source: string;
 };
 
-export type OpenDesignHostUpdaterOpenDialogListener = (request: OpenDesignHostUpdaterOpenDialogRequest) => void;
+export type RethraDesignHostUpdaterOpenDialogListener = (request: RethraDesignHostUpdaterOpenDialogRequest) => void;
 
-export type OpenDesignHostBridge = {
+export type RethraDesignHostBridge = {
   // Optional so older host builds still satisfy the bridge shape; callers
   // must feature-detect before invoking.
   appearance?: {
-    setTheme(theme: OpenDesignHostAppearanceTheme): void;
+    setTheme(theme: RethraDesignHostAppearanceTheme): void;
   };
   browser: {
-    clearData(options?: OpenDesignHostBrowserClearDataOptions): Promise<OpenDesignHostActionResult>;
+    clearData(options?: RethraDesignHostBrowserClearDataOptions): Promise<RethraDesignHostActionResult>;
   };
   capture: {
-    page(options?: OpenDesignHostCaptureOptions): Promise<OpenDesignHostCaptureResult>;
+    page(options?: RethraDesignHostCaptureOptions): Promise<RethraDesignHostCaptureResult>;
   };
-  client: OpenDesignHostClient;
+  client: RethraDesignHostClient;
   pdf: {
-    print(html: string, nonce?: string, options?: OpenDesignHostPdfPrintOptions): Promise<OpenDesignHostActionResult>;
+    print(html: string, nonce?: string, options?: RethraDesignHostPdfPrintOptions): Promise<RethraDesignHostActionResult>;
   };
   pet: {
     setVisible(visible: boolean): void;
@@ -395,34 +395,34 @@ export type OpenDesignHostBridge = {
   // Electron is the only layer that can observe a compositor-affecting
   // subframe navigation failure after the iframe DOM remains healthy.
   preview?: {
-    getLatestNavigationFailure(): OpenDesignHostPreviewNavigationFailure | null;
-    subscribeNavigationFailure(listener: OpenDesignHostPreviewNavigationFailureListener): () => void;
+    getLatestNavigationFailure(): RethraDesignHostPreviewNavigationFailure | null;
+    subscribeNavigationFailure(listener: RethraDesignHostPreviewNavigationFailureListener): () => void;
   };
   project: {
-    pickAndImport(init?: OpenDesignHostProjectImportInit): Promise<OpenDesignHostProjectImportResult>;
-    pickAndReplaceWorkingDir(projectId: string): Promise<OpenDesignHostProjectReplaceWorkingDirResult>;
+    pickAndImport(init?: RethraDesignHostProjectImportInit): Promise<RethraDesignHostProjectImportResult>;
+    pickAndReplaceWorkingDir(projectId: string): Promise<RethraDesignHostProjectReplaceWorkingDirResult>;
     // Optional so older host builds still satisfy the bridge shape; callers
     // must feature-detect before invoking.
-    pickWorkingDir?(): Promise<OpenDesignHostPickWorkingDirResult>;
+    pickWorkingDir?(): Promise<RethraDesignHostPickWorkingDirResult>;
   };
   shell: {
-    openExternal(url: string): Promise<OpenDesignHostActionResult>;
-    openPath(projectId: string): Promise<OpenDesignHostActionResult>;
+    openExternal(url: string): Promise<RethraDesignHostActionResult>;
+    openPath(projectId: string): Promise<RethraDesignHostActionResult>;
   };
   updater: {
-    check(options?: OpenDesignHostUpdaterActionOptions): Promise<OpenDesignHostUpdaterStatusSnapshot>;
-    "clear-cache"(options?: OpenDesignHostUpdaterActionOptions): Promise<OpenDesignHostUpdaterStatusSnapshot>;
-    download(options?: OpenDesignHostUpdaterActionOptions): Promise<OpenDesignHostUpdaterStatusSnapshot>;
-    install(options?: OpenDesignHostUpdaterActionOptions): Promise<OpenDesignHostUpdaterStatusSnapshot>;
-    quit(options?: OpenDesignHostUpdaterActionOptions): Promise<OpenDesignHostActionResult>;
-    setMenuLabels(labels: OpenDesignHostUpdaterMenuLabels): Promise<OpenDesignHostActionResult>;
-    status(options?: OpenDesignHostUpdaterActionOptions): Promise<OpenDesignHostUpdaterStatusSnapshot>;
-    subscribe(listener: OpenDesignHostUpdaterStatusListener): () => void;
-    subscribeOpenDialog(listener: OpenDesignHostUpdaterOpenDialogListener): () => void;
+    check(options?: RethraDesignHostUpdaterActionOptions): Promise<RethraDesignHostUpdaterStatusSnapshot>;
+    "clear-cache"(options?: RethraDesignHostUpdaterActionOptions): Promise<RethraDesignHostUpdaterStatusSnapshot>;
+    download(options?: RethraDesignHostUpdaterActionOptions): Promise<RethraDesignHostUpdaterStatusSnapshot>;
+    install(options?: RethraDesignHostUpdaterActionOptions): Promise<RethraDesignHostUpdaterStatusSnapshot>;
+    quit(options?: RethraDesignHostUpdaterActionOptions): Promise<RethraDesignHostActionResult>;
+    setMenuLabels(labels: RethraDesignHostUpdaterMenuLabels): Promise<RethraDesignHostActionResult>;
+    status(options?: RethraDesignHostUpdaterActionOptions): Promise<RethraDesignHostUpdaterStatusSnapshot>;
+    subscribe(listener: RethraDesignHostUpdaterStatusListener): () => void;
+    subscribeOpenDialog(listener: RethraDesignHostUpdaterOpenDialogListener): () => void;
   };
-  version: typeof OPEN_DESIGN_HOST_VERSION;
+  version: typeof RETHRA_DESIGN_HOST_VERSION;
 };
 
-export type OpenDesignHostGlobalScope = Record<string, unknown> & {
+export type RethraDesignHostGlobalScope = Record<string, unknown> & {
   window?: unknown;
 };

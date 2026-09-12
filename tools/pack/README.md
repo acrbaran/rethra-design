@@ -1,6 +1,6 @@
 # tools/pack
 
-Local packaging control plane for Open Design.
+Local packaging control plane for Rethra Design.
 
 `tools-pack` is the cross-platform packaging and smoke-lifecycle control plane. The macOS commands include:
 
@@ -16,8 +16,8 @@ Local packaging control plane for Open Design.
 - `tools-pack mac cleanup`
 
 Build artifacts are namespace-scoped under `.tmp/tools-pack/out/mac/namespaces/<namespace>/`.
-Public release bundles keep channel-distinct identities: `Open Design.app`, `Open Design Beta.app`,
-`Open Design Prerelease.app`, or `Open Design Preview.app`. Local `tools-pack install` adds the developer
+Public release bundles keep channel-distinct identities: `Rethra Design.app`, `Rethra Design Beta.app`,
+`Rethra Design Prerelease.app`, or `Rethra Design Preview.app`. Local `tools-pack install` adds the developer
 namespace so installs can coexist without affecting runtime data/log/cache paths.
 
 Packaged runtime state is namespace-scoped under `.tmp/tools-pack/runtime/mac/namespaces/<namespace>/`:
@@ -67,7 +67,7 @@ from the user's Electron `userData` root instead of the build machine's `.tmp` p
 ### macOS compatibility notes
 
 - `tools-pack mac build --portable --to zip` is the safest manual-install artifact for Intel Macs. This path was smoke-tested on macOS 12.7.6 Monterey on a 2015 Intel iMac and the app launched successfully from `/Applications`.
-- Finder/manual launches on macOS may not inherit your shell-managed `PATH`. If packaged Open Design cannot detect agent CLIs that work in Terminal, expose those binaries to the GUI login environment or launch the packaged app from a shell session that already sees them.
+- Finder/manual launches on macOS may not inherit your shell-managed `PATH`. If packaged Rethra Design cannot detect agent CLIs that work in Terminal, expose those binaries to the GUI login environment or launch the packaged app from a shell session that already sees them.
 
 ## Windows
 
@@ -117,9 +117,9 @@ Build artifacts are namespace-scoped under `.tmp/tools-pack/out/linux/namespaces
 
 Local installs use XDG paths:
 
-- AppImage: `~/.local/bin/Open-Design.<namespace>.AppImage`
-- Menu entry: `~/.local/share/applications/open-design-<namespace>.desktop`
-- Icon: `~/.local/share/icons/hicolor/512x512/apps/open-design-<namespace>.png`
+- AppImage: `~/.local/bin/Rethra-Design.<namespace>.AppImage`
+- Menu entry: `~/.local/share/applications/rethra-design-<namespace>.desktop`
+- Icon: `~/.local/share/icons/hicolor/512x512/apps/rethra-design-<namespace>.png`
 
 The `<namespace>` suffix is unconditional so multiple developer namespaces can coexist on the same desktop. The `.desktop` file registers the `od://` scheme via `MimeType=x-scheme-handler/od;` and pre-sets `OD_PACKAGED_NAMESPACE` on the `Exec=` line so menu launches identify the correct namespace.
 
@@ -127,9 +127,9 @@ The `<namespace>` suffix is unconditional so multiple developer namespaces can c
 
 Headless mode targets environments without a display (WSL2, headless servers, CI) where Electron can't run. If you have a desktop, use the AppImage; if you're SSH'd into a machine or in WSL, use headless.
 
-`--headless` makes `install`, `start`, `stop`, `uninstall`, and `cleanup` operate on the headless entry (`@open-design/packaged/dist/headless.mjs`) instead of the AppImage. Headless mode runs daemon + web without Electron.
+`--headless` makes `install`, `start`, `stop`, `uninstall`, and `cleanup` operate on the headless entry (`@rethra-design/packaged/dist/headless.mjs`) instead of the AppImage. Headless mode runs daemon + web without Electron.
 
-- `install --headless` writes a shell launcher at `~/.local/bin/open-design-headless-<namespace>` that bakes in the namespace and resource paths. The launcher is self-contained, but the assembled app directory at those paths must remain in place — don't move it after install.
+- `install --headless` writes a shell launcher at `~/.local/bin/rethra-design-headless-<namespace>` that bakes in the namespace and resource paths. The launcher is self-contained, but the assembled app directory at those paths must remain in place — don't move it after install.
 - `start --headless` launches through the sidecar atomic and waits up to 95s for private status readiness.
 - `stop --headless` terminally stops the exact `mode=headless` argv stamp. The mode field keeps it disjoint from the AppImage desktop without identity files or public IPC paths.
 - `inspect --headless` returns status only. Eval and screenshot require AppImage mode because there is no Electron renderer in headless mode.

@@ -345,7 +345,7 @@ function isAllowedDependencySpec(spec: string): boolean {
 // reproducible. A peer range aimed at a third-party host is the opposite
 // case — the host's version is chosen by the user, so an exact peer means
 // any host upgrade leaves the peer unsatisfiable and the plugin refuses to
-// install at all. `@open-design/dsh-runtime` hit exactly that: pinned to a
+// install at all. `@rethra-design/dsh-runtime` hit exactly that: pinned to a
 // single DeepSeek Harness release candidate, it became uninstallable the
 // moment the upstream shipped the next one.
 //
@@ -884,9 +884,9 @@ const webImportIsolationSkippedDirectories = new Set([
   "test-results",
 ]);
 const webImportIsolationForbiddenPackages = [
-  "@open-design/platform",
-  "@open-design/sidecar",
-  "@open-design/sidecar-proto",
+  "@rethra-design/platform",
+  "@rethra-design/sidecar",
+  "@rethra-design/sidecar-proto",
 ];
 const webImportIsolationForbiddenDaemonRoots = [
   "apps/daemon/src",
@@ -990,7 +990,7 @@ function webImportIsolationViolationReason(fromRepositoryPath: string, specifier
   if (!resolvedPath) return null;
 
   if (webImportIsolationForbiddenDaemonRoots.some((root) => isPathOrDescendant(resolvedPath, root))) {
-    return "apps/web must use daemon HTTP APIs or @open-design/contracts instead of daemon private source";
+    return "apps/web must use daemon HTTP APIs or @rethra-design/contracts instead of daemon private source";
   }
 
   if (webImportIsolationForbiddenPackageRoots.some((root) => isPathOrDescendant(resolvedPath, root))) {
@@ -1261,7 +1261,7 @@ function collectStylePolicyViolationsFromSource(repositoryPath: string, source: 
         filePath: repositoryPath,
         lineNumber: lineNumberForIndex(source, match.index ?? 0),
         match: match[0],
-        reason: "default Tailwind palette classes must use OpenDesign token utilities instead",
+        reason: "default Tailwind palette classes must use RethraDesign token utilities instead",
       });
     }
   }
@@ -1278,7 +1278,7 @@ function collectStylePolicyViolationsFromSource(repositoryPath: string, source: 
           source,
           match.index,
           value,
-          "unregistered hardcoded UI colors must use OpenDesign tokens or an explicit allowlist entry",
+          "unregistered hardcoded UI colors must use RethraDesign tokens or an explicit allowlist entry",
         );
       }
     } else {
@@ -1293,7 +1293,7 @@ function collectStylePolicyViolationsFromSource(repositoryPath: string, source: 
           source,
           match.index ?? 0,
           value,
-          "unregistered hardcoded UI colors must use OpenDesign tokens or an explicit allowlist entry",
+          "unregistered hardcoded UI colors must use RethraDesign tokens or an explicit allowlist entry",
         );
       }
     }
@@ -1354,7 +1354,7 @@ async function checkStylePolicy(): Promise<boolean> {
     for (const violation of violations) {
       console.error(`- ${violation.filePath}:${violation.lineNumber} \`${violation.match}\` -> ${violation.reason}`);
     }
-    console.error("Use OpenDesign token utilities/CSS variables or add a narrow allowlist entry with a reason.");
+    console.error("Use RethraDesign token utilities/CSS variables or add a narrow allowlist entry with a reason.");
     return false;
   }
 
@@ -1367,13 +1367,13 @@ async function checkStylePolicy(): Promise<boolean> {
 //
 // Preview and export splice bridges into an artifact's own bytes, so they need
 // the offset of a real `<head>` / `</body>` / `<base>` / `<title>`. Finding one
-// with a plain text match is what broke nexu-io/open-design#7410: those tags
+// with a plain text match is what broke nexu-io/rethra-design#7410: those tags
 // are also ordinary content, and any prototype that builds an HTML document
 // string writes them into a script or an attribute. The injected markup then
 // lands inside the author's string and silently truncates their page.
 //
 // That defect reappeared in six separate files because each one hand-rolled its
-// own lookup. `@open-design/contracts/runtime/html-injection-points` is now the
+// own lookup. `@rethra-design/contracts/runtime/html-injection-points` is now the
 // single implementation, and this check is what keeps the next one from being
 // written: a grep-driven sweep already missed an entire app once.
 // ---------------------------------------------------------------------------
@@ -1452,7 +1452,7 @@ async function checkHtmlBoundaryLookups(): Promise<boolean> {
     console.error(
       "wrote into a script string or an attribute would match first, and the injection would",
     );
-    console.error("land inside their content (nexu-io/open-design#7410). Use findRealTagOffset /");
+    console.error("land inside their content (nexu-io/rethra-design#7410). Use findRealTagOffset /");
     console.error(`findRealTagEnd from ${htmlBoundaryOwnerPath} instead.`);
     for (const violation of violations) {
       console.error(`- ${violation.filePath}:${violation.lineNumber}: ${violation.line}`);

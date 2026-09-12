@@ -12,7 +12,7 @@
  * only covers real daemon work.
  *
  * @see apps/packaged/src/prewarm.ts
- * @see https://github.com/nexu-io/open-design/issues/5835
+ * @see https://github.com/acrbaran/rethra-design/issues/5835
  */
 import { mkdtempSync, mkdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -62,7 +62,7 @@ describe('unescapeProcMountsField', () => {
 describe('detectFuseBackedPath', () => {
   it('detects a path under an AppImage FUSE mount with an escaped space', () => {
     expect(
-      detectFuseBackedPath('/tmp/.mount_Open DePl0rQ/resources/open-design/bin/node', MOUNTS_FIXTURE),
+      detectFuseBackedPath('/tmp/.mount_Open DePl0rQ/resources/rethra-design/bin/node', MOUNTS_FIXTURE),
     ).toBe(true);
   });
 
@@ -99,44 +99,44 @@ describe('detectFuseBackedPath', () => {
 describe('resolveDaemonPrewarmTargets', () => {
   it('includes the bundled node binary, the daemon dist dir and the bundled plugins', () => {
     const targets = resolveDaemonPrewarmTargets({
-      nodeCommand: '/res/open-design/bin/node',
-      daemonSidecarEntry: '/res/app/node_modules/@open-design/daemon/dist/sidecar/index.js',
-      resourceRoot: '/res/open-design',
+      nodeCommand: '/res/rethra-design/bin/node',
+      daemonSidecarEntry: '/res/app/node_modules/@rethra-design/daemon/dist/sidecar/index.js',
+      resourceRoot: '/res/rethra-design',
     });
     expect(targets).toEqual([
-      { kind: 'file', path: '/res/open-design/bin/node' },
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/daemon/dist' },
-      { kind: 'dir', path: '/res/open-design/plugins' },
+      { kind: 'file', path: '/res/rethra-design/bin/node' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/daemon/dist' },
+      { kind: 'dir', path: '/res/rethra-design/plugins' },
     ]);
   });
 
   it('omits the node binary when the sidecar would run under Electron-as-node', () => {
     const targets = resolveDaemonPrewarmTargets({
       nodeCommand: null,
-      daemonSidecarEntry: '/res/app/node_modules/@open-design/daemon/dist/sidecar/index.js',
-      resourceRoot: '/res/open-design',
+      daemonSidecarEntry: '/res/app/node_modules/@rethra-design/daemon/dist/sidecar/index.js',
+      resourceRoot: '/res/rethra-design',
     });
     expect(targets).toEqual([
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/daemon/dist' },
-      { kind: 'dir', path: '/res/open-design/plugins' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/daemon/dist' },
+      { kind: 'dir', path: '/res/rethra-design/plugins' },
     ]);
   });
 
   it('omits the plugins dir when the resource root is unknown', () => {
     const targets = resolveDaemonPrewarmTargets({
-      nodeCommand: '/res/open-design/bin/node',
-      daemonSidecarEntry: '/res/app/node_modules/@open-design/daemon/dist/sidecar/index.js',
+      nodeCommand: '/res/rethra-design/bin/node',
+      daemonSidecarEntry: '/res/app/node_modules/@rethra-design/daemon/dist/sidecar/index.js',
       resourceRoot: null,
     });
     expect(targets).toEqual([
-      { kind: 'file', path: '/res/open-design/bin/node' },
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/daemon/dist' },
+      { kind: 'file', path: '/res/rethra-design/bin/node' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/daemon/dist' },
     ]);
   });
 });
 
 describe('resolveWebPrewarmTargets', () => {
-  const entry = '/res/app/node_modules/@open-design/web/dist/sidecar/index.js';
+  const entry = '/res/app/node_modules/@rethra-design/web/dist/sidecar/index.js';
 
   it('covers the web sidecar, Next server chunks and framework server code in server mode', () => {
     // next/dist/compiled (~107 MB) is intentionally excluded: only a small
@@ -148,8 +148,8 @@ describe('resolveWebPrewarmTargets', () => {
       resolveNextPackageRoot: () => '/res/app/node_modules/next',
     });
     expect(targets).toEqual([
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/web/dist/sidecar' },
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/web/.next/server' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/web/dist/sidecar' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/web/.next/server' },
       { kind: 'dir', path: '/res/app/node_modules/next/dist/server' },
     ]);
   });
@@ -157,10 +157,10 @@ describe('resolveWebPrewarmTargets', () => {
   it('falls back to the standalone bundle root in standalone mode', () => {
     const targets = resolveWebPrewarmTargets({
       webSidecarEntry: entry,
-      webStandaloneRoot: '/res/open-design-web-standalone',
+      webStandaloneRoot: '/res/rethra-design-web-standalone',
       resolveNextPackageRoot: () => '/res/app/node_modules/next',
     });
-    expect(targets).toEqual([{ kind: 'dir', path: '/res/open-design-web-standalone' }]);
+    expect(targets).toEqual([{ kind: 'dir', path: '/res/rethra-design-web-standalone' }]);
   });
 
   it('skips the Next framework dirs when next cannot be resolved', () => {
@@ -170,8 +170,8 @@ describe('resolveWebPrewarmTargets', () => {
       resolveNextPackageRoot: () => null,
     });
     expect(targets).toEqual([
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/web/dist/sidecar' },
-      { kind: 'dir', path: '/res/app/node_modules/@open-design/web/.next/server' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/web/dist/sidecar' },
+      { kind: 'dir', path: '/res/app/node_modules/@rethra-design/web/.next/server' },
     ]);
   });
 

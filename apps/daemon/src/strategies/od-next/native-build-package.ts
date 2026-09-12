@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-import type { OpenDesignPlanContractV2 } from '@open-design/contracts';
+import type { RethraDesignPlanContractV2 } from '@rethra-design/contracts';
 
 export interface OdNextNativeBuildPackageBinding {
   buildPackageId: string;
@@ -33,7 +33,7 @@ export function createOdNextNativeBuildPackageBindings(input: {
   taskExecutionId: string;
   taskRunIndex: number;
   planContractHash: string;
-  plan: OpenDesignPlanContractV2;
+  plan: RethraDesignPlanContractV2;
 }): OdNextNativeBuildPackageBinding[] {
   if (input.plan.fullPlan.executionMode !== 'complex') return [];
   if (!Number.isSafeInteger(input.taskRunIndex) || input.taskRunIndex <= 0) {

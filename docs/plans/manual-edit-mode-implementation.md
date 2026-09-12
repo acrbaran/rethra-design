@@ -8,7 +8,7 @@ Implementation branch: `codex/manual-edit-mode`.
 
 ## Goal
 
-Migrate the accepted manual edit-mode prototype into the production OpenDesign web app.
+Migrate the accepted manual edit-mode prototype into the production Rethra Design web app.
 
 The product boundary is fixed:
 
@@ -41,9 +41,9 @@ The product boundary is fixed:
 ## Verification Commands
 
 ```bash
-pnpm --filter @open-design/web typecheck
-pnpm --filter @open-design/web test
-pnpm --filter @open-design/e2e test:ui -- --grep "manual edit"
+pnpm --filter @rethra-design/web typecheck
+pnpm --filter @rethra-design/web test
+pnpm --filter @rethra-design/e2e test:ui -- --grep "manual edit"
 pnpm typecheck
 pnpm test
 pnpm check:residual-js

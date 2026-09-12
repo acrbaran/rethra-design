@@ -2,8 +2,8 @@
 //
 // This module is intentionally dependency-free (no `langfuse` SDK). It builds
 // Langfuse ingestion batches for completed runs and sends them either to the
-// official OpenDesign telemetry relay or, for local smoke tests, directly to
-// Langfuse. Without OPEN_DESIGN_TELEMETRY_RELAY_URL or LANGFUSE_PUBLIC_KEY /
+// official RethraDesign telemetry relay or, for local smoke tests, directly to
+// Langfuse. Without RETHRA_DESIGN_TELEMETRY_RELAY_URL or LANGFUSE_PUBLIC_KEY /
 // LANGFUSE_SECRET_KEY in the env, every entry point becomes a no-op so that
 // dev runs and forks of this open-source repo do not accidentally report.
 //
@@ -28,10 +28,10 @@ import {
   type SafeDeliverableSyntaxTelemetryV1,
   type SafeRunProcessOutcomeV1,
   type SafeRunQualityV1,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import type { TelemetryPrefs } from './app-config.js';
-import { normalizeOpenDesignTelemetryRelayUrl } from './integrations/telemetry-relay.js';
+import { normalizeRethraDesignTelemetryRelayUrl } from './integrations/telemetry-relay.js';
 import { readVelaControlApiContext } from './integrations/vela.js';
 import {
   deriveRunTelemetryExportExpectation,
@@ -230,16 +230,16 @@ export interface TraceSafeObjectManifestBase {
   extension?: string;
   redacted: boolean;
   truncated: boolean;
-  stored_in_open_design: boolean;
+  stored_in_rethra_design: boolean;
   retention_policy: ObjectManifestRetentionPolicy;
   access_scope: ObjectManifestAccessScope;
   sensitivity: ObjectManifestSensitivity;
   source: 'user_upload' | 'agent_generated' | 'user_prompt';
   expires_at: string | null;
   approved_by: string | null;
-  open_in_open_design_url?: null;
+  open_in_rethra_design_url?: null;
   preview_status?: string;
-  access_policy?: 'open_design_auth_required';
+  access_policy?: 'rethra_design_auth_required';
 }
 
 export interface AttachmentManifestEntry extends TraceSafeObjectManifestBase {
@@ -311,7 +311,7 @@ export interface RuntimeInfo {
   osRelease?: string;
   /** CPU architecture (`os.arch()`, e.g. 'arm64' | 'x64'). */
   arch?: string;
-  /** OpenDesign app version reported by the daemon. */
+  /** RethraDesign app version reported by the daemon. */
   appVersion?: string;
   /** Build channel (development / prerelease / beta / stable). */
   appChannel?: string;
@@ -457,17 +457,17 @@ export function readLangfuseConfig(
 export function readTelemetrySinkConfig(
   env: NodeJS.ProcessEnv = process.env,
 ): TelemetrySinkConfig | null {
-  const relayUrl = env.OPEN_DESIGN_TELEMETRY_RELAY_URL?.trim();
+  const relayUrl = env.RETHRA_DESIGN_TELEMETRY_RELAY_URL?.trim();
   if (relayUrl) {
     return {
       kind: 'relay',
-      relayUrl: normalizeOpenDesignTelemetryRelayUrl(relayUrl),
+      relayUrl: normalizeRethraDesignTelemetryRelayUrl(relayUrl),
       timeoutMs: parsePositiveInt(
-        env.OPEN_DESIGN_TELEMETRY_TIMEOUT_MS ?? env.LANGFUSE_TIMEOUT_MS,
+        env.RETHRA_DESIGN_TELEMETRY_TIMEOUT_MS ?? env.LANGFUSE_TIMEOUT_MS,
         DEFAULT_FETCH_TIMEOUT_MS,
       ),
       retries: parseNonNegativeInt(
-        env.OPEN_DESIGN_TELEMETRY_RETRIES ?? env.LANGFUSE_RETRIES,
+        env.RETHRA_DESIGN_TELEMETRY_RETRIES ?? env.LANGFUSE_RETRIES,
         DEFAULT_FETCH_RETRIES,
       ),
     };
@@ -490,7 +490,7 @@ export function readTaskTelemetrySinkConfig(
 }
 
 function isVelaTelemetryEnabled(env: NodeJS.ProcessEnv): boolean {
-  const raw = env.OPEN_DESIGN_VELA_TELEMETRY?.trim().toLowerCase();
+  const raw = env.RETHRA_DESIGN_VELA_TELEMETRY?.trim().toLowerCase();
   return raw !== '0' && raw !== 'false' && raw !== 'off' && raw !== 'no';
 }
 
@@ -510,17 +510,17 @@ export function readRunTelemetrySinkConfig(
     if (context && controlKey) {
       return {
         kind: 'vela',
-        apiUrl: (context.apiUrl.trim() || 'https://amr-api.open-design.ai').replace(
+        apiUrl: (context.apiUrl.trim() || 'https://amr-api.rethra-design.invalid').replace(
           /\/+$/,
           '',
         ),
         controlKey,
         timeoutMs: parsePositiveInt(
-          env.OPEN_DESIGN_TELEMETRY_TIMEOUT_MS ?? env.LANGFUSE_TIMEOUT_MS,
+          env.RETHRA_DESIGN_TELEMETRY_TIMEOUT_MS ?? env.LANGFUSE_TIMEOUT_MS,
           DEFAULT_FETCH_TIMEOUT_MS,
         ),
         retries: parseNonNegativeInt(
-          env.OPEN_DESIGN_TELEMETRY_RETRIES ?? env.LANGFUSE_RETRIES,
+          env.RETHRA_DESIGN_TELEMETRY_RETRIES ?? env.LANGFUSE_RETRIES,
           DEFAULT_FETCH_RETRIES,
         ),
       };
@@ -625,7 +625,7 @@ function truncate(value: string | undefined, maxBytes: number): string | undefin
 }
 
 function buildTagList(ctx: ReportContext): string[] {
-  const tags = ['open-design', `project:${ctx.projectId}`];
+  const tags = ['rethra-design', `project:${ctx.projectId}`];
   if (ctx.agentId) tags.push(`agent:${ctx.agentId}`);
   if (ctx.turn?.model) tags.push(`model:${ctx.turn.model}`);
   if (ctx.turn?.skillId) tags.push(`skill:${ctx.turn.skillId}`);
@@ -1565,7 +1565,7 @@ const SAFE_QUALITY_MANIFEST_KEYS = new Set([
   'extension',
   'redacted',
   'truncated',
-  'stored_in_open_design',
+  'stored_in_rethra_design',
   'retention_policy',
   'access_scope',
   'sensitivity',
@@ -1580,7 +1580,7 @@ const SAFE_QUALITY_MANIFEST_KEYS = new Set([
   'build_status',
   'preview_status',
   'export_status',
-  'open_in_open_design_url',
+  'open_in_rethra_design_url',
   'access_policy',
 ]);
 
@@ -1862,7 +1862,7 @@ function stableRunIngestionEventId(
   if (typeof bodyId !== 'string' || !bodyId) return null;
   return `od-${createHash('sha256')
     .update(
-      `open-design/langfuse-event/v1\n${deliveryPurpose}\n${item.type}\n${bodyId}`,
+      `rethra-design/langfuse-event/v1\n${deliveryPurpose}\n${item.type}\n${bodyId}`,
       'utf8',
     )
     .digest('hex')}`;
@@ -2174,7 +2174,7 @@ export function buildTracePayload(
       timestamp: nowIso,
       body: {
         id: traceId,
-        name: 'open-design-turn',
+        name: 'rethra-design-turn',
         sessionId,
         userId: ctx.installationId ?? undefined,
         tags: buildTagList(ctx),
@@ -2536,7 +2536,7 @@ async function postRelayBatch(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Open-Design-Telemetry': 'langfuse-ingestion-v1',
+          'X-Rethra-Design-Telemetry': 'langfuse-ingestion-v1',
           ...(idempotencyKey ? { 'Idempotency-Key': idempotencyKey } : {}),
         },
         signal: AbortSignal.timeout(config.timeoutMs),
@@ -2715,7 +2715,7 @@ async function postVelaBatch(
       attemptCount += 1;
       opts.onAttempt?.();
       const response = await fetchImpl(
-        `${config.apiUrl}/api/v1/open-design/telemetry`,
+        `${config.apiUrl}/api/v1/rethra-design/telemetry`,
         {
           method: 'POST',
           headers: {

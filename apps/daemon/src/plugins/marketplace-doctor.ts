@@ -1,5 +1,5 @@
-import type { MarketplaceManifest } from '@open-design/contracts';
-import type { RegistryDoctorIssue, RegistryDoctorReport } from '@open-design/registry-protocol';
+import type { MarketplaceManifest } from '@rethra-design/contracts';
+import type { RegistryDoctorIssue, RegistryDoctorReport } from '@rethra-design/registry-protocol';
 import { StaticRegistryBackend } from '../registry/static-backend.js';
 
 export interface MarketplaceDoctorInput {

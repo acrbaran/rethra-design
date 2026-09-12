@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   guard:
-    if: startsWith(github.event.label.name, 'backport ') && github.repository == 'nexu-io/open-design'
+    if: startsWith(github.event.label.name, 'backport ') && github.repository == 'nexu-io/rethra-design'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-github-app-token@v2
@@ -33,7 +33,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          if [ "$ACTOR" = "open-design-crew[bot]" ]; then
+          if [ "$ACTOR" = "rethra-design-crew[bot]" ]; then
             echo "Authorized: $ACTOR (allowlisted app)"
             exit 0
           fi

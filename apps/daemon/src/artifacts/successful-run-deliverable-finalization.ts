@@ -2,7 +2,7 @@ import type {
   DeliverableSyntaxMetrics,
   DeliverableSyntaxRepairState,
   ProjectMetadata,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import { resolveProjectDir } from '../projects.js';
 import {

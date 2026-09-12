@@ -1,4 +1,4 @@
-# การ contribute ให้ OpenDesign
+# การ contribute ให้ Rethra Design
 
 ขอบคุณที่คิดจะ contribute. OD ตั้งใจให้เล็ก — คุณค่าส่วนใหญ่อยู่ใน **ไฟล์** (skills, design systems, prompt fragments) มากกว่า framework code. นั่นแปลว่า contribution ที่คุ้มที่สุดมักเป็น folder เดียว, Markdown file เดียว หรือ adapter ขนาดพอดี PR เดียว.
 
@@ -19,7 +19,7 @@ Guide นี้บอกชัด ๆ ว่า contribution แต่ละป�
 | เพิ่ม feature, แก้ bug, ยก UX pattern จาก [`open-codesign`][ocod] | code | `apps/web/src/`, `apps/daemon/` | PR ปกติ |
 | ปรับ docs, port section เป็น Français / Deutsch / 中文, แก้ typo | docs | `README.md`, `docs/i18n/README.fr.md`, `docs/i18n/README.de.md`, `docs/i18n/README.zh-CN.md`, `docs/`, `QUICKSTART.md` | หนึ่ง PR |
 
-ถ้ายังไม่แน่ใจว่า idea ของคุณอยู่ bucket ไหน ให้ [เปิด discussion / issue ก่อน](https://github.com/nexu-io/open-design/issues/new) แล้วเราจะชี้ surface ที่ถูกให้.
+ถ้ายังไม่แน่ใจว่า idea ของคุณอยู่ bucket ไหน ให้ [เปิด discussion / issue ก่อน](https://github.com/acrbaran/rethra-design/issues/new) แล้วเราจะชี้ surface ที่ถูกให้.
 
 ---
 
@@ -28,20 +28,20 @@ Guide นี้บอกชัด ๆ ว่า contribution แต่ละป�
 Setup แบบหน้าเดียวเต็มอยู่ใน [`QUICKSTART.th.md`](QUICKSTART.th.md). TL;DR สำหรับ contributors:
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 corepack enable           # selects the pinned pnpm from packageManager
 pnpm install
 pnpm tools-dev run web    # daemon + web foreground loop
 pnpm typecheck            # tsc -b --noEmit
-pnpm --filter @open-design/web build  # web package build when needed
+pnpm --filter @rethra-design/web build  # web package build when needed
 ```
 
 ต้องใช้ Node `~24` และ pnpm `10.33.x`. `nvm` / `fnm` เป็น optional; ใช้ `nvm install 24 && nvm use 24` หรือ `fnm install 24 && fnm use 24` ถ้าคุณชอบจัดการ Node ด้วยวิธีนั้น. macOS, Linux และ WSL2 เป็น path หลัก. Windows native รองรับด้วย; ดู gotchas การ setup ที่พบบ่อยใน [`docs/windows-troubleshooting.md`](../../docs/windows-troubleshooting.md).
 
 ## Docker Setup
 
-รัน OpenDesign โดยไม่ต้องติดตั้ง Node.js หรือ pnpm.
+รัน Rethra Design โดยไม่ต้องติดตั้ง Node.js หรือ pnpm.
 
 ### Prerequisites
 
@@ -51,7 +51,7 @@ pnpm --filter @open-design/web build  # web package build when needed
 docker compose version
 ```
 
-### Start OpenDesign
+### Start Rethra Design
 
 ```bash
 cd deploy
@@ -86,10 +86,10 @@ docker compose up -d
 สร้างไฟล์ `deploy/.env`:
 
 ```env
-OPEN_DESIGN_PORT=7456
-OPEN_DESIGN_MEM_LIMIT=384m
-OPEN_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
-OPEN_DESIGN_IMAGE=docker.io/vanjayak/open-design:latest
+RETHRA_DESIGN_PORT=7456
+RETHRA_DESIGN_MEM_LIMIT=384m
+RETHRA_DESIGN_ALLOWED_ORIGINS=https://yourdomain.com
+RETHRA_DESIGN_IMAGE=docker.io/vanjayak/rethra-design:latest
 ```
 
 > Projects และ database data จะ persist อัตโนมัติด้วย Docker volumes.
@@ -228,7 +228,7 @@ Table OVERRIDES ใน `maxTokens.ts` มีไว้สำหรับกรณ
 
 ## Localization maintenance
 
-ภาษา German ใช้ formal `Sie` เพราะ OD พูดกับ audience ผสมทั้ง solo creators, agencies และ engineering teams; จนกว่า feedback ของ project จะบอกว่า informal `du` fit กว่า formal German เป็น default ที่ surprise น้อยที่สุด. Locale PRs ควรแปล UI chrome, core docs และ display-only gallery metadata ใน `apps/web/src/i18n/content.ts`, แต่ไม่ควรแปล `skills/`, `design-systems/` หรือ prompt bodies ที่ agents execute. Source prompts เหล่านั้นถูก maintain ในฐานะ workflow inputs และการคง source language เดียวช่วยเลี่ยงการคูณ prompt QA ไปตาม locales. เมื่อเพิ่มหรือ rename skill, design system หรือ prompt template ให้ update German display metadata และรัน `pnpm --filter @open-design/web test`; `content.test.ts` จะ fail ถ้า German display coverage drift. Daemon errors, export filenames และ agent-generated artifact text เป็น known limitations เว้นแต่ PR จะ scope เรื่องนั้นโดยตรง.
+ภาษา German ใช้ formal `Sie` เพราะ OD พูดกับ audience ผสมทั้ง solo creators, agencies และ engineering teams; จนกว่า feedback ของ project จะบอกว่า informal `du` fit กว่า formal German เป็น default ที่ surprise น้อยที่สุด. Locale PRs ควรแปล UI chrome, core docs และ display-only gallery metadata ใน `apps/web/src/i18n/content.ts`, แต่ไม่ควรแปล `skills/`, `design-systems/` หรือ prompt bodies ที่ agents execute. Source prompts เหล่านั้นถูก maintain ในฐานะ workflow inputs และการคง source language เดียวช่วยเลี่ยงการคูณ prompt QA ไปตาม locales. เมื่อเพิ่มหรือ rename skill, design system หรือ prompt template ให้ update German display metadata และรัน `pnpm --filter @rethra-design/web test`; `content.test.ts` จะ fail ถ้า German display coverage drift. Daemon errors, export filenames และ agent-generated artifact text เป็น known limitations เว้นแต่ PR จะ scope เรื่องนั้นโดยตรง.
 
 สำหรับขั้นตอนทีละขั้นในการเพิ่ม locale ใหม่ (UI dictionary, README, language switcher, regional terminology), ดู [`TRANSLATIONS.md`](../../TRANSLATIONS.md).
 
@@ -284,7 +284,7 @@ Table OVERRIDES ใน `maxTokens.ts` มีไว้สำหรับกรณ
 
 ## Asking questions
 
-- คำถาม architecture, design, "นี่คือ bug หรือ misuse" → [GitHub Discussions](https://github.com/nexu-io/open-design/discussions) (preferred — searchable สำหรับคนถัดไป).
+- คำถาม architecture, design, "นี่คือ bug หรือ misuse" → [GitHub Discussions](https://github.com/acrbaran/rethra-design/discussions) (preferred — searchable สำหรับคนถัดไป).
 - "จะเขียน skill ที่ทำ X ได้อย่างไร" → เปิด discussion. เราจะตอบและเปลี่ยนคำตอบเป็น [`docs/skills-protocol.md`](../../docs/skills-protocol.md) ถ้ามันเป็น pattern ที่ยังขาดอยู่.
 
 ---
@@ -314,7 +314,7 @@ Table OVERRIDES ใน `maxTokens.ts` มีไว้สำหรับกรณ
 
 tl;dr: ship PR ดี ๆ, review อย่างใส่ใจ, อยู่ใน [Discussions][discussions] / [Discord][discord], แล้วที่เหลือจะตามมาเอง.
 
-[discussions]: https://github.com/nexu-io/open-design/discussions
+[discussions]: https://github.com/acrbaran/rethra-design/discussions
 [discord]: https://discord.gg/qhbcCH8Am4
 
 ---

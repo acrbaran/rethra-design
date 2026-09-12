@@ -6,10 +6,10 @@ import {
 } from 'react';
 import {
   buildSocialSharePayload,
-  OPEN_DESIGN_GITHUB_REPO_URL,
+  RETHRA_DESIGN_GITHUB_REPO_URL,
   type SocialShareRequest,
   type SocialShareResponse,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   LOCALE_LABEL,
   LOCALES,
@@ -30,11 +30,11 @@ import { SocialShareGrid } from './SocialShareGrid';
 import { enterpriseUrl } from './enterpriseUrl';
 
 const DISCORD_URL = 'https://discord.gg/mHAjSMV6gz';
-const X_URL = 'https://x.com/OpenDesignHQ';
-const THREADS_URL = 'https://www.threads.com/@opendesign.ai';
-const YOUTUBE_URL = 'https://www.youtube.com/@Open-Design-ai';
-const INSTAGRAM_URL = 'https://www.instagram.com/opendesign.ai/';
-const LINKEDIN_URL = 'https://www.linkedin.com/company/open-design-ai/';
+const X_URL = 'https://x.com/RethraDesignHQ';
+const THREADS_URL = 'https://www.threads.com/@rethradesign.ai';
+const YOUTUBE_URL = 'https://www.youtube.com/@Rethra-Design-ai';
+const INSTAGRAM_URL = 'https://www.instagram.com/rethradesign.ai/';
+const LINKEDIN_URL = 'https://www.linkedin.com/company/rethra-design-ai/';
 const XIAOHONGSHU_URL =
   'https://www.xiaohongshu.com/user/profile/691effad000000003002978f';
 
@@ -83,7 +83,7 @@ export function EntrySettingsMenu({
   const discordPresence = useDiscordPresence();
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [openDesignShare, setOpenDesignShare] = useState<SocialShareResponse | null>(null);
+  const [rethraDesignShare, setRethraDesignShare] = useState<SocialShareResponse | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const langListRef = useRef<HTMLDivElement | null>(null);
@@ -92,22 +92,22 @@ export function EntrySettingsMenu({
         count: formatDiscordPresenceCount(discordPresence.onlineCount),
       })
     : null;
-  const openDesignShareRequest = useMemo<SocialShareRequest>(() => {
-    const text = t('socialShare.openDesignText');
+  const rethraDesignShareRequest = useMemo<SocialShareRequest>(() => {
+    const text = t('socialShare.rethraDesignText');
     return {
-      kind: 'open-design-repo',
+      kind: 'rethra-design-repo',
       locale,
-      title: t('socialShare.openDesignTitle'),
+      title: t('socialShare.rethraDesignTitle'),
       text,
-      copyText: t('socialShare.openDesignCopyText', {
+      copyText: t('socialShare.rethraDesignCopyText', {
         text,
-        url: OPEN_DESIGN_GITHUB_REPO_URL,
+        url: RETHRA_DESIGN_GITHUB_REPO_URL,
       }),
     };
   }, [locale, t]);
-  const fallbackOpenDesignShare = useMemo(
-    () => buildSocialSharePayload(openDesignShareRequest),
-    [openDesignShareRequest],
+  const fallbackRethraDesignShare = useMemo(
+    () => buildSocialSharePayload(rethraDesignShareRequest),
+    [rethraDesignShareRequest],
   );
 
   useEffect(() => {
@@ -157,18 +157,18 @@ export function EntrySettingsMenu({
   useEffect(() => {
     if (!open) return;
     let cancelled = false;
-    setOpenDesignShare(null);
-    void createSocialSharePayload(openDesignShareRequest)
+    setRethraDesignShare(null);
+    void createSocialSharePayload(rethraDesignShareRequest)
       .then((payload) => {
-        if (!cancelled) setOpenDesignShare(payload);
+        if (!cancelled) setRethraDesignShare(payload);
       })
       .catch(() => {
-        if (!cancelled) setOpenDesignShare(null);
+        if (!cancelled) setRethraDesignShare(null);
       });
     return () => {
       cancelled = true;
     };
-  }, [open, openDesignShareRequest]);
+  }, [open, rethraDesignShareRequest]);
 
   return (
     <div className="entry-settings-menu" ref={wrapRef}>
@@ -278,10 +278,10 @@ export function EntrySettingsMenu({
           <section className="entry-settings-menu__section">
             <div className="entry-settings-menu__section-title">
               <Icon name="external-link" size={14} />
-              <span>{t('socialShare.openDesignSection')}</span>
+              <span>{t('socialShare.rethraDesignSection')}</span>
             </div>
             <SocialShareGrid
-              share={openDesignShare ?? fallbackOpenDesignShare}
+              share={rethraDesignShare ?? fallbackRethraDesignShare}
               className="entry-settings-social-share"
               onShare={(platform) => {
                 trackSettingsPopoverClick(analytics.track, {

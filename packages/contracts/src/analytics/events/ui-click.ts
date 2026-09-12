@@ -74,7 +74,7 @@ export interface ExecutionSettingsPopoverClickProps {
 }
 
 // Items inside the header gear settings popover (EntrySettingsMenu): the
-// interface-language select, the "Share OpenDesign" social grid, the Discord /
+// interface-language select, the "Share RethraDesign" social grid, the Discord /
 // social follow links and the Settings → details entry. The same popover is
 // mounted both on the home header and the in-project artifact header, hence the
 // two-value page_name.
@@ -571,7 +571,7 @@ export interface DesignSystemsTemplatesModalClickProps {
     | 'showcase'
     | 'tokens'
     | 'design_md'
-    | 'open_design_set'
+    | 'rethra_design_set'
     | 'fullscreen'
     | 'share';
   templates_id?: string;
@@ -873,7 +873,7 @@ export interface NextStepActionClickProps {
     | 'chip'
     | 'toolbox_action'
     | 'toolbox_more'
-    | 'share_to_open_design'
+    | 'share_to_rethra_design'
     /**
      * One of the agent-written follow-up suggestions under a delivered turn.
      * Unlike every element above it, clicking this SENDS the row's sentence as
@@ -935,7 +935,7 @@ export interface QuestionsFormClickProps {
 }
 
 // Hosted-AMR nudge shown under a non-AMR agent's model/auth/quota failure.
-// `go_amr` is the link that opens https://open-design.ai/amr.
+// `go_amr` is the link that opens https://rethra-design.invalid/amr.
 export interface RunFailedToastClickProps {
   page_name: 'chat_panel';
   area: 'chat_panel';
@@ -964,7 +964,7 @@ export interface AmrEntryClickProps {
   element: TrackingAmrEntrySource;
   action: 'click_amr_entry';
   entry_id: string;
-  source_product: 'open_design';
+  source_product: 'rethra_design';
   source_detail: TrackingAmrEntrySource;
   entry_occurred_at: string;
   campaign_id?: TrackingCampaignId;
@@ -1309,7 +1309,7 @@ export interface HandoffClickProps {
     | 'open_editor'
     // Copy the hand-off prompt for a specific CLI agent.
     | 'copy_cli_prompt'
-    // Open the OpenDesign AMR website link.
+    // Open the RethraDesign AMR website link.
     | 'amr_website';
   // Bounded enum id of the editor / CLI target, present for `open_editor`,
   // `copy_cli_prompt`, and for `trigger` when it directly launches the

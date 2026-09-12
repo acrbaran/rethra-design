@@ -24,7 +24,7 @@ installWebObservability();
 // compositor-side scroll extent goes stale, answer the wheel from JavaScript
 // instead. Deliberately NOT part of `installWebObservability()` — that entry
 // point is for observers, and this changes behaviour. It is off unless an
-// operator has set `open-design:chat-scroll-takeover` to `'1'`, in which case
+// operator has set `rethra-design:chat-scroll-takeover` to `'1'`, in which case
 // this call reads one storage key and returns without registering anything.
 installChatScrollTakeover();
 
@@ -48,7 +48,7 @@ const App = dynamic(() => import('../../src/App').then((m) => m.App), {
   loading: () => (
     <div className="od-loading-shell">
       <MatrixLoader />
-      <span>Loading OpenDesign…</span>
+      <span>Loading RethraDesign…</span>
     </div>
   ),
 });

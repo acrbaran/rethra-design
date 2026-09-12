@@ -32,7 +32,7 @@ import { describe, expect, it } from 'vitest';
 import {
   composeOdNextStrategyContinuationV2,
   composeOdNextStrategyStableRequestContextV2,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import { composeChatUserRequestForAgent } from '../src/server.js';
 import { composeChatAgentTextPayload } from '../src/runtimes/chat-prompt-inputs.js';
@@ -91,7 +91,7 @@ describe.skip('OPEND-2623 standing user constraint across a question-form answer
       hostProtocolKey: '046733f7ca81ddc4',
     });
 
-    // The live wording: "Open Design must be able to identify one runnable entry
+    // The live wording: "Rethra Design must be able to identify one runnable entry
     // in the delivered files, otherwise the completed task is rejected".
     expect(production).not.toContain('otherwise the completed task is rejected');
   });
@@ -145,7 +145,7 @@ describe.skip('OPEND-2623 standing user constraint across a question-form answer
   /**
    * The one case here that needs NO new product ruling.
    *
-   * Ask mode (`sessionMode: 'chat'`) is Open Design's shipped no-write mode.
+   * Ask mode (`sessionMode: 'chat'`) is Rethra Design's shipped no-write mode.
    * Its charter is `CHAT_MODE_OVERRIDE` (apps/daemon/src/prompts/system.ts:1609):
    *   "...do not create or edit project files, HTML, slide decks, images,
    *    video, or audio on your own."

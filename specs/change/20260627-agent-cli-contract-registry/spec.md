@@ -2,11 +2,11 @@
 
 ## Title
 
-Public Agent CLI Contract Registry for OpenDesign runtime compatibility.
+Public Agent CLI Contract Registry for Rethra Design runtime compatibility.
 
 ## Why
 
-OpenDesign depends on many external coding-agent CLIs. Their observable
+Rethra Design depends on many external coding-agent CLIs. Their observable
 protocols can change across CLI versions, platforms, account state, provider
 backends, and server-side rollout flags. The current mock CLI corpus is useful,
 but it is not enough as a compatibility source of truth because many recordings
@@ -15,8 +15,8 @@ usually validates only the CLI versions installed on one machine.
 
 The desired outcome is a public, auditable contract registry that says exactly
 which agent CLI versions, observed protocol shapes, platforms, and error forms
-OpenDesign has validated. The registry must support automated drift detection,
-safe public publishing, and offline consumption by the OpenDesign repository.
+Rethra Design has validated. The registry must support automated drift detection,
+safe public publishing, and offline consumption by the Rethra Design repository.
 
 ## Sources
 
@@ -45,16 +45,16 @@ safe public publishing, and offline consumption by the OpenDesign repository.
 
 ## Goals
 
-- Create a public contract registry, likely `open-design-agent-contracts`.
-- Publish a pnpm-consumable package, likely `@open-design/agent-cli-contracts`.
+- Create a public contract registry, likely `rethra-design-agent-contracts`.
+- Publish a pnpm-consumable package, likely `@rethra-design/agent-cli-contracts`.
 - Track real CLI observations by agent, CLI version, platform, protocol family,
   probe, and observed shape signature.
 - Support multiple active shapes for the same CLI version, including
   server-side rollout variants.
 - Cover success streams, model/version probes, tool/file/artifact flows,
   bidirectional RPC transports, and error classification shapes.
-- Let OpenDesign CI replay supported contracts through the daemon parsers.
-- Let OpenDesign runtime classify installed CLIs as verified, newer than
+- Let Rethra Design CI replay supported contracts through the daemon parsers.
+- Let Rethra Design runtime classify installed CLIs as verified, newer than
   verified, too old, known breaking, or unknown.
 - Keep raw transcripts, credentials, runner homes, and account-specific state out
   of public artifacts.
@@ -64,7 +64,7 @@ safe public publishing, and offline consumption by the OpenDesign repository.
 - Do not prove that every historical CLI build or every provider backend state
   works forever.
 - Do not evaluate model output quality.
-- Do not automatically generate OpenDesign parser logic from contract data.
+- Do not automatically generate Rethra Design parser logic from contract data.
 - Do not run real CLI capture on untrusted PR code or fork PRs.
 - Do not publish raw stdout/stderr/stdin transcripts that may contain secrets,
   local paths, account identifiers, or model-generated user content.
@@ -72,7 +72,7 @@ safe public publishing, and offline consumption by the OpenDesign repository.
 ## Repository Shape
 
 ```text
-open-design-agent-contracts/
+rethra-design-agent-contracts/
   registry/
     agents.json
     support-matrix.json
@@ -109,7 +109,7 @@ open-design-agent-contracts/
       sha256-<shape>.transcript.jsonl
 
   goldens/
-    open-design-parser/
+    rethra-design-parser/
       json-event-stream/
         sha256-<shape>.events.json
 
@@ -200,7 +200,7 @@ do not have child-process transcripts or redaction artifacts.
 | `redaction.status` | yes | none | `passed`, `failed`, or `manual_review_required` |
 | `shape.signature` | yes | none | shape hash |
 | `shape.path` | yes | none | relative path under `shapes/` |
-| `parser_replay.open_design_commit` | no | `null` | commit used for parser replay |
+| `parser_replay.rethra_design_commit` | no | `null` | commit used for parser replay |
 | `parser_replay.status` | no | `not_run` | `compatible`, `incompatible`, or `not_run` |
 
 Invalid examples that must fail validation:
@@ -297,7 +297,7 @@ Invalid examples that must fail validation:
 |---|---:|---|---|
 | `schema_version` | yes | none | integer, currently `1` |
 | `generated_at` | yes | none | UTC timestamp |
-| `open_design_min_commit` | no | `null` | lowest OpenDesign commit that consumed this matrix |
+| `rethra_design_min_commit` | no | `null` | lowest Rethra Design commit that consumed this matrix |
 | `agents[]` | yes | none | one entry per agent with any public claim |
 
 Each `agents[]` entry requires:
@@ -430,9 +430,9 @@ Example observation:
     "path": "shapes/json-event-stream/sha256-....shape.json"
   },
   "parser_replay": {
-    "open_design_commit": "...",
+    "rethra_design_commit": "...",
     "status": "compatible",
-    "golden": "goldens/open-design-parser/json-event-stream/sha256-....events.json"
+    "golden": "goldens/rethra-design-parser/json-event-stream/sha256-....events.json"
   }
 }
 ```
@@ -441,7 +441,7 @@ Example observation:
 
 Capturing stdout and stderr is necessary but not sufficient.
 
-OpenDesign starts agent CLIs as child processes, but the protocol over the
+Rethra Design starts agent CLIs as child processes, but the protocol over the
 pipes differs by runtime:
 
 - `plain`: stdout is assistant text; stderr carries diagnostics.
@@ -481,7 +481,7 @@ Design harness as well as frames emitted by the CLI:
 ```
 
 Without the client-side frames, the shape cannot prove that the observed CLI was
-responding to the same handshake OpenDesign uses.
+responding to the same handshake Rethra Design uses.
 
 ## Capture Protocol
 
@@ -535,17 +535,17 @@ Example minimum event expectation:
 
 ### Capture Runner
 
-For OpenDesign-owned protocol semantics, the runner must not hand-roll a
+For Rethra Design-owned protocol semantics, the runner must not hand-roll a
 "similar enough" client:
 
 - `plain`, `claude-stream-json`, `json-event-stream`,
   `qoder-stream-json`, and `copilot-stream-json` captures should use the same
   spawn argv, environment, prompt transport, stdin-close behavior, stderr
   filtering, and process-close rules as `server.ts`.
-- `acp-json-rpc` captures must reuse or vendor the OpenDesign ACP attach
+- `acp-json-rpc` captures must reuse or vendor the Rethra Design ACP attach
   harness, including initialize, session creation, model selection, prompt
   send, permission handling, content filtering, and termination semantics.
-- `pi-rpc` captures must reuse or vendor the OpenDesign Pi RPC attach harness,
+- `pi-rpc` captures must reuse or vendor the Rethra Design Pi RPC attach harness,
   including new/resumed session handling, prompt send, image encoding, session
   file capture, and termination semantics.
 
@@ -553,7 +553,7 @@ This can be implemented either by running a daemon in capture mode and recording
 its child-process boundary, or by extracting the production harnesses into a
 small shared package used by both the daemon and contract runner. The contract
 is not valid if the capture runner speaks a protocol dialect that production
-OpenDesign never sends.
+Rethra Design never sends.
 
 ```ts
 async function captureContract(input: CaptureInput) {
@@ -583,7 +583,7 @@ async function captureContract(input: CaptureInput) {
   const shape = normalizeToShape(sanitized, input.protocol_family);
   const shapeId = shape.signature;
 
-  const daemonEvents = replayThroughOpenDesignParser({
+  const daemonEvents = replayThroughRethraDesignParser({
     agent: input.agent,
     protocolFamily: input.protocol_family,
     sanitized,
@@ -655,7 +655,7 @@ protocol shape visible.
 ## Error Contract Coverage
 
 Error parsing is a first-class contract surface. The registry must not only
-prove successful streams parse correctly; it must also prove that OpenDesign's
+prove successful streams parse correctly; it must also prove that Rethra Design's
 failure classification remains accurate.
 
 Every Tier 0 runtime should have error probes for:
@@ -709,7 +709,7 @@ Error contract fixtures must include:
 }
 ```
 
-OpenDesign CI should replay error fixtures through the same classifier used by
+Rethra Design CI should replay error fixtures through the same classifier used by
 production:
 
 ```ts
@@ -790,7 +790,7 @@ Each shape receives a public validity level:
 - `runtime_observed`: observed from a real CLI capture.
 - `confirmed`: observed at least twice, ideally across independent time windows
   or runners.
-- `community_confirmed`: independently reproduced by a non-OpenDesign
+- `community_confirmed`: independently reproduced by a non-Rethra Design
   contributor using the public capture command.
 - `server_variant`: same CLI version has multiple active observed shapes.
 - `source_derived`: derived from open-source CLI code, not yet observed at
@@ -836,18 +836,18 @@ Source scan does not replace runtime capture because service-side rollout,
 account feature flags, provider errors, and closed-source wrappers can change
 the actual observed shape.
 
-## OpenDesign Consumption
+## Rethra Design Consumption
 
-OpenDesign should consume the contract package in three ways.
+Rethra Design should consume the contract package in three ways.
 
 ### Parser Replay Gate
 
 Add a daemon parser test that replays all supported parser-level shapes:
 
 ```ts
-import contracts from "@open-design/agent-cli-contracts";
+import contracts from "@rethra-design/agent-cli-contracts";
 
-test("supported agent CLI contracts replay through OpenDesign parsers", () => {
+test("supported agent CLI contracts replay through Rethra Design parsers", () => {
   for (const contract of contracts.supportedShapes()) {
     const parser = getParserHarness(contract.agent, contract.protocolFamily);
     const actualEvents = parser.replay(contract.sanitizedFixture);
@@ -881,7 +881,7 @@ contract transcript and pass it through the same run lifecycle that production
 uses:
 
 ```ts
-import contracts from "@open-design/agent-cli-contracts";
+import contracts from "@rethra-design/agent-cli-contracts";
 
 test("supported agent CLI contracts replay through daemon run semantics", async () => {
   for (const contract of contracts.daemonRunShapes()) {
@@ -958,7 +958,7 @@ The web UI can show:
   confirmation.
 - `active_shape_unknown` or `unknown`: experimental warning.
 
-### OpenDesign Surface Closure
+### Rethra Design Surface Closure
 
 Runtime compatibility is user-facing, so the implementation must close the
 shared API, web UI, and `od` CLI in the same PR. The daemon HTTP route remains
@@ -1065,7 +1065,7 @@ observed shapes:
 {
   "schema_version": 1,
   "generated_at": "2026-06-27T10:00:00Z",
-  "open_design_min_commit": "b784c8650",
+  "rethra_design_min_commit": "b784c8650",
   "agents": [
     {
       "agent": "codex",
@@ -1161,7 +1161,7 @@ The first milestone should be deliberately small and end-to-end:
 
 After that baseline is stable, broaden the probe catalog by risk.
 
-The registry should cover OpenDesign's integration surface, not every CLI
+The registry should cover Rethra Design's integration surface, not every CLI
 feature.
 
 Minimum viable contract per runtime:
@@ -1285,12 +1285,12 @@ Contract repository:
 - Re-normalize every sanitized fixture and verify it matches the published
   shape hash.
 - Verify observation metadata references existing shape, fixture, and golden.
-- Run replay harness against embedded OpenDesign parser package or a checked
-  OpenDesign parser adapter.
+- Run replay harness against embedded Rethra Design parser package or a checked
+  Rethra Design parser adapter.
 - Run secret/path scans over all publishable artifacts.
 - Generate support matrix from observations and check it is committed.
 
-OpenDesign repository:
+Rethra Design repository:
 
 - Add `agent-contract-replay.test.ts`.
 - Add `agent-contract-errors.test.ts`.
@@ -1307,7 +1307,7 @@ OpenDesign repository:
 - What is the freshness SLA for Tier 0 runtimes?
 - Which exact agents are Tier 0 for the first milestone?
 - Should known breaking versions block local runs or only warn?
-- Should OpenDesign consume the full contract package at runtime, or only a
+- Should Rethra Design consume the full contract package at runtime, or only a
   generated compact support matrix?
 - How should community-submitted observations be verified before moving from
   `single_observed` to `community_confirmed`?

@@ -33,7 +33,7 @@ import {
   createCommandInvocation,
   mergeProxyAwareEnv,
   resolveSystemProxyEnv,
-} from '@open-design/platform';
+} from '@rethra-design/platform';
 import { attachAcpSession } from './agent-protocol/index.js';
 import { attachPiRpcSession } from './agent-protocol/index.js';
 import { attachDshProfileSession } from './agent-protocol/index.js';
@@ -79,7 +79,7 @@ import {
   type ConnectionTestResponse,
   type ParsedBaseUrl,
   type ProviderTestRequest,
-} from '@open-design/contracts/api/connectionTest';
+} from '@rethra-design/contracts/api/connectionTest';
 import { googleGenerateContentUrl } from './integrations/google-models.js';
 import { readVelaCredentialRevision, resolveAmrProfile } from './integrations/vela.js';
 import { amrModelLoadingCache } from './runtimes/amr-model-cache.js';
@@ -99,7 +99,7 @@ import {
   buildOpenCodeByokProviderConfig,
 } from './runtimes/byok-opencode.js';
 
-export { validateBaseUrl } from '@open-design/contracts/api/connectionTest';
+export { validateBaseUrl } from '@rethra-design/contracts/api/connectionTest';
 
 // DNS-aware companion to `validateBaseUrl`. The contracts-side check only
 // inspects the literal hostname string, so a public DNS name pointing at
@@ -812,7 +812,7 @@ function codexExecutableGuidance(
   ) {
     return '';
   }
-  return ` Configured Codex path failed: ${configuredOverridePath}. OpenDesign also detected a PATH Codex CLI at ${pathResolvedPath}. Update CODEX_BIN or clear the custom path to use the detected binary.`;
+  return ` Configured Codex path failed: ${configuredOverridePath}. RethraDesign also detected a PATH Codex CLI at ${pathResolvedPath}. Update CODEX_BIN or clear the custom path to use the detected binary.`;
 }
 
 function codexExecutableFallbackSuccessDetail(
@@ -1351,8 +1351,8 @@ function openAIChatCompletionsProviderCall(
       'content-type': 'application/json',
       authorization: `Bearer ${apiKey}`,
       ...(new URL(baseUrl).hostname === 'openrouter.ai' ? {
-        'HTTP-Referer': 'https://opendesign.dev',
-        'X-Title': 'OpenDesign',
+        'HTTP-Referer': 'https://rethradesign.dev',
+        'X-Title': 'RethraDesign',
       } : {}),
     },
     body: {
@@ -2280,7 +2280,7 @@ function runQuietCommand(command: string, args: string[], cwd: string): Promise<
 async function prepareOpenCodeConnectionTestCwd(tempDir: string): Promise<void> {
   await fsp.writeFile(
     path.join(tempDir, 'README.md'),
-    'OpenDesign OpenCode connection test.\n',
+    'RethraDesign OpenCode connection test.\n',
     'utf8',
   );
   try {

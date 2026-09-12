@@ -5,8 +5,8 @@ import type Database from 'better-sqlite3';
 import type {
   SkillPluginCandidate,
   SkillPluginCandidateSourceRef,
-} from '@open-design/contracts';
-import { OPEN_DESIGN_PLUGIN_SPEC_VERSION } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { RETHRA_DESIGN_PLUGIN_SPEC_VERSION } from '@rethra-design/contracts';
 import { validatePluginFolder, flattenValidationDiagnostics } from './validate.js';
 
 type SqliteDb = Database.Database;
@@ -166,7 +166,7 @@ export async function generateSkillPluginDraft(
   const folder = path.join(projectRoot, ...draftPath.split('/'));
   await fs.mkdir(path.join(folder, 'references'), { recursive: true });
   await fs.writeFile(path.join(folder, 'SKILL.md'), synthesizeSkill(candidate), 'utf8');
-  await fs.writeFile(path.join(folder, 'open-design.json'), JSON.stringify(buildManifest(slug, candidate), null, 2) + '\n', 'utf8');
+  await fs.writeFile(path.join(folder, 'rethra-design.json'), JSON.stringify(buildManifest(slug, candidate), null, 2) + '\n', 'utf8');
   await fs.writeFile(path.join(folder, 'references', 'provenance.json'), JSON.stringify({
     candidateId: candidate.id,
     projectId: candidate.projectId,
@@ -308,7 +308,7 @@ function isExplicitSkillPluginUrl(value: string): boolean {
     return false;
   }
   if (url.hostname !== 'github.com') return false;
-  return /\/(?:SKILL\.md|open-design\.json)$/u.test(decodeURIComponent(url.pathname));
+  return /\/(?:SKILL\.md|rethra-design\.json)$/u.test(decodeURIComponent(url.pathname));
 }
 
 function deriveCandidateTitle(ref: SkillPluginCandidateSourceRef): string {
@@ -331,7 +331,7 @@ function deriveCandidateDescription(ref: SkillPluginCandidateSourceRef): string 
 
 function synthesizeSkill(candidate: SkillPluginCandidate): string {
   const source = candidate.sourceRefs.find((ref) => ref.content)?.content?.trim();
-  if (source) return `${source}\n\n## Provenance\n\nFormalized by OpenDesign from candidate ${candidate.id}.\n`;
+  if (source) return `${source}\n\n## Provenance\n\nFormalized by RethraDesign from candidate ${candidate.id}.\n`;
   return [
     `# ${candidate.title}`,
     '',
@@ -339,7 +339,7 @@ function synthesizeSkill(candidate: SkillPluginCandidate): string {
     '',
     '## When to use',
     '',
-    'Use this skill when the workflow described by the source material should be repeated inside OpenDesign.',
+    'Use this skill when the workflow described by the source material should be repeated inside RethraDesign.',
     '',
     '## Workflow',
     '',
@@ -349,15 +349,15 @@ function synthesizeSkill(candidate: SkillPluginCandidate): string {
     '',
     '## Provenance',
     '',
-    `Formalized by OpenDesign from candidate ${candidate.id}.`,
+    `Formalized by RethraDesign from candidate ${candidate.id}.`,
     '',
   ].join('\n');
 }
 
 function buildManifest(slug: string, candidate: SkillPluginCandidate) {
   return {
-    $schema: 'https://open-design.ai/schemas/plugin.v1.json',
-    specVersion: OPEN_DESIGN_PLUGIN_SPEC_VERSION,
+    $schema: 'https://rethra-design.invalid/schemas/plugin.v1.json',
+    specVersion: RETHRA_DESIGN_PLUGIN_SPEC_VERSION,
     name: slug,
     title: candidate.title,
     version: '0.1.0',

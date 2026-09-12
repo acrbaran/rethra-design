@@ -360,8 +360,8 @@ export function attachCodexAppServerSession(
     'initialize',
     {
       clientInfo: {
-        name: 'open-design',
-        title: 'Open Design',
+        name: 'rethra-design',
+        title: 'Rethra Design',
         version: opts.clientVersion ?? '0.0.0',
       },
       capabilities: { experimentalApi: false, requestAttestation: false },

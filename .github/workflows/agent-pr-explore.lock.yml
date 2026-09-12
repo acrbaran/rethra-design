@@ -12,7 +12,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "apps/web/**"
-      - "design-templates/open-design-landing/**"
+      - "design-templates/rethra-design-landing/**"
       - "skills/**"
       - "design-systems/**"
       - "craft/**"

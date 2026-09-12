@@ -51,7 +51,7 @@ test('[P2] captures the settings execution surface', async ({ page }) => {
   await captureVisual(page, 'visual-settings-execution');
 });
 
-test('[P1] captures the settings OpenDesign account balance surface', async ({ page }) => {
+test('[P1] captures the settings RethraDesign account balance surface', async ({ page }) => {
   test.setTimeout(T.xlong);
 
   await configureVisualPage(page, {
@@ -59,7 +59,7 @@ test('[P1] captures the settings OpenDesign account balance surface', async ({ p
     config: {
       agentId: 'amr',
       agentModels: { amr: { model: 'deepseek-v4-flash', reasoning: 'default' } },
-      agentCliEnv: { amr: { OPEN_DESIGN_AMR_PROFILE: 'test' } },
+      agentCliEnv: { amr: { RETHRA_DESIGN_AMR_PROFILE: 'test' } },
     },
   });
   await mockSignedInVelaAccount(page);
@@ -77,13 +77,13 @@ test('[P1] captures the settings OpenDesign account balance surface', async ({ p
 
   const dialog = await prepareVisualSettingsDialog(page);
   const amrCard = dialog.getByTestId('settings-agent-card-amr');
-  await expect(amrCard).toContainText('OpenDesign');
+  await expect(amrCard).toContainText('RethraDesign');
   await expect(amrCard).toContainText('plus');
   await expect(amrCard).toContainText('$247.51');
   await expect(dialog.getByTestId('settings-agent-card-amr-upgrade')).toBeVisible();
   await waitForVisualFonts(page);
 
-  await captureVisual(page, 'visual-settings-open-design-account');
+  await captureVisual(page, 'visual-settings-rethra-design-account');
 });
 
 test('[P2] captures the settings local CLI surface', async ({ page }) => {

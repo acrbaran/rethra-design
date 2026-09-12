@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { InputFieldSpec } from '@open-design/contracts';
+import type { InputFieldSpec } from '@rethra-design/contracts';
 import {
   missingRequiredInputs,
   pluginInputsAreValid,

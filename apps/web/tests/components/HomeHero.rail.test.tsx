@@ -10,8 +10,8 @@
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { InstalledPluginRecord } from '@open-design/contracts';
-import { automaticStrategyTaskProfileForRouteId } from '@open-design/contracts';
+import type { InstalledPluginRecord } from '@rethra-design/contracts';
+import { automaticStrategyTaskProfileForRouteId } from '@rethra-design/contracts';
 
 vi.mock('../../src/components/home-hero/PlaceholderCarousel', () => ({
   PlaceholderCarousel: () => null,

@@ -1,4 +1,4 @@
-import type { MediaExecutionPolicy } from '@open-design/contracts';
+import type { MediaExecutionPolicy } from '@rethra-design/contracts';
 import type { ProjectMetadata } from '../types';
 
 function cleanModel(model: unknown): string {

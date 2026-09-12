@@ -1,13 +1,13 @@
 ---
-title: OpenDesign 0.18.1
-description: 8月6日—8月13日，所有付费套餐均可在 OpenDesign Cloud 上无限使用 DeepSeek V4 Flash，0.18.1 把这个权益带进了产品里；同时修复了 Team Workspace 上线第一周暴露出的问题。
+title: Rethra Design 0.18.1
+description: 8月6日—8月13日，所有付费套餐均可在 Rethra Design Cloud 上无限使用 DeepSeek V4 Flash，0.18.1 把这个权益带进了产品里；同时修复了 Team Workspace 上线第一周暴露出的问题。
 ---
 
-🎁 **`24 个 PR` · `9 位贡献者` · `2 天`** — **DeepSeek V4 Flash 无限使用一周，0.18.1 把它放到你真正干活的地方。** 8月6日 20:00 → 8月13日 20:00（北京时间）：所有付费套餐都可以在 OpenDesign Cloud 上无限使用 DeepSeek V4 Flash——不消耗你的套餐额度，不结转，也不需要领取。0.18.1 同时清理了 Team Workspace 上线第一周暴露的问题：502 风暴、卡顿的文件网格、以及会"忘记"你自带模型的选择器。🚀
+🎁 **`24 个 PR` · `9 位贡献者` · `2 天`** — **DeepSeek V4 Flash 无限使用一周，0.18.1 把它放到你真正干活的地方。** 8月6日 20:00 → 8月13日 20:00（北京时间）：所有付费套餐都可以在 Rethra Design Cloud 上无限使用 DeepSeek V4 Flash——不消耗你的套餐额度，不结转，也不需要领取。0.18.1 同时清理了 Team Workspace 上线第一周暴露的问题：502 风暴、卡顿的文件网格、以及会"忘记"你自带模型的选择器。🚀
 
 ## 🔥 亮点
 
-- 🎁 **DeepSeek V4 Flash 无限使用，8月6日—8月13日。** *一个用起来还得盘算额度的快模型，往往是你最少去碰的那个。* 这一周，所有付费套餐都可以在 OpenDesign Cloud 上无限使用 DeepSeek V4 Flash——0.18.1 把这个权益带进了产品里，而不是只留在定价页上：首页会告诉你活动已开始，模型选择器带上**无限使用**角标，一次点击就切过去。它跑在你的套餐之上而不是从里面扣——原有额度分毫不动，8月13日 20:00 之后一切恢复标准规则。 (#6507)
+- 🎁 **DeepSeek V4 Flash 无限使用，8月6日—8月13日。** *一个用起来还得盘算额度的快模型，往往是你最少去碰的那个。* 这一周，所有付费套餐都可以在 Rethra Design Cloud 上无限使用 DeepSeek V4 Flash——0.18.1 把这个权益带进了产品里，而不是只留在定价页上：首页会告诉你活动已开始，模型选择器带上**无限使用**角标，一次点击就切过去。它跑在你的套餐之上而不是从里面扣——原有额度分毫不动，8月13日 20:00 之后一切恢复标准规则。 (#6507)
 
 - ☁️ **云端抖一下，不再把整个工作区拖下水。** *打包客户端可能陷进 502 循环——一次失败的在线状态请求被高频心跳反复重试，直到整个工作区看起来像坏了。* 0.18.1 让心跳退避，把服务端真正说的话透传出来而不是丢一个笼统的失败，并对值得重试的代理请求做重放。云端抖动现在看起来只是糟糕的一分钟，而不是装坏了的应用。 (#6521)
 
@@ -17,13 +17,13 @@ description: 8月6日—8月13日，所有付费套餐均可在 OpenDesign Cloud
 
 - 🚀 **更短的首次上手。** 选择模型从哪来，过去是发出第一条提示词之前的一段绕路。现在 onboarding 的模型来源步骤精简成了一次选择。 (#6475) 感谢 @Siri-Ray。
 
-> 📥 **下载：** 标签 `open-design-v0.18.1`。
+> 📥 **下载：** 标签 `rethra-design-v0.18.1`。
 >
 > | 平台 | 架构 | 安装包 |
 > |---|---|---|
-> | macOS | Apple Silicon (arm64) | [open-design-0.18.1-mac-arm64.dmg](https://github.com/nexu-io/open-design/releases/download/open-design-v0.18.1/open-design-0.18.1-mac-arm64.dmg) |
-> | macOS | Intel (x64) | [open-design-0.18.1-mac-x64.dmg](https://github.com/nexu-io/open-design/releases/download/open-design-v0.18.1/open-design-0.18.1-mac-x64.dmg) |
-> | Windows | x64 | [open-design-0.18.1-win-x64-setup.exe](https://github.com/nexu-io/open-design/releases/download/open-design-v0.18.1/open-design-0.18.1-win-x64-setup.exe) |
+> | macOS | Apple Silicon (arm64) | [rethra-design-0.18.1-mac-arm64.dmg](https://github.com/acrbaran/rethra-design/releases/download/rethra-design-v0.18.1/rethra-design-0.18.1-mac-arm64.dmg) |
+> | macOS | Intel (x64) | [rethra-design-0.18.1-mac-x64.dmg](https://github.com/acrbaran/rethra-design/releases/download/rethra-design-v0.18.1/rethra-design-0.18.1-mac-x64.dmg) |
+> | Windows | x64 | [rethra-design-0.18.1-win-x64-setup.exe](https://github.com/acrbaran/rethra-design/releases/download/rethra-design-v0.18.1/rethra-design-0.18.1-win-x64-setup.exe) |
 
 ## ✨ 新增
 

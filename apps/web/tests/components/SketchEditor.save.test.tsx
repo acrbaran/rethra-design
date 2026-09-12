@@ -170,7 +170,7 @@ function saveButton(): HTMLButtonElement {
 }
 
 describe('SketchEditor save', () => {
-  it('renders Excalidraw with the current OpenDesign locale', () => {
+  it('renders Excalidraw with the current RethraDesign locale', () => {
     renderEditor({ dirty: true });
     expect(document.querySelector('[data-testid="excalidraw"]')?.getAttribute('data-lang')).toBe('zh-CN');
   });
@@ -434,9 +434,9 @@ describe('SketchEditor save', () => {
     renderEditor({ dirty: true });
 
     const validate = mockData.lastProps?.validateEmbeddable as ((link: string) => boolean) | undefined;
-    expect(validate?.('https://open-design.ai')).toBe(true);
+    expect(validate?.('https://rethra-design.invalid')).toBe(true);
     expect(validate?.('http://localhost:3000')).toBe(true);
-    expect(validate?.('open-design.ai')).toBe(false);
+    expect(validate?.('rethra-design.invalid')).toBe(false);
     expect(validate?.('   ')).toBe(false);
     expect(validate?.('javascript:alert(1)')).toBe(false);
   });

@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Button, Dialog } from '@open-design/components';
+import { Button, Dialog } from '@rethra-design/components';
 import { useI18n } from '../i18n';
 import { fetchWhatsNew, openExternalUrl } from '../providers/registry';
 import {
@@ -30,7 +30,7 @@ import styles from './WhatsNewPopup.module.css';
 // (see ./UpdaterPopup.tsx) — this surface must never claim to install anything.
 
 // Fallback for the CTA when the highlight document omits an explicit link.
-const RELEASES_INDEX_URL = 'https://github.com/nexu-io/open-design/releases';
+const RELEASES_INDEX_URL = 'https://github.com/acrbaran/rethra-design/releases';
 
 /**
  * The version this dialog is allowed to state, or null when nothing real can

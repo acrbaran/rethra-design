@@ -3,7 +3,7 @@ import { safeExternalFetch } from './plugin-asset-cache.js';
 import path from 'node:path';
 
 export const OFFICIAL_MARKETPLACE_ID = 'official';
-export const OFFICIAL_PLUGIN_SOURCE_REPO = 'github:nexu-io/open-design@main';
+export const OFFICIAL_PLUGIN_SOURCE_REPO = 'github:nexu-io/rethra-design@main';
 
 export interface MarketplaceSeedEntry {
   name: string;
@@ -64,7 +64,7 @@ export function createMarketplaceSeedHelpers(deps: MarketplaceSeedHelperDeps): M
     id: string,
     bundledMarketplaceEntries: readonly MarketplaceSeedEntry[],
   ): Promise<string | null> {
-    const manifestPath = path.join(deps.pluginRegistryDir, id, 'open-design-marketplace.json');
+    const manifestPath = path.join(deps.pluginRegistryDir, id, 'rethra-design-marketplace.json');
     if (!fs.existsSync(manifestPath)) return null;
     let manifestText = await fs.promises.readFile(manifestPath, 'utf8');
     if (id === OFFICIAL_MARKETPLACE_ID && bundledMarketplaceEntries.length > 0) {

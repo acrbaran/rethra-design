@@ -10,7 +10,7 @@ A new Skill — **{{SKILL_NAME}}** — at `skills/{{SKILL_SLUG}}/`.
 
 ## How to try it
 
-1. `cd open-design`
+1. `cd rethra-design`
 2. Run OD locally: `pnpm tools-dev run web`
 3. Open a project, start a chat, and ask: _"{{TRY_PROMPT}}"_
 

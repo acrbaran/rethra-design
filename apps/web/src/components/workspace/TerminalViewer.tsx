@@ -5,7 +5,7 @@ import type {
   TerminalDataEvent,
   TerminalExitEvent,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { useT } from '../../i18n';
 import { Icon } from '../Icon';
 import {
@@ -406,7 +406,7 @@ export function TerminalViewer({
           <div className={styles.loadingStack}>
             <div className={styles.loadingPromptLine} aria-hidden>
               <span className={styles.loadingPrompt}>$</span>
-              <span className={styles.loadingCommand}>open-design shell</span>
+              <span className={styles.loadingCommand}>rethra-design shell</span>
               <span className={styles.loadingCursor} />
             </div>
             <div className={styles.loadingCopy}>

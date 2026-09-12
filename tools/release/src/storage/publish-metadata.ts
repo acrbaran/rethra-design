@@ -21,7 +21,7 @@ import {
   releaseChannelDescriptor,
   releaseMetadataVersionFields,
   type CountedReleaseChannel,
-} from "@open-design/release";
+} from "@rethra-design/release";
 import {
   parseReleaseNotePublication,
   releaseNoteMetadataFromPublication,

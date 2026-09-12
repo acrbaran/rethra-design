@@ -6,7 +6,7 @@ import {
   createCommandInvocation,
   listProcessSnapshots,
   stopProcesses,
-} from '@open-design/platform';
+} from '@rethra-design/platform';
 
 import {
   agentCliEnvForAgent,
@@ -156,7 +156,7 @@ export function velaWorkspaceCommandOptions(
   const requestedWorkspaceId = workspaceId?.trim();
   return {
     configuredEnv: {
-      VELA_INVOCATION_SOURCE: 'open-design',
+      VELA_INVOCATION_SOURCE: 'rethra-design',
       ...(requestedWorkspaceId
         ? { VELA_WORKSPACE_ID: requestedWorkspaceId }
         : {}),
@@ -189,7 +189,7 @@ function configuredAmrEnv(
 }
 
 /**
- * Run the same resolved Vela binary and environment used by OpenDesign login
+ * Run the same resolved Vela binary and environment used by RethraDesign login
  * and AMR agent launches. Resource/team/collab adapters must use this instead
  * of spawning a PATH-only `vela` process, otherwise a packaged login can
  * succeed while the collaboration command uses a different or missing CLI.

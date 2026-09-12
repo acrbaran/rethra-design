@@ -1,28 +1,28 @@
-export const PRODUCT_NAME = "Open Design";
+export const PRODUCT_NAME = "Rethra Design";
 
 export const INTERNAL_PACKAGES = [
-  { directory: "packages/release", name: "@open-design/release" },
-  { directory: "packages/components", name: "@open-design/components" },
-  { directory: "packages/contracts", name: "@open-design/contracts" },
-  { directory: "packages/registry-protocol", name: "@open-design/registry-protocol" },
-  { directory: "packages/sidecar-proto", name: "@open-design/sidecar-proto" },
-  { directory: "packages/launcher-proto", name: "@open-design/launcher-proto" },
-  { directory: "packages/platform", name: "@open-design/platform" },
-  { directory: "packages/sidecar", name: "@open-design/sidecar" },
-  { directory: "packages/download", name: "@open-design/download" },
-  { directory: "packages/host", name: "@open-design/host" },
-  { directory: "packages/agui-adapter", name: "@open-design/agui-adapter" },
-  { directory: "packages/plugin-runtime", name: "@open-design/plugin-runtime" },
-  { directory: "packages/diagnostics", name: "@open-design/diagnostics" },
-  { directory: "apps/daemon", name: "@open-design/daemon" },
-  { directory: "apps/web", name: "@open-design/web" },
-  { directory: "apps/desktop", name: "@open-design/desktop" },
-  { directory: "apps/packaged", name: "@open-design/packaged" },
+  { directory: "packages/release", name: "@rethra-design/release" },
+  { directory: "packages/components", name: "@rethra-design/components" },
+  { directory: "packages/contracts", name: "@rethra-design/contracts" },
+  { directory: "packages/registry-protocol", name: "@rethra-design/registry-protocol" },
+  { directory: "packages/sidecar-proto", name: "@rethra-design/sidecar-proto" },
+  { directory: "packages/launcher-proto", name: "@rethra-design/launcher-proto" },
+  { directory: "packages/platform", name: "@rethra-design/platform" },
+  { directory: "packages/sidecar", name: "@rethra-design/sidecar" },
+  { directory: "packages/download", name: "@rethra-design/download" },
+  { directory: "packages/host", name: "@rethra-design/host" },
+  { directory: "packages/agui-adapter", name: "@rethra-design/agui-adapter" },
+  { directory: "packages/plugin-runtime", name: "@rethra-design/plugin-runtime" },
+  { directory: "packages/diagnostics", name: "@rethra-design/diagnostics" },
+  { directory: "apps/daemon", name: "@rethra-design/daemon" },
+  { directory: "apps/web", name: "@rethra-design/web" },
+  { directory: "apps/desktop", name: "@rethra-design/desktop" },
+  { directory: "apps/packaged", name: "@rethra-design/packaged" },
 ] as const;
 
 export const DESKTOP_LOG_ECHO_ENV = "OD_DESKTOP_LOG_ECHO";
 export const WEB_STANDALONE_HOOK_CONFIG_ENV = "OD_TOOLS_PACK_WEB_STANDALONE_HOOK_CONFIG";
-export const WEB_STANDALONE_RESOURCE_NAME = "open-design-web-standalone";
+export const WEB_STANDALONE_RESOURCE_NAME = "rethra-design-web-standalone";
 export const ELECTRON_BUILDER_ASAR = false;
 export const ELECTRON_BUILDER_BUILD_DEPENDENCIES_FROM_SOURCE = false;
 export const ELECTRON_REBUILD_MODE = "sequential" as const;

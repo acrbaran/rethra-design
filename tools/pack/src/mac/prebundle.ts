@@ -41,20 +41,20 @@ export const MAC_PREBUNDLE_COPIED_RUNTIME_DEPENDENCIES = {
 } as const;
 
 export const MAC_STANDALONE_PREBUNDLE_EXCLUDED_INTERNAL_PACKAGES = [
-  "@open-design/daemon",
-  "@open-design/desktop",
-  "@open-design/launcher-proto",
-  "@open-design/packaged",
-  "@open-design/sidecar-proto",
-  "@open-design/web",
+  "@rethra-design/daemon",
+  "@rethra-design/desktop",
+  "@rethra-design/launcher-proto",
+  "@rethra-design/packaged",
+  "@rethra-design/sidecar-proto",
+  "@rethra-design/web",
 ] as const;
 
 export const MAC_PREBUNDLE_POLICIES = {
   packagedMain: {
-    externals: ["@open-design/sidecar", "electron"],
+    externals: ["@rethra-design/sidecar", "electron"],
     forbiddenInputs: [
       "/apps/web/",
-      "/node_modules/@open-design/web/",
+      "/node_modules/@rethra-design/web/",
       "/node_modules/next/",
       "/node_modules/openai/",
       "/node_modules/react/",
@@ -63,9 +63,9 @@ export const MAC_PREBUNDLE_POLICIES = {
     label: "packaged main",
   },
   daemonCli: {
-    externals: ["@ffmpeg-installer/ffmpeg", "@open-design/sidecar", "better-sqlite3", "blake3-wasm", "fsevents", "hyperframes", "node-pty"],
+    externals: ["@ffmpeg-installer/ffmpeg", "@rethra-design/sidecar", "better-sqlite3", "blake3-wasm", "fsevents", "hyperframes", "node-pty"],
     forbiddenInputs: [
-      "/node_modules/@open-design/daemon/",
+      "/node_modules/@rethra-design/daemon/",
       "/node_modules/@ffmpeg-installer/ffmpeg/",
       "/node_modules/better-sqlite3/",
       "/node_modules/blake3-wasm/",
@@ -81,9 +81,9 @@ export const MAC_PREBUNDLE_POLICIES = {
     label: "daemon cli",
   },
   daemonSidecar: {
-    externals: ["@ffmpeg-installer/ffmpeg", "@open-design/sidecar", "better-sqlite3", "blake3-wasm", "fsevents", "hyperframes", "node-pty"],
+    externals: ["@ffmpeg-installer/ffmpeg", "@rethra-design/sidecar", "better-sqlite3", "blake3-wasm", "fsevents", "hyperframes", "node-pty"],
     forbiddenInputs: [
-      "/node_modules/@open-design/daemon/",
+      "/node_modules/@rethra-design/daemon/",
       "/node_modules/@ffmpeg-installer/ffmpeg/",
       "/node_modules/better-sqlite3/",
       "/node_modules/blake3-wasm/",
@@ -99,7 +99,7 @@ export const MAC_PREBUNDLE_POLICIES = {
     label: "daemon sidecar",
   },
   webSidecar: {
-    externals: ["@open-design/sidecar"],
+    externals: ["@rethra-design/sidecar"],
     forbiddenInputs: [
       "/node_modules/next/",
       "/node_modules/openai/",
@@ -157,5 +157,5 @@ export async function assertMacPrebundleMetafile(options: {
 export function renderMacPackagedMainEntry(usePrebundle: boolean): string {
   return usePrebundle
     ? 'import("./prebundled/packaged-main.mjs").catch((error) => {\n  console.error("packaged entry failed", error);\n  process.exit(1);\n});\n'
-    : 'import("@open-design/packaged").catch((error) => {\n  console.error("packaged entry failed", error);\n  process.exit(1);\n});\n';
+    : 'import("@rethra-design/packaged").catch((error) => {\n  console.error("packaged entry failed", error);\n  process.exit(1);\n});\n';
 }

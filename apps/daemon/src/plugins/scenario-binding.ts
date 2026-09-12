@@ -4,8 +4,8 @@ import type {
   ProjectScenarioBinding,
   ProjectScenarioBindingProvenance,
   ProjectScenarioTaskProfile,
-} from '@open-design/contracts';
-import { defaultScenarioTaskProfileForProjectMetadata } from '@open-design/contracts';
+} from '@rethra-design/contracts';
+import { defaultScenarioTaskProfileForProjectMetadata } from '@rethra-design/contracts';
 
 type SqliteDb = Database.Database;
 

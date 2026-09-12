@@ -997,7 +997,7 @@ describe('loadConfig', () => {
   });
 
   it('preserves an explicit saved notification opt-out', () => {
-    store.set('open-design:config', JSON.stringify({
+    store.set('rethra-design:config', JSON.stringify({
       notifications: {
         soundEnabled: false,
         successSoundId: 'ding',
@@ -1024,7 +1024,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1065,7 +1065,7 @@ describe('loadConfig', () => {
         },
       },
     };
-    store.set('open-design:config', JSON.stringify(persisted));
+    store.set('rethra-design:config', JSON.stringify(persisted));
 
     const config = loadConfig();
 
@@ -1088,7 +1088,7 @@ describe('loadConfig', () => {
       apiProviderBaseUrl: openRouterBaseUrl,
       configMigrationVersion: 3,
     };
-    store.set('open-design:config', JSON.stringify(persisted));
+    store.set('rethra-design:config', JSON.stringify(persisted));
 
     const config = loadConfig();
 
@@ -1106,7 +1106,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1130,7 +1130,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(persisted));
+    store.set('rethra-design:config', JSON.stringify(persisted));
     const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
       throw new DOMException('exceeded', 'QuotaExceededError');
     });
@@ -1161,7 +1161,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(persisted));
+    store.set('rethra-design:config', JSON.stringify(persisted));
 
     const config = loadConfig();
 
@@ -1181,7 +1181,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(persisted));
+    store.set('rethra-design:config', JSON.stringify(persisted));
 
     expect(loadConfig().baseUrl).toBe('https://api.example.com/v1');
   });
@@ -1199,7 +1199,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(persisted));
+    store.set('rethra-design:config', JSON.stringify(persisted));
 
     const config = loadConfig();
 
@@ -1208,9 +1208,9 @@ describe('loadConfig', () => {
     expect(config.apiVersion).toBe('2024-01-01');
     expect(config.baseUrl).toBe('https://proxy.example.com/bedrock-runtime/v1');
     expect(config.model).toBe('gpt-4o');
-    const migrated = JSON.parse(store.get('open-design:config') ?? '{}');
+    const migrated = JSON.parse(store.get('rethra-design:config') ?? '{}');
     expect(migrated.apiKey).toBe('sk-proxy');
-    expect(store.get('open-design:config')).toContain('sk-proxy');
+    expect(store.get('rethra-design:config')).toContain('sk-proxy');
   });
 
   it('migrates legacy Anthropic API configs to an explicit apiProtocol', () => {
@@ -1223,7 +1223,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1241,7 +1241,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1279,7 +1279,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(savedConfig));
+    store.set('rethra-design:config', JSON.stringify(savedConfig));
 
     const config = loadConfig();
 
@@ -1297,7 +1297,7 @@ describe('loadConfig', () => {
     });
 
     const persisted = JSON.parse(
-      store.get('open-design:config') ?? '{}',
+      store.get('rethra-design:config') ?? '{}',
     ) as Partial<AppConfig>;
     expect(persisted.apiProtocol).toBe('anthropic');
     expect(persisted.apiKey).toBe('');
@@ -1321,7 +1321,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(daemonConfig));
+    store.set('rethra-design:config', JSON.stringify(daemonConfig));
 
     const config = loadConfig();
 
@@ -1341,7 +1341,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1364,7 +1364,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1383,7 +1383,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1402,7 +1402,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(explicitConfig));
+    store.set('rethra-design:config', JSON.stringify(explicitConfig));
 
     const config = loadConfig();
 
@@ -1419,7 +1419,7 @@ describe('loadConfig', () => {
       skillId: null,
       designSystemId: null,
     };
-    store.set('open-design:config', JSON.stringify(legacyConfig));
+    store.set('rethra-design:config', JSON.stringify(legacyConfig));
 
     const config = loadConfig();
 
@@ -1435,7 +1435,7 @@ describe('loadConfig', () => {
       theme: 'dark',
       accentColor: '#4F46E5',
     };
-    store.set('open-design:config', JSON.stringify(savedConfig));
+    store.set('rethra-design:config', JSON.stringify(savedConfig));
 
     const config = loadConfig();
 
@@ -1450,7 +1450,7 @@ describe('loadConfig', () => {
     const savedConfig: Partial<AppConfig> = {
       accentColor: 'blue',
     };
-    store.set('open-design:config', JSON.stringify(savedConfig));
+    store.set('rethra-design:config', JSON.stringify(savedConfig));
 
     expect(loadConfig().accentColor).toBe(DEFAULT_CONFIG.accentColor);
   });
@@ -1463,13 +1463,13 @@ describe('loadConfig', () => {
         templateSkillId: 'orbit-general',
       },
     };
-    store.set('open-design:config', JSON.stringify(savedConfig));
+    store.set('rethra-design:config', JSON.stringify(savedConfig));
 
     expect(loadConfig().orbit?.time).toBe(DEFAULT_CONFIG.orbit?.time);
   });
 
   it('returns defaults for malformed localStorage JSON', () => {
-    store.set('open-design:config', '{broken-json');
+    store.set('rethra-design:config', '{broken-json');
 
     expect(loadConfig()).toEqual(DEFAULT_CONFIG);
   });
@@ -1488,7 +1488,7 @@ describe('loadConfig', () => {
     'resets the legacy default accent %s to the current default',
     (legacy) => {
       store.set(
-        'open-design:config',
+        'rethra-design:config',
         JSON.stringify({ accentColor: legacy, configMigrationVersion: 2 }),
       );
 
@@ -1501,7 +1501,7 @@ describe('loadConfig', () => {
 
   it('keeps a deliberately chosen accent through the migration', () => {
     store.set(
-      'open-design:config',
+      'rethra-design:config',
       JSON.stringify({ accentColor: '#1A74FF', configMigrationVersion: 2 }),
     );
 
@@ -1514,7 +1514,7 @@ describe('loadConfig', () => {
 
 describe('saveConfig', () => {
   it('persists Local BYOK API keys while removing unpublished secure-profile metadata', () => {
-    store.set('open-design:config', JSON.stringify({
+    store.set('rethra-design:config', JSON.stringify({
       ...DEFAULT_CONFIG,
       mode: 'api',
       apiKey: 'top-level-secret',
@@ -1544,7 +1544,7 @@ describe('saveConfig', () => {
     expect(loaded.byokProviderConfigDrafts?.openrouter?.apiConfig.apiKey).toBe('draft-secret');
     saveConfig(loaded);
 
-    const raw = store.get('open-design:config') ?? '';
+    const raw = store.get('rethra-design:config') ?? '';
     const saved = JSON.parse(raw);
     expect(raw).toContain('top-level-secret');
     expect(raw).toContain('protocol-secret');
@@ -1565,7 +1565,7 @@ describe('saveConfig', () => {
       allowSilentUpdates: true,
     });
 
-    const saved = JSON.parse(store.get('open-design:config') ?? '{}');
+    const saved = JSON.parse(store.get('rethra-design:config') ?? '{}');
     expect(saved.installationId).toBeUndefined();
     expect(saved.privacyDecisionAt).toBeUndefined();
     expect(saved.telemetry).toBeUndefined();
@@ -1595,7 +1595,7 @@ describe('saveConfig', () => {
       },
     });
 
-    const saved = JSON.parse(store.get('open-design:config') ?? '{}');
+    const saved = JSON.parse(store.get('rethra-design:config') ?? '{}');
     expect(saved.agentCliEnv.claude).toEqual({
       ANTHROPIC_BASE_URL: 'https://proxy.example/anthropic',
       CLAUDE_CONFIG_DIR: '~/.claude-2',

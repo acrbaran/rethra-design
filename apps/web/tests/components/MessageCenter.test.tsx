@@ -8,7 +8,7 @@ import { I18nProvider, useI18n } from '../../src/i18n';
 import type { MessageCenterMessage } from '../../src/message-center-client';
 
 const defaultMessages: MessageCenterMessage[] = [
-  { id: 'release', audienceType: 'global', typeName: 'Product update', title: 'OpenDesign 0.14 is available', body: 'The new release is ready.', ctaLabel: 'View update', ctaUrl: 'https://open-design.ai/update', publishedAt: '2026-07-16T12:00:00.000Z', readAt: null },
+  { id: 'release', audienceType: 'global', typeName: 'Product update', title: 'RethraDesign 0.14 is available', body: 'The new release is ready.', ctaLabel: 'View update', ctaUrl: 'https://rethra-design.invalid/update', publishedAt: '2026-07-16T12:00:00.000Z', readAt: null },
   { id: 'benefit', audienceType: 'targeted', typeName: 'Benefit', title: 'Credits added', body: 'Your credits are ready.', ctaLabel: null, ctaUrl: null, publishedAt: '2026-07-15T12:00:00.000Z', readAt: '2026-07-16T01:00:00.000Z' },
 ];
 
@@ -157,8 +157,8 @@ describe('MessageCenter', () => {
   it('renders API messages for anonymous clients without a local window', async () => {
     renderMessageCenter();
     const dialog = await openCenter();
-    expect(within(dialog).getByText('OpenDesign 0.14 is available')).toBeTruthy();
-    expect(localStorage.getItem('open-design.message-center.anonymous-started-at.v1')).toBeNull();
+    expect(within(dialog).getByText('RethraDesign 0.14 is available')).toBeTruthy();
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-started-at.v1')).toBeNull();
     const anonymousPull = vi.mocked(fetch).mock.calls.find(([url]) => String(url).includes('/api-proxy/') && String(url).includes('/messages?'));
     expect(String(anonymousPull?.[0])).not.toContain('startedAt=');
   });
@@ -171,7 +171,7 @@ describe('MessageCenter', () => {
     renderMessageCenter();
     const dialog = await openCenter();
 
-    expect(within(dialog).getByText('OpenDesign 0.14 is available')).toBeTruthy();
+    expect(within(dialog).getByText('RethraDesign 0.14 is available')).toBeTruthy();
     expect(
       vi.mocked(fetch).mock.calls.some(([url]) =>
         String(url).includes('/api/integrations/vela/message-center-public/messages?'),
@@ -183,16 +183,16 @@ describe('MessageCenter', () => {
   it('keeps anonymous read state locally and restores it', async () => {
     renderMessageCenter();
     await openCenter();
-    fireEvent.click(screen.getByRole('button', { name: /OpenDesign 0\.14 is available/ }));
+    fireEvent.click(screen.getByRole('button', { name: /RethraDesign 0\.14 is available/ }));
     await waitFor(() => expect(screen.queryByLabelText(/unread/)).toBeNull());
-    expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toContain('release');
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toContain('release');
   });
 
   it('uses account read endpoints when logged in', async () => {
     mockFetch({ loggedIn: true });
     renderMessageCenter();
     await openCenter();
-    fireEvent.click(screen.getByRole('button', { name: /OpenDesign 0\.14 is available/ }));
+    fireEvent.click(screen.getByRole('button', { name: /RethraDesign 0\.14 is available/ }));
     await waitFor(() => expect(vi.mocked(fetch).mock.calls.some(([url, init]) => String(url).includes('/release/read') && init?.method === 'POST')).toBe(true));
   });
 
@@ -204,7 +204,7 @@ describe('MessageCenter', () => {
     expect(within(dialog).queryByRole('button', { name: 'Unread' })).toBeNull();
     expect(within(dialog).queryByRole('button', { name: 'Read' })).toBeNull();
     expect(within(dialog).queryByRole('button', { name: 'Mark all read' })).toBeNull();
-    expect(within(dialog).getByText('OpenDesign 0.14 is available')).toBeTruthy();
+    expect(within(dialog).getByText('RethraDesign 0.14 is available')).toBeTruthy();
     expect(within(dialog).getByText('Credits added')).toBeTruthy();
   });
 
@@ -212,7 +212,7 @@ describe('MessageCenter', () => {
     const open = vi.spyOn(window, 'open').mockImplementation(() => null);
     renderMessageCenter();
     await openCenter();
-    const row = screen.getByRole('button', { name: /OpenDesign 0\.14 is available/ });
+    const row = screen.getByRole('button', { name: /RethraDesign 0\.14 is available/ });
 
     expect(row).toHaveAttribute('aria-expanded', 'false');
     expect(screen.queryByRole('button', { name: 'View update' })).toBeNull();
@@ -223,7 +223,7 @@ describe('MessageCenter', () => {
     expect(row.closest('article')?.className).toContain('itemExpanded');
     expect(screen.getByText('The new release is ready.')).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'View update' }));
-    expect(open).toHaveBeenCalledWith('https://open-design.ai/update', '_blank', 'noopener,noreferrer');
+    expect(open).toHaveBeenCalledWith('https://rethra-design.invalid/update', '_blank', 'noopener,noreferrer');
   });
 
   it('keeps both anonymous reads when two expands resolve out of order', async () => {
@@ -261,7 +261,7 @@ describe('MessageCenter', () => {
     resolveFirst?.();
     await waitFor(() => {
       expect(screen.queryByLabelText(/unread/)).toBeNull();
-      expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toBeNull();
+      expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toBeNull();
     });
   });
 
@@ -270,9 +270,9 @@ describe('MessageCenter', () => {
       { ...defaultMessages[0]!, id: 'release', title: 'Release update', readAt: null, ctaLabel: null, ctaUrl: null },
     ] satisfies MessageCenterMessage[];
     let releaseMessages: (() => void) | undefined;
-    localStorage.setItem('open-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
-    localStorage.setItem('open-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
-    localStorage.setItem('open-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
+    localStorage.setItem('rethra-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
+    localStorage.setItem('rethra-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
+    localStorage.setItem('rethra-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
     mockFetch({
       loggedIn: true,
       onMessages: () =>
@@ -292,7 +292,7 @@ describe('MessageCenter', () => {
         ),
       ).toBe(true),
     );
-    expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toBeNull();
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toBeNull();
 
     releaseMessages?.();
     await waitFor(() => expect(screen.queryByLabelText(/unread/)).toBeNull());
@@ -304,9 +304,9 @@ describe('MessageCenter', () => {
     ] satisfies MessageCenterMessage[];
     let loggedIn = false;
     let statusCalls = 0;
-    localStorage.setItem('open-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
-    localStorage.setItem('open-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
-    localStorage.setItem('open-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
+    localStorage.setItem('rethra-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
+    localStorage.setItem('rethra-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
+    localStorage.setItem('rethra-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
     mockFetch({
       onStatus: async () => {
         statusCalls += 1;
@@ -329,7 +329,7 @@ describe('MessageCenter', () => {
         ),
       ).toBe(true),
     );
-    expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toBeNull();
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toBeNull();
   });
 
   it('keeps visible account messages when locale changes and the follow-up sync fails', async () => {
@@ -356,12 +356,12 @@ describe('MessageCenter', () => {
     );
 
     await openCenter();
-    await waitFor(() => expect(screen.getByText('OpenDesign 0.14 is available')).toBeTruthy());
+    await waitFor(() => expect(screen.getByText('RethraDesign 0.14 is available')).toBeTruthy());
 
     fireEvent.click(screen.getByRole('button', { name: 'Switch locale' }));
 
     await waitFor(() => expect(messageRequests).toBeGreaterThanOrEqual(2));
-    expect(screen.getByText('OpenDesign 0.14 is available')).toBeTruthy();
+    expect(screen.getByText('RethraDesign 0.14 is available')).toBeTruthy();
     expect(screen.getByRole('status')).toBeTruthy();
     expect(within(screen.getByRole('status')).getByRole('button')).toBeTruthy();
   });
@@ -431,9 +431,9 @@ describe('MessageCenter', () => {
         ctaUrl: null,
       },
     ] satisfies MessageCenterMessage[];
-    localStorage.setItem('open-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
-    localStorage.setItem('open-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
-    localStorage.setItem('open-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
+    localStorage.setItem('rethra-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
+    localStorage.setItem('rethra-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
+    localStorage.setItem('rethra-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
     mockFetch({
       onMessages: async () => new Response(null, { status: 500 }),
     });
@@ -451,9 +451,9 @@ describe('MessageCenter', () => {
       { ...defaultMessages[0]!, id: 'release', title: 'Release update', readAt: null, ctaLabel: null, ctaUrl: null },
       { ...defaultMessages[0]!, id: 'security', title: 'Security notice', readAt: null, ctaLabel: null, ctaUrl: null },
     ] satisfies MessageCenterMessage[];
-    localStorage.setItem('open-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
-    localStorage.setItem('open-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
-    localStorage.setItem('open-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
+    localStorage.setItem('rethra-design.message-center.anonymous-started-at.v1', '2026-07-16T00:00:00.000Z');
+    localStorage.setItem('rethra-design.message-center.anonymous-messages.v1', JSON.stringify(cachedMessages));
+    localStorage.setItem('rethra-design.message-center.anonymous-read-ids.v1', JSON.stringify([]));
     mockFetch({
       onMessages: async () => new Response(null, { status: 500 }),
     });
@@ -465,16 +465,16 @@ describe('MessageCenter', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Release update/ }));
     await waitFor(() =>
-      expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toContain('release'),
+      expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toContain('release'),
     );
 
     fireEvent.click(screen.getByRole('button', { name: /Security notice/ }));
     await waitFor(() =>
-      expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toContain('security'),
+      expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toContain('security'),
     );
-    expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toContain('release');
-    expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).toContain('security');
-    expect(localStorage.getItem('open-design.message-center.anonymous-messages.v1')).toContain('Release update');
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toContain('release');
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).toContain('security');
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-messages.v1')).toContain('Release update');
   });
 
   it('drops account read ids when a mounted session falls back to anonymous', async () => {
@@ -506,7 +506,7 @@ describe('MessageCenter', () => {
     await waitFor(() =>
       expect(screen.getByLabelText(/Open message center \(1 unread\)/)).toBeTruthy(),
     );
-    expect(localStorage.getItem('open-design.message-center.anonymous-read-ids.v1')).not.toContain('release');
+    expect(localStorage.getItem('rethra-design.message-center.anonymous-read-ids.v1')).not.toContain('release');
   });
 
   it('reports mark-read failures without throwing an unhandled rejection', async () => {
@@ -522,8 +522,8 @@ describe('MessageCenter', () => {
     renderMessageCenter();
     await openCenter();
 
-    fireEvent.click(screen.getByRole('button', { name: /OpenDesign 0\.14 is available/ }));
-    await waitFor(() => expect(screen.getByText('OpenDesign 0.14 is available')).toBeTruthy());
+    fireEvent.click(screen.getByRole('button', { name: /RethraDesign 0\.14 is available/ }));
+    await waitFor(() => expect(screen.getByText('RethraDesign 0.14 is available')).toBeTruthy());
     expect(unhandled).not.toHaveBeenCalled();
     window.removeEventListener('unhandledrejection', unhandled);
   });
@@ -545,9 +545,9 @@ describe('MessageCenter', () => {
       ).toBeGreaterThanOrEqual(2),
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /OpenDesign 0\.14 is available/ }));
+    fireEvent.click(screen.getByRole('button', { name: /RethraDesign 0\.14 is available/ }));
     await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('Check failed. Please retry.'));
-    expect(screen.getByText('OpenDesign 0.14 is available')).toBeTruthy();
+    expect(screen.getByText('RethraDesign 0.14 is available')).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
     await waitFor(() => expect(screen.queryByRole('status')).toBeNull());
@@ -560,7 +560,7 @@ describe('MessageCenter', () => {
     });
     renderMessageCenter();
     await openCenter();
-    fireEvent.click(screen.getByRole('button', { name: /OpenDesign 0\.14 is available/ }));
+    fireEvent.click(screen.getByRole('button', { name: /RethraDesign 0\.14 is available/ }));
     expect(screen.queryByRole('button', { name: 'View update' })).toBeNull();
   });
 

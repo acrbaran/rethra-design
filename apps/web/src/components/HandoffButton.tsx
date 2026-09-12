@@ -8,12 +8,12 @@ import type {
   HostEditor,
   HostEditorId,
   HostEditorsResponse,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   handoffTargetIdToTracking,
   type TrackingArtifactKind,
   type TrackingProjectKind,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import { fetchHostEditors, openProjectInEditor } from '../providers/registry';
 import { useAnalytics } from '../analytics/provider';
 import { trackHandoffClick } from '../analytics/events';
@@ -24,8 +24,8 @@ import { EditorIcon } from './EditorIcon';
 import { AgentIcon } from './AgentIcon';
 import { useProjectCollabContext } from '../collab/collab-context';
 
-const PREFERRED_EDITOR_KEY = 'open-design:preferred-editor';
-const PREFERRED_FRAMEWORK_KEY = 'open-design:handoff-framework';
+const PREFERRED_EDITOR_KEY = 'rethra-design:preferred-editor';
+const PREFERRED_FRAMEWORK_KEY = 'rethra-design:handoff-framework';
 const PROJECT_PATH_COPY_ID = 'project-path';
 
 type HandoffTab = 'editor' | 'cli';
@@ -82,7 +82,7 @@ const CLI_ORDER = [
 ];
 
 const FALLBACK_CLI_TARGETS: CliTarget[] = [
-  { id: 'amr', name: 'OpenDesign', bin: 'vela', available: false },
+  { id: 'amr', name: 'RethraDesign', bin: 'vela', available: false },
   { id: 'claude', name: 'Claude Code', bin: 'claude', available: false },
   { id: 'codex', name: 'Codex CLI', bin: 'codex', available: false },
   { id: 'opencode', name: 'OpenCode', bin: 'opencode-cli', available: false },
@@ -117,7 +117,7 @@ interface Props {
   artifactId?: string;
   artifactKind?: TrackingArtifactKind;
   // Retained on the props contract for the callers that still pass them
-  // (FileViewer / ProjectView). No longer read here since the OpenDesign
+  // (FileViewer / ProjectView). No longer read here since the RethraDesign
   // Cloud website link was removed from the CLI tab (acceptance #101).
   metricsConsent?: boolean;
   installationId?: string | null;
@@ -165,7 +165,7 @@ function writePreferredFramework(id: string): void {
 }
 
 function cliDisplayName(agent: Pick<CliTarget, 'id' | 'name'>): string {
-  return agent.id === 'amr' ? 'OpenDesign' : agent.name;
+  return agent.id === 'amr' ? 'RethraDesign' : agent.name;
 }
 
 function mergeCliTargets(agents: AgentInfo[] | undefined): CliTarget[] {

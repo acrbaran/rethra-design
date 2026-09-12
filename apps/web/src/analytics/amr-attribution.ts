@@ -4,7 +4,7 @@ import type {
   TrackingCampaignConversionSource,
   TrackingCampaignId,
   TrackingPageName,
-} from '@open-design/contracts/analytics';
+} from '@rethra-design/contracts/analytics';
 import {
   readOnboardingProfile,
   type OnboardingProfile,
@@ -30,7 +30,7 @@ interface SyncAmrProfileOptions {
   now?: Date;
 }
 
-const AMR_ATTRIBUTION_STORAGE_KEY = 'open-design:amr-entry-attribution:v1';
+const AMR_ATTRIBUTION_STORAGE_KEY = 'rethra-design:amr-entry-attribution:v1';
 const AMR_ATTRIBUTION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 /**
@@ -119,7 +119,7 @@ export function recordAmrEntry(
   const profile = readOnboardingProfile();
   const attribution: AmrEntryAttribution = {
     entryId: `od-amr-${randomId()}`,
-    sourceProduct: 'open_design',
+    sourceProduct: 'rethra_design',
     sourceDetail,
     occurredAt: now.toISOString(),
     ...(options.campaignId ? { campaignId: options.campaignId } : {}),
@@ -222,11 +222,11 @@ export function amrHandoffDeviceId(input: {
   return input.installationId ?? input.resolvedDeviceId ?? null;
 }
 
-// Builds the AMR handoff URL with OpenDesign attribution params. When
+// Builds the AMR handoff URL with RethraDesign attribution params. When
 // `deviceId` is provided it is added as `od_device_id`, so AMR can link the
-// landing/registration directly back to this OpenDesign install instead of
+// landing/registration directly back to this RethraDesign install instead of
 // only through the one-shot entry id. The caller passes it ONLY when the user
-// has consented to metrics: AMR is OpenDesign's official model service, so
+// has consented to metrics: AMR is RethraDesign's official model service, so
 // this is a same-owner cross-product link, but it still respects the telemetry
 // opt-in. Pass null/undefined to omit it.
 export function attributedAmrUrl(
@@ -317,7 +317,7 @@ async function mirrorAmrEntryToAmrAnalytics(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         payload: {
-          pageName: 'open_design',
+          pageName: 'rethra_design',
           sourcePageName,
           area: 'amr_entry',
           element: attribution.sourceDetail,
@@ -343,7 +343,7 @@ async function mirrorAmrEntryToAmrAnalytics(
       }),
     });
   } catch {
-    // AMR analytics mirroring must never block the primary OpenDesign action.
+    // AMR analytics mirroring must never block the primary RethraDesign action.
   }
 }
 
@@ -358,7 +358,7 @@ async function mirrorAmrOnboardingProfileToAmrAnalytics(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         payload: {
-          pageName: 'open_design',
+          pageName: 'rethra_design',
           sourcePageName: 'onboarding',
           area: 'onboarding',
           element: 'about_you_submit',
@@ -386,7 +386,7 @@ async function mirrorAmrOnboardingProfileToAmrAnalytics(
 }
 
 function isValidAmrAttribution(value: Partial<AmrEntryAttribution>): value is AmrEntryAttribution {
-  return value.sourceProduct === 'open_design'
+  return value.sourceProduct === 'rethra_design'
     && typeof value.entryId === 'string'
     && value.entryId.length > 0
     && typeof value.sourceDetail === 'string'

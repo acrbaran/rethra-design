@@ -20,7 +20,7 @@ import type {
   LibraryAssetKind,
   LibraryStorage,
   LibrarySourceKind,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import {
   addLibraryAssetSource,
   findLibraryAssetByHash,

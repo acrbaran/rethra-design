@@ -108,7 +108,7 @@ describe('AssistantMessage client-provided system copy', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: '贡献到 open-design' }));
+    fireEvent.click(screen.getByRole('button', { name: '贡献到 rethra-design' }));
 
     expect(await screen.findByText('正在启动…')).toBeTruthy();
     expect(screen.queryByText('Starting...')).toBeNull();

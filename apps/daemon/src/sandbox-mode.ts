@@ -147,7 +147,7 @@ export function sandboxAgentProfilesConfigPath(
 ): string {
   return path.join(
     config.roots.agentHomeDir,
-    '.open-design',
+    '.rethra-design',
     'agents.local.json',
   );
 }

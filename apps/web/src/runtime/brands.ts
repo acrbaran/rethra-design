@@ -15,7 +15,7 @@ import type {
   BrandFinalizeResponse,
   BrandSummary,
   WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 import { workspaceProjectHeaders } from '../state/projects';
 
 // One-shot cross-route handoff: the design-system id a navigation wants the

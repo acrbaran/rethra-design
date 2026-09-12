@@ -5,18 +5,18 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it, vi } from "vitest";
 
 import {
-  OPEN_DESIGN_HOST_GLOBAL,
-  OPEN_DESIGN_HOST_VERSION,
+  RETHRA_DESIGN_HOST_GLOBAL,
+  RETHRA_DESIGN_HOST_VERSION,
   clearHostBrowserData,
   checkHostUpdater,
-  detectOpenDesignHostClientType,
+  detectRethraDesignHostClientType,
   getLatestHostPreviewNavigationFailure,
   getHostUpdaterStatus,
-  getOpenDesignHost,
+  getRethraDesignHost,
   installHostUpdater,
-  isOpenDesignHostAvailable,
-  isOpenDesignHostBridge,
-  normalizeOpenDesignHostProjectImportResult,
+  isRethraDesignHostAvailable,
+  isRethraDesignHostBridge,
+  normalizeRethraDesignHostProjectImportResult,
   openHostExternalUrl,
   pickAndImportHostProject,
   printHostPdf,
@@ -28,7 +28,7 @@ import {
   subscribeHostUpdater,
   subscribeHostPreviewNavigationFailure,
 } from "../src/index.js";
-import { createMockOpenDesignHost, installMockOpenDesignHost } from "../src/testing.js";
+import { createMockRethraDesignHost, installMockRethraDesignHost } from "../src/testing.js";
 
 const hostRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 
@@ -41,7 +41,7 @@ function filesUnder(dir: string): string[] {
   });
 }
 
-describe("open-design host contract", () => {
+describe("rethra-design host contract", () => {
   it("stays independent from daemon/web contracts", () => {
     const pkg = JSON.parse(readFileSync(join(hostRoot, "package.json"), "utf8")) as {
       dependencies?: Record<string, string>;
@@ -54,63 +54,63 @@ describe("open-design host contract", () => {
       ...pkg.devDependencies,
       ...pkg.optionalDependencies,
       ...pkg.peerDependencies,
-    }).not.toHaveProperty("@open-design/contracts");
+    }).not.toHaveProperty("@rethra-design/contracts");
 
     const offenders = filesUnder(join(hostRoot, "src")).filter((path) =>
-      readFileSync(path, "utf8").includes("@open-design/contracts"),
+      readFileSync(path, "utf8").includes("@rethra-design/contracts"),
     );
     expect(offenders).toEqual([]);
   });
 
   it("recognizes the canonical bridge shape", () => {
-    const host = createMockOpenDesignHost();
-    expect(isOpenDesignHostBridge(host)).toBe(true);
-    expect(host.version).toBe(OPEN_DESIGN_HOST_VERSION);
+    const host = createMockRethraDesignHost();
+    expect(isRethraDesignHostBridge(host)).toBe(true);
+    expect(host.version).toBe(RETHRA_DESIGN_HOST_VERSION);
   });
 
   it("rejects legacy or incomplete bridge shapes", () => {
-    expect(isOpenDesignHostBridge({ version: OPEN_DESIGN_HOST_VERSION })).toBe(false);
-    expect(isOpenDesignHostBridge({ ...createMockOpenDesignHost(), version: 1 })).toBe(false);
-    expect(isOpenDesignHostBridge({
-      ...createMockOpenDesignHost(),
+    expect(isRethraDesignHostBridge({ version: RETHRA_DESIGN_HOST_VERSION })).toBe(false);
+    expect(isRethraDesignHostBridge({ ...createMockRethraDesignHost(), version: 1 })).toBe(false);
+    expect(isRethraDesignHostBridge({
+      ...createMockRethraDesignHost(),
       browser: {},
     })).toBe(false);
-    expect(isOpenDesignHostBridge({
-      ...createMockOpenDesignHost(),
+    expect(isRethraDesignHostBridge({
+      ...createMockRethraDesignHost(),
       capture: {},
     })).toBe(false);
-    expect(isOpenDesignHostBridge({
-      ...createMockOpenDesignHost(),
+    expect(isRethraDesignHostBridge({
+      ...createMockRethraDesignHost(),
       shell: { openExternal: async () => ({ ok: true }) },
     })).toBe(false);
-    expect(isOpenDesignHostBridge({
-      ...createMockOpenDesignHost(),
-      updater: { status: async () => createMockOpenDesignHost().updater.status() },
+    expect(isRethraDesignHostBridge({
+      ...createMockRethraDesignHost(),
+      updater: { status: async () => createMockRethraDesignHost().updater.status() },
     })).toBe(false);
-    const { "clear-cache": _clearCache, ...updaterWithoutClearCache } = createMockOpenDesignHost().updater;
-    expect(isOpenDesignHostBridge({
-      ...createMockOpenDesignHost(),
+    const { "clear-cache": _clearCache, ...updaterWithoutClearCache } = createMockRethraDesignHost().updater;
+    expect(isRethraDesignHostBridge({
+      ...createMockRethraDesignHost(),
       updater: updaterWithoutClearCache,
     })).toBe(false);
   });
 
   it("reads the bridge through the package-owned global accessor", () => {
     const scope: Record<string, unknown> = {};
-    scope[OPEN_DESIGN_HOST_GLOBAL] = createMockOpenDesignHost();
-    expect(getOpenDesignHost(scope)?.client.type).toBe("desktop");
-    expect(isOpenDesignHostAvailable(scope)).toBe(true);
-    expect(detectOpenDesignHostClientType(scope)).toBe("desktop");
+    scope[RETHRA_DESIGN_HOST_GLOBAL] = createMockRethraDesignHost();
+    expect(getRethraDesignHost(scope)?.client.type).toBe("desktop");
+    expect(isRethraDesignHostAvailable(scope)).toBe(true);
+    expect(detectRethraDesignHostClientType(scope)).toBe("desktop");
   });
 
   it("falls back to web when no host is installed", () => {
-    expect(getOpenDesignHost({})).toBeNull();
-    expect(isOpenDesignHostAvailable({})).toBe(false);
-    expect(detectOpenDesignHostClientType({})).toBe("web");
+    expect(getRethraDesignHost({})).toBeNull();
+    expect(isRethraDesignHostAvailable({})).toBe(false);
+    expect(detectRethraDesignHostClientType({})).toBe("web");
   });
 
   it("wraps host action throws into structured failures", async () => {
     const scope: Record<string, unknown> = {};
-    scope[OPEN_DESIGN_HOST_GLOBAL] = createMockOpenDesignHost({
+    scope[RETHRA_DESIGN_HOST_GLOBAL] = createMockRethraDesignHost({
       shell: {
         openPath: vi.fn(async () => {
           throw new Error("failed");
@@ -125,7 +125,7 @@ describe("open-design host contract", () => {
   });
 
   it("normalizes privileged project-import results into host-owned identifiers", () => {
-    const result = normalizeOpenDesignHostProjectImportResult({
+    const result = normalizeRethraDesignHostProjectImportResult({
       ok: true,
       response: {
         project: {
@@ -148,7 +148,7 @@ describe("open-design host contract", () => {
   });
 
   it("accepts imported folders with no detected entry file", () => {
-    const result = normalizeOpenDesignHostProjectImportResult({
+    const result = normalizeRethraDesignHostProjectImportResult({
       ok: true,
       response: {
         project: {
@@ -171,11 +171,11 @@ describe("open-design host contract", () => {
   });
 
   it("preserves canceled and structured failure project-import results", () => {
-    expect(normalizeOpenDesignHostProjectImportResult({ canceled: true, ok: false })).toEqual({
+    expect(normalizeRethraDesignHostProjectImportResult({ canceled: true, ok: false })).toEqual({
       canceled: true,
       ok: false,
     });
-    expect(normalizeOpenDesignHostProjectImportResult({
+    expect(normalizeRethraDesignHostProjectImportResult({
       ok: false,
       reason: "daemon returned HTTP 500",
       details: { code: "boom" },
@@ -187,7 +187,7 @@ describe("open-design host contract", () => {
   });
 
   it("rejects malformed successful project-import results before they reach web callers", () => {
-    expect(normalizeOpenDesignHostProjectImportResult({
+    expect(normalizeRethraDesignHostProjectImportResult({
       ok: true,
       response: {
         project: { id: "project-1" },
@@ -216,7 +216,7 @@ describe("open-design host contract", () => {
     const print = vi.fn(async () => ({ ok: true as const }));
     const setVisible = vi.fn();
     const scope: Record<string, unknown> = {};
-    scope[OPEN_DESIGN_HOST_GLOBAL] = createMockOpenDesignHost({
+    scope[RETHRA_DESIGN_HOST_GLOBAL] = createMockRethraDesignHost({
       browser: { clearData },
       shell: { openExternal, openPath },
       project: { pickAndImport },
@@ -254,7 +254,7 @@ describe("open-design host contract", () => {
       },
       channel: "beta" as const,
       currentVersion: "1.0.0-beta.0",
-      downloadPath: "/tmp/Open Design Beta.dmg",
+      downloadPath: "/tmp/Rethra Design Beta.dmg",
       enabled: true,
       mode: "package-launcher" as const,
       platform: "darwin",
@@ -271,7 +271,7 @@ describe("open-design host contract", () => {
     const subscribeOpenDialog = vi.fn(() => unsubscribeOpenDialog);
     const setMenuLabels = vi.fn(async () => ({ ok: true as const }));
     const scope: Record<string, unknown> = {};
-    scope[OPEN_DESIGN_HOST_GLOBAL] = createMockOpenDesignHost({
+    scope[RETHRA_DESIGN_HOST_GLOBAL] = createMockRethraDesignHost({
       updater: { check, install, quit, setMenuLabels, status: statusFn, subscribe, subscribeOpenDialog },
     });
 
@@ -301,7 +301,7 @@ describe("open-design host contract", () => {
       downloading: "Downloading Update…",
       install: "Install Update…",
       installing: "Installing Update…",
-      restart: "Restart to Update OpenDesign…",
+      restart: "Restart to Update RethraDesign…",
     }, scope)).resolves.toEqual({ ok: true });
     expect(statusFn).toHaveBeenCalledWith({ payload: { source: "mount" } });
     expect(check).toHaveBeenCalledWith({ payload: { source: "button" } });
@@ -324,7 +324,7 @@ describe("open-design host contract", () => {
     const subscribeNavigationFailure = vi.fn(() => unsubscribe);
     const getLatestNavigationFailure = vi.fn(() => failure);
     const scope: Record<string, unknown> = {};
-    scope[OPEN_DESIGN_HOST_GLOBAL] = createMockOpenDesignHost({
+    scope[RETHRA_DESIGN_HOST_GLOBAL] = createMockRethraDesignHost({
       preview: { getLatestNavigationFailure, subscribeNavigationFailure },
     });
     const listener = vi.fn();
@@ -339,7 +339,7 @@ describe("open-design host contract", () => {
 
   it("wraps updater action throws into structured failures", async () => {
     const scope: Record<string, unknown> = {};
-    scope[OPEN_DESIGN_HOST_GLOBAL] = createMockOpenDesignHost({
+    scope[RETHRA_DESIGN_HOST_GLOBAL] = createMockRethraDesignHost({
       updater: {
         check: vi.fn(async () => {
           throw new Error("updater failed");
@@ -355,9 +355,9 @@ describe("open-design host contract", () => {
 
   it("installs and restores test hosts without exposing callers to the global key", () => {
     const scope: Record<string, unknown> = {};
-    const restore = installMockOpenDesignHost({ scope });
-    expect(getOpenDesignHost(scope)).not.toBeNull();
+    const restore = installMockRethraDesignHost({ scope });
+    expect(getRethraDesignHost(scope)).not.toBeNull();
     restore();
-    expect(getOpenDesignHost(scope)).toBeNull();
+    expect(getRethraDesignHost(scope)).toBeNull();
   });
 });

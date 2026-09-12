@@ -17,7 +17,7 @@ import {
   type DesktopStatusSnapshot,
   type DesktopUpdateResult,
   type WebStatusSnapshot,
-} from "@open-design/sidecar-proto";
+} from "@rethra-design/sidecar-proto";
 import {
   findSidecarProcesses,
   invokeSidecar,
@@ -27,12 +27,12 @@ import {
   type SidecarRestartOptions,
   type SidecarRestartResult,
   type SidecarStamp as ConvergedSidecarStamp,
-} from "@open-design/sidecar";
+} from "@rethra-design/sidecar";
 import {
   createPackageManagerInvocation,
   isProcessAlive,
   readLogTail,
-} from "@open-design/platform";
+} from "@rethra-design/platform";
 
 import {
   ALL_APPS,
@@ -275,7 +275,7 @@ function printRunForegroundResult(started: Partial<Record<ToolDevAppName, unknow
   const daemonUrl = stringField(daemonStatus ?? {}, "url");
 
   if (webUrl != null || daemonUrl != null) {
-    process.stdout.write("\n  OpenDesign dev server ready\n\n");
+    process.stdout.write("\n  RethraDesign dev server ready\n\n");
     if (webUrl != null) process.stdout.write(`  ➜  Web:    ${colorizeLink(normalizeDisplayUrl(webUrl))}\n`);
     if (daemonUrl != null) process.stdout.write(`  ➜  Daemon: ${colorizeLink(normalizeDisplayUrl(daemonUrl))}\n`);
     process.stdout.write("\n  Press Ctrl+C to stop\n\n");
@@ -478,8 +478,8 @@ async function spawnWebRuntime(config: ToolDevConfig, options: CliOptions): Prom
 }
 
 async function buildDesktop(config: ToolDevConfig, logHandle: FileHandle): Promise<void> {
-  await logHandle.write(`\n[tools-dev] building @open-design/desktop at ${new Date().toISOString()}\n`);
-  const invocation = createPackageManagerInvocation(["--filter", "@open-design/desktop", "build"], process.env);
+  await logHandle.write(`\n[tools-dev] building @rethra-design/desktop at ${new Date().toISOString()}\n`);
+  const invocation = createPackageManagerInvocation(["--filter", "@rethra-design/desktop", "build"], process.env);
   await runLoggedCommand({
     args: invocation.args,
     command: invocation.command,
@@ -518,8 +518,8 @@ async function ensureDaemonCliBuild(config: ToolDevConfig, logHandle: FileHandle
   if (distMtime > 0 && distMtime >= sourceMtime) return;
 
   const reason = distMtime > 0 ? "source is newer than apps/daemon/dist/cli.js" : "apps/daemon/dist/cli.js is missing";
-  await logHandle.write(`\n[tools-dev] building @open-design/daemon because ${reason} at ${new Date().toISOString()}\n`);
-  const invocation = createPackageManagerInvocation(["--filter", "@open-design/daemon", "build"], process.env);
+  await logHandle.write(`\n[tools-dev] building @rethra-design/daemon because ${reason} at ${new Date().toISOString()}\n`);
+  const invocation = createPackageManagerInvocation(["--filter", "@rethra-design/daemon", "build"], process.env);
   await runLoggedCommand({
     args: invocation.args,
     command: invocation.command,
@@ -545,8 +545,8 @@ async function ensureContractsBuild(config: ToolDevConfig, logHandle: FileHandle
   const reason = distMtime > 0
     ? "source is newer than packages/contracts/dist/index.d.ts"
     : "packages/contracts/dist/index.d.ts is missing";
-  await logHandle.write(`\n[tools-dev] building @open-design/contracts because ${reason} at ${new Date().toISOString()}\n`);
-  const invocation = createPackageManagerInvocation(["--filter", "@open-design/contracts", "build"], process.env);
+  await logHandle.write(`\n[tools-dev] building @rethra-design/contracts because ${reason} at ${new Date().toISOString()}\n`);
+  const invocation = createPackageManagerInvocation(["--filter", "@rethra-design/contracts", "build"], process.env);
   await runLoggedCommand({
     args: invocation.args,
     command: invocation.command,
@@ -1127,7 +1127,7 @@ async function runForeground(config: ToolDevConfig, appName: string | undefined,
       if (shuttingDown) return;
       shuttingDown = true;
       clearInterval(keepAlive);
-      process.stderr.write("\nStopping OpenDesign dev server...\n");
+      process.stderr.write("\nStopping RethraDesign dev server...\n");
       void runSequential(stopOrderFor(targets), (target) => stopApp(config, target)).finally(() => {
         for (const sig of ["SIGINT", "SIGTERM"] as const) {
           process.off(sig, shutdown);
@@ -1157,7 +1157,7 @@ function addPortOptions(command: ReturnType<typeof cli.command>) {
   return command
     .option("--daemon-port <port>", "force daemon port; conflict quick-fails")
     .option("--web-port <port>", "force web port; conflict quick-fails")
-    .option("--prod", "use production build (requires pnpm --filter @open-design/web build first)");
+    .option("--prod", "use production build (requires pnpm --filter @rethra-design/web build first)");
 }
 
 addPortOptions(addSharedOptions(cli.command("start [app]", "Start daemon, web, desktop, or all when app is omitted")))

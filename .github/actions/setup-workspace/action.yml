@@ -34,11 +34,11 @@ runs:
         esac
 
         if [ "$persistent_enabled" = "true" ]; then
-          if [ -z "${OPEN_DESIGN_CI_CACHE:-}" ]; then
-            echo "runner-labels contains od-persistent-ci, but OPEN_DESIGN_CI_CACHE is not set" >&2
+          if [ -z "${RETHRA_DESIGN_CI_CACHE:-}" ]; then
+            echo "runner-labels contains od-persistent-ci, but RETHRA_DESIGN_CI_CACHE is not set" >&2
             exit 1
           fi
-          store_dir="$OPEN_DESIGN_CI_CACHE/pnpm-store"
+          store_dir="$RETHRA_DESIGN_CI_CACHE/pnpm-store"
           mkdir -p "$store_dir"
           {
             echo "NPM_CONFIG_STORE_DIR=$store_dir"

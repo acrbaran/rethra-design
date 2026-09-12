@@ -2,9 +2,9 @@ import {
   APP_KEYS,
   SIDECAR_MODES,
   SIDECAR_SOURCES,
-} from "@open-design/sidecar-proto";
-import type { SidecarStamp, SidecarStopRequest } from "@open-design/sidecar";
-import { releaseChannelFromNamespace, releaseChannelFromVersion } from "@open-design/release";
+} from "@rethra-design/sidecar-proto";
+import type { SidecarStamp, SidecarStopRequest } from "@rethra-design/sidecar";
+import { releaseChannelFromNamespace, releaseChannelFromVersion } from "@rethra-design/release";
 
 import type { ToolPackConfig } from "./index.js";
 

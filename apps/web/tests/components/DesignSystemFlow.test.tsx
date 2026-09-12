@@ -7,7 +7,7 @@ import {
   buildWorkspaceSeatSummary,
   type ConnectorDetail,
   type WorkspaceCollabContext,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 import {
   buildDesignSystemPackageAuditRepairPrompt,
@@ -520,7 +520,7 @@ describe('DesignSystemCreationFlow', () => {
 
     render(<DesignSystemCreationFlow onBack={() => {}} onCreated={onCreated} />);
 
-    addSourceUrl('git@github.com:nexu-io/open-design.git');
+    addSourceUrl('git@github.com:nexu-io/rethra-design.git');
     continueToGeneration();
     confirmExtraction();
 
@@ -531,8 +531,8 @@ describe('DesignSystemCreationFlow', () => {
     expect(requestInit).toBeTruthy();
     const body = JSON.parse(requestInit!.body) as { url?: string; designMd?: string };
     expect(body.url).toBeUndefined();
-    expect(body.designMd).toEqual(expect.stringContaining('https://github.com/nexu-io/open-design'));
-    expect(body.designMd).toEqual(expect.stringContaining('GitHub repositories: https://github.com/nexu-io/open-design'));
+    expect(body.designMd).toEqual(expect.stringContaining('https://github.com/acrbaran/rethra-design'));
+    expect(body.designMd).toEqual(expect.stringContaining('GitHub repositories: https://github.com/acrbaran/rethra-design'));
   });
 
   it('keeps protocol-less website paths as website URLs', async () => {
@@ -874,7 +874,7 @@ describe('DesignSystemCreationFlow', () => {
     await waitFor(() => expect(mocks.patchProject).toHaveBeenCalledWith(
       project.id,
       expect.objectContaining({
-        pendingPrompt: expect.stringContaining('Create this project as a complete OpenDesign design system workspace.'),
+        pendingPrompt: expect.stringContaining('Create this project as a complete RethraDesign design system workspace.'),
       }),
     ));
     await waitFor(() => expect(onProjectPrepared).toHaveBeenCalledWith(
@@ -961,7 +961,7 @@ describe('DesignSystemCreationFlow', () => {
     expect(mocks.patchProject).toHaveBeenCalledWith(
       project.id,
       expect.objectContaining({
-        pendingPrompt: expect.stringContaining('Create this project as a complete OpenDesign design system workspace.'),
+        pendingPrompt: expect.stringContaining('Create this project as a complete RethraDesign design system workspace.'),
       }),
     );
     expect(mocks.patchProject).toHaveBeenCalledWith(
@@ -2064,21 +2064,21 @@ describe('DesignSystemCreationFlow', () => {
 
   it.skip('adds website source links with Enter and keeps them out of GitHub intake', async () => {
     const system: DesignSystemDetail = {
-      id: 'user:open-design-website-design-system',
-      title: 'OpenDesign Website Design System',
+      id: 'user:rethra-design-website-design-system',
+      title: 'RethraDesign Website Design System',
       category: 'Custom',
-      summary: 'OpenDesign website source.',
+      summary: 'RethraDesign website source.',
       swatches: [],
       surface: 'web',
-      body: '# OpenDesign Website Design System\n',
+      body: '# RethraDesign Website Design System\n',
       source: 'user',
       status: 'draft',
       isEditable: true,
-      projectId: 'ds-open-design-website-design-system',
+      projectId: 'ds-rethra-design-website-design-system',
     };
     const project: Project = {
-      id: 'ds-open-design-website-design-system',
-      name: 'OpenDesign Website Design System',
+      id: 'ds-rethra-design-website-design-system',
+      name: 'RethraDesign Website Design System',
       skillId: null,
       designSystemId: system.id,
       createdAt: 1,
@@ -2104,15 +2104,15 @@ describe('DesignSystemCreationFlow', () => {
     );
 
     const sourceInput = screen.getByPlaceholderText('https://example.com or https://github.com/owner/repo') as HTMLInputElement;
-    fireEvent.change(sourceInput, { target: { value: 'open-design.ai' } });
+    fireEvent.change(sourceInput, { target: { value: 'rethra-design.invalid' } });
     fireEvent.keyDown(sourceInput, { key: 'Enter', code: 'Enter' });
 
-    const previewLink = screen.getByRole('link', { name: 'Open open-design.ai' }) as HTMLAnchorElement;
-    expect(previewLink.href).toBe('https://open-design.ai/');
+    const previewLink = screen.getByRole('link', { name: 'Open rethra-design.invalid' }) as HTMLAnchorElement;
+    expect(previewLink.href).toBe('https://rethra-design.invalid/');
     expect(sourceInput.value).toBe('');
 
     fireEvent.change(screen.getByPlaceholderText(/Mission Impastabowl/i), {
-      target: { value: 'OpenDesign website source' },
+      target: { value: 'RethraDesign website source' },
     });
     continueToGeneration();
     continueToGeneration();
@@ -2124,7 +2124,7 @@ describe('DesignSystemCreationFlow', () => {
       githubRepoCount: 0,
     }));
     const draftInput = mocks.createDesignSystemDraft.mock.calls[0]?.[0];
-    expect(draftInput?.provenance?.sourceUrls).toEqual(['https://open-design.ai']);
+    expect(draftInput?.provenance?.sourceUrls).toEqual(['https://rethra-design.invalid']);
     expect(draftInput?.provenance?.githubUrls).toBeUndefined();
 
     await waitFor(() => expect(mocks.writeProjectTextFile).toHaveBeenCalled());
@@ -2132,7 +2132,7 @@ describe('DesignSystemCreationFlow', () => {
       (call) => call[0] === project.id && call[1] === 'context/source-context.md',
     );
     expect(sourceManifestCall?.[2]).toEqual(expect.stringContaining('## Source Links'));
-    expect(sourceManifestCall?.[2]).toEqual(expect.stringContaining('- https://open-design.ai'));
+    expect(sourceManifestCall?.[2]).toEqual(expect.stringContaining('- https://rethra-design.invalid'));
     expect(sourceManifestCall?.[2]).not.toEqual(expect.stringContaining('GitHub Connector Intake Runbook'));
     expect(mocks.patchProject).toHaveBeenCalledWith(
       project.id,
@@ -2165,15 +2165,15 @@ describe('DesignSystemCreationFlow', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Show access methods' }));
     expect(screen.getByText('This device')).toBeTruthy();
-    expect(screen.getByText('OpenDesign account')).toBeTruthy();
+    expect(screen.getByText('RethraDesign account')).toBeTruthy();
     expect(screen.getByText('Connector platform')).toBeTruthy();
     expect(screen.getByText('Coming soon')).toBeTruthy();
     expect(screen.getByText('Not configured')).toBeTruthy();
 
-    fireEvent.change(input, { target: { value: 'https://github.com/nexu-io/open-design/' } });
+    fireEvent.change(input, { target: { value: 'https://github.com/acrbaran/rethra-design/' } });
     fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
-    expect(screen.getByText('nexu-io/open-design')).toBeTruthy();
+    expect(screen.getByText('nexu-io/rethra-design')).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'Configure Composio' }));
 
@@ -2279,10 +2279,10 @@ describe('DesignSystemCreationFlow', () => {
       const input = screen.getByPlaceholderText('https://example.com or https://github.com/owner/repo') as HTMLInputElement;
       expect(input.disabled).toBe(false);
 
-      fireEvent.change(input, { target: { value: 'https://github.com/nexu-io/open-design/' } });
+      fireEvent.change(input, { target: { value: 'https://github.com/acrbaran/rethra-design/' } });
       fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
-      expect(screen.getByText('nexu-io/open-design')).toBeTruthy();
+      expect(screen.getByText('nexu-io/rethra-design')).toBeTruthy();
       expect(input.value).toBe('');
     } finally {
       window.removeEventListener(CONNECTORS_CHANGED_EVENT, onConnectorsChanged);
@@ -2329,7 +2329,7 @@ describe('DesignSystemCreationFlow', () => {
         redirectUrl: 'https://example.com/oauth',
         expiresAt: '2099-05-08T10:00:00.000Z',
       },
-      error: 'Popup blocked. Allow popups for OpenDesign and try again.',
+      error: 'Popup blocked. Allow popups for RethraDesign and try again.',
     });
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => ({ closed: false } as Window));
     const config = {
@@ -2350,7 +2350,7 @@ describe('DesignSystemCreationFlow', () => {
       fireEvent.click(screen.getByRole('button', { name: 'Connect via Composio' }));
 
       await waitFor(() => expect(screen.getByText('Pending')).toBeTruthy());
-      expect(screen.getByText('Popup blocked. Allow popups for OpenDesign and try again.')).toBeTruthy();
+      expect(screen.getByText('Popup blocked. Allow popups for RethraDesign and try again.')).toBeTruthy();
 
       fireEvent.click(screen.getByRole('button', { name: 'Open authorization' }));
 
@@ -2419,7 +2419,7 @@ describe('DesignSystemCreationFlow', () => {
     fireEvent.change(screen.getByPlaceholderText(/Mission Impastabowl/i), {
       target: { value: 'GitHub: product workspace' },
     });
-    addSourceUrl('https://github.com/nexu-io/open-design');
+    addSourceUrl('https://github.com/acrbaran/rethra-design');
     continueToGeneration();
     confirmExtraction();
 
@@ -2434,7 +2434,7 @@ describe('DesignSystemCreationFlow', () => {
     expect(mocks.writeProjectTextFile).toHaveBeenCalledWith(
       project.id,
       'context/source-context.md',
-      expect.stringContaining('https://github.com/nexu-io/open-design'),
+      expect.stringContaining('https://github.com/acrbaran/rethra-design'),
       undefined,
       null,
     );
@@ -2448,7 +2448,7 @@ describe('DesignSystemCreationFlow', () => {
     expect(mocks.writeProjectTextFile).toHaveBeenCalledWith(
       project.id,
       'context/source-context.md',
-      expect.stringContaining('"$OD_NODE_BIN" "$OD_BIN" tools connectors github-design-context --repo \'https://github.com/nexu-io/open-design\' --output context/github/nexu-io-open-design.md'),
+      expect.stringContaining('"$OD_NODE_BIN" "$OD_BIN" tools connectors github-design-context --repo \'https://github.com/acrbaran/rethra-design\' --output context/github/nexu-io-rethra-design.md'),
       undefined,
       null,
     );
@@ -2600,7 +2600,7 @@ describe('DesignSystemCreationFlow', () => {
     fireEvent.change(screen.getByPlaceholderText(/Mission Impastabowl/i), {
       target: { value: 'GitHub: product workspace' },
     });
-    addSourceUrl('https://github.com/nexu-io/open-design');
+    addSourceUrl('https://github.com/acrbaran/rethra-design');
     continueToGeneration();
     confirmExtraction();
 
@@ -2942,7 +2942,7 @@ describe('DesignSystemDetailView', () => {
   // PATCH/DELETE verdict onto the GET response — false only for a team-synced
   // design system the caller (a plain member, not the original sharer or a
   // workspace owner/admin) may not manage. This surface is the direct
-  // `/design-systems/:id` route (e.g. the Library's "Open design system"
+  // `/design-systems/:id` route (e.g. the Library's "View design system"
   // link), separate from — and previously ungated unlike — DesignSystemsTab's
   // own team-tab detail pane.
   it('disables the Publish toggle, DESIGN.md save, and revision accept/reject when canMutate is false', async () => {

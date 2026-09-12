@@ -16,8 +16,8 @@
  */
 const INTERNAL_MARKER_TAGS = [
   'od-title',
-  'open-design-plan-contract',
-  'open-design-runtime-state',
+  'rethra-design-plan-contract',
+  'rethra-design-runtime-state',
 ] as const;
 
 const COMPLETE_BLOCK_RE = new RegExp(

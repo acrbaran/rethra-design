@@ -60,7 +60,7 @@ env:
   # The exact URL the daemon fetches (DEFAULT_WHATS_NEW_URL in
   # apps/daemon/src/services/whats-new.ts). Read-back verification hits this,
   # not a configurable mirror, so a green run means the card users will see.
-  WHATS_NEW_PUBLIC_URL: https://whatsnew.open-design.ai/whats-new.json
+  WHATS_NEW_PUBLIC_URL: https://whatsnew.rethra-design.invalid/whats-new.json
 
 jobs:
   # No environment, no secrets. Safe to run from any ref, which is what makes
@@ -88,8 +88,8 @@ jobs:
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
-          if [ "$REPOSITORY" != "nexu-io/open-design" ]; then
-            echo "This workflow publishes the nexu-io/open-design card only; got $REPOSITORY" >&2
+          if [ "$REPOSITORY" != "nexu-io/rethra-design" ]; then
+            echo "This workflow publishes the nexu-io/rethra-design card only; got $REPOSITORY" >&2
             exit 1
           fi
           publish=true

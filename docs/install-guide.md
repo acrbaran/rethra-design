@@ -2,15 +2,15 @@
 
 **Parent:** [`spec.md`](spec.md) · **Related:** [`deployment/docker.md`](deployment/docker.md) · [`deploy/README.md`](../deploy/README.md)
 
-Deploy OpenDesign on Linux or macOS with a single command. The installer wraps the existing Docker Compose stack — no build step required.
+Deploy Rethra Design on Linux or macOS with a single command. The installer wraps the existing Docker Compose stack — no build step required.
 
 ## Quick reference
 
 Clone the repository and run the installer:
 
 ```bash
-git clone https://github.com/nexu-io/open-design.git
-cd open-design
+git clone https://github.com/acrbaran/rethra-design.git
+cd rethra-design
 bash deploy/scripts/install.sh
 ```
 
@@ -38,19 +38,19 @@ Running the installer without flags launches an interactive wizard:
   ║          One-Click Installer         ║
   ╚══════════════════════════════════════╝
 
-[open-design] OS: Linux ubuntu 24.04 (x86_64)
-[open-design] Docker: Docker version 26.1.3, build b72abbb
-[open-design] Compose: Docker Compose version v2.27.1
+[rethra-design] OS: Linux ubuntu 24.04 (x86_64)
+[rethra-design] Docker: Docker version 26.1.3, build b72abbb
+[rethra-design] Compose: Docker Compose version v2.27.1
 
 Docker image [ghcr.io/nexu-io/od:latest]:
 Port [7456]:
 Allowed origins (CORS, comma-separated, or empty) []:
 Memory limit [384m]:
 
-[open-design] Pulling image: ghcr.io/nexu-io/od:latest
-[open-design] Starting OpenDesign...
-[open-design] Waiting for health check (up to 60s)...
-[open-design] Daemon is healthy (200 OK)
+[rethra-design] Pulling image: ghcr.io/nexu-io/od:latest
+[rethra-design] Starting Rethra Design...
+[rethra-design] Waiting for health check (up to 60s)...
+[rethra-design] Daemon is healthy (200 OK)
 ```
 
 ### What each prompt does
@@ -100,28 +100,28 @@ The installer creates a `systemd --user` unit that wraps Docker Compose. No `sud
 
 ```bash
 # Check status
-systemctl --user status open-design
+systemctl --user status rethra-design
 
 # Start / stop / restart
-systemctl --user start open-design
-systemctl --user stop open-design
-systemctl --user restart open-design
+systemctl --user start rethra-design
+systemctl --user stop rethra-design
+systemctl --user restart rethra-design
 
 # View logs
-journalctl --user -u open-design -f
+journalctl --user -u rethra-design -f
 
 # Disable auto-start
-systemctl --user disable open-design
+systemctl --user disable rethra-design
 
 # Re-enable auto-start
-systemctl --user enable open-design
+systemctl --user enable rethra-design
 ```
 
 To skip systemd unit creation, pass `--no-systemd` to the installer.
 
 ### macOS (Docker Desktop)
 
-Docker Desktop manages the container lifecycle. Use Docker Desktop's dashboard to start, stop, or restart the `open-design` container, or use the CLI:
+Docker Desktop manages the container lifecycle. Use Docker Desktop's dashboard to start, stop, or restart the `rethra-design` container, or use the CLI:
 
 ```bash
 # Using docker compose directly
@@ -173,10 +173,10 @@ All settings live in `deploy/.env`. Edit it directly or re-run the installer to 
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `OPEN_DESIGN_IMAGE` | `ghcr.io/nexu-io/od:latest` | Full image reference |
-| `OPEN_DESIGN_PORT` | `7456` | Host-side port (bound to `127.0.0.1`) |
-| `OPEN_DESIGN_ALLOWED_ORIGINS` | _(empty)_ | CORS origins for reverse-proxy setups |
-| `OPEN_DESIGN_MEM_LIMIT` | `384m` | Container memory cap |
+| `RETHRA_DESIGN_IMAGE` | `ghcr.io/nexu-io/od:latest` | Full image reference |
+| `RETHRA_DESIGN_PORT` | `7456` | Host-side port (bound to `127.0.0.1`) |
+| `RETHRA_DESIGN_ALLOWED_ORIGINS` | _(empty)_ | CORS origins for reverse-proxy setups |
+| `RETHRA_DESIGN_MEM_LIMIT` | `384m` | Container memory cap |
 | `NODE_OPTIONS` | `--max-old-space-size=192` | Node.js heap cap inside the container |
 
 The container always binds `127.0.0.1:<port>:7456` — the daemon is never directly exposed to the network. To allow remote access, put an authenticated reverse proxy in front. See [`deploy/README.md`](../deploy/README.md) for the authentication and allowed-origin contract.
@@ -193,7 +193,7 @@ The container always binds `127.0.0.1:<port>:7456` — the daemon is never direc
 | systemd unit not created | `systemd` not found | Omit `--no-systemd` if systemd is available, or manage via Docker CLI |
 | `.env` has wrong port after re-install | Old backup not restored | Edit `deploy/.env` directly or delete it and re-run |
 | Container exits immediately | Image incompatibility | Check `docker compose -f deploy/docker-compose.yml logs` for errors |
-| Browser sign-in repeats | Username or token does not match | Use username `open-design` and the exact `OD_API_TOKEN` value from `deploy/.env`; recreate the container after changing it |
+| Browser sign-in repeats | Username or token does not match | Use username `rethra-design` and the exact `OD_API_TOKEN` value from `deploy/.env`; recreate the container after changing it |
 
 ## References
 

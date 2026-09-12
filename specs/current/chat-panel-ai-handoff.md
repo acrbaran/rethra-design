@@ -52,7 +52,7 @@ dogfood artifacts.
 | 东西 | 位置 |
 |---|---|
 | 主分支 | `feat/chat-panel-next-impl`(已推 origin) |
-| PR | nexu-io/open-design#7518 |
+| PR | nexu-io/rethra-design#7518 |
 | 工作树 | `/Users/elian/Documents/od-wt-chat-panel` |
 | 裁决与理由 | `chat-panel-feedback.md` §F-11 … §F-20 |
 | 提测清单 + 证据 | `chat-panel-handoff.md` |
@@ -166,8 +166,8 @@ dogfood artifacts.
 > **合并带进 `packages/` 下任何包的源码改动,就必须重建那个包的 dist。**
 
 ```bash
-pnpm --filter @open-design/contracts build       # 栽了 3 次
-pnpm --filter @open-design/plugin-runtime build  # 栽了 1 次
+pnpm --filter @rethra-design/contracts build       # 栽了 3 次
+pnpm --filter @rethra-design/plugin-runtime build  # 栽了 1 次
 ```
 
 症状伪装得很像别的问题:「类型不存在」、「不是函数」、看起来像合并没解干净。
@@ -177,7 +177,7 @@ pnpm --filter @open-design/plugin-runtime build  # 栽了 1 次
 daemon 的 build 用更严的 tsconfig(带 `noUncheckedIndexedAccess`)。动了 daemon 要单独跑,**并且显式确认 exit code** —— 它有时什么都不打印:
 
 ```bash
-pnpm --filter @open-design/daemon build; echo "EXIT=$?"
+pnpm --filter @rethra-design/daemon build; echo "EXIT=$?"
 ```
 
 (我写过一句无条件的 `echo "typecheck 空=通过"`,把一个 exit=2 的真失败盖过去了。)
@@ -242,8 +242,8 @@ pnpm --filter @open-design/daemon build; echo "EXIT=$?"
 |---|---|
 | 用户 runtime | web `127.0.0.1:17573` / daemon `127.0.0.1:17456`,namespace `default` |
 | 工作树 | `/Users/elian/Documents/od-wt-chat-panel` |
-| AMR 档位 | `OPEN_DESIGN_AMR_PROFILE=test` → `vela.powerformer.net`(**不是生产**) |
-| 启动命令 | `OPEN_DESIGN_AMR_PROFILE=test pnpm tools-dev run web --daemon-port 17456 --web-port 17573` |
+| AMR 档位 | `RETHRA_DESIGN_AMR_PROFILE=test` → `vela.powerformer.net`(**不是生产**) |
+| 启动命令 | `RETHRA_DESIGN_AMR_PROFILE=test pnpm tools-dev run web --daemon-port 17456 --web-port 17573` |
 | vela 仓库 | `/Users/elian/Documents/nexu/vela` |
 | 回放 mock | `export PATH="$PWD/mocks/bin:$PATH" OD_MOCKS_TRACE=98d2b062 OD_MOCKS_NO_DELAY=1` |
 | E2E 浏览器 | 用 open-browser-use 接管用户自己的 Chrome。**本机绝不装 playwright 浏览器**(534MB,曾把磁盘写穿到 0 字节) |

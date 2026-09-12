@@ -4,16 +4,16 @@ import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-libra
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type {
-  OpenDesignHostUpdaterOpenDialogListener,
-  OpenDesignHostUpdaterStatusListener,
-  OpenDesignHostUpdaterStatusSnapshot,
-} from '@open-design/host';
-import { installMockOpenDesignHost } from '@open-design/host/testing';
+  RethraDesignHostUpdaterOpenDialogListener,
+  RethraDesignHostUpdaterStatusListener,
+  RethraDesignHostUpdaterStatusSnapshot,
+} from '@rethra-design/host';
+import { installMockRethraDesignHost } from '@rethra-design/host/testing';
 
 import { UpdateDialog } from '../../src/components/UpdateDialog';
 import { I18nProvider } from '../../src/i18n';
 
-function idleStatus(overrides: Partial<OpenDesignHostUpdaterStatusSnapshot> = {}): OpenDesignHostUpdaterStatusSnapshot {
+function idleStatus(overrides: Partial<RethraDesignHostUpdaterStatusSnapshot> = {}): RethraDesignHostUpdaterStatusSnapshot {
   return {
     arch: 'arm64',
     capabilities: {
@@ -33,28 +33,28 @@ function idleStatus(overrides: Partial<OpenDesignHostUpdaterStatusSnapshot> = {}
   };
 }
 
-function payloadReadyStatus(overrides: Partial<OpenDesignHostUpdaterStatusSnapshot> = {}): OpenDesignHostUpdaterStatusSnapshot {
+function payloadReadyStatus(overrides: Partial<RethraDesignHostUpdaterStatusSnapshot> = {}): RethraDesignHostUpdaterStatusSnapshot {
   return idleStatus({
     artifact: {
-      name: 'open-design-1.2.4-payload.zip',
+      name: 'rethra-design-1.2.4-payload.zip',
       platformKey: 'mac',
       type: 'payload',
-      url: 'https://example.test/open-design-1.2.4-payload.zip',
+      url: 'https://example.test/rethra-design-1.2.4-payload.zip',
     },
     availableVersion: '1.2.4',
-    downloadPath: '/tmp/open-design-1.2.4-payload.zip',
+    downloadPath: '/tmp/rethra-design-1.2.4-payload.zip',
     state: 'downloaded',
     ...overrides,
   });
 }
 
-function availableStatus(overrides: Partial<OpenDesignHostUpdaterStatusSnapshot> = {}): OpenDesignHostUpdaterStatusSnapshot {
+function availableStatus(overrides: Partial<RethraDesignHostUpdaterStatusSnapshot> = {}): RethraDesignHostUpdaterStatusSnapshot {
   return idleStatus({
     artifact: {
-      name: 'open-design-1.2.4-payload.zip',
+      name: 'rethra-design-1.2.4-payload.zip',
       platformKey: 'mac',
       type: 'payload',
-      url: 'https://example.test/open-design-1.2.4-payload.zip',
+      url: 'https://example.test/rethra-design-1.2.4-payload.zip',
     },
     availableVersion: '1.2.4',
     state: 'available',
@@ -72,10 +72,10 @@ describe('UpdateDialog', () => {
   });
 
   it('updates silently in the background and opens ready state only after the native menu request', async () => {
-    let statusListener: OpenDesignHostUpdaterStatusListener | null = null;
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let statusListener: RethraDesignHostUpdaterStatusListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const ready = payloadReadyStatus();
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         updater: {
           status: vi.fn(async () => idleStatus()),
@@ -110,13 +110,13 @@ describe('UpdateDialog', () => {
   });
 
   it('shows reinstall copy and the operator link when the feed forces the installer route', async () => {
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const ready = payloadReadyStatus({
       artifact: {
-        name: 'open-design-1.2.4-setup.exe',
+        name: 'rethra-design-1.2.4-setup.exe',
         platformKey: 'win',
         type: 'installer',
-        url: 'https://example.test/open-design-1.2.4-setup.exe',
+        url: 'https://example.test/rethra-design-1.2.4-setup.exe',
       },
       reinstall: {
         installedVersion: '1.0.0',
@@ -125,7 +125,7 @@ describe('UpdateDialog', () => {
         url: 'https://example.com/reinstall-help',
       },
     });
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         updater: {
           status: vi.fn(async () => ready),
@@ -145,16 +145,16 @@ describe('UpdateDialog', () => {
 
     await screen.findByRole('dialog', { name: 'Check for updates' });
     expect(
-      screen.getByText('OpenDesign 1.2.4 requires a full reinstall. OpenDesign will close and open the installer.'),
+      screen.getByText('RethraDesign 1.2.4 requires a full reinstall. RethraDesign will close and open the installer.'),
     ).toBeTruthy();
     expect(screen.getByTestId('update-dialog-reinstall-learn-more')).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Explore new features' })).toBeNull();
   });
 
   it('starts an explicit auto-downloading check when opened from an idle menu state', async () => {
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const check = vi.fn(async () => idleStatus({ state: 'not-available' }));
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         updater: {
           check,
@@ -185,15 +185,15 @@ describe('UpdateDialog', () => {
   });
 
   it('keeps copy and actions focused as an update moves from available to downloading and installing', async () => {
-    let statusListener: OpenDesignHostUpdaterStatusListener | null = null;
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let statusListener: RethraDesignHostUpdaterStatusListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const available = availableStatus();
     const downloading = availableStatus({
       progress: { receivedBytes: 42, totalBytes: 100 },
       state: 'downloading',
     });
     const download = vi.fn(async () => downloading);
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         updater: {
           download,
@@ -234,12 +234,12 @@ describe('UpdateDialog', () => {
   });
 
   it('replaces technical check errors with concise recovery copy', async () => {
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const failed = idleStatus({
       error: { code: 'network-timeout', message: 'ETIMEDOUT https://updates.example.test/latest.yml' },
       state: 'error',
     });
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         updater: {
           check: vi.fn(async () => failed),
@@ -269,10 +269,10 @@ describe('UpdateDialog', () => {
   });
 
   it('offers a manual download instead of another check when in-app updates are unsupported', async () => {
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const openExternal = vi.fn(async () => ({ ok: true as const }));
     const unsupported = idleStatus({ enabled: false, state: 'unsupported', supported: false });
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         shell: { openExternal },
         updater: {
@@ -295,11 +295,11 @@ describe('UpdateDialog', () => {
     expect(screen.queryByRole('button', { name: 'Explore new features' })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Check for updates' })).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'Download manually' }));
-    await waitFor(() => expect(openExternal).toHaveBeenCalledWith('https://github.com/nexu-io/open-design/releases'));
+    await waitFor(() => expect(openExternal).toHaveBeenCalledWith('https://github.com/acrbaran/rethra-design/releases'));
   });
 
   it('defaults to Later when tasks are active and requires an explicit Restart anyway override', async () => {
-    let openDialogListener: OpenDesignHostUpdaterOpenDialogListener | null = null;
+    let openDialogListener: RethraDesignHostUpdaterOpenDialogListener | null = null;
     const ready = payloadReadyStatus();
     const blocked = payloadReadyStatus({
       error: {
@@ -311,7 +311,7 @@ describe('UpdateDialog', () => {
     const installed = payloadReadyStatus({
       installResult: {
         openedAt: '2026-07-16T12:00:00.000Z',
-        path: '/tmp/open-design-1.2.4-payload.zip',
+        path: '/tmp/rethra-design-1.2.4-payload.zip',
       },
       state: 'installing',
     });
@@ -319,7 +319,7 @@ describe('UpdateDialog', () => {
       .mockResolvedValueOnce(blocked)
       .mockResolvedValueOnce(installed);
     const quit = vi.fn(async () => ({ ok: true as const }));
-    restoreHost = installMockOpenDesignHost({
+    restoreHost = installMockRethraDesignHost({
       host: {
         updater: {
           install,
@@ -340,7 +340,7 @@ describe('UpdateDialog', () => {
     });
     fireEvent.click(await screen.findByRole('button', { name: 'Install and restart' }));
 
-    expect(await screen.findByText('OpenDesign is still working')).toBeTruthy();
+    expect(await screen.findByText('RethraDesign is still working')).toBeTruthy();
     expect(screen.getByText('2 active tasks are still running. Restarting now will interrupt them.')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Later' })).toHaveFocus();
 

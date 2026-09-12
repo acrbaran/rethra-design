@@ -456,7 +456,7 @@ if (args[0] === 'model' && args[1] === 'list') {
   state.attempts += 1;
   if (stateFile) writeFileSync(stateFile, JSON.stringify(state), 'utf8');
   if (state.attempts < 3) {
-    process.stderr.write('Get "https://amr-link.open-design.ai/v1/models": context deadline exceeded\\n');
+    process.stderr.write('Get "https://amr-link.rethra-design.invalid/v1/models": context deadline exceeded\\n');
     process.exit(1);
   }
 }
@@ -1078,7 +1078,7 @@ describe('AMR ACP transport — end-to-end against fake vela stub', () => {
       kind: 'amr_account',
       action: 'recharge',
       actionUrl: DEFAULT_AMR_RECHARGE_URL,
-      promoted_by: 'open_design_acp_retry_status',
+      promoted_by: 'rethra_design_acp_retry_status',
     });
     expect(String(payload?.message ?? '')).toContain('AMR Cloud reported insufficient balance');
   });
@@ -1118,7 +1118,7 @@ describe('AMR ACP transport — end-to-end against fake vela stub', () => {
       kind: 'amr_account',
       action: 'recharge',
       actionUrl: DEFAULT_AMR_RECHARGE_URL,
-      promoted_by: 'open_design_acp_stderr_retry_status',
+      promoted_by: 'rethra_design_acp_stderr_retry_status',
     });
     expect(String(payload?.message ?? '')).toContain('AMR Cloud reported insufficient balance');
   });
@@ -1159,7 +1159,7 @@ describe('AMR ACP transport — end-to-end against fake vela stub', () => {
       kind: 'amr_account',
       action: 'recharge',
       actionUrl: DEFAULT_AMR_RECHARGE_URL,
-      promoted_by: 'open_design_acp_stderr_retry_status',
+      promoted_by: 'rethra_design_acp_stderr_retry_status',
     });
   });
 

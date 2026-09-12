@@ -337,9 +337,9 @@
       "holdMs": 1267,
       "hash": "7b884ba518d75c52"
     },
-    "example-open-design-landing": {
-      "video": "example-open-design-landing/681f373a773f9cc7/preview.mp4",
-      "poster": "example-open-design-landing/681f373a773f9cc7/poster.jpg",
+    "example-rethra-design-landing": {
+      "video": "example-rethra-design-landing/681f373a773f9cc7/preview.mp4",
+      "poster": "example-rethra-design-landing/681f373a773f9cc7/poster.jpg",
       "durationMs": 10067,
       "holdMs": 2500,
       "hash": "681f373a773f9cc7"
@@ -729,9 +729,9 @@
       "holdMs": 2500,
       "hash": "5e3285e96269ab5a"
     },
-    "example-open-design-landing-deck": {
-      "video": "example-open-design-landing-deck/bb6b89eff13bdb81/preview.mp4",
-      "poster": "example-open-design-landing-deck/bb6b89eff13bdb81/poster.jpg",
+    "example-rethra-design-landing-deck": {
+      "video": "example-rethra-design-landing-deck/bb6b89eff13bdb81/preview.mp4",
+      "poster": "example-rethra-design-landing-deck/bb6b89eff13bdb81/poster.jpg",
       "durationMs": 9400,
       "holdMs": 2500,
       "hash": "bb6b89eff13bdb81"
@@ -1212,9 +1212,9 @@
       "holdMs": 1267,
       "hash": "131b8b88d87a0138"
     },
-    "example-open-design-homepage": {
-      "video": "example-open-design-homepage/6b40c0a4f2b15872/preview.mp4",
-      "poster": "example-open-design-homepage/6b40c0a4f2b15872/poster.jpg",
+    "example-rethra-design-homepage": {
+      "video": "example-rethra-design-homepage/6b40c0a4f2b15872/preview.mp4",
+      "poster": "example-rethra-design-homepage/6b40c0a4f2b15872/poster.jpg",
       "durationMs": 1267,
       "holdMs": 1267,
       "hash": "6b40c0a4f2b15872"

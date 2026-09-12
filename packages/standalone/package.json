@@ -1,5 +1,5 @@
 {
-  "name": "@open-design/standalone",
+  "name": "@rethra-design/standalone",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -19,7 +19,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.tests.json --noEmit"
   },
   "dependencies": {
-    "@open-design/download": "workspace:*",
+    "@rethra-design/download": "workspace:*",
     "jszip": "3.10.1"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 # 运行错误全量清单(Run Error Catalog)
 
-> 状态:**主表草稿完成,九份材料齐,待产品 / 设计逐项确认(2026-08-21)**。本文是 Open Design「一次运行可能怎么失败」的唯一权威清单,
+> 状态:**主表草稿完成,九份材料齐,待产品 / 设计逐项确认(2026-08-21)**。本文是 Rethra Design「一次运行可能怎么失败」的唯一权威清单,
 > 目标是让产品和设计**逐项确认展示形式与后续处理流程**。旧文档《通用报错卡片 PRD》
 > (飞书 `LdLMdMZ5Woq5hXxKZcJciIztndc`)只按埋点分类收了 12 类,没有覆盖 AMR 套餐/额度、BYOK、
 > 客户端环境、网络、协作权限等来源,本文取代它的「错误类型表」,卡片骨架(标题/正文/CTA/源码四区)沿用。
@@ -104,7 +104,7 @@ PostHog 的 `run_finished` 没有原始错误文本,Langfuse 是唯一能看到�
 - `timeout` → `Unsupported service_tier: flex`(codex 配置)
 - `unknown` → Claude Code 掉线、BYOK 没配 key
 - 反向:`rate_limit/hard_quota` 有 28 条原文只是泛化空输出
-另发现的 OD 侧 bug:`unknown agent: undefined` 派发(7 例);pi agent 把 `…/Resources/open-design/skills` 目录当 append-system-prompt 文件(EISDIR);deepseek TUI / aider 只接 argv 而 prompt 超长;opencode 无 AVX2 panic。
+另发现的 OD 侧 bug:`unknown agent: undefined` 派发(7 例);pi agent 把 `…/Resources/rethra-design/skills` 目录当 append-system-prompt 文件(EISDIR);deepseek TUI / aider 只接 argv 而 prompt 超长;opencode 无 AVX2 panic。
 
 ## 2c. 三份源码调研里改变认知的事实(S1 / S3 / S4 摘要,细节见源文件)
 
@@ -113,7 +113,7 @@ PostHog 的 `run_finished` 没有原始错误文本,Langfuse 是唯一能看到�
 3. **契约与实现不一致**:`RunFailureAction` 契约只有 `relogin|recharge|upgrade|retry|none`,daemon 实际写 `login|switch_model|reduce_context|install_cli|fix_config|…`;`HTML_VERSION_SNAPSHOT_FAILED`、`DAEMON_RESTARTED`、`BYOK_PROVIDER_REQUIRED`、`PI_PARENT_SESSION_FAILED`、`DSH_PROFILE_*`、`AMR_WORKSPACE_SCOPE_REQUIRED` 都不在 `API_ERROR_CODES`。
 4. **exit≠0 但本 run 写了产物一律算 succeeded**(chat-run-lifecycle.ts:90-92);critique 分支非 shipped 直接 failed 且不发 error 帧。
 5. **web 解析顺序**(S3 web):agent 无关 code → `model_window_limit` → agent 无关 detail → AMR 分支 → Antigravity → detail 覆盖 → 连接断开 → 非 AMR auth → RATE_LIMITED → UPSTREAM → 兜底「Task failed + 原文 + Retry」。`fatal_rpc_error`、`process_crashed`、`model_not_found`、`prompt_too_large`(detail)、`upstream_client_error`、`network_error` 都**没有**卡片映射;`cpu_unsupported` 无任何按钮;两个死 i18n 键;`InsufficientCreditsDialog` 从未挂载;`json-rpc id N:` 原文直接进兜底。
-6. **vela CLI 到父进程的契约**(S3 CLI):JSON-RPC 只有 4 个标准码,业务信息全在 `error.data.kind`(`model_catalog_unavailable` / `account_suspended` / `no_models_available` / `opencode_prompt_error` / `opencode_retry_exhausted` / `resume_failed` / `billing_recovery_*`)和 `statusCode`(上游网关状态码原样);401 的 HTTP 细节在 session_new 阶段被吞成「AMR model catalog is unavailable」;网关 401/402/403/429 在 prompt 期通过 `session.status retry` 原样透传文本;`vela login` 没有 `--json`、没有 logout、没有已登录短路;登录各阶段有 `OPEN_DESIGN_AMR_AUTH_STAGE` JSONL(error_kind 8 种);AVX2 崩溃在 vela 里**没有检测**,只表现为「opencode exited before readiness」。
+6. **vela CLI 到父进程的契约**(S3 CLI):JSON-RPC 只有 4 个标准码,业务信息全在 `error.data.kind`(`model_catalog_unavailable` / `account_suspended` / `no_models_available` / `opencode_prompt_error` / `opencode_retry_exhausted` / `resume_failed` / `billing_recovery_*`)和 `statusCode`(上游网关状态码原样);401 的 HTTP 细节在 session_new 阶段被吞成「AMR model catalog is unavailable」;网关 401/402/403/429 在 prompt 期通过 `session.status retry` 原样透传文本;`vela login` 没有 `--json`、没有 logout、没有已登录短路;登录各阶段有 `RETHRA_DESIGN_AMR_AUTH_STAGE` JSONL(error_kind 8 种);AVX2 崩溃在 vela 里**没有检测**,只表现为「opencode exited before readiness」。
 7. **BYOK 不是直连**(S4):UI 的 API 模式全走 `byok-opencode`(daemon 拉 OpenCode,AI SDK 发请求);浏览器直连 `/api/proxy/*` 在 web 已无调用方(7 个路由 + 1,693 行媒体工具 + 测试仍在);OpenCode 日志回捞(#982)和 SSRF 守卫只覆盖 `opencode`/proxy 不覆盖 `byok-opencode`;上下文上限写死 128k/16k;内容审核(除 Gemini)、证书错误、`retry-after`、非流式 2xx 回包零识别;401 文案在劝 BYOK 用户「去本地登录 / 换 Cloud」。
 
 8. **web 的非 AMR 错误面**(S2,76 条 W-xxx):run 失败只有 `ChatPane.tsx:2765` 一张 `UserActionCard(run-recovery)`,而会话加载失败、产物保存失败、BYOK 配置缺失、Side Chat 未选 agent 全塞进同一个 `error` 槽位、顶着「任务执行失败」标题且多数没按钮;**连接类状态几乎全静默**(SSE 断连重连 5 次、自动重试 2 次、协作/记忆 SSE 断开、5 分钟卡死看门狗、预览白屏重挂、首页 daemon 不可达都只有埋点没有 UI);daemon 不可达在 5 个位置有 5 种说法、没有共享横幅;版本不匹配、浏览器离线完全未处理;没有全局 ErrorBoundary;项目 403 被说成「已删除或不存在」、5xx 借 connectors 的「不可用」;`WORKSPACE_CONTEXT_INCOMPLETE` / `AMR_WORKSPACE_SCOPE_*` 在 web 零命中;十几处正文是绕过 i18n 的硬编码英文;上传失败三种形态、导出失败两套 key(一处还是原生 `alert()`)。
@@ -201,7 +201,7 @@ L5 环境/外围  离线、代理、企业网、磁盘、更新器、打包壳�
 |---|---|---|---|---|---|---|---|---|---|---|
 | R-040 | 401 key 无效(BYOK / 本地 CLI) | key 错、吊销 | 文本 → `auth/invalid_api_key` | 「Sign-in required:{agent} isn't signed in…推荐 Cloud」(**对 BYOK 错位**) | P auth 含 | 需要登录 | 卡(BYOK:改 key;CLI:终端登录) | F4 | 一步 | B-014、D-073/074 |
 | R-041 | 403 权限 / 地区不支持 / 套餐不含模型 | 代理出口地区;free 无 allow 规则;`tier_model_not_entitled` | 403 → `upstream_client_error`(不重试);AMR 有 `AMR_TIER_UPGRADE_REQUIRED` | BYOK「Task failed」;AMR「Upgrade to keep creating」 | F-G 6(梯子 / 中转站) | 权限不足 | 卡(地区:换出口;套餐:升级) | F8 / F5 | 需用户 | B-015、A-037、F-G |
-| R-042 | 404 模型不存在 / 网关不路由 | 模型名打错、网关 404 HTML | `model_not_found` / `upstream_client_error`;web **无卡片映射** | 「Task failed」+ AMR 口吻「Check the OpenDesign link URL」 | P model_unavailable 含 | 模型不可用 | 卡(换模型) | F6 | 一步 | B-016/028、A-035 |
+| R-042 | 404 模型不存在 / 网关不路由 | 模型名打错、网关 404 HTML | `model_not_found` / `upstream_client_error`;web **无卡片映射** | 「Task failed」+ AMR 口吻「Check the Rethra Design link URL」 | P model_unavailable 含 | 模型不可用 | 卡(换模型) | F6 | 一步 | B-016/028、A-035 |
 | R-043 | AMR PAYG 余额耗尽(个人非 coding-plan / 团队钱包) | 429 `insufficient_balance` | `AMR_INSUFFICIENT_BALANCE` → recharge;充值后可 `resume:true` 同 run 重启 | 「Insufficient allowance」+ Top up(固定跳账号 dashboard)+ Retry;**团队成员被引到个人充值页** | P 6,822(AMR fatal_rpc 里 3,704) | 余额不足 | 卡(个人 / 团队两版) | F5;充值后自动续跑(已有) | 需外部 | D-049/096、A-046、S3-② |
 | R-044 | BYOK / 本地 CLI 配额耗尽(hard_quota) | OpenAI 429 insufficient_quota、Anthropic 400 credit too low、DeepSeek 402、OpenCode Zen 免费额度 | 文本 → `rate_limit/hard_quota`(不重试) | 「Quota exhausted…retrying won't help」**无按钮** + 切 AMR 卡(对 AMR 自己也出) | **P 23,138(最大单签名,user_action=none 22,835)**;Langfuse:其中一部分原文只是泛化空输出,真因在本地 stderr | 频率或额度限制 | 卡(去供应商充值 / 换 key / 换模型 / 切 Cloud) | F5 / F6 | 需外部 | B-018、P §3b、S3-④9、S8 族 2 |
 | R-045 | workspace credits 耗尽(BYOK 之外的工作区额度) | `workspace_credits_exhausted` | detail 已分;卡「Quota exhausted(workspace)」 | 无按钮 | P 1,742 | 余额不足 | 卡(找管理员 / 充值) | F5 | 需外部 | D-049、P |
@@ -219,7 +219,7 @@ L5 环境/外围  离线、代理、企业网、磁盘、更新器、打包壳�
 | R-057 | 无输出超时(inactivity 10min / AMR 30min;opencode 静默重试 429 不吐输出) | 模型挂起;OpenCode 吞 429/401 | `inactivity_timeout`;opencode 日志回捞只对 `opencode` 不对 `byok-opencode` | 「Timed out」+ Retry | **P 15,967(tool_execution 5,946 + first_token 5,547);自动重试救回 ~12%** | 任务超时或卡住 | 行(先显「还在等上游」)→ 卡(+Continue) | F1 → F2 | 自动 | D-055/056、B-032、A-051/056 |
 | R-058 | 内容审核 / 拒答(Gemini SAFETY、OpenAI content_filter、Anthropic refusal、生图安全拒绝) | 敏感内容 | **除 Gemini(B 路径)外零识别** → 表现为空输出 | 「No output produced」 | F-H 12(生图 27 次失败 15) | 模型没有返回内容 | 卡(「内容被拒」+ 改提示词) | F7 | 需用户 | B-033、A-062、F-H |
 | R-059 | 模型伪造角色标记被守卫截断 | 注入 / 幻觉 | `ROLE_MARKER_HALLUCINATION` → `fabricated_role_marker`(可重试) | 「Invalid model output」+ Retry | P 1,012 | 覆盖不到 | 静(自动重试 1 次)→ 卡 | F1 → F3 | 自动 | D-053、B-034 |
-| R-060 | 工具死循环 / 工具或 MCP 调用失败(含**工具自己的凭据坏**) | 连续失败 10 次;MCP 坏;agent 跑的 `gh` / `npm` / `curl` / MCP server 没登录 | `TOOL_LOOP_DETECTED`(默认只 warn);`tool_error`;**mcp_tool_finished 20.5k 失败全 unknown**。<br>**凭据这一支已修(`feat/chat-panel-next-impl`)**:工具吐出的鉴权字样原先被 `classifyAgentServiceFailure` 判成 `AGENT_AUTH_REQUIRED`、被 `isAuthDetailText` 判成 `auth/auth_required/login`,于是用户被要求去登录 Open Design 去修他自己 shell 里的 `gh`。现按**归属**判(`runtimes/auth.ts` `reportsToolPrincipalAuthFailure`:agent 自报的工具信封,或行首程序名不在 `OWN_AGENT_COMMAND_NAMES` 里),落既有的 `tool_error/tool_error`,`retryable:false`、`user_action:none` | 「Stuck in a loop」/「Task failed」 | P tool_error 889;mcp 20.5k | 工具或连接器失败 | 卡(说清哪个工具 / 连接器) | F3 / F8 | 需用户 | D-054、A-055、P |
+| R-060 | 工具死循环 / 工具或 MCP 调用失败(含**工具自己的凭据坏**) | 连续失败 10 次;MCP 坏;agent 跑的 `gh` / `npm` / `curl` / MCP server 没登录 | `TOOL_LOOP_DETECTED`(默认只 warn);`tool_error`;**mcp_tool_finished 20.5k 失败全 unknown**。<br>**凭据这一支已修(`feat/chat-panel-next-impl`)**:工具吐出的鉴权字样原先被 `classifyAgentServiceFailure` 判成 `AGENT_AUTH_REQUIRED`、被 `isAuthDetailText` 判成 `auth/auth_required/login`,于是用户被要求去登录 Rethra Design 去修他自己 shell 里的 `gh`。现按**归属**判(`runtimes/auth.ts` `reportsToolPrincipalAuthFailure`:agent 自报的工具信封,或行首程序名不在 `OWN_AGENT_COMMAND_NAMES` 里),落既有的 `tool_error/tool_error`,`retryable:false`、`user_action:none` | 「Stuck in a loop」/「Task failed」 | P tool_error 889;mcp 20.5k | 工具或连接器失败 | 卡(说清哪个工具 / 连接器) | F3 / F8 | 需用户 | D-054、A-055、P |
 | R-061 | 图片 >20MiB / 路径失效(AMR) | 附件 | -32602 文本 | 「Task failed」 | — | 覆盖不到 | 拦(上传时) | F7 | 一步 | A-054 |
 | R-062 | 媒体生成 402 / 429 tier_limit / 504 / 502 | 生图生视频 | `friendlyMediaError` 文本;工具结果 isError | 模型自述;生图格「失败 · 重试」 | F-H | 余额不足 / 频率 | 行(生图格)+ 卡 | F5 / F9 | 需外部 | A-062、B-038 |
 | R-063 | 计费恢复流失败(AMR 个人 PAYG) | 充值恢复轮询失败 | `billing_recovery_unavailable` retryable:true,**无命名分类** | 「Task failed」 | — | 余额不足 | 卡(「充值已到账,点继续」) | F5 | 一步 | A-047 |
@@ -375,10 +375,10 @@ L5 环境/外围  离线、代理、企业网、磁盘、更新器、打包壳�
 ### 6.ZB 主 CTA 一律是〔切换到 Cloud〕(2026-09-07 产品裁决,**推翻 §6.Z**)
 
 **工单 OPEND-2772(urgent · 孙庆雨)**:「用户自己的 CLI/BYOK 报错,统一 CTA 引导切换
-OpenDesign Cloud」。正文只有一张截图 —— Claude 本地 CLI 登录过期,红框圈住的是
+Rethra Design Cloud」。正文只有一张截图 —— Claude 本地 CLI 登录过期,红框圈住的是
 **上下两张卡同时出现**:上面 `RunErrorCard`(「需要登录 / Claude 尚未登录…」,
 三颗动作),下面另起一张 `AmrGuidance`(「模型调用失败,当前任务已暂停」+
-〔切换到 OpenDesign Cloud 并重试〕)。
+〔切换到 Rethra Design Cloud 并重试〕)。
 
 **产品逐字**:
 
@@ -397,12 +397,12 @@ OpenDesign Cloud」。正文只有一张截图 —— Claude 本地 CLI 登录�
 **现行规则**:
 
 1. **一次失败只出一张卡。** 报错卡下面那张独立的切换卡(`AmrGuidance`)**整块删除**。
-2. **主按钮位一律是〔切换到 OpenDesign Cloud 并重试〕**,铺到**所有** BYOK / 本地 CLI 的
+2. **主按钮位一律是〔切换到 Rethra Design Cloud 并重试〕**,铺到**所有** BYOK / 本地 CLI 的
    失败,不只此前那 6 类(登录类 2 条、限速、上游过载、hard_quota、workspace_credits)。
    以前**不出**的约三十类里包括 S19 进程崩了(每月 20,868 次,第二大桶)和 S01 没装 CLI。
 3. **文案一个字不动。** 每一类失败保留它自己的标题 / 正文(S02「Claude 尚未登录」/
    「请先完成 {agent} 的登录,再重新尝试。」等)。主 CTA 复用切换卡上原来那句
-   `chat.amrCard.switchCta`「切换到 OpenDesign Cloud 并重试」,没有换成设计稿的
+   `chat.amrCard.switchCta`「切换到 Rethra Design Cloud 并重试」,没有换成设计稿的
    「切换到 Cloud」—— 改文案不在这次授权范围内。
 4. **§6.Z 的阶梯不删,降级成「这张卡自己的次级答案」。** 阶梯算出来的那一颗
    (换个模型 / 去设置 / 在终端登录 / 授权并重试 / 重试 / 续跑 …)**一颗都没删**,
@@ -608,7 +608,7 @@ i18n key + 19 个 locale + 供应商名的数据通路 + 一颗接模型切换�
 |---|---|---|---|---|
 | Q-01 | 报错卡的形态分级:是否接受「拦 / 卡 / 横 / 吐 / 弹 / 静 / 行」七种,还是坚持旧 PRD「一张卡承接所有」 | 七种(本文)/ 一张卡 + 发送前拦截 | 设计 + 产品 | 全部 |
 | Q-02 | 「重试」按钮的出现规则:只给可重试行,还是沿用旧 PRD 每类都给 | 按流程表 / 都给 | 产品 | L2–L3 |
-| ~~Q-03~~ **已答** | 旧 PRD 的「推荐 Open Design 智能体」引导句:在 BYOK / 本地 CLI 的哪些失败上出现;hard_quota 对 AMR 自己也出切换卡(今天的 bug)要不要修 | **答:全部非 AMR**(产品 2026-09-07,OPEND-2772 · §6.ZB)。不再是「引导句」也不再是第二张卡 —— 是报错卡主按钮位上的一颗 CTA,**所有**非 Cloud 的失败都给;AMR 自己一颗不给(`withoutCloudSelfPromotion`,有全矩阵反向用例)。⚠️ 与此同时**文案没有改**:那句「推荐使用 OpenDesign Cloud 智能体,更稳定划算」早在 `611ab085f7`(文案对齐第 1 批)就从 `chat.runError.signInMessage.other` 里删掉了,现在是「请先完成 {agent} 的登录,再重新尝试。」 | 产品 | R-040/044 |
+| ~~Q-03~~ **已答** | 旧 PRD 的「推荐 Rethra Design 智能体」引导句:在 BYOK / 本地 CLI 的哪些失败上出现;hard_quota 对 AMR 自己也出切换卡(今天的 bug)要不要修 | **答:全部非 AMR**(产品 2026-09-07,OPEND-2772 · §6.ZB)。不再是「引导句」也不再是第二张卡 —— 是报错卡主按钮位上的一颗 CTA,**所有**非 Cloud 的失败都给;AMR 自己一颗不给(`withoutCloudSelfPromotion`,有全矩阵反向用例)。⚠️ 与此同时**文案没有改**:那句「推荐使用 Rethra Design Cloud 智能体,更稳定划算」早在 `611ab085f7`(文案对齐第 1 批)就从 `chat.runError.signInMessage.other` 里删掉了,现在是「请先完成 {agent} 的登录,再重新尝试。」 | 产品 | R-040/044 |
 | Q-04 | 团队工作区的余额不足:成员(无 canManageBilling)该看到什么、点去哪 | 「找管理员」+ 复制请求 / 仍跳个人充值页 | 产品 | R-043/045/010 |
 | Q-05 | 付费档余额 0 = 「无限」:余额门、徽标、失败卡三处口径是否统一 | 按 coding-plan 判定 / 按余额 | 产品 + 后端 | R-010/047 |
 | Q-06 | exit≠0 但写了产物算成功(D-072):保持 / 成功 + 行内警告 / 失败 | 三选一 | 产品 | R-076 |

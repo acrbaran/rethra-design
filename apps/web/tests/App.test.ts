@@ -17,7 +17,7 @@ import type { AppConfig, Project } from '../src/types';
 import type {
   WorkspaceCollabContext,
   WorkspaceProjectSummary,
-} from '@open-design/contracts';
+} from '@rethra-design/contracts';
 
 describe('projectRouteSurfaceState', () => {
   it('only shows an unbounded loader while the initial project list is loading', () => {

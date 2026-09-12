@@ -1,6 +1,6 @@
 # Atelier Zero — Image Generation Prompt Pack
 
-This pack is consumed by the `open-design-landing` skill. Every page-level
+This pack is consumed by the `rethra-design-landing` skill. Every page-level
 image is rendered with `gpt-image-fal` (preferred) or `gpt-image-azure`.
 
 The pack has three layers:
@@ -247,4 +247,4 @@ If `gpt-image-fal` is unavailable, the same prompts work with
 
 ## Provenance
 
-Formalized by OpenDesign from candidate fac45c04-0d8e-4cc8-ba38-7ccb32fde405.
+Formalized by Rethra Design from candidate fac45c04-0d8e-4cc8-ba38-7ccb32fde405.

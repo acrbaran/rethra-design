@@ -2,7 +2,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { mergeProxyAwareEnv, resolveSystemProxyEnv } from '@open-design/platform';
+import { mergeProxyAwareEnv, resolveSystemProxyEnv } from '@rethra-design/platform';
 import { readAppConfigSync } from '../app-config.js';
 import { resolveProjectRelativePath } from '../home-expansion.js';
 import { expandConfiguredEnv } from './paths.js';
@@ -29,7 +29,7 @@ const RUNTIME_MODULE_PROJECT_ROOT = resolveProjectRootFromNestedModule(
 //
 // Auth/config precedence for Local CLI launches:
 //
-// 1. Provider BYOK is separate. It is used by OpenDesign's direct provider
+// 1. Provider BYOK is separate. It is used by RethraDesign's direct provider
 //    API calls and is not automatically mapped into Local CLI launches.
 // 2. The inherited launch env represents the user's local CLI setup
 //    (OAuth/login files, CLI homes, or user-owned API-key env). Preserve it
@@ -131,12 +131,12 @@ export function spawnEnvForAgent(
       const home = os.homedir();
       if (home) env.HOME = home;
     }
-    // Identify OpenDesign as the host so the vela CLI tags its command +
-    // model_request analytics with source=open_design (revenue attribution).
+    // Identify RethraDesign as the host so the vela CLI tags its command +
+    // model_request analytics with source=rethra_design (revenue attribution).
     // Not PII (unlike the installation id above), so set it regardless of the
     // telemetry-consent gate that amrAnalyticsIdentityEnv applies.
     if (!env.AMR_CLIENT_SOURCE?.trim()) {
-      env.AMR_CLIENT_SOURCE = 'open_design';
+      env.AMR_CLIENT_SOURCE = 'rethra_design';
     }
     // AMR runs through Vela's private OpenCode server. The server inherits
     // this flag, which enables OpenCode's built-in, keyless Exa websearch
@@ -222,7 +222,7 @@ export function spawnEnvForAgent(
   return finalizeRuntimeEnv(env, sandboxRuntime);
 }
 
-export function openDesignAmrRunAttempt(input: {
+export function rethraDesignAmrRunAttempt(input: {
   cumulativeRetryAttemptCount?: number | null;
   retryAttemptCount?: number | null;
   manualResumeAttemptCount?: number | null;
@@ -238,7 +238,7 @@ export function openDesignAmrRunAttempt(input: {
   );
 }
 
-export function openDesignAmrTraceEnv(input: {
+export function rethraDesignAmrTraceEnv(input: {
   agentId: string;
   runId: string;
   conversationId?: string | null;
@@ -254,10 +254,10 @@ export function openDesignAmrTraceEnv(input: {
 
   const runId = input.runId.trim();
   if (!runId) {
-    throw new Error('OPEN_DESIGN_RUN_ID requires a non-empty run id for AMR runs');
+    throw new Error('RETHRA_DESIGN_RUN_ID requires a non-empty run id for AMR runs');
   }
   if (!Number.isFinite(input.runAttempt) || input.runAttempt < 0) {
-    throw new Error('OPEN_DESIGN_RUN_ATTEMPT requires a non-negative finite attempt index');
+    throw new Error('RETHRA_DESIGN_RUN_ATTEMPT requires a non-negative finite attempt index');
   }
 
   const conversationId = input.conversationId?.trim();
@@ -276,37 +276,37 @@ export function openDesignAmrTraceEnv(input: {
   const digestVersion =
     plugin?.logicalRequestDigestVersion === 1 ? '1' : null;
   return {
-    OPEN_DESIGN_RUN_ID: runId,
-    OPEN_DESIGN_RUN_ATTEMPT: String(Math.floor(input.runAttempt)),
-    ...(conversationId ? { OPEN_DESIGN_SESSION_ID: conversationId } : {}),
-    ...(workspaceId ? { OPEN_DESIGN_WORKSPACE_ID: workspaceId } : {}),
+    RETHRA_DESIGN_RUN_ID: runId,
+    RETHRA_DESIGN_RUN_ATTEMPT: String(Math.floor(input.runAttempt)),
+    ...(conversationId ? { RETHRA_DESIGN_SESSION_ID: conversationId } : {}),
+    ...(workspaceId ? { RETHRA_DESIGN_WORKSPACE_ID: workspaceId } : {}),
     ...(bounded('pluginWorkflowId')
-      ? { OPEN_DESIGN_PLUGIN_WORKFLOW_ID: bounded('pluginWorkflowId')! }
+      ? { RETHRA_DESIGN_PLUGIN_WORKFLOW_ID: bounded('pluginWorkflowId')! }
       : {}),
     ...(digest
-      ? { OPEN_DESIGN_LOGICAL_REQUEST_DIGEST: digest }
+      ? { RETHRA_DESIGN_LOGICAL_REQUEST_DIGEST: digest }
       : {}),
     ...(digestVersion
-      ? { OPEN_DESIGN_LOGICAL_REQUEST_DIGEST_VERSION: digestVersion }
+      ? { RETHRA_DESIGN_LOGICAL_REQUEST_DIGEST_VERSION: digestVersion }
       : {}),
     ...(bounded('externalPluginId')
-      ? { OPEN_DESIGN_EXTERNAL_PLUGIN_ID: bounded('externalPluginId')! }
+      ? { RETHRA_DESIGN_EXTERNAL_PLUGIN_ID: bounded('externalPluginId')! }
       : {}),
     ...(bounded('externalPluginVersion', 64)
       ? {
-          OPEN_DESIGN_EXTERNAL_PLUGIN_VERSION:
+          RETHRA_DESIGN_EXTERNAL_PLUGIN_VERSION:
             bounded('externalPluginVersion', 64)!,
         }
       : {}),
     ...(bounded('distributionMechanism', 64)
       ? {
-          OPEN_DESIGN_DISTRIBUTION_MECHANISM:
+          RETHRA_DESIGN_DISTRIBUTION_MECHANISM:
             bounded('distributionMechanism', 64)!,
         }
       : {}),
     ...(bounded('publisherClass', 32)
       ? {
-          OPEN_DESIGN_PUBLISHER_CLASS: bounded('publisherClass', 32)!,
+          RETHRA_DESIGN_PUBLISHER_CLASS: bounded('publisherClass', 32)!,
         }
       : {}),
   };

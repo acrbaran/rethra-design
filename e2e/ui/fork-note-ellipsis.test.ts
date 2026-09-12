@@ -35,7 +35,7 @@ import { T } from '@/timeouts';
 
 const AGENT = {
   id: 'amr',
-  name: 'OpenDesign AMR',
+  name: 'RethraDesign AMR',
   bin: 'vela',
   available: true,
   version: 'test',
@@ -58,8 +58,8 @@ const CHAT_PANEL_WIDTH_PX = 280;
 
 async function seedForkedConversation(page: Page): Promise<Locator> {
   await page.addInitScript((locale) => {
-    window.localStorage.setItem('open-design:locale', locale);
-    window.localStorage.setItem('open-design:locale-source', 'manual');
+    window.localStorage.setItem('rethra-design:locale', locale);
+    window.localStorage.setItem('rethra-design:locale-source', 'manual');
   }, LOCALE);
   await routeAgents(page, [AGENT]);
 

@@ -9,9 +9,9 @@ import { T } from '@/timeouts';
 import {
   PREVIEW_WHITE_SCREEN_CONFIRMATION_MS,
   PREVIEW_WHITE_SCREEN_TIMEOUT_MS,
-} from '@open-design/contracts/runtime/preview-observability';
+} from '@rethra-design/contracts/runtime/preview-observability';
 
-const STORAGE_KEY = 'open-design:config';
+const STORAGE_KEY = 'rethra-design:config';
 const TINY_PNG_B64 =
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO5W6McAAAAASUVORK5CYII=';
 
@@ -98,12 +98,12 @@ async function captureSafetyTelemetry(page: Page): Promise<CapturedSafetyEvent[]
         enabled: true,
         env: 'e2e',
         key: 'phc_e2e',
-        host: 'https://analytics.open-design.test',
+        host: 'https://analytics.rethra-design.test',
         installationId: 'e2e-installation',
       },
     });
   });
-  await page.route('https://analytics.open-design.test/**', async (route) => {
+  await page.route('https://analytics.rethra-design.test/**', async (route) => {
     const body = route.request().postData();
     if (body) {
       try {
@@ -186,7 +186,7 @@ async function createProjectNameOnly(page: Page, entry: UiScenario) {
 async function gotoEntryHome(page: Page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await waitForLoadingToClear(page);
-  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve OpenDesign' });
+  const privacyDialog = page.getByRole('dialog').filter({ hasText: 'Help us improve RethraDesign' });
   if (await privacyDialog.isVisible()) {
     await privacyDialog.getByRole('button', { name: /I get it|not now|got it|don't share/i }).click();
     await expect(privacyDialog).toHaveCount(0);
@@ -363,7 +363,7 @@ async function waitForSingleSketchFile(page: Page, projectId: string): Promise<s
   return sketchName;
 }
 
-async function openDesignFile(page: Page, fileName: string) {
+async function rethraDesignFile(page: Page, fileName: string) {
   const fileTab = page.getByRole('tab', { name: new RegExp(fileName.replace(/\./g, '\\.'), 'i') });
   if (await fileTab.isVisible()) {
     if (await fileTab.getAttribute('aria-selected') !== 'true') {
@@ -405,7 +405,7 @@ async function revealDesignFileRow(page: Page, fileName: string): Promise<Locato
 }
 
 async function waitForLoadingToClear(page: Page) {
-  await page.getByText('Loading OpenDesign…').waitFor({ state: 'hidden', timeout: T.long });
+  await page.getByText('Loading RethraDesign…').waitFor({ state: 'hidden', timeout: T.long });
 }
 
 async function expectVisibleAcrossAnimationFrames(locator: Locator) {
@@ -494,13 +494,13 @@ async function runUploadedImageRendersInPreviewFlow(page: Page, entry: UiScenari
     projectId,
     'image-preview.html',
     // Generated pages commonly use site-root paths. Before the preview asset
-    // normalization fix, this resolved against the OpenDesign app origin and
+    // normalization fix, this resolved against the RethraDesign app origin and
     // left the uploaded image broken even though its project raw URL was valid.
     '<!doctype html><html><body><main><h1>Image Preview</h1><img alt="Brand logo" src="/brand.png"></main></body></html>',
   );
   await page.reload();
   await expectWorkspaceReady(page);
-  await openDesignFile(page, 'image-preview.html');
+  await rethraDesignFile(page, 'image-preview.html');
 
   const image = page.frameLocator('[data-testid="artifact-preview-frame"]').getByRole('img', { name: 'Brand logo' });
   await expect(image).toBeVisible();
@@ -514,7 +514,7 @@ async function runPythonSourcePreviewFlow(page: Page, entry: UiScenario) {
   const { projectId } = await getCurrentProjectContext(page);
   await seedProjectFile(page, projectId, 'app.py', 'def greet():\n    return "hello from python"\n');
   await page.reload();
-  await openDesignFile(page, 'app.py');
+  await rethraDesignFile(page, 'app.py');
 
   await expect(page.locator('.code-viewer')).toContainText('def greet');
   await expect(page.locator('.code-viewer')).toContainText('hello from python');
@@ -746,12 +746,12 @@ test('[P1] new Excalidraw sketch emits analytics dimensions', async ({ page }) =
         enabled: true,
         env: 'e2e',
         key: 'phc_e2e',
-        host: 'https://analytics.open-design.test',
+        host: 'https://analytics.rethra-design.test',
         installationId: 'e2e-installation',
       },
     });
   });
-  await page.route('https://analytics.open-design.test/**', async (route) => {
+  await page.route('https://analytics.rethra-design.test/**', async (route) => {
     analyticsBodies.push(route.request().postData() ?? '');
     await route.fulfill({ status: 200, json: { status: 1 } });
   });
@@ -972,7 +972,7 @@ test('[P0] @critical file workspace restores HTML preview after switching throug
   await page.reload();
   await expectWorkspaceReady(page);
 
-  await openDesignFile(page, 'dashboard.html');
+  await rethraDesignFile(page, 'dashboard.html');
   await expect(page.getByRole('tab', { name: /dashboard\.html/i })).toHaveAttribute('aria-selected', 'true');
   await expect(page.frameLocator('[data-testid="artifact-preview-frame"]').getByRole('heading', {
     name: 'Risk Dashboard',
@@ -1032,7 +1032,7 @@ test('[P0] @critical white-screen monitoring recovers layout stalls and confirms
 
   await page.goto(`/projects/${projectId}?forceInline=1`, { waitUntil: 'domcontentloaded' });
   await expectWorkspaceReady(page);
-  await openDesignFile(page, 'recoverable-blank.html');
+  await rethraDesignFile(page, 'recoverable-blank.html');
 
   const activePreview = page.frameLocator('[data-testid="artifact-preview-frame"]');
   const recoverableBody = activePreview.locator('body[data-monitor-fixture="recoverable"]');
