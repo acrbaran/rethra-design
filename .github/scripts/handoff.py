@@ -407,7 +407,7 @@ def self_check() -> None:
         )
         candidate = {
             "repositoryId": 56,
-            "repository": "nexu-io/rethra-design",
+            "repository": "acrbaran/rethra-design",
             "workflow": "ci",
             "policy": "ci-v1",
             "provenance": {

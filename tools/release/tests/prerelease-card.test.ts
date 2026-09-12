@@ -42,7 +42,7 @@ function state(overrides: Partial<PrereleaseCardState> = {}): PrereleaseCardStat
     branch: "release/v0.21.1",
     commit: "0123456789abcdef0123456789abcdef01234567",
     previousCommit: "fedcba9876543210fedcba9876543210fedcba98",
-    repo: "nexu-io/rethra-design",
+    repo: "acrbaran/rethra-design",
     originRunUrl: "https://github.com/acrbaran/rethra-design/actions/runs/1",
     testsRunUrl: "",
     smokeRunUrl: "",

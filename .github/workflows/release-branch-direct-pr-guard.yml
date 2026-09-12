@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   guard:
-    if: github.repository == 'nexu-io/rethra-design'
+    if: github.repository == 'acrbaran/rethra-design'
     runs-on: ubuntu-latest
     steps:
       - name: Close direct release PRs from non-automation authors

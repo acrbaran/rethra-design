@@ -242,7 +242,7 @@ async function runReleaseStableForFailure(env: Record<string, string>): Promise<
       cwd: workspaceRoot,
       env: {
         ...process.env,
-        GITHUB_REPOSITORY: "nexu-io/rethra-design",
+        GITHUB_REPOSITORY: "acrbaran/rethra-design",
         GITHUB_SHA: "0123456789abcdef0123456789abcdef01234567",
         RETHRA_DESIGN_RELEASE_CHANNEL: "stable",
         ...env,
@@ -723,7 +723,7 @@ else { process.stderr.write("unexpected gh call: " + args + "\\n"); process.exit
           env: workflowFixtureEnv(
             {
               GH_TOKEN: "fake",
-              REPO: "nexu-io/rethra-design",
+              REPO: "acrbaran/rethra-design",
               RUN_ID: runId,
               NEEDS_JSON: JSON.stringify(args.needs),
               MERGE_GROUP_REF: `gh-readonly-queue/main/pr-6214-${prBase}`,
@@ -965,7 +965,7 @@ else { process.stderr.write("unexpected gh call: " + args + "\\n"); process.exit
     expect(workflow).toContain("workflow_dispatch:");
     expect(workflow).toContain("github.event_name == 'workflow_dispatch'");
     expect(workflow).toContain("github.event.workflow_run.conclusion == 'success'");
-    expect(workflow).toContain("github.repository == 'nexu-io/rethra-design'");
+    expect(workflow).toContain("github.repository == 'acrbaran/rethra-design'");
     expect(workflow).not.toContain("github.event.workflow_run.conclusion != 'cancelled'");
 
     // It mints the privileged release App token for label deletion, branch push, PR + merge-queue.
@@ -975,7 +975,7 @@ else { process.stderr.write("unexpected gh call: " + args + "\\n"); process.exit
     // The shipped version is resolved from the LATEST published release (release-stable marks it
     // --latest) or the dispatch tag — NEVER from workflow_run.head_branch, which can be the
     // dispatch ref rather than the built release branch when release-stable runs with a `ref` input.
-    expect(workflow).toContain("gh release view --repo nexu-io/rethra-design --json tagName,isDraft,isPrerelease");
+    expect(workflow).toContain("gh release view --repo acrbaran/rethra-design --json tagName,isDraft,isPrerelease");
     expect(workflow).not.toContain("github.event.workflow_run.head_branch");
     expect(workflow).not.toContain("HEAD_BRANCH");
 
@@ -3026,7 +3026,7 @@ process.stdin.on("end", () => {
     expect(dispatchJob).toContain("tools/release/src/notifications/feishu-notice.ts");
     expect(dispatchJob).toContain("STAGE: dispatch");
     // `always()` so a dispatch that failed above still reaches the notifier.
-    expect(dispatchJob).toContain("always() && github.repository == 'nexu-io/rethra-design' &&");
+    expect(dispatchJob).toContain("always() && github.repository == 'acrbaran/rethra-design' &&");
     expect(dispatchJob).toContain("steps.checkout.outcome == 'success'");
 
     // 3. Silent on a healthy release. A green watcher job is NOT proof of a
@@ -3250,7 +3250,7 @@ process.stdin.on("end", () => {
             BRANCH_NAME: "release/v0.13.0",
             CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN: envName === "CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN" ? origin : "",
             GITHUB_OUTPUT: outputPath,
-            GITHUB_REPOSITORY: "nexu-io/rethra-design",
+            GITHUB_REPOSITORY: "acrbaran/rethra-design",
             GITHUB_SHA: "0123456789abcdef0123456789abcdef01234567",
             RELEASE_CHANNEL: "stable",
             RELEASE_PUBLIC_ORIGIN: envName === "RELEASE_PUBLIC_ORIGIN" ? origin : "",
@@ -3290,7 +3290,7 @@ process.stdin.on("end", () => {
         cwd: workspaceRoot,
         env: workflowFixtureEnv({
           GITHUB_REF_NAME: `release/v${baseVersion}`,
-          GITHUB_REPOSITORY: "nexu-io/rethra-design",
+          GITHUB_REPOSITORY: "acrbaran/rethra-design",
           GITHUB_SHA: "0123456789abcdef0123456789abcdef01234567",
           NODE_TLS_REJECT_UNAUTHORIZED: "0",
           RETHRA_DESIGN_RELEASE_CHANNEL: "stable",
@@ -3996,7 +3996,7 @@ function stablePrereleaseMetadataFixture(baseVersion: string, prereleaseVersion:
     github: {
       branch: `release/v${baseVersion}`,
       commit: "0123456789abcdef0123456789abcdef01234567",
-      repository: "nexu-io/rethra-design",
+      repository: "acrbaran/rethra-design",
       workflow: "release-prerelease",
     },
     prereleaseNumber: 12,

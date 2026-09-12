@@ -30,7 +30,7 @@ jobs:
     # fingerprint does not match.
     if: >-
       ${{
-        github.repository == 'nexu-io/rethra-design'
+        github.repository == 'acrbaran/rethra-design'
         && github.event.workflow_run.name == 'ci'
         && github.event.workflow_run.conclusion != 'success'
         && github.event.workflow_run.conclusion != 'skipped'

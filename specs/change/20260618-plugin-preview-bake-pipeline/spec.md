@@ -48,7 +48,7 @@ PRs.
 > Everything below is on `origin/main` unless stated. Line numbers verified
 > against `origin/main` at the base commit.
 
-- **Repo:** `nexu-io/rethra-design` (this repo).
+- **Repo:** `acrbaran/rethra-design` (this repo).
 - **Branch / base commit:** this spec lands on a `spec/plugin-preview-bake-pipeline`
   branch off `origin/main`. The code it describes is all already on `main` (the
   bake feature shipped; this spec changes the *pipeline around it*, not the
@@ -93,7 +93,7 @@ PRs.
     hash } } }`. 125 entries at base.
 - **How to pull:**
   ```
-  gh repo clone nexu-io/rethra-design && cd rethra-design
+  gh repo clone acrbaran/rethra-design && cd rethra-design
   git checkout spec/plugin-preview-bake-pipeline   # this spec
   # the described code is on main:
   git show origin/main:.github/workflows/bake-plugin-previews.yml

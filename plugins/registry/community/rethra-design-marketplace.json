@@ -16,7 +16,7 @@
       "name": "community/registry-starter",
       "title": "Community Registry Starter",
       "version": "0.1.0",
-      "source": "github:nexu-io/rethra-design@main/plugins/community/registry-starter",
+      "source": "github:acrbaran/rethra-design@main/plugins/community/registry-starter",
       "publisher": {
         "id": "rethra-design-community",
         "github": "nexu-io",
@@ -38,7 +38,7 @@
       "name": "community/import-smoke-test",
       "title": "Community Import Smoke Test",
       "version": "0.1.0",
-      "source": "github:nexu-io/rethra-design@main/plugins/community/import-smoke-test",
+      "source": "github:acrbaran/rethra-design@main/plugins/community/import-smoke-test",
       "publisher": {
         "id": "rethra-design-community",
         "github": "nexu-io",
@@ -61,7 +61,7 @@
       "name": "community/hallmark",
       "title": "Hallmark",
       "version": "1.0.0",
-      "source": "github:nexu-io/rethra-design@main/plugins/community/hallmark",
+      "source": "github:acrbaran/rethra-design@main/plugins/community/hallmark",
       "publisher": {
         "id": "nutlope",
         "github": "Nutlope",
@@ -86,7 +86,7 @@
       "name": "community/humanize-ppt",
       "title": "Humanize PPT",
       "version": "1.1.2",
-      "source": "github:nexu-io/rethra-design@main/plugins/community/humanize-ppt",
+      "source": "github:acrbaran/rethra-design@main/plugins/community/humanize-ppt",
       "publisher": {
         "id": "learnprompt",
         "github": "LearnPrompt",

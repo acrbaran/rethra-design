@@ -11,10 +11,10 @@ Status: proposed · Parent: #3408 · Related: #3380, #3535 · Spec format: `spec
 
 ## Sources · Fact sources (required, reviewers can verify against these)
 
-- **Repo**: `nexu-io/rethra-design`. This spec is on branch `spec/agent-startup-latency` (PR #4504); the **code to verify is in `origin/main`**.
+- **Repo**: `acrbaran/rethra-design`. This spec is on branch `spec/agent-startup-latency` (PR #4504); the **code to verify is in `origin/main`**.
 - **Checkout**:
   ```
-  gh repo clone nexu-io/rethra-design && cd rethra-design && git checkout main
+  gh repo clone acrbaran/rethra-design && cd rethra-design && git checkout main
   # To view this spec: gh pr checkout 4504
   ```
 - **Key code locations** (reviewers can jump directly):

@@ -138,7 +138,7 @@ describe('derivePluginSourceLinks · url + local + bundled sources', () => {
     );
     expect(out.sourceUrl).toBe('https://github.com/acrbaran/rethra-design');
     expect(out.sourceKindLabel).toBe('Official');
-    expect(out.sourceLabel).toBe('nexu-io/rethra-design');
+    expect(out.sourceLabel).toBe('acrbaran/rethra-design');
     expect(out.authorProfileUrl).toBe('https://github.com/acrbaran/rethra-design');
     expect(out.homepageUrl).toBe('https://github.com/acrbaran/rethra-design');
   });

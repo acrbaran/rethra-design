@@ -16,7 +16,7 @@ function runReservationCheck(options: { releaseRunId?: string }): Promise<string
       owner: {
         branch: "codex/release-stable-launcher",
         commit: "abc123",
-        repository: "nexu-io/rethra-design",
+        repository: "acrbaran/rethra-design",
         runAttempt: 1,
         runId: 42,
         workflow: "release-beta"
@@ -36,7 +36,7 @@ function runReservationCheck(options: { releaseRunId?: string }): Promise<string
         ...process.env,
         RELEASE_BRANCH: "codex/release-stable-launcher",
         RELEASE_COMMIT: "abc123",
-        RELEASE_REPOSITORY: "nexu-io/rethra-design",
+        RELEASE_REPOSITORY: "acrbaran/rethra-design",
         RELEASE_RUN_ATTEMPT: "2",
         RELEASE_RUN_ID: options.releaseRunId ?? "42",
         RELEASE_WORKFLOW: "release-beta",

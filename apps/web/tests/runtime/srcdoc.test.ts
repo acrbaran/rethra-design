@@ -544,7 +544,7 @@ describe('buildSrcdoc', () => {
     expect(srcdoc).not.toContain('data-od-selection-bridge');
   });
 
-  // Regression for nexu-io/rethra-design#362: the bridge must accept an
+  // Regression for acrbaran/rethra-design#362: the bridge must accept an
   // od:inspect-replay message that replaces its in-memory override map
   // with the host's authoritative set. Without this, toggling Inspect
   // off/on or switching to Comment mode reloads the iframe from
@@ -633,7 +633,7 @@ describe('buildSrcdoc', () => {
     expect(srcdoc).not.toContain('html[data-od-comment-mode] body iframe');
   });
 
-  // Regression for nexu-io/rethra-design#892: imported designs (e.g. Claude
+  // Regression for acrbaran/rethra-design#892: imported designs (e.g. Claude
   // Design ZIP) may not carry data-od-id annotations. The selection bridge
   // depends on these attributes to identify clickable targets, so we
   // auto-annotate structural elements when they are missing.

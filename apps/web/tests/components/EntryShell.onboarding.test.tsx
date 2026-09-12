@@ -341,7 +341,7 @@ describe('EntryShell settings menu', () => {
       }
       if (url.endsWith('/api/github/rethra-design')) {
         return jsonResponse({
-          repo: 'nexu-io/rethra-design',
+          repo: 'acrbaran/rethra-design',
           stargazers_count: 56100,
           fetchedAt: Date.now(),
           stale: false,
@@ -504,7 +504,7 @@ describe('EntryShell project reopen request priority', () => {
         }
         if (url.endsWith('/api/github/rethra-design')) {
           return jsonResponse({
-            repo: 'nexu-io/rethra-design',
+            repo: 'acrbaran/rethra-design',
             stargazers_count: 0,
             fetchedAt: Date.now(),
             stale: false,
@@ -602,7 +602,7 @@ describe('EntryShell new project rail', () => {
         }
         if (url.endsWith('/api/github/rethra-design')) {
           return jsonResponse({
-            repo: 'nexu-io/rethra-design',
+            repo: 'acrbaran/rethra-design',
             stargazers_count: 0,
             fetchedAt: Date.now(),
             stale: false,

@@ -25,7 +25,7 @@ function input(overrides: Partial<ReleaseNotificationInput> = {}): ReleaseNotifi
     releaseMode: "publish",
     releaseResult: "success",
     releaseState: "complete",
-    repository: "nexu-io/rethra-design",
+    repository: "acrbaran/rethra-design",
     runAttempt: "1",
     runNumber: "123",
     runUrl: "https://github.com/acrbaran/rethra-design/actions/runs/1",

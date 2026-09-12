@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   gate:
-    if: github.repository == 'nexu-io/rethra-design'
+    if: github.repository == 'acrbaran/rethra-design'
     runs-on: ubuntu-latest
     steps:
       - name: Check for un-landed backports

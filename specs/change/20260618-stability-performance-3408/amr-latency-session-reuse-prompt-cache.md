@@ -12,8 +12,8 @@ Status: proposed · Parent: #3408 · Sibling: agent-startup-latency-profiling.md
 
 ## Sources · Verified facts (checked item by item in this session)
 
-- **Repo / checkout**: `nexu-io/rethra-design` (main) + vela repo `git@github.com:nexu-io/vela.git`.
-  - `gh repo clone nexu-io/rethra-design && git checkout main`.
+- **Repo / checkout**: `acrbaran/rethra-design` (main) + vela repo `git@github.com:nexu-io/vela.git`.
+  - `gh repo clone acrbaran/rethra-design && git checkout main`.
   - ⚠️ **External-evidence caveat (refresh before implementation)**: the vela line citations below were read against a **local checkout at HEAD `fe8266e` (2026-05-21)**, which has since drifted from `nexu-io/vela@main` (`c35dae2a`, 2026-06-18). The broad facts re-verified as still true on `main` (`loadSession:false`, no `session/load`, single-session-per-process, temp-home-per-turn), but **exact line numbers will have moved** — re-run `git -C <vela> fetch && git grep` against current `main` to re-anchor before coding. Treat `:NNN` references as "approximate, in this file" not "stable line".
 - **vela side (root cause, verified)**: `~/Documents/vela/apps/cli/internal/agent/acp_runtime.go`
   - `:248` `"loadSession": false` — vela reports that loading/resuming sessions is unsupported.

@@ -520,7 +520,7 @@ describe('DesignSystemCreationFlow', () => {
 
     render(<DesignSystemCreationFlow onBack={() => {}} onCreated={onCreated} />);
 
-    addSourceUrl('git@github.com:nexu-io/rethra-design.git');
+    addSourceUrl('git@github.com:acrbaran/rethra-design.git');
     continueToGeneration();
     confirmExtraction();
 
@@ -2173,7 +2173,7 @@ describe('DesignSystemCreationFlow', () => {
     fireEvent.change(input, { target: { value: 'https://github.com/acrbaran/rethra-design/' } });
     fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
-    expect(screen.getByText('nexu-io/rethra-design')).toBeTruthy();
+    expect(screen.getByText('acrbaran/rethra-design')).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'Configure Composio' }));
 
@@ -2282,7 +2282,7 @@ describe('DesignSystemCreationFlow', () => {
       fireEvent.change(input, { target: { value: 'https://github.com/acrbaran/rethra-design/' } });
       fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
-      expect(screen.getByText('nexu-io/rethra-design')).toBeTruthy();
+      expect(screen.getByText('acrbaran/rethra-design')).toBeTruthy();
       expect(input.value).toBe('');
     } finally {
       window.removeEventListener(CONNECTORS_CHANGED_EVENT, onConnectorsChanged);

@@ -66,7 +66,7 @@ const MARKETPLACES = [
         {
           name: 'rethra-design/build-test',
           title: 'Build test',
-          source: 'github:nexu-io/rethra-design@main/plugins/_official/build-test',
+          source: 'github:acrbaran/rethra-design@main/plugins/_official/build-test',
           version: '0.1.0',
           description: 'A real installed Official plugin.',
         },

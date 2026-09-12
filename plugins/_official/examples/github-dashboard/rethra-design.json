@@ -88,8 +88,8 @@
     },
     "useCase": {
       "query": {
-        "en": "Build a GitHub dashboard for nexu-io/rethra-design — stars, forks, contributors, issues, PRs, recent activity, and top contributors.",
-        "zh-CN": "使用这个插件完成以下任务：Build a GitHub dashboard for nexu-io/rethra-design — stars, forks, contributors, issues, PRs, recent activity, and top contributors."
+        "en": "Build a GitHub dashboard for acrbaran/rethra-design — stars, forks, contributors, issues, PRs, recent activity, and top contributors.",
+        "zh-CN": "使用这个插件完成以下任务：Build a GitHub dashboard for acrbaran/rethra-design — stars, forks, contributors, issues, PRs, recent activity, and top contributors."
       },
       "exampleOutputs": [
         {

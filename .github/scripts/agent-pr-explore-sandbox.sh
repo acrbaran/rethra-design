@@ -1287,7 +1287,7 @@ REPORT
 fi
 
 expect_prompt="$(cat <<PROMPT
-You are reviewing nexu-io/rethra-design PR #${PR_NUMBER}, against the live app at ${base_url}.
+You are reviewing acrbaran/rethra-design PR #${PR_NUMBER}, against the live app at ${base_url}.
 
 ## MINDSET -- this is a precious, expensive validation opportunity
 

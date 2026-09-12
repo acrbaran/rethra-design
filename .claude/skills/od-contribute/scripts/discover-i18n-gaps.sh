@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Find translation gaps in nexu-io/rethra-design.
+# Find translation gaps in acrbaran/rethra-design.
 # Usage: discover-i18n-gaps.sh <workdir>
 # Stdout: NDJSON, one row per gap:
 #   {"doc":"README","english":"README.md","lang":"es","translated":null,"status":"missing"}

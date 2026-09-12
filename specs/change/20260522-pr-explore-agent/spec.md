@@ -292,7 +292,7 @@ Before or after merging, the Mac mini can run the same sandbox path
 manually:
 
 ```bash
-git clone git@github.com:nexu-io/rethra-design.git
+git clone git@github.com:acrbaran/rethra-design.git
 cd rethra-design
 git fetch origin pull/2604/head:agent-pr-explore-sandbox
 git checkout agent-pr-explore-sandbox

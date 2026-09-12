@@ -1367,7 +1367,7 @@ async function checkStylePolicy(): Promise<boolean> {
 //
 // Preview and export splice bridges into an artifact's own bytes, so they need
 // the offset of a real `<head>` / `</body>` / `<base>` / `<title>`. Finding one
-// with a plain text match is what broke nexu-io/rethra-design#7410: those tags
+// with a plain text match is what broke acrbaran/rethra-design#7410: those tags
 // are also ordinary content, and any prototype that builds an HTML document
 // string writes them into a script or an attribute. The injected markup then
 // lands inside the author's string and silently truncates their page.
@@ -1452,7 +1452,7 @@ async function checkHtmlBoundaryLookups(): Promise<boolean> {
     console.error(
       "wrote into a script string or an attribute would match first, and the injection would",
     );
-    console.error("land inside their content (nexu-io/rethra-design#7410). Use findRealTagOffset /");
+    console.error("land inside their content (acrbaran/rethra-design#7410). Use findRealTagOffset /");
     console.error(`findRealTagEnd from ${htmlBoundaryOwnerPath} instead.`);
     for (const violation of violations) {
       console.error(`- ${violation.filePath}:${violation.lineNumber}: ${violation.line}`);

@@ -11,7 +11,7 @@
 //   - awesome-agent-skills   → VoltAgent/awesome-agent-skills
 //   - clawhub                → openclaw/clawhub
 //   - skills-sh              → skills.sh discovery hint
-//   - rethra-design            → nexu-io/rethra-design (plugins/community/<plugin-name>/).
+//   - rethra-design            → acrbaran/rethra-design (plugins/community/<plugin-name>/).
 //                              The dedicated `rethra-design/plugin-registry` repo per
 //                              docs/plans/plugin-registry.md §1.2 stays the long-term
 //                              target, but submissions land in the monorepo until
@@ -152,10 +152,10 @@ export function buildPublishLink(args: {
         '- Generated index: `plugins/registry/community/rethra-design-marketplace.json`',
         '- Required checks: `od plugin validate`, `od plugin pack`, integrity digest, preview smoke.',
       ].join('\n');
-      const url = newIssueUrl('nexu-io/rethra-design', title, bodyWithRegistry);
+      const url = newIssueUrl('acrbaran/rethra-design', title, bodyWithRegistry);
       return {
         catalog: args.catalog,
-        catalogLabel: 'nexu-io/rethra-design',
+        catalogLabel: 'acrbaran/rethra-design',
         url,
         prBody: bodyWithRegistry,
       };

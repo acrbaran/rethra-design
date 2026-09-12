@@ -90,7 +90,7 @@ function escapedTitle(title: string): string {
 
 /**
  * A prototype whose script builds an HTML document string — the shape behind
- * nexu-io/rethra-design#7410. Its authored `<head>`, `<title>` and `</head>`
+ * acrbaran/rethra-design#7410. Its authored `<head>`, `<title>` and `</head>`
  * all come *before* the document's own, which is the only arrangement a
  * first-match injector gets wrong.
  */

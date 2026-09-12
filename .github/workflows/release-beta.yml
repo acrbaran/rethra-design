@@ -357,7 +357,7 @@ env:
 jobs:
   metadata:
     name: Prepare beta metadata
-    if: github.repository == 'nexu-io/rethra-design'
+    if: github.repository == 'acrbaran/rethra-design'
     runs-on: ubuntu-latest
     env:
       RELEASE_PUBLIC_ORIGIN: ${{ inputs.release_public_origin != '' && inputs.release_public_origin || vars.CLOUDFLARE_R2_RELEASES_PUBLIC_ORIGIN }}

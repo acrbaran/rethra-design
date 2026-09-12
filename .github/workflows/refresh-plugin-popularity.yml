@@ -23,7 +23,7 @@ concurrency:
 jobs:
   refresh:
     name: Refresh template popularity ordering
-    if: github.repository == 'nexu-io/rethra-design'
+    if: github.repository == 'acrbaran/rethra-design'
     runs-on: ubuntu-latest
 
     steps:

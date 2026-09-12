@@ -27,7 +27,7 @@ jobs:
   remind:
     name: Summarize E2E coverage follow-up
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'nexu-io/rethra-design' }}
+    if: ${{ github.repository == 'acrbaran/rethra-design' }}
     steps:
       - name: Send 24h E2E coverage reminder
         uses: actions/github-script@v7

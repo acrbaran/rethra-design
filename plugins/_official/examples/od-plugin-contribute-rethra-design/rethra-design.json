@@ -78,8 +78,8 @@
     "surface": "github",
     "useCase": {
       "query": {
-        "en": "Open a pull request to add the staged RethraDesign plugin to nexu-io/rethra-design using gh CLI.",
-        "zh-CN": "使用 gh CLI 给 nexu-io/rethra-design 提交一个 PR，加入已暂存的 RethraDesign 插件。"
+        "en": "Open a pull request to add the staged RethraDesign plugin to acrbaran/rethra-design using gh CLI.",
+        "zh-CN": "使用 gh CLI 给 acrbaran/rethra-design 提交一个 PR，加入已暂存的 RethraDesign 插件。"
       }
     },
     "inputs": [

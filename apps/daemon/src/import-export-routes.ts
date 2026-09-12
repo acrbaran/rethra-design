@@ -1564,7 +1564,7 @@ export function registerProjectExportRoutes(app: Express, ctx: RegisterProjectEx
   // would otherwise pass the daemon middleware) cannot escalate to
   // daemon-origin privileges through script execution.
   //
-  // See nexu-io/rethra-design#368 and the architecture lock at
+  // See acrbaran/rethra-design#368 and the architecture lock at
   // https://github.com/acrbaran/rethra-design/issues/368#issuecomment-4366243218.
   app.get('/api/projects/:id/export/*splat', async (req, res) => {
     try {

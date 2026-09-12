@@ -6,7 +6,7 @@ import { describe, expect, test } from "vitest";
 // instantiated under vitest, so — following the pattern in
 // `renderer-recovery-poll-loop.test.ts` and `window-chrome.test.ts` — these
 // tests assert on the runtime source to pin the teardown-safety invariant of the
-// `render-process-gone` handler. See nexu-io/rethra-design#5095: reading
+// `render-process-gone` handler. See acrbaran/rethra-design#5095: reading
 // `webContents.getURL()` after the window is destroyed during app quit throws
 // "Object has been destroyed" as a fatal uncaught exception.
 const runtimeSource = readFileSync(new URL("../../src/main/runtime.ts", import.meta.url), "utf8");

@@ -28,7 +28,7 @@ export function registerRethraDesignPublicMetadataRoutes(
     try {
       const stats = await rethraDesignPublicMetadata.readGithubRepoStats();
       const payload: RethraDesignGithubRepoResponse = {
-        repo: 'nexu-io/rethra-design',
+        repo: 'acrbaran/rethra-design',
         stargazers_count: stats.stargazersCount,
         fetchedAt: stats.fetchedAt,
         stale: stats.stale,
@@ -43,7 +43,7 @@ export function registerRethraDesignPublicMetadataRoutes(
     try {
       const release = await rethraDesignPublicMetadata.readLatestReleaseInfo();
       const payload: RethraDesignGithubLatestReleaseResponse = {
-        repo: 'nexu-io/rethra-design',
+        repo: 'acrbaran/rethra-design',
         tag_name: release.tagName,
         html_url: release.htmlUrl,
         fetchedAt: release.fetchedAt,

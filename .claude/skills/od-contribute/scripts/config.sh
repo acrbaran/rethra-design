@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Shared config for the od-contribute skill.
-# TARGET_REPO is hard-locked to nexu-io/rethra-design — this skill is OD-specific.
+# TARGET_REPO is hard-locked to acrbaran/rethra-design — this skill is OD-specific.
 #
 # Override via env vars before invoking a script:
 #   TARGET_FORK   "<owner>/<name>"  push branches here. Defaults to $GH_USER/rethra-design at runtime.
@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-readonly OD_TARGET_REPO="nexu-io/rethra-design"
+readonly OD_TARGET_REPO="acrbaran/rethra-design"
 TARGET_REPO="$OD_TARGET_REPO"
 
 : "${TARGET_FORK:=}"

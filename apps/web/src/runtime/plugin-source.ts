@@ -50,7 +50,7 @@ export interface PluginSourceLinks {
 }
 
 const RETHRA_DESIGN_REPO_URL = 'https://github.com/acrbaran/rethra-design';
-const RETHRA_DESIGN_REPO_LABEL = 'nexu-io/rethra-design';
+const RETHRA_DESIGN_REPO_LABEL = 'acrbaran/rethra-design';
 
 const GITHUB_SOURCE_RE = /^github:([A-Za-z0-9._-]+)\/([A-Za-z0-9._-]+)(?:@([A-Za-z0-9._/-]+))?(?:\/(.+))?$/;
 const GITHUB_PROFILE_RE = /^https?:\/\/(?:www\.)?github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}[A-Za-z0-9])?)(?:[\/?#].*)?$/;

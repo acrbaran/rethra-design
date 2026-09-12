@@ -12,7 +12,7 @@ const GITHUB_STARS_STORAGE_KEY = 'rethra-design:gh-stars';
 const VISUAL_STABILITY_STORAGE_KEY = 'rethra-design:visual-stability';
 const VISUAL_STYLE_ID = 'od-visual-stability-style';
 // Keep this exact-route mock narrow so unrelated GitHub UI still behaves normally.
-const VISUAL_GITHUB_REPO_API = 'https://api.github.com/repos/nexu-io/rethra-design';
+const VISUAL_GITHUB_REPO_API = 'https://api.github.com/repos/acrbaran/rethra-design';
 const VISUAL_GITHUB_STARS = 40_000;
 
 type VisualConfig = {

@@ -335,7 +335,7 @@ ${links}
   // Inject the file index right after the opening <body> of the gallery doc.
   // Structural lookup even though this document is generated here: the brand's
   // own component HTML is interpolated into it, and that content can carry a
-  // `<body>` of its own (nexu-io/rethra-design#7410).
+  // `<body>` of its own (acrbaran/rethra-design#7410).
   const bodyEnd = findRealTagEnd(gallery, HTML_TAG_PATTERNS.bodyOpen);
   if (bodyEnd < 0) return gallery;
   return `${gallery.slice(0, bodyEnd)}\n${fileIndex}${gallery.slice(bodyEnd)}`;

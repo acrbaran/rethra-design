@@ -455,7 +455,7 @@ async function inferNameFromHtmlTitle(projectDir: string): Promise<string | null
   try {
     const html = await readFile(path.join(projectDir, 'index.html'), 'utf8');
     // The document's own <title>, not one an author stored in a script string
-    // or an attribute (nexu-io/rethra-design#7410). Both ends are located by the
+    // or an attribute (acrbaran/rethra-design#7410). Both ends are located by the
     // parser's rules: the open tag through `endOfTag`, so a `>` in a quoted
     // attribute cannot cut it short, and the close by the raw-text rule, so
     // `</title >` closes it while `</title-page>` does not.

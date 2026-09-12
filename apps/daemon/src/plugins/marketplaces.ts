@@ -74,7 +74,7 @@ export interface EnsureMarketplaceManifestInput {
 }
 
 const HTTPS_RE = /^https:\/\//i;
-const DEFAULT_MARKETPLACE_REPO = 'nexu-io/rethra-design';
+const DEFAULT_MARKETPLACE_REPO = 'acrbaran/rethra-design';
 const DEFAULT_MARKETPLACE_REPO_REF = 'main';
 const DEFAULT_MARKETPLACE_REGISTRY_PATH = 'plugins/registry';
 const PUBLIC_MARKETPLACE_BASE_URL = 'https://rethra-design.invalid/marketplace';

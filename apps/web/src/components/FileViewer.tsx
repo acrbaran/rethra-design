@@ -9996,7 +9996,7 @@ function HtmlViewer({
     return s != null && htmlNeedsFocusGuard(s);
   }, [passiveLargeHtmlPreview, routingHtmlSource]);
   // A self-redirecting artifact needs the redirect-loop guard on whichever
-  // transport owns the document (nexu-io/rethra-design#710).
+  // transport owns the document (acrbaran/rethra-design#710).
   const needsRedirectGuard = useMemo(() => {
     if (passiveLargeHtmlPreview) return false;
     const s = routingHtmlSource;

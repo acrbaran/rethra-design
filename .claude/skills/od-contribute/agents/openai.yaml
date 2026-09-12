@@ -4,7 +4,7 @@
 
 interface:
   display_name: "RethraDesign — Contribute"
-  short_description: "Ship a Skill / Design System / translation / typo fix to nexu-io/rethra-design without writing code."
+  short_description: "Ship a Skill / Design System / translation / typo fix to acrbaran/rethra-design without writing code."
   default_prompt: "I want to contribute to RethraDesign."
 
 policy:

@@ -74,7 +74,7 @@
     "surface": "image",
     "preview": {
       "type": "image",
-      "poster": "https://raw.githubusercontent.com/nexu-io/rethra-design/main/assets/prompt-templates/image/game-screenshot-anime-fighting-game-captain-ryuuga-vs-kaze-renshin.jpg"
+      "poster": "https://raw.githubusercontent.com/acrbaran/rethra-design/main/assets/prompt-templates/image/game-screenshot-anime-fighting-game-captain-ryuuga-vs-kaze-renshin.jpg"
     },
     "useCase": {
       "query": {

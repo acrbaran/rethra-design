@@ -66,8 +66,8 @@ export interface RethraDesignPublicMetadataServiceOptions {
   now?: () => number;
 }
 
-const RETHRA_DESIGN_GITHUB_REPO_API = 'https://api.github.com/repos/nexu-io/rethra-design';
-const RETHRA_DESIGN_GITHUB_RELEASE_LATEST_API = 'https://api.github.com/repos/nexu-io/rethra-design/releases/latest';
+const RETHRA_DESIGN_GITHUB_REPO_API = 'https://api.github.com/repos/acrbaran/rethra-design';
+const RETHRA_DESIGN_GITHUB_RELEASE_LATEST_API = 'https://api.github.com/repos/acrbaran/rethra-design/releases/latest';
 const RETHRA_DESIGN_GITHUB_CACHE_TTL_MS = 60 * 60 * 1000;
 const RETHRA_DESIGN_GITHUB_TIMEOUT_MS = 4_000;
 const RETHRA_DESIGN_DISCORD_INVITE_CODE = 'mHAjSMV6gz';

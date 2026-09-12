@@ -62,11 +62,11 @@ describe('buildPublishLink', () => {
   it('builds an RethraDesign registry submission URL', () => {
     // The dedicated `rethra-design/plugin-registry` repo per
     // docs/plans/plugin-registry.md §1.2 is the long-term target; until that
-    // operational launch step happens, submissions land in `nexu-io/rethra-design`
+    // operational launch step happens, submissions land in `acrbaran/rethra-design`
     // (plugins/community/<plugin-name>/), keeping contribution where stars and
     // PR traffic already are.
     const link = buildPublishLink({ catalog: 'rethra-design', meta: META });
-    expect(link.catalogLabel).toBe('nexu-io/rethra-design');
+    expect(link.catalogLabel).toBe('acrbaran/rethra-design');
     expect(link.url).toMatch(/^https:\/\/github\.com\/nexu-io\/rethra-design\/issues\/new\?/);
     expect(link.prBody).toContain('plugins/community/<plugin-name>/rethra-design.json');
     expect(link.prBody).toContain('plugins/registry/community/rethra-design-marketplace.json');

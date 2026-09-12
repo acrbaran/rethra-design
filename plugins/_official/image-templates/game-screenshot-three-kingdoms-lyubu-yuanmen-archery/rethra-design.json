@@ -73,7 +73,7 @@
     "surface": "image",
     "preview": {
       "type": "image",
-      "poster": "https://raw.githubusercontent.com/nexu-io/rethra-design/main/assets/prompt-templates/image/game-screenshot-three-kingdoms-lyubu-yuanmen-archery.jpg"
+      "poster": "https://raw.githubusercontent.com/acrbaran/rethra-design/main/assets/prompt-templates/image/game-screenshot-three-kingdoms-lyubu-yuanmen-archery.jpg"
     },
     "useCase": {
       "query": {

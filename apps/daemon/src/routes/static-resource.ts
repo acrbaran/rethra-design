@@ -1502,7 +1502,7 @@ export function assembleExample(templateHtml: string, slidesHtml: string, title:
   const withSlides = templateHtml.replace('<!-- SLIDES_HERE -->', () => slidesHtml);
   // Retitle the template's own <title>. The slides just interpolated above are
   // skill-authored and can carry a <title> of their own, which a text match
-  // would rewrite instead (nexu-io/rethra-design#7410).
+  // would rewrite instead (acrbaran/rethra-design#7410).
   // The close is located by the raw-text rule rather than searched for as text
   // from the open tag's own start — from there a `</title` sitting in one of
   // its attribute values would match first.

@@ -130,7 +130,7 @@ beforeEach(() => {
             name: 'rethra-design/official-plugin',
             title: 'Official Plugin',
             title_i18n: { 'zh-CN': '官方看板' },
-            source: 'github:nexu-io/rethra-design@main/plugins/_official/examples/official-plugin',
+            source: 'github:acrbaran/rethra-design@main/plugins/_official/examples/official-plugin',
             version: '1.0.0',
             description: 'Bundled official plugin.',
             description_i18n: { 'zh-CN': '内置官方插件。' },
@@ -255,7 +255,7 @@ describe('PluginsView', () => {
               name: 'rethra-design/official-plugin',
               title: 'Official Plugin',
               title_i18n: { 'zh-CN': '官方看板' },
-              source: 'github:nexu-io/rethra-design@main/plugins/_official/examples/official-plugin',
+              source: 'github:acrbaran/rethra-design@main/plugins/_official/examples/official-plugin',
               version: '1.0.0',
               description: 'Bundled official plugin.',
               description_i18n: { 'zh-CN': '内置官方插件。' },
@@ -393,7 +393,7 @@ describe('PluginsView', () => {
     fireEvent.click(await screen.findByTestId('plugins-import-button'));
     expect(screen.getByRole('dialog', { name: 'Import a plugin' })).toBeTruthy();
     expect(screen.queryByText('Create from template')).toBeNull();
-    const source = 'github:nexu-io/rethra-design@garnet-hemisphere/plugins/community/registry-starter';
+    const source = 'github:acrbaran/rethra-design@garnet-hemisphere/plugins/community/registry-starter';
     fireEvent.change(screen.getByLabelText('GitHub, archive, or marketplace source'), {
       target: { value: source },
     });
@@ -693,7 +693,7 @@ describe('PluginsView', () => {
           plugins: [{
             name: 'rethra-design/official-plugin',
             title: 'Official Plugin',
-            source: 'github:nexu-io/rethra-design@main/plugins/_official/scenarios/official-plugin',
+            source: 'github:acrbaran/rethra-design@main/plugins/_official/scenarios/official-plugin',
             version: '1.0.0',
             description: 'Bundled official starter.',
             tags: ['official'],
@@ -719,7 +719,7 @@ describe('PluginsView', () => {
     render(<PluginsView />);
 
     const sourceUrl =
-      'https://raw.githubusercontent.com/nexu-io/rethra-design/main/plugins/registry/community/rethra-design-marketplace.json';
+      'https://raw.githubusercontent.com/acrbaran/rethra-design/main/plugins/registry/community/rethra-design-marketplace.json';
     fireEvent.click(await screen.findByTestId('plugins-tab-sources'));
     fireEvent.change(screen.getByLabelText('Source URL'), {
       target: { value: sourceUrl },

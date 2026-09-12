@@ -75,7 +75,7 @@
     "surface": "image",
     "preview": {
       "type": "image",
-      "poster": "https://raw.githubusercontent.com/nexu-io/rethra-design/main/assets/prompt-templates/image/game-screenshot-three-kingdoms-zhaoyun-cradle-escape.jpg"
+      "poster": "https://raw.githubusercontent.com/acrbaran/rethra-design/main/assets/prompt-templates/image/game-screenshot-three-kingdoms-zhaoyun-cradle-escape.jpg"
     },
     "useCase": {
       "query": {

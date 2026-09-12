@@ -1994,7 +1994,7 @@ function injectBaseHref(doc: string, baseHref: string | undefined): string {
   if (!baseHref) return doc;
   const tag = `<base href="${escapeHtmlAttribute(baseHref)}">`;
   // Structural lookup: a `<head>` an author wrote into a script string or an
-  // attribute is not this document's head (nexu-io/rethra-design#7410).
+  // attribute is not this document's head (acrbaran/rethra-design#7410).
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);
   if (headEnd >= 0) return doc.slice(0, headEnd) + tag + doc.slice(headEnd);
   const htmlEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.htmlOpen);

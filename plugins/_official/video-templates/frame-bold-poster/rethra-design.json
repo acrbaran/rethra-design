@@ -55,8 +55,8 @@
     "engine": "hyperframes",
     "preview": {
       "type": "video",
-      "poster": "https://cdn.jsdelivr.net/gh/nexu-io/rethra-design@main/plugins/_official/video-templates/frame-bold-poster/preview.png",
-      "video": "https://cdn.jsdelivr.net/gh/nexu-io/rethra-design@main/plugins/_official/video-templates/frame-bold-poster/preview.mp4"
+      "poster": "https://cdn.jsdelivr.net/gh/acrbaran/rethra-design@main/plugins/_official/video-templates/frame-bold-poster/preview.png",
+      "video": "https://cdn.jsdelivr.net/gh/acrbaran/rethra-design@main/plugins/_official/video-templates/frame-bold-poster/preview.mp4"
     },
     "useCase": {
       "query": {

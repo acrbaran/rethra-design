@@ -1557,7 +1557,7 @@ export function reportPrintSizeWhenStable(
  *
  * The boundaries are located structurally, so a `</head>` or `</body>` an
  * author wrote into a script string or an attribute is not mistaken for this
- * document's own (nexu-io/rethra-design#7410). Exports splice into the artifact's
+ * document's own (acrbaran/rethra-design#7410). Exports splice into the artifact's
  * own bytes just like the preview transports do, and a print/PDF export of a
  * prototype that builds an HTML document string is exactly the shape that broke
  * there.

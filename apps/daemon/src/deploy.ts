@@ -1500,7 +1500,7 @@ export function injectDeployHookScript(html: string, scriptUrl: unknown) {
     'data-rethra-design-deploy-hook="true" data-closeable="true"></script>';
   // The document's own `</body>`, not one an author wrote into a script string:
   // splicing there would end their script with this tag's `</script>` and leak
-  // the rest of it onto the deployed page (nexu-io/rethra-design#7410).
+  // the rest of it onto the deployed page (acrbaran/rethra-design#7410).
   const bodyClose = findRealTagOffset(html, HTML_TAG_PATTERNS.bodyClose);
   if (bodyClose >= 0) return `${html.slice(0, bodyClose)}${tag}${html.slice(bodyClose)}`;
   return `${html}${tag}`;

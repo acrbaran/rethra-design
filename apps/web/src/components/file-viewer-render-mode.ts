@@ -124,7 +124,7 @@ export function shouldUrlLoadHtmlPreview(d: UrlLoadDecision): boolean {
   if (d.needsFocusGuard && !d.urlFocusGuard) return false;
   // A self-redirecting document needs the redirect-loop guard on whichever
   // transport owns the document, or the iframe can reload itself forever
-  // (nexu-io/rethra-design#710).
+  // (acrbaran/rethra-design#710).
   if (d.needsRedirectGuard && !d.urlRedirectGuard) return false;
   // Root-relative project asset refs only resolve after the srcDoc pipeline
   // normalizes them (normalizeRootRelativeProjectAssetRefs); the URL-load
@@ -276,7 +276,7 @@ export function htmlNeedsSandboxShim(source: string): boolean {
 
 /**
  * Return true when the HTML source contains a self-redirecting directive that
- * can loop forever and freeze the preview iframe (nexu-io/rethra-design#710).
+ * can loop forever and freeze the preview iframe (acrbaran/rethra-design#710).
  * When true, FileViewer requires `injectPreviewRedirectGuard` on whichever
  * transport owns the document so the loop can be detected and broken.
  *

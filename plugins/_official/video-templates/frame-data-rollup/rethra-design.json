@@ -54,7 +54,7 @@
     "engine": "remotion",
     "preview": {
       "type": "image",
-      "poster": "https://cdn.jsdelivr.net/gh/nexu-io/rethra-design@main/plugins/_official/video-templates/frame-data-rollup/preview.png"
+      "poster": "https://cdn.jsdelivr.net/gh/acrbaran/rethra-design@main/plugins/_official/video-templates/frame-data-rollup/preview.png"
     },
     "useCase": {
       "query": {

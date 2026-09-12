@@ -113,10 +113,10 @@ To publish release copy, run **whats-new-publish** manually
 (`workflow_dispatch`) against the corresponding `release/vX.Y.Z` branch:
 
 ```bash
-gh workflow run whats-new-publish.yml --repo nexu-io/rethra-design \
+gh workflow run whats-new-publish.yml --repo acrbaran/rethra-design \
   --ref release/v0.22.0 -f dry_run=true
 # After reviewing the proposed document and id:
-gh workflow run whats-new-publish.yml --repo nexu-io/rethra-design \
+gh workflow run whats-new-publish.yml --repo acrbaran/rethra-design \
   --ref release/v0.22.0 -f dry_run=false
 ```
 

@@ -55,5 +55,5 @@ body:
     attributes:
       label: Before you submit
       options:
-        - label: This video is actually about RethraDesign (nexu-io/rethra-design), not a different product.
+        - label: This video is actually about RethraDesign (acrbaran/rethra-design), not a different product.
           required: true

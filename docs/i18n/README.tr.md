@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/acrbaran/rethra-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/nexu-io/rethra-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
+  <a href="https://github.com/acrbaran/rethra-design/releases"><img alt="release" src="https://img.shields.io/github/v/release/acrbaran/rethra-design?style=flat&color=blueviolet&label=release&include_prereleases&display_name=tag" /></a>
   <a href="../../LICENSE"><img alt="license" src="https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat" /></a>
   <a href="https://discord.gg/mHAjSMV6gz"><img alt="discord" src="https://img.shields.io/discord/1479002485040480266?style=flat&logo=discord&logoColor=white&label=discord&color=5865F2&cacheSeconds=3600" /></a>
   <a href="../../QUICKSTART.md"><img alt="quickstart" src="https://img.shields.io/badge/quickstart-3%20commands-green?style=flat" /></a>
@@ -670,7 +670,7 @@ Bakımcı kuralları, terfi kriterleri ve çıkış protokolü → [`MAINTAINERS
 Katılan herkese teşekkürler — kod, belge, geri bildirim, keskin bir issue, yeni bir beceri, yeni bir tasarım sistemi.
 
 <a href="https://github.com/acrbaran/rethra-design/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=nexu-io/rethra-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="Rethra Design contributors" />
+  <img src="https://contrib.rocks/image?repo=acrbaran/rethra-design&max=500&columns=20&anon=1&cache_bust=2026-08-04" alt="Rethra Design contributors" />
 </a>
 
 ---
@@ -693,11 +693,11 @@ Yukarıdaki SVG, [`lowlighter/metrics`](https://github.com/lowlighter/metrics) k
 
 Bu size otuz dakika kazandırdıysa, bir ★ verin. Yıldızlar kira ödemez — ama bir sonraki tasarımcıya, ajana ve katkıda bulunana bu deneyin dikkatlerine değer olduğunu söyler. Tek tıkla, üç saniyede, gerçek bir sinyal.
 
-<a href="https://star-history.dera.page/#nexu-io/rethra-design&Date">
+<a href="https://star-history.dera.page/#acrbaran/rethra-design&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&theme=dark&cache_bust=2026-08-04" />
-    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
-    <img alt="Rethra Design star history" src="https://star-history.dera.page/svg?repos=nexu-io/rethra-design&type=Date&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=acrbaran/rethra-design&type=Date&theme=dark&cache_bust=2026-08-04" />
+    <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=acrbaran/rethra-design&type=Date&cache_bust=2026-08-04" />
+    <img alt="Rethra Design star history" src="https://star-history.dera.page/svg?repos=acrbaran/rethra-design&type=Date&cache_bust=2026-08-04" />
   </picture>
 </a>
 

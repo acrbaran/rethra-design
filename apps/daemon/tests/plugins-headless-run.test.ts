@@ -511,7 +511,7 @@ if (args[0] === 'repo' && args[1] === 'view') {
   }
   ok('https://github.com/test-user/' + path.basename(process.cwd()));
 }
-if (args[0] === 'repo' && args[1] === 'fork') ok('forked nexu-io/rethra-design');
+if (args[0] === 'repo' && args[1] === 'fork') ok('forked acrbaran/rethra-design');
 if (args[0] === 'repo' && args[1] === 'clone') {
   const dest = args[3] || path.basename(args[2]);
   fs.mkdirSync(dest, { recursive: true });

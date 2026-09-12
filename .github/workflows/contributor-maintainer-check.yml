@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   route:
-    if: github.repository == 'nexu-io/rethra-design'
+    if: github.repository == 'acrbaran/rethra-design'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
 

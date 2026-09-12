@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # OD Contribute installer — self-bootstrapping.
-# Fetches the latest od-contribute skill from nexu-io/rethra-design and installs
+# Fetches the latest od-contribute skill from acrbaran/rethra-design and installs
 # it into every supported AI agent's home directory.
 #
 # Two ways to run this:
 #
 # 1) Tell your AI agent (Claude Code / Codex / Cursor / etc.) in the chat:
 #
-#      curl -sSL https://raw.githubusercontent.com/nexu-io/rethra-design/main/.claude/skills/od-contribute/install.sh | bash
+#      curl -sSL https://raw.githubusercontent.com/acrbaran/rethra-design/main/.claude/skills/od-contribute/install.sh | bash
 #
 #    The agent's Bash tool runs this. You never open a terminal yourself.
 #
@@ -23,7 +23,7 @@
 
 set -euo pipefail
 
-REPO="nexu-io/rethra-design"
+REPO="acrbaran/rethra-design"
 BRANCH="${OD_CONTRIBUTE_BRANCH:-main}"
 
 cyan()  { printf '\033[36m%s\033[0m\n' "$*"; }

@@ -491,7 +491,7 @@ describe('deploy file set', () => {
     // A prototype that builds an HTML document string writes `</body>` as
     // ordinary content. Splicing there ends the author's script with the hook
     // tag's own `</script>` and leaks the rest onto the deployed page
-    // (nexu-io/rethra-design#7410).
+    // (acrbaran/rethra-design#7410).
     const authored = 'const doc = `<body>slip</body>`;';
     const html = '<!doctype html><html><head></head><body>'
       + `<script>${authored}<\/script><main>real</main></body></html>`;

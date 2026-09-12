@@ -52,7 +52,7 @@ dogfood artifacts.
 | 东西 | 位置 |
 |---|---|
 | 主分支 | `feat/chat-panel-next-impl`(已推 origin) |
-| PR | nexu-io/rethra-design#7518 |
+| PR | acrbaran/rethra-design#7518 |
 | 工作树 | `/Users/elian/Documents/od-wt-chat-panel` |
 | 裁决与理由 | `chat-panel-feedback.md` §F-11 … §F-20 |
 | 提测清单 + 证据 | `chat-panel-handoff.md` |

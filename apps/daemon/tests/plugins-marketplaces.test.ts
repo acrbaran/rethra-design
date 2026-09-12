@@ -160,7 +160,7 @@ describe('marketplaces', () => {
 
   it('normalizes legacy branch raw urls to the canonical raw registry', () => {
     expect(resolveMarketplaceFetchUrl(
-      'https://raw.githubusercontent.com/nexu-io/rethra-design/garnet-hemisphere/plugins/registry/community/rethra-design-marketplace.json',
+      'https://raw.githubusercontent.com/acrbaran/rethra-design/garnet-hemisphere/plugins/registry/community/rethra-design-marketplace.json',
     )).toBe(marketplaceManifestUrlForRegistry('community'));
   });
 

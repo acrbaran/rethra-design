@@ -440,7 +440,7 @@ describe('PluginDetailsModal common metadata coverage', () => {
     );
 
     expect(html).toContain('href="https://github.com/acrbaran/rethra-design"');
-    expect(html).toContain('nexu-io/rethra-design');
+    expect(html).toContain('acrbaran/rethra-design');
     expect(html).toContain('Official');
   });
 });

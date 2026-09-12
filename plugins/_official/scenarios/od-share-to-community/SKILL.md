@@ -48,7 +48,7 @@ Do NOT suggest follow-up CLI commands such as `od plugin publish`, `od plugin pu
 
 - **Add to My plugins** — already satisfied by this turn's `od plugin install --source` step.
 - **Publish repo** — creates / updates the author's `plugin.repo` GitHub repo through a gh + git sequence the agent is told exactly how to run.
-- **Rethra Design PR** — opens a draft PR against `nexu-io/rethra-design` for the community catalog.
+- **Rethra Design PR** — opens a draft PR against `acrbaran/rethra-design` for the community catalog.
 
 Point the user at whichever button they want next; do NOT recreate those flows as freeform shell suggestions in this summary. Recreating them drifts from the button prompts' guarantees and is the source of the bug that closed #2332.
 

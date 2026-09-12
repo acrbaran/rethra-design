@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { JSDOM } from 'jsdom';
 import { buildSrcdoc } from '../../src/runtime/srcdoc';
 
-// Behavioral coverage for nexu-io/rethra-design#1530. The deck bridge in
+// Behavioral coverage for acrbaran/rethra-design#1530. The deck bridge in
 // `buildSrcdoc({ deck: true })` counts slides via a DOM selector to drive
 // the host preview toolbar's `slideState.count`. Generated HTML decks
 // commonly nest `.slide` elements under an extra wrapper rather than

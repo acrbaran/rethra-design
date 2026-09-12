@@ -35,7 +35,7 @@ function validateRecord(record: CatalogRecord, index: number, errors: string[]):
     errors.push(`${prefix}.description must be a string`);
   }
   if (!isNonEmptyString(record.sourceUrl) || !record.sourceUrl.startsWith("https://github.com/acrbaran/rethra-design/")) {
-    errors.push(`${prefix}.sourceUrl must be a nexu-io/rethra-design GitHub URL`);
+    errors.push(`${prefix}.sourceUrl must be a acrbaran/rethra-design GitHub URL`);
   }
   if (typeof record.body !== "string") {
     errors.push(`${prefix}.body must be a string`);

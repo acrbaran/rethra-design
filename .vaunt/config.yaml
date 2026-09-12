@@ -133,7 +133,7 @@ achievements:
 
   - achievement:
       name: Spark
-      icon: https://raw.githubusercontent.com/nexu-io/rethra-design/main/.vaunt/icons/spark.png
+      icon: https://raw.githubusercontent.com/acrbaran/rethra-design/main/.vaunt/icons/spark.png
       description: Lit the first spark — your first contribution to RethraDesign.
       triggers:
         # Any single contribution event qualifies for Spark.
@@ -171,7 +171,7 @@ achievements:
 
   - achievement:
       name: Signal
-      icon: https://raw.githubusercontent.com/nexu-io/rethra-design/main/.vaunt/icons/signal.png
+      icon: https://raw.githubusercontent.com/acrbaran/rethra-design/main/.vaunt/icons/signal.png
       description: Sending steady signals — you crossed 30 points of contribution.
       triggers:
         - trigger:
@@ -181,7 +181,7 @@ achievements:
 
   - achievement:
       name: Node
-      icon: https://raw.githubusercontent.com/nexu-io/rethra-design/main/.vaunt/icons/node.png
+      icon: https://raw.githubusercontent.com/acrbaran/rethra-design/main/.vaunt/icons/node.png
       description: Holding the network together — you crossed 150 points.
       triggers:
         - trigger:
@@ -191,7 +191,7 @@ achievements:
 
   - achievement:
       name: Beacon
-      icon: https://raw.githubusercontent.com/nexu-io/rethra-design/main/.vaunt/icons/beacon.png
+      icon: https://raw.githubusercontent.com/acrbaran/rethra-design/main/.vaunt/icons/beacon.png
       description: Guiding the way for others — you crossed 700 points.
       triggers:
         - trigger:
@@ -201,7 +201,7 @@ achievements:
 
   - achievement:
       name: Nova
-      icon: https://raw.githubusercontent.com/nexu-io/rethra-design/main/.vaunt/icons/nova.png
+      icon: https://raw.githubusercontent.com/acrbaran/rethra-design/main/.vaunt/icons/nova.png
       description: Bright as a Nova — you crossed 2,500 points and joined the top 1%.
       triggers:
         - trigger:

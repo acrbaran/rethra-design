@@ -1,4 +1,4 @@
-// Redirect-loop guard end-to-end verification for nexu-io/rethra-design#710.
+// Redirect-loop guard end-to-end verification for acrbaran/rethra-design#710.
 //
 // A generated (or hand-edited) artifact can carry a `<meta http-equiv="refresh">`
 // that reloads the same document — or a cycle of refreshes — which loops the

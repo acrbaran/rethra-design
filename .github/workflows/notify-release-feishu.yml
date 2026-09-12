@@ -85,7 +85,7 @@ concurrency:
 jobs:
   build:
     name: Build prerelease from release branch
-    if: github.repository == 'nexu-io/rethra-design'
+    if: github.repository == 'acrbaran/rethra-design'
     uses: ./.github/workflows/release-prerelease.yml
     secrets: inherit
     with:

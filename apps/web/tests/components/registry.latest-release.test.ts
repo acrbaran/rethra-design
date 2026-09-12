@@ -15,7 +15,7 @@ describe('fetchLatestGithubReleaseInfo', () => {
     globalThis.fetch = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
-        repo: 'nexu-io/rethra-design',
+        repo: 'acrbaran/rethra-design',
         tag_name: 'v0.8.0-prerelease.3',
         html_url: 'https://github.com/acrbaran/rethra-design/releases/tag/v0.8.0-prerelease.3',
         fetchedAt: Date.parse('2026-05-22T00:00:00.000Z'),

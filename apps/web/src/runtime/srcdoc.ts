@@ -114,7 +114,7 @@ export type SrcdocOptions = {
 // — most reliably a `<meta http-equiv="refresh">` that reloads the same
 // document, or a chain of meta refreshes that cycles (A → B → A → …). In the
 // preview iframe that redirect fires forever, pegging the main thread until the
-// whole design workspace freezes (nexu-io/rethra-design#710). buildSrcdoc always
+// whole design workspace freezes (acrbaran/rethra-design#710). buildSrcdoc always
 // injects `injectPreviewRedirectGuard`, an in-iframe circuit breaker that:
 //
 //   1. counts meta-refresh navigations across reloads (persisted in
@@ -1404,7 +1404,7 @@ function deferTrustedFontStylesheets(doc: string): string {
  *
  * The boundaries are located structurally (see `findRealTagEnd`), so a `<head>`
  * or `<body>` an author wrote into a script string or an attribute is not
- * mistaken for this document's own (nexu-io/rethra-design#7410).
+ * mistaken for this document's own (acrbaran/rethra-design#7410).
  */
 function injectAtDocumentStart(doc: string, payload: string): string {
   const headEnd = findRealTagEnd(doc, HTML_TAG_PATTERNS.headOpen);

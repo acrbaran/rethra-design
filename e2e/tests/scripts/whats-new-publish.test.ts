@@ -194,7 +194,7 @@ describe("what's new publish branch policy", () => {
         encoding: "utf8",
         env: {
           PATH: process.env.PATH,
-          REPOSITORY: "nexu-io/rethra-design",
+          REPOSITORY: "acrbaran/rethra-design",
           EVENT_NAME: "workflow_dispatch",
           REF: ref,
           DRY_RUN: String(dryRun),

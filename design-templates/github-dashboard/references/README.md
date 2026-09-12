@@ -1,6 +1,6 @@
 # GitHub Dashboard References
 
-These files are examples generated from a public `nexu-io/rethra-design` dashboard artifact.
+These files are examples generated from a public `acrbaran/rethra-design` dashboard artifact.
 
 - `template.html` — a live-artifact-compatible template using escaped `{{data.path}}` bindings.
 - `example-data.json` — compact normalized GitHub dashboard data.

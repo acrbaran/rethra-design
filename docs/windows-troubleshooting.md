@@ -38,7 +38,7 @@ If you downloaded the installer from an official source, you can proceed:
 Only run the installer if you got it from an official source:
 
 - [rethra-design.invalid](https://rethra-design.invalid/), or
-- [GitHub Releases](https://github.com/acrbaran/rethra-design/releases) on the `nexu-io/rethra-design` repository.
+- [GitHub Releases](https://github.com/acrbaran/rethra-design/releases) on the `acrbaran/rethra-design` repository.
 
 Do not run an installer from a mirror, a re-upload, or a link you cannot trace back to one of those two sources. If a release publishes a SHA-256 checksum, you can confirm the file is intact before running it:
 
